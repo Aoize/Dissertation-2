@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">HapticFeedback</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Menu</string>
+    <string name="nav_header_subtitle">Please select your option below</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_frameCreation">Frame Creation</string>
+    <string name="menu_sequenceCreation">Sequence Creation</string>
+    <string name="menu_savedFrames">Saved Frames</string>
+    <string name="menu_savedSequences">Saved Sequences</string>
+    <string name="menu_exportFramesSequences">Export Frames/Sequences</string>
+    <string name="frame_creation">Frame Creation</string>
+    <string name="sequence_creation">Sequence Creation</string>
+    <string name="make_frame">Make Frame</string>
+
+    <string-array name="coils_used">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+
+    <string-array name="delay_time">
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+    </string-array>
+
+    <string-array name="coil_on_time">
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_frameCreation"
+            android:title="@string/menu_frameCreation" />
+        <item
+            android:id="@+id/nav_sequenceCreation"
+            android:title="@string/menu_sequenceCreation" />
+        <item
+            android:id="@+id/nav_savedFrames"
+            android:title="@string/menu_savedFrames" />
+        <item
+            android:id="@+id/nav_savedSequences"
+            android:title="@string/menu_savedSequences" />
+        <item
+            android:id="@+id/nav_exportFramesSequences"
+            android:title="@string/menu_exportFramesSequences" />
+    </group>
+
+</menu>
