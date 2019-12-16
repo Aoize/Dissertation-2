@@ -1171,6 +1171,7 @@ public class MainActivity extends AppCompatActivity  {
     private void saveData(){
        // String content = spinner.getSelectedItem().toString();
         //TODO Fix this saving method
+        //TODO add saving method
 /*        if(pinSelection.toString() != content){
             Toast.makeText(getApplicationContext(),"Please remove some coils",Toast.LENGTH_SHORT).show();
         }else{*/
