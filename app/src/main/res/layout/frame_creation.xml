@@ -27,6 +27,7 @@
         android:layout_marginLeft="73dp"
         android:layout_marginTop="46dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,6 +39,7 @@
         android:layout_marginLeft="105dp"
         android:layout_marginTop="46dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,6 +51,7 @@
         android:layout_marginLeft="137dp"
         android:layout_marginTop="46dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,6 +63,7 @@
         android:layout_marginLeft="169dp"
         android:layout_marginTop="46dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -71,6 +75,7 @@
         android:layout_marginLeft="201dp"
         android:layout_marginTop="46dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,6 +87,7 @@
         android:layout_marginLeft="233dp"
         android:layout_marginTop="46dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,6 +99,7 @@
         android:layout_marginLeft="265dp"
         android:layout_marginTop="46dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -104,6 +111,7 @@
         android:layout_marginLeft="297dp"
         android:layout_marginTop="46dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -115,6 +123,7 @@
         android:layout_marginLeft="73dp"
         android:layout_marginTop="78dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -126,6 +135,7 @@
         android:layout_marginLeft="105dp"
         android:layout_marginTop="78dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -137,6 +147,7 @@
         android:layout_marginLeft="137dp"
         android:layout_marginTop="78dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -148,6 +159,7 @@
         android:layout_marginLeft="169dp"
         android:layout_marginTop="78dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -159,6 +171,7 @@
         android:layout_marginLeft="201dp"
         android:layout_marginTop="78dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -170,6 +183,7 @@
         android:layout_marginLeft="233dp"
         android:layout_marginTop="78dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -181,6 +195,7 @@
         android:layout_marginLeft="265dp"
         android:layout_marginTop="78dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -192,6 +207,7 @@
         android:layout_marginLeft="297dp"
         android:layout_marginTop="78dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -203,6 +219,7 @@
         android:layout_marginLeft="73dp"
         android:layout_marginTop="110dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -214,6 +231,7 @@
         android:layout_marginLeft="105dp"
         android:layout_marginTop="110dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -225,6 +243,7 @@
         android:layout_marginLeft="137dp"
         android:layout_marginTop="110dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -236,6 +255,7 @@
         android:layout_marginLeft="169dp"
         android:layout_marginTop="110dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -247,6 +267,7 @@
         android:layout_marginLeft="201dp"
         android:layout_marginTop="110dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -258,6 +279,7 @@
         android:layout_marginLeft="233dp"
         android:layout_marginTop="110dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -269,6 +291,7 @@
         android:layout_marginLeft="265dp"
         android:layout_marginTop="110dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -280,6 +303,7 @@
         android:layout_marginLeft="297dp"
         android:layout_marginTop="110dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -291,6 +315,7 @@
         android:layout_marginLeft="73dp"
         android:layout_marginTop="142dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -302,6 +327,7 @@
         android:layout_marginLeft="105dp"
         android:layout_marginTop="142dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -313,6 +339,7 @@
         android:layout_marginLeft="137dp"
         android:layout_marginTop="142dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -324,6 +351,7 @@
         android:layout_marginLeft="169dp"
         android:layout_marginTop="142dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -335,6 +363,7 @@
         android:layout_marginLeft="201dp"
         android:layout_marginTop="142dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -346,6 +375,7 @@
         android:layout_marginLeft="233dp"
         android:layout_marginTop="142dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -357,6 +387,7 @@
         android:layout_marginLeft="265dp"
         android:layout_marginTop="142dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -368,6 +399,7 @@
         android:layout_marginLeft="297dp"
         android:layout_marginTop="142dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -379,6 +411,7 @@
         android:layout_marginLeft="73dp"
         android:layout_marginTop="174dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -390,6 +423,7 @@
         android:layout_marginLeft="105dp"
         android:layout_marginTop="174dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -401,6 +435,7 @@
         android:layout_marginLeft="137dp"
         android:layout_marginTop="174dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -412,6 +447,7 @@
         android:layout_marginLeft="169dp"
         android:layout_marginTop="174dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -423,6 +459,7 @@
         android:layout_marginLeft="201dp"
         android:layout_marginTop="174dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -434,6 +471,7 @@
         android:layout_marginLeft="233dp"
         android:layout_marginTop="174dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -445,6 +483,7 @@
         android:layout_marginLeft="265dp"
         android:layout_marginTop="174dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -456,6 +495,7 @@
         android:layout_marginLeft="297dp"
         android:layout_marginTop="174dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -467,6 +507,7 @@
         android:layout_marginLeft="73dp"
         android:layout_marginTop="206dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -478,6 +519,7 @@
         android:layout_marginLeft="105dp"
         android:layout_marginTop="206dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -489,6 +531,7 @@
         android:layout_marginLeft="137dp"
         android:layout_marginTop="206dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -500,6 +543,7 @@
         android:layout_marginLeft="169dp"
         android:layout_marginTop="206dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -511,6 +555,7 @@
         android:layout_marginLeft="201dp"
         android:layout_marginTop="206dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -522,6 +567,7 @@
         android:layout_marginLeft="233dp"
         android:layout_marginTop="206dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -533,6 +579,7 @@
         android:layout_marginLeft="265dp"
         android:layout_marginTop="206dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -544,6 +591,7 @@
         android:layout_marginLeft="297dp"
         android:layout_marginTop="206dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -555,6 +603,7 @@
         android:layout_marginLeft="73dp"
         android:layout_marginTop="238dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -566,6 +615,7 @@
         android:layout_marginLeft="105dp"
         android:layout_marginTop="238dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -577,6 +627,7 @@
         android:layout_marginLeft="137dp"
         android:layout_marginTop="238dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -588,6 +639,7 @@
         android:layout_marginLeft="169dp"
         android:layout_marginTop="238dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -599,6 +651,7 @@
         android:layout_marginLeft="201dp"
         android:layout_marginTop="238dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -610,6 +663,7 @@
         android:layout_marginLeft="233dp"
         android:layout_marginTop="238dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -621,6 +675,7 @@
         android:layout_marginLeft="265dp"
         android:layout_marginTop="238dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -632,6 +687,7 @@
         android:layout_marginLeft="297dp"
         android:layout_marginTop="238dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -643,6 +699,7 @@
         android:layout_marginLeft="73dp"
         android:layout_marginTop="270dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -654,6 +711,7 @@
         android:layout_marginLeft="105dp"
         android:layout_marginTop="270dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -665,6 +723,7 @@
         android:layout_marginLeft="137dp"
         android:layout_marginTop="270dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -676,6 +735,7 @@
         android:layout_marginLeft="169dp"
         android:layout_marginTop="270dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -687,6 +747,7 @@
         android:layout_marginLeft="201dp"
         android:layout_marginTop="270dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -698,6 +759,7 @@
         android:layout_marginLeft="233dp"
         android:layout_marginTop="270dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -709,6 +771,7 @@
         android:layout_marginLeft="265dp"
         android:layout_marginTop="270dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -720,6 +783,7 @@
         android:layout_marginLeft="297dp"
         android:layout_marginTop="270dp"
         android:onClick="pin"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -744,7 +808,7 @@
         android:layout_marginBottom="272dp"
         android:onClick="setTheCoils"
         android:text="Set Coils"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -774,18 +838,21 @@
 
     <Spinner
         android:id="@+id/numberOfCoils"
+        android:background="@drawable/text_border"
         android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginLeft="28dp"
         android:layout_marginBottom="336dp"
         android:entries="@array/coils_used"
+        android:visibility="invisible"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
         android:id="@+id/amountOfDelay"
+        android:background="@drawable/text_border"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="124dp"
@@ -836,6 +903,7 @@
 
     <Spinner
         android:id="@+id/amountOfOnTime"
+        android:background="@drawable/text_border"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="268dp"
@@ -844,6 +912,32 @@
         android:entries="@array/coil_on_time"
         android:spinnerMode="dropdown"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/setFrameName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="152dp"
+        android:layout_marginRight="152dp"
+        android:layout_marginBottom="540dp"
+        android:onClick="nameTheFrame"
+        android:text="Select Name"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Spinner
+        android:id="@+id/nameFrame"
+        android:background="@drawable/text_border"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginLeft="148dp"
+        android:layout_marginBottom="620dp"
+        android:entries="@array/name_frame"
+        android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
