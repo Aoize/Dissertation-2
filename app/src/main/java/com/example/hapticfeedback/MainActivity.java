@@ -1380,6 +1380,7 @@ public class MainActivity extends AppCompatActivity {
             frameList.add(frameName6.toString());*/
         }
 
+
 //        frameList.add(frameName1.toString());
 
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, frameList);
