@@ -1,16 +1,16 @@
-package com.example.hapticfeedback.ui.send;
+package com.example.hapticfeedback.ui.share;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SendViewModel extends ViewModel {
+public class SavedSequenceModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public SendViewModel() {
+    public SavedSequenceModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is send fragment");
+        mText.setValue("View your Saved Sequences here");
     }
 
     public LiveData<String> getText() {

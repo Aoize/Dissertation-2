@@ -19,16 +19,16 @@ import com.example.hapticfeedback.R;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class FrameFragment extends Fragment {
+public class FrameCreation extends Fragment {
 
-    private FrameViewModel frameViewModel;
+    private FrameCreationModel frameViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         frameViewModel =
-                ViewModelProviders.of(this).get(FrameViewModel.class);
+                ViewModelProviders.of(this).get(FrameCreationModel.class);
         View root = inflater.inflate(R.layout.frame_creation, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
+        final TextView textView = root.findViewById(R.id.frame_creation);
         frameViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {

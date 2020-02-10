@@ -4,14 +4,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SequenceViewModel extends ViewModel {
+public class SequenceCreationModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public SequenceViewModel() {
+    public SequenceCreationModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
-    }
+        mText.setValue("You can create a Sequence here");
+}
 
     public LiveData<String> getText() {
         return mText;

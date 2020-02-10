@@ -1,4 +1,4 @@
-package com.example.hapticfeedback.ui.share;
+package com.example.hapticfeedback.ui.saved;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.hapticfeedback.R;
 
-public class ShareFragment extends Fragment {
+public class SavedFrames extends Fragment {
 
-    private ShareViewModel shareViewModel;
+    private SavedFramesModel toolsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        shareViewModel =
-                ViewModelProviders.of(this).get(ShareViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_share, container, false);
-        final TextView textView = root.findViewById(R.id.text_share);
-        shareViewModel.getText().observe(this, new Observer<String>() {
+        toolsViewModel =
+                ViewModelProviders.of(this).get(SavedFramesModel.class);
+        View root = inflater.inflate(R.layout.saved_frames, container, false);
+        final TextView textView = root.findViewById(R.id.saved_frames);
+        toolsViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

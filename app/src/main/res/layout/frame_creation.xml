@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/text_home"
+        android:id="@+id/frame_creation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -795,6 +795,7 @@
         android:layout_marginRight="164dp"
         android:layout_marginBottom="156dp"
         android:onClick="saveTheFrame"
+        android:visibility="invisible"
         android:text="Save Frame"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -820,6 +821,7 @@
         android:layout_marginRight="160dp"
         android:layout_marginBottom="96dp"
         android:onClick="resetTheFrame"
+        android:visibility="invisible"
         android:text="Reset Frame"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -832,6 +834,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/text_border"
+        android:visibility="invisible"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

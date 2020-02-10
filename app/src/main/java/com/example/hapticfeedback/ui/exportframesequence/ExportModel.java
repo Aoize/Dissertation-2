@@ -1,19 +1,17 @@
-package com.example.hapticfeedback.ui.frame;
+package com.example.hapticfeedback.ui.exportframesequence;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class FrameViewModel extends ViewModel {
+public class ExportModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public FrameViewModel() {
+    public ExportModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("You can create a Frame here");
+        mText.setValue("You can Export your Frames or Sequences here");
     }
-
-
 
     public LiveData<String> getText() {
         return mText;

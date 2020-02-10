@@ -7,31 +7,31 @@
 
     <fragment
         android:id="@+id/nav_frameCreation"
-        android:name="com.example.hapticfeedback.ui.frame.FrameFragment"
+        android:name="com.example.hapticfeedback.ui.frame.FrameCreation"
         android:label="@string/menu_frameCreation"
         tools:layout="@layout/frame_creation" />
 
     <fragment
         android:id="@+id/nav_sequenceCreation"
-        android:name="com.example.hapticfeedback.ui.sequence.SequenceFragment"
+        android:name="com.example.hapticfeedback.ui.sequence.SequenceCreation"
         android:label="@string/menu_sequenceCreation"
         tools:layout="@layout/sequence_creation" />
 
     <fragment
         android:id="@+id/nav_savedFrames"
-        android:name="com.example.hapticfeedback.ui.tools.ToolsFragment"
+        android:name="com.example.hapticfeedback.ui.saved.SavedFrames"
         android:label="@string/menu_savedFrames"
         tools:layout="@layout/saved_frames" />
 
     <fragment
         android:id="@+id/nav_savedSequences"
-        android:name="com.example.hapticfeedback.ui.share.ShareFragment"
+        android:name="com.example.hapticfeedback.ui.share.SavedSequences"
         android:label="@string/menu_savedSequences"
-        tools:layout="@layout/fragment_share" />
+        tools:layout="@layout/saved_sequences" />
 
     <fragment
         android:id="@+id/nav_exportFramesSequences"
-        android:name="com.example.hapticfeedback.ui.send.SendFragment"
+        android:name="com.example.hapticfeedback.ui.exportframesequence.ExportFrameSequence"
         android:label="@string/menu_exportFramesSequences"
-        tools:layout="@layout/fragment_send" />
+        tools:layout="@layout/export_frame_sequence" />
 </navigation>

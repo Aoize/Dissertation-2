@@ -3,7 +3,7 @@ package com.example.hapticfeedback;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import com.example.hapticfeedback.ui.frame.FrameFragment;
+import com.example.hapticfeedback.ui.frame.FrameCreation;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -45,8 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     //Frame creation stuff
-    Button setCoils, setDelay, setOnTime, setFrameName;
+    Button setCoils, setDelay, setOnTime, setFrameName, saveFrame;
     Spinner numOfCoils, amountOfDelay, amountOfOnTime, nameOfFrame;
+    TextView frameCreationView;
 
     //Saved frame stuff
     Button frameCollection;
@@ -1198,6 +1199,9 @@ public class MainActivity extends AppCompatActivity {
     public void setTheOnTime(View view) {
         amountOfOnTime = findViewById(R.id.amountOfOnTime);
         setOnTime = findViewById(R.id.setOnTime);
+        frameCreationView = findViewById(R.id.frameCreationView);
+        saveFrame = findViewById(R.id.saveFrame);
+
 
         findViewById(R.id.pin0);
 
@@ -1217,6 +1221,8 @@ public class MainActivity extends AppCompatActivity {
             setOnTime.findViewById(R.id.setOnTime).setVisibility(View.INVISIBLE);
             amountOfOnTime.findViewById(R.id.amountOfOnTime).setVisibility(View.INVISIBLE);
             commandInformation.remove(true);
+            findViewById(R.id.frameCreationView).setVisibility(View.VISIBLE);
+            findViewById(R.id.saveFrame).setVisibility(View.VISIBLE);
             findViewById(R.id.pin0).setVisibility(View.VISIBLE);
             findViewById(R.id.pin1).setVisibility(View.VISIBLE);
             findViewById(R.id.pin2).setVisibility(View.VISIBLE);

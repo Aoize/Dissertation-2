@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/saved_frames"
+        android:id="@+id/saved_sequences"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/frameList"
+        android:id="@+id/sequenceList"
         android:layout_width="150dp"
         android:layout_height="75dp"
         android:layout_marginStart="104dp"
@@ -31,33 +31,33 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/reloadFrameList"
+        android:id="@+id/reloadSequenceList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="156dp"
         android:layout_marginRight="156dp"
         android:layout_marginBottom="444dp"
-        android:onClick="reloadTheFrameList"
-        android:text="Reload the Frame list"
+        android:onClick="reloadTheSequenceList"
+        android:text="Reload the Sequence List"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/viewSelectedFrame"
+        android:id="@+id/viewSelectedSequence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="128dp"
         android:layout_marginRight="128dp"
         android:layout_marginBottom="308dp"
-        android:onClick="viewTheSelectedFrame"
-        android:text="View the selected Frame"
+        android:onClick="viewTheSelectedSequence"
+        android:text="View the selected Sequence"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/savedFrameView"
+        android:id="@+id/savedSequenceView"
         android:layout_width="119dp"
         android:layout_height="220dp"
         android:layout_marginStart="16dp"
@@ -67,6 +67,4 @@
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
