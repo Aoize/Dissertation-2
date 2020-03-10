@@ -2031,6 +2031,7 @@ public class MainActivity extends AppCompatActivity {
             }
             Toast.makeText(getApplicationContext(), "Frame Saved", Toast.LENGTH_SHORT).show();
             pinSelection.clear();
+
             commandInformation.clear();
             findViewById(R.id.saveFrame).setVisibility(View.INVISIBLE);
             findViewById(R.id.pin0).setVisibility(View.INVISIBLE);
