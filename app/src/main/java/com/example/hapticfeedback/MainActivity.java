@@ -1,5 +1,6 @@
 package com.example.hapticfeedback;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -48,11 +49,10 @@ public class MainActivity extends AppCompatActivity {
     //Frame creation stuff
     Button setCoils, setDelay, setOnTime, setFrameName, saveFrame;
     Spinner numOfCoils, amountOfDelay, amountOfOnTime, nameOfFrame;
-    TextView frameCreationView;
+    TextView frameCreationView, frameMs, frameUs;
 
     //Saved frame stuff
     Button frameCollection;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Frame creation stuff
+     * Array lists
      */
 
     //Overall pin selection data
@@ -110,7 +110,19 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Object> frameName5 = new ArrayList<>();
     ArrayList<Object> frameName6 = new ArrayList<>();
 
+    //Sequence names
+    ArrayList<Object> sequenceName1 = new ArrayList<>();
+    ArrayList<Object> sequenceName2 = new ArrayList<>();
+    ArrayList<Object> sequenceName3 = new ArrayList<>();
+    ArrayList<Object> sequenceName4 = new ArrayList<>();
+    ArrayList<Object> sequenceName5 = new ArrayList<>();
+    ArrayList<Object> sequenceName6 = new ArrayList<>();
 
+    /**
+     * Method to register if a pin has been selected or not (frame)
+     *
+     * @param view
+     */
     public void pin(View view) {
         String finial_commands = "";
         String finial_selection = "";
@@ -1794,6 +1806,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to name a frame (frame)
+     * @param view
+     */
     public void nameTheFrame(View view) {
         nameOfFrame = findViewById(R.id.nameFrame);
         setFrameName = findViewById(R.id.setFrameName);
@@ -1802,18 +1818,18 @@ public class MainActivity extends AppCompatActivity {
 
         String content = nameOfFrame.getSelectedItem().toString();
         commandInformation.add(0, "$F" + content);
-
-        if(frameName1.isEmpty()){
+        //totals.clear();
+        if (frameName1.isEmpty()) {
             frameName1.add("$F" + content);
-        } else if(frameName2.isEmpty()){
+        } else if (frameName2.isEmpty()) {
             frameName2.add("$F" + content);
-        } else if(frameName3.isEmpty()){
+        } else if (frameName3.isEmpty()) {
             frameName3.add("$F" + content);
-        } else if(frameName4.isEmpty()){
+        } else if (frameName4.isEmpty()) {
             frameName4.add("$F" + content);
-        } else if(frameName5.isEmpty()){
+        } else if (frameName5.isEmpty()) {
             frameName5.add("$F" + content);
-        } else if(frameName6.isEmpty()){
+        } else if (frameName6.isEmpty()) {
             frameName6.add("$F" + content);
         }
 
@@ -1823,8 +1839,6 @@ public class MainActivity extends AppCompatActivity {
             start = start + Selections + "\n";
         }
         t.setText(start);
-
-        //TODO Set it so if "setTheCoils" has disiapeared, set this to reappear
 
         if (commandInformation.add(true)) {
             nameOfFrame.findViewById(R.id.nameFrame).setVisibility(View.INVISIBLE);
@@ -1836,6 +1850,10 @@ public class MainActivity extends AppCompatActivity {
         return;
     }
 
+    /**
+     * Method to set coils used (frame)
+     * @param view
+     */
     public void setTheCoils(View view) {
         TextView t = (TextView) findViewById(R.id.frameCreationView);
         String start = "";
@@ -1843,6 +1861,8 @@ public class MainActivity extends AppCompatActivity {
         setCoils = findViewById(R.id.setCoils);
         amountOfDelay = findViewById(R.id.amountOfDelay);
         setDelay = findViewById(R.id.setDelay);
+        frameMs = findViewById(R.id.frameMs);
+
 
         String content = numOfCoils.getSelectedItem().toString();
         commandInformation.add(1, "$N00" + content);
@@ -1852,7 +1872,6 @@ public class MainActivity extends AppCompatActivity {
         }
         t.setText(start);
 
-        //TODO Ensure that something happens here as a check to save the frame
         //Saves to a seperate array, maybe for saving?
         coilsUsed.add(content);
 
@@ -1862,6 +1881,7 @@ public class MainActivity extends AppCompatActivity {
             commandInformation.remove(true);
             setDelay.findViewById(R.id.setDelay).setVisibility(View.VISIBLE);
             amountOfDelay.findViewById(R.id.amountOfDelay).setVisibility(View.VISIBLE);
+            frameMs.findViewById(R.id.frameMs).setVisibility(View.VISIBLE);
         }
         return;
 
@@ -1878,11 +1898,17 @@ public class MainActivity extends AppCompatActivity {
         } return;*/
     }
 
+    /**
+     * Method to set a delay (frame)
+     * @param view
+     */
     public void setTheDelay(View view) {
         amountOfDelay = findViewById(R.id.amountOfDelay);
         setDelay = findViewById(R.id.setDelay);
         amountOfOnTime = findViewById(R.id.amountOfOnTime);
         setOnTime = findViewById(R.id.setOnTime);
+        frameMs = findViewById(R.id.frameMs);
+        frameUs = findViewById(R.id.frameUs);
 
         String content = amountOfDelay.getSelectedItem().toString();
         commandInformation.add(2, "$D0" + content);
@@ -1894,24 +1920,29 @@ public class MainActivity extends AppCompatActivity {
         }
         t.setText(start);
 
-        //TODO Set it so if "setTheCoils" has disiapeared, set this to reappear
-
         if (commandInformation.add(true)) {
 
             setDelay.findViewById(R.id.setDelay).setVisibility(View.INVISIBLE);
             amountOfDelay.findViewById(R.id.amountOfDelay).setVisibility(View.INVISIBLE);
+            frameMs.findViewById(R.id.frameMs).setVisibility(View.INVISIBLE);
             commandInformation.remove(true);
+            frameUs.findViewById(R.id.frameUs).setVisibility(View.VISIBLE);
             setOnTime.findViewById(R.id.setOnTime).setVisibility(View.VISIBLE);
             amountOfOnTime.findViewById(R.id.amountOfOnTime).setVisibility(View.VISIBLE);
         }
         return;
     }
 
+    /**
+     * Method to set an on time (frame)
+     * @param view
+     */
     public void setTheOnTime(View view) {
         amountOfOnTime = findViewById(R.id.amountOfOnTime);
         setOnTime = findViewById(R.id.setOnTime);
         frameCreationView = findViewById(R.id.frameCreationView);
         saveFrame = findViewById(R.id.saveFrame);
+        frameUs = findViewById(R.id.frameUs);
 
 
         findViewById(R.id.pin0);
@@ -1926,11 +1957,10 @@ public class MainActivity extends AppCompatActivity {
         }
         t.setText(start);
 
-        //TODO Set it so if "setTheCoils" has disiapeared, set this to reappear
-
         if (commandInformation.add(true)) {
             setOnTime.findViewById(R.id.setOnTime).setVisibility(View.INVISIBLE);
             amountOfOnTime.findViewById(R.id.amountOfOnTime).setVisibility(View.INVISIBLE);
+            frameUs.findViewById(R.id.frameUs).setVisibility(View.INVISIBLE);
             commandInformation.remove(true);
             findViewById(R.id.frameCreationView).setVisibility(View.VISIBLE);
             findViewById(R.id.saveFrame).setVisibility(View.VISIBLE);
@@ -2002,37 +2032,57 @@ public class MainActivity extends AppCompatActivity {
         return;
     }
 
+    /**
+     * Method to save data from a frame (frame)
+     */
     private void saveData() {
         // String content = spinner.getSelectedItem().toString();
-        //TODO Fix this saving method
-        //TODO add saving method
 /*        if(pinSelection.toString() != content){
             Toast.makeText(getApplicationContext(),"Please remove some coils",Toast.LENGTH_SHORT).show();
         }else{*/
 /*            frameFinished.add(commandInformation);
             frameFinished.add(pinSelection);*/
+
+        frameCreationView = findViewById(R.id.frameCreationView);
+        nameOfFrame = findViewById(R.id.nameFrame);
+        setFrameName = findViewById(R.id.setFrameName);
         String contents = numOfCoils.getSelectedItem().toString();
         int coilLimit = Integer.parseInt(contents);
         if (totals.size() <= coilLimit) {
             TextView t = (TextView) findViewById(R.id.frameCreationView);
             findViewById(R.id.frameCreationView);
             if (frameFinished1.isEmpty()) {
+                pinSelection.add("$T001");
                 frameFinished1.add("" + commandInformation + pinSelection);
+                Toast.makeText(getApplicationContext(), "Frame Saved1" + frameName1, Toast.LENGTH_SHORT).show();
             } else if (frameFinished2.isEmpty()) {
+                pinSelection.add("$T001");
                 frameFinished2.add("" + commandInformation + pinSelection);
+                Toast.makeText(getApplicationContext(), "Frame Saved2" + frameFinished2, Toast.LENGTH_SHORT).show();
             } else if (frameFinished3.isEmpty()) {
+                pinSelection.add("$T001");
                 frameFinished3.add("" + commandInformation + pinSelection);
+                Toast.makeText(getApplicationContext(), "Frame Saved3" + frameFinished3, Toast.LENGTH_SHORT).show();
             } else if (frameFinished4.isEmpty()) {
+                pinSelection.add("$T001");
                 frameFinished4.add("" + commandInformation + pinSelection);
+                Toast.makeText(getApplicationContext(), "Frame Saved4" + frameFinished4, Toast.LENGTH_SHORT).show();
             } else if (frameFinished5.isEmpty()) {
+                pinSelection.add("$T001");
                 frameFinished5.add("" + commandInformation + pinSelection);
+                Toast.makeText(getApplicationContext(), "Frame Saved5" + frameFinished5, Toast.LENGTH_SHORT).show();
             } else if (frameFinished6.isEmpty()) {
+                pinSelection.add("$T001");
                 frameFinished6.add("" + commandInformation + pinSelection);
+                Toast.makeText(getApplicationContext(), "Frame Saved6" + frameFinished6, Toast.LENGTH_SHORT).show();
             }
-            Toast.makeText(getApplicationContext(), "Frame Saved", Toast.LENGTH_SHORT).show();
-            pinSelection.clear();
 
+            pinSelection.clear();
             commandInformation.clear();
+            coilsUsed.clear();
+            nameOfFrame.findViewById(R.id.nameFrame).setVisibility(View.VISIBLE);
+            setFrameName.findViewById(R.id.setFrameName).setVisibility(View.VISIBLE);
+            findViewById(R.id.frameCreationView).setVisibility(View.INVISIBLE);
             findViewById(R.id.saveFrame).setVisibility(View.INVISIBLE);
             findViewById(R.id.pin0).setVisibility(View.INVISIBLE);
             findViewById(R.id.pin1).setVisibility(View.INVISIBLE);
@@ -2113,10 +2163,18 @@ public class MainActivity extends AppCompatActivity {
         //}
     }
 
+    /**
+     * Saves the frame data to an array (frame)
+     * @param view
+     */
     public void saveTheFrame(View view) {
         saveData();
     }
 
+    /**
+     * Test method, can be removed
+     * @param view
+     */
     //TODO Delete this after testing
     public void resetTheFrame(View view) {
         Toast.makeText(getApplicationContext(), frameFinished1.toString(), Toast.LENGTH_SHORT).show();
@@ -2140,22 +2198,55 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Object> selection = gson.fromJson(json, type);
     }*/
 
-    /**
-     * Saved frame stuff    frameFinished
-     */
 
+    /**
+     * Method to reload the frame and sequence spinner (export)
+     * @param view
+     */
+    public void reloadFramesAndSequences(View view) {
+
+        Spinner frameSequenceList = (Spinner) findViewById(R.id.frameSequenceList);
+        ArrayList<Object> frameSequenceLists = new ArrayList<Object>();
+
+        frameSequenceLists.add(frameName1.toString());
+        frameSequenceLists.add(frameName2.toString());
+        frameSequenceLists.add(frameName3.toString());
+        frameSequenceLists.add(frameName4.toString());
+        frameSequenceLists.add(frameName5.toString());
+        frameSequenceLists.add(frameName6.toString());
+
+        frameSequenceLists.add(sequenceName1.toString());
+        frameSequenceLists.add(sequenceName2.toString());
+        frameSequenceLists.add(sequenceName3.toString());
+        frameSequenceLists.add(sequenceName4.toString());
+        frameSequenceLists.add(sequenceName5.toString());
+        frameSequenceLists.add(sequenceName6.toString());
+
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, frameSequenceLists);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        frameSequenceList.setAdapter(adapter);
+
+        String content = frameSequenceList.getSelectedItem().toString();
+
+    }
+
+    /**
+     * Method to reload the frame spinner (frame)
+     * @param view
+     */
     public void reloadTheFrameList(View view) {
         //frameCollection.findViewById(R.id.viewFrame);
         Spinner frameLists = (Spinner) findViewById(R.id.frameList);
         ArrayList<Object> frameList = new ArrayList<Object>();
 
-        if(frameName1.isEmpty() != true){
-            frameList.add(frameName1.toString());
-            frameList.add(frameName2.toString());
-            frameList.add(frameName3.toString());
-            frameList.add(frameName4.toString());
-            frameList.add(frameName5.toString());
-            frameList.add(frameName6.toString());
+        //if(frameList.isEmpty() != true){
+        frameList.add(frameName1.toString());
+        frameList.add(frameName2.toString());
+        frameList.add(frameName3.toString());
+        frameList.add(frameName4.toString());
+        frameList.add(frameName5.toString());
+        frameList.add(frameName6.toString());
 /*        } else if(frameList.size() < 2){
             frameList.add(frameName2.toString());
         } else if(frameName3.isEmpty()){
@@ -2166,8 +2257,7 @@ public class MainActivity extends AppCompatActivity {
             frameList.add(frameName5.toString());
         } else if(frameName6.isEmpty()){
             frameList.add(frameName6.toString());*/
-        }
-
+        //}
 
 //        frameList.add(frameName1.toString());
 
@@ -2178,8 +2268,8 @@ public class MainActivity extends AppCompatActivity {
 
         String content = frameLists.getSelectedItem().toString();
 
-        TextView t = (TextView) findViewById(R.id.frameCreationView);
-        t.setText("" + content);
+//        TextView t = (TextView) findViewById(R.id.frameCreationView);
+//        t.setText("" + content);
 
 /*
         String content = frameLists.getSelectedItem().toString();
@@ -2189,19 +2279,109 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //TODO work on this to collect data from the selected item
+    /**
+     * Method to reload the sequence spinner (sequence)
+     *
+     * @param view
+     */
+    public void reloadTheSequenceList(View view) {
+        //frameCollection.findViewById(R.id.viewFrame);
+        Spinner sequenceLists = (Spinner) findViewById(R.id.sequenceList);
+        ArrayList<Object> sequenceList = new ArrayList<Object>();
+
+        //if(frameList.isEmpty() != true){
+        sequenceList.add(sequenceName1.toString());
+        sequenceList.add(sequenceName2.toString());
+        sequenceList.add(sequenceName3.toString());
+        sequenceList.add(sequenceName4.toString());
+        sequenceList.add(sequenceName5.toString());
+        sequenceList.add(sequenceName6.toString());
+/*        } else if(frameList.size() < 2){
+            frameList.add(frameName2.toString());
+        } else if(frameName3.isEmpty()){
+            frameList.add(frameName3.toString());
+        } else if(frameName4.isEmpty()){
+            frameList.add(frameName4.toString());
+        } else if(frameName5.isEmpty()){
+            frameList.add(frameName5.toString());
+        } else if(frameName6.isEmpty()){
+            frameList.add(frameName6.toString());*/
+        //}
+
+//        frameList.add(frameName1.toString());
+
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, sequenceList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        sequenceLists.setAdapter(adapter);
+
+        String content = sequenceLists.getSelectedItem().toString();
+
+//        TextView t = (TextView) findViewById(R.id.frameCreationView);
+//        t.setText("" + content);
+
+/*
+        String content = frameLists.getSelectedItem().toString();
+        Toast.makeText(getApplicationContext(), "aa", Toast.LENGTH_SHORT).show();
+*/
+
+
+    }
+
+    /**
+     * Method to view the selected frame (frame)
+     * @param view
+     */
     public void viewTheSelectedFrame(View view) {
         Spinner frameLists = (Spinner) findViewById(R.id.frameList);
+        TextView t = (TextView) findViewById(R.id.savedFrameView);
 //        frameCollection.findViewById(R.id.viewSelectedFrame);
 
         String content = frameLists.getSelectedItem().toString();
-        TextView t = (TextView) findViewById(R.id.frameCreationView);
+        if (content.equals(frameName1.toString())) {
+            t.setText(frameFinished1.toString());
+        } else if (content.equals(frameName2.toString())) {
+            t.setText(frameFinished2.toString());
+        } else if (content.equals(frameName3.toString())) {
+            t.setText(frameFinished3.toString());
+        } else if (content.equals(frameName4.toString())) {
+            t.setText(frameFinished4.toString());
+        } else if (content.equals(frameName5.toString())) {
+            t.setText(frameFinished5.toString());
+        } else if (content.equals(frameName6.toString())) {
+            t.setText(frameFinished6.toString());
+        }
+
+        //TextView t = (TextView) findViewById(R.id.savedFrameView);
 /*        String start = "";
         for (Object Selections : frameFinished1) {
             start = start + content + Selections + "\n";
         }*/
-        t.setText(frameLists.toString());
+    }
 
+    /**
+     * Method to view the selected sequence (sequence)
+     *
+     * @param view
+     */
+    //TODO update to work when sequence can be made
+    public void viewTheSelectedSequence(View view) {
+        Spinner sequenceLists = (Spinner) findViewById(R.id.sequenceList);
+        TextView t = (TextView) findViewById(R.id.savedSequenceView);
+//        frameCollection.findViewById(R.id.viewSelectedFrame);
+
+        String content = sequenceLists.getSelectedItem().toString();
+      /*  if(content.equals(sequenceName1.toString())){
+            t.setText(frameFinished1.toString());
+        }else if(content.equals(sequenceName2.toString())){
+            t.setText(frameFinished2.toString());
+        }*/
+
+        //TextView t = (TextView) findViewById(R.id.savedFrameView);
+/*        String start = "";
+        for (Object Selections : frameFinished1) {
+            start = start + content + Selections + "\n";
+        }*/
     }
 
 

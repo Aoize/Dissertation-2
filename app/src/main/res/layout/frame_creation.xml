@@ -6,6 +6,20 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/frameMs"
+        android:layout_width="91dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginBottom="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:visibility="invisible"
+        android:text="Values in ms"
+        app:layout_constraintBottom_toTopOf="@+id/saveFrame"
+        app:layout_constraintStart_toEndOf="@+id/frameCreationView" />
+
+    <TextView
         android:id="@+id/frame_creation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,6 +40,7 @@
         android:layout_marginStart="73dp"
         android:layout_marginLeft="73dp"
         android:layout_marginTop="46dp"
+        android:checked="false"
         android:onClick="pin"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
@@ -943,5 +958,19 @@
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/frameUs"
+        android:layout_width="117dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginRight="26dp"
+        android:layout_marginBottom="52dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:visibility="invisible"
+        android:text="Values in 100 us"
+        app:layout_constraintBottom_toTopOf="@+id/counter"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
