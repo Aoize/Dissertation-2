@@ -15,6 +15,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.graphics.Color;
+
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 
@@ -34,6 +36,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.EditText;
 
 import org.w3c.dom.Text;
 
@@ -49,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
     //Frame creation stuff
     Button setCoils, setDelay, setOnTime, setFrameName, saveFrame;
     Spinner numOfCoils, amountOfDelay, amountOfOnTime, nameOfFrame;
-    TextView frameCreationView, frameMs, frameUs;
+    TextView frameCreationView, indexFinger, middleFinger, ringFinger, firstCoil, secondCoil,
+            thirdCoil, fourthCoil, fifthCoil, sixthCoil, seventhCoil, eighthCoil, counter, coilsCounter, frameOrder;
 
     //Saved frame stuff
     Button frameCollection;
@@ -123,15 +127,20 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param view
      */
+    int coilCounter = 0;
+
     public void pin(View view) {
         String finial_commands = "";
         String finial_selection = "";
+        String selection_order = "";
         boolean checked = ((CheckBox) view).isChecked();
         TextView t = (TextView) findViewById(R.id.frameCreationView);
         String coilsSelected = numOfCoils.getSelectedItem().toString();
         int coilLimit = Integer.parseInt(coilsSelected);
         int coilCount = 0;
+
         numOfCoils = findViewById(R.id.numberOfCoils);
+        counter = findViewById(R.id.counter);
 
         //Moved when name has been made
         for (Object Commands : commandInformation) {
@@ -148,6 +157,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin0).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin0).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin0).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin0).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin0).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin0).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin0).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin0).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y000");
                         for (Object Selections : pinSelection) {
@@ -163,6 +191,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin0).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin1:
@@ -174,6 +205,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin1).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin1).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin1).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin1).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin1).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin1).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin1).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin1).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y001");
                         for (Object Selections : pinSelection) {
@@ -189,6 +239,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin1).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin2:
@@ -200,6 +253,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin2).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin2).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin2).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin2).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin2).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin2).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin2).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin2).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y002");
                         for (Object Selections : pinSelection) {
@@ -215,6 +287,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin2).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin3:
@@ -226,6 +301,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin3).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin3).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin3).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin3).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin3).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin3).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin3).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin3).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y003");
                         for (Object Selections : pinSelection) {
@@ -241,6 +335,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin3).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin4:
@@ -252,6 +349,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin4).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin4).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin4).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin4).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin4).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin4).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin4).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin4).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y004");
                         for (Object Selections : pinSelection) {
@@ -267,6 +383,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin4).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin5:
@@ -278,6 +397,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin5).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin5).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin5).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin5).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin5).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin5).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin5).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin5).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y005");
                         for (Object Selections : pinSelection) {
@@ -293,6 +431,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin5).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin6:
@@ -304,6 +445,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin6).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin6).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin6).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin6).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin6).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin6).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin6).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin6).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y006");
                         for (Object Selections : pinSelection) {
@@ -319,6 +479,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin6).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin7:
@@ -330,6 +493,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin7).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin7).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin7).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin7).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin7).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin7).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin7).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin7).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y007");
                         for (Object Selections : pinSelection) {
@@ -345,6 +527,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin7).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin8:
@@ -356,6 +541,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin8).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin8).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin8).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin8).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin8).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin8).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin8).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin8).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y008");
                         for (Object Selections : pinSelection) {
@@ -371,6 +575,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin8).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin9:
@@ -382,6 +589,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin9).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin9).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin9).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin9).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin9).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin9).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin9).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin9).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y009");
                         for (Object Selections : pinSelection) {
@@ -397,6 +623,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin9).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin10:
@@ -408,6 +637,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin10).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin10).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin10).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin10).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin10).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin10).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin10).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin10).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y010");
                         for (Object Selections : pinSelection) {
@@ -423,6 +671,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin10).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin11:
@@ -434,6 +685,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin11).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin11).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin11).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin11).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin11).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin11).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin11).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin11).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y011");
                         for (Object Selections : pinSelection) {
@@ -449,6 +719,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin11).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin12:
@@ -460,6 +733,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin12).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin12).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin12).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin12).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin12).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin12).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin12).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin12).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y012");
                         for (Object Selections : pinSelection) {
@@ -475,6 +767,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin12).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin13:
@@ -486,6 +781,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin13).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin13).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin13).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin13).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin13).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin13).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin13).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin13).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y013");
                         for (Object Selections : pinSelection) {
@@ -501,6 +815,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin13).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin14:
@@ -512,6 +829,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin14).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin14).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin14).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin14).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin14).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin14).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin14).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin14).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y014");
                         for (Object Selections : pinSelection) {
@@ -527,6 +863,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin14).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin15:
@@ -538,6 +877,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin15).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin15).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin15).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin15).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin15).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin15).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin15).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin15).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y015");
                         for (Object Selections : pinSelection) {
@@ -553,6 +911,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin15).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin16:
@@ -564,6 +925,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin16).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin16).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin16).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin16).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin16).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin16).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin16).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin16).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y016");
                         for (Object Selections : pinSelection) {
@@ -579,6 +959,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin16).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin17:
@@ -590,6 +973,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin17).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin17).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin17).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin17).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin17).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin17).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin17).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin17).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y017");
                         for (Object Selections : pinSelection) {
@@ -605,6 +1007,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin17).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin18:
@@ -616,6 +1021,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin18).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin18).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin18).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin18).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin18).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin18).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin18).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin18).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y018");
                         for (Object Selections : pinSelection) {
@@ -631,6 +1055,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin18).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin19:
@@ -642,6 +1069,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin19).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin19).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin19).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin19).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin19).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin19).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin19).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin19).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y019");
                         for (Object Selections : pinSelection) {
@@ -657,6 +1103,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin19).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin20:
@@ -668,6 +1117,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin20).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin20).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin20).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin20).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin20).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin20).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin20).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin20).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y020");
                         for (Object Selections : pinSelection) {
@@ -683,6 +1151,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin20).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin21:
@@ -694,6 +1165,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin21).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin21).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin21).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin21).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin21).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin21).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin21).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin21).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y021");
                         for (Object Selections : pinSelection) {
@@ -709,6 +1199,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin21).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin22:
@@ -720,6 +1213,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin22).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin22).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin22).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin22).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin22).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin22).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin22).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin22).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y022");
                         for (Object Selections : pinSelection) {
@@ -735,6 +1247,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin22).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin23:
@@ -746,6 +1261,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin23).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin23).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin23).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin23).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin23).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin23).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin23).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin23).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y023");
                         for (Object Selections : pinSelection) {
@@ -761,6 +1295,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin23).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin24:
@@ -772,6 +1309,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin24).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin24).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin24).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin24).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin24).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin24).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin24).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin24).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y024");
                         for (Object Selections : pinSelection) {
@@ -787,6 +1343,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin24).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin25:
@@ -798,6 +1357,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin25).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin25).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin25).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin25).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin25).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin25).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin25).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin25).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y025");
                         for (Object Selections : pinSelection) {
@@ -813,6 +1391,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin25).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin26:
@@ -824,6 +1405,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin26).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin26).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin26).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin26).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin26).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin26).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin26).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin26).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y026");
                         for (Object Selections : pinSelection) {
@@ -839,6 +1439,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin26).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin27:
@@ -850,6 +1453,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin27).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin27).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin27).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin27).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin27).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin27).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin27).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin27).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y027");
                         for (Object Selections : pinSelection) {
@@ -865,6 +1487,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin27).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin28:
@@ -876,6 +1501,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin28).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin28).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin28).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin28).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin28).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin28).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin28).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin28).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y028");
                         for (Object Selections : pinSelection) {
@@ -891,6 +1535,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin28).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin29:
@@ -902,6 +1549,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin29).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin29).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin29).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin29).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin29).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin29).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin29).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin29).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y029");
                         for (Object Selections : pinSelection) {
@@ -917,6 +1583,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin29).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin30:
@@ -928,6 +1597,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin30).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin30).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin30).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin30).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin30).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin30).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin30).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin30).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y030");
                         for (Object Selections : pinSelection) {
@@ -943,6 +1631,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin30).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin31:
@@ -954,6 +1645,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin31).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin31).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin31).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin31).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin31).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin31).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin31).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin31).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y031");
                         for (Object Selections : pinSelection) {
@@ -969,6 +1679,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin31).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin32:
@@ -980,6 +1693,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin32).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin32).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin32).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin32).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin32).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin32).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin32).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin32).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y032");
                         for (Object Selections : pinSelection) {
@@ -995,6 +1727,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin32).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin33:
@@ -1006,6 +1741,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin33).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin33).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin33).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin33).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin33).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin33).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin33).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin33).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y033");
                         for (Object Selections : pinSelection) {
@@ -1021,6 +1775,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin33).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin34:
@@ -1032,6 +1789,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin34).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin34).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin34).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin34).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin34).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin34).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin34).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin34).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y034");
                         for (Object Selections : pinSelection) {
@@ -1047,6 +1823,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin34).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin35:
@@ -1058,6 +1837,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin35).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin35).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin35).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin35).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin35).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin35).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin35).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin35).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y035");
                         for (Object Selections : pinSelection) {
@@ -1073,6 +1871,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin35).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin36:
@@ -1084,6 +1885,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin36).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin36).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin36).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin36).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin36).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin36).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin36).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin36).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y036");
                         for (Object Selections : pinSelection) {
@@ -1099,6 +1919,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin36).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin37:
@@ -1110,6 +1933,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin37).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin37).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin37).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin37).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin37).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin37).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin37).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin37).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y037");
                         for (Object Selections : pinSelection) {
@@ -1125,6 +1967,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin37).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin38:
@@ -1136,6 +1981,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin38).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin38).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin38).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin38).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin38).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin38).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin38).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin38).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y038");
                         for (Object Selections : pinSelection) {
@@ -1151,6 +2015,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin38).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin39:
@@ -1162,6 +2029,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin39).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin39).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin39).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin39).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin39).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin39).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin39).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin39).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y039");
                         for (Object Selections : pinSelection) {
@@ -1177,6 +2063,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin39).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin40:
@@ -1188,6 +2077,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin40).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin40).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin40).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin40).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin40).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin40).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin40).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin40).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y040");
                         for (Object Selections : pinSelection) {
@@ -1203,6 +2111,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin40).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin41:
@@ -1214,6 +2125,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin41).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin41).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin41).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin41).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin41).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin41).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin41).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin41).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y041");
                         for (Object Selections : pinSelection) {
@@ -1229,6 +2159,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin41).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin42:
@@ -1240,6 +2173,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin42).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin42).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin42).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin42).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin42).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin42).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin42).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin42).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y042");
                         for (Object Selections : pinSelection) {
@@ -1255,6 +2207,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin42).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin43:
@@ -1266,6 +2221,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin43).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin43).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin43).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin43).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin43).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin43).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin43).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin43).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y043");
                         for (Object Selections : pinSelection) {
@@ -1281,6 +2255,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin43).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin44:
@@ -1292,6 +2269,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin44).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin44).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin44).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin44).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin44).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin44).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin44).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin44).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y044");
                         for (Object Selections : pinSelection) {
@@ -1307,6 +2303,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin44).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin45:
@@ -1318,6 +2317,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin45).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin45).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin45).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin45).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin45).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin45).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin45).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin45).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y045");
                         for (Object Selections : pinSelection) {
@@ -1333,6 +2351,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin45).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin46:
@@ -1344,6 +2365,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin46).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin46).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin46).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin46).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin46).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin46).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin46).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin46).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y046");
                         for (Object Selections : pinSelection) {
@@ -1359,6 +2399,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin46).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin47:
@@ -1370,6 +2413,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin47).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin47).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin47).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin47).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin47).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin47).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin47).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin47).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y047");
                         for (Object Selections : pinSelection) {
@@ -1385,6 +2447,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin47).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin48:
@@ -1396,6 +2461,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin48).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin48).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin48).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin48).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin48).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin48).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin48).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin48).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y048");
                         for (Object Selections : pinSelection) {
@@ -1411,6 +2495,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin48).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin49:
@@ -1422,6 +2509,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin49).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin49).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin49).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin49).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin49).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin49).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin49).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin49).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y049");
                         for (Object Selections : pinSelection) {
@@ -1437,6 +2543,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin49).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin50:
@@ -1448,6 +2557,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin50).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin50).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin50).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin50).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin50).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin50).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin50).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin50).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y050");
                         for (Object Selections : pinSelection) {
@@ -1463,6 +2591,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin50).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin51:
@@ -1474,6 +2605,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin51).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin51).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin51).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin51).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin51).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin51).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin51).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin51).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y051");
                         for (Object Selections : pinSelection) {
@@ -1489,6 +2639,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin51).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin52:
@@ -1500,6 +2653,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin52).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin52).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin52).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin52).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin52).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin52).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin52).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin52).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y052");
                         for (Object Selections : pinSelection) {
@@ -1515,6 +2687,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin52).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin53:
@@ -1526,6 +2701,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin53).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin53).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin53).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin53).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin53).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin53).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin53).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin53).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y053");
                         for (Object Selections : pinSelection) {
@@ -1541,6 +2735,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin53).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin54:
@@ -1552,6 +2749,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin54).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin54).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin54).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin54).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin54).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin54).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin54).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin54).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y054");
                         for (Object Selections : pinSelection) {
@@ -1567,6 +2783,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin54).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin55:
@@ -1578,6 +2797,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin55).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin55).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin55).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin55).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin55).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin55).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin55).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin55).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y055");
                         for (Object Selections : pinSelection) {
@@ -1593,6 +2831,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin55).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin56:
@@ -1604,6 +2845,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin56).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin56).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin56).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin56).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin56).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin56).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin56).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin56).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y056");
                         for (Object Selections : pinSelection) {
@@ -1619,6 +2879,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin56).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin57:
@@ -1630,6 +2893,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin57).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin57).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin57).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin57).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin57).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin57).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin57).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin57).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y057");
                         for (Object Selections : pinSelection) {
@@ -1645,6 +2927,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin57).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin58:
@@ -1656,6 +2941,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin58).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin58).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin58).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin58).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin58).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin58).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin58).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin58).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y058");
                         for (Object Selections : pinSelection) {
@@ -1671,6 +2975,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin58).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin59:
@@ -1682,6 +2989,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin59).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin59).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin59).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin59).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin59).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin59).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin59).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin59).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y059");
                         for (Object Selections : pinSelection) {
@@ -1697,6 +3023,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin59).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin60:
@@ -1708,6 +3037,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin60).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin60).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin60).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin60).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin60).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin60).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin60).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin60).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y060");
                         for (Object Selections : pinSelection) {
@@ -1723,6 +3071,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin60).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin61:
@@ -1734,6 +3085,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin61).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin61).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin61).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin61).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin61).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin61).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin61).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin61).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y061");
                         for (Object Selections : pinSelection) {
@@ -1749,6 +3119,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin61).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin62:
@@ -1760,6 +3133,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin62).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin62).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin62).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin62).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin62).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin62).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin62).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin62).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y062");
                         for (Object Selections : pinSelection) {
@@ -1775,6 +3167,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin62).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
             case R.id.pin63:
@@ -1786,6 +3181,25 @@ public class MainActivity extends AppCompatActivity {
                             finial_selection = finial_selection + Selections + "\n";
                         }
                         t.setText(finial_commands + finial_selection);
+                        if (totals.size() == 1) {
+                            findViewById(R.id.pin63).setBackgroundColor(Color.parseColor("#80ff00"));
+                        } else if (totals.size() == 2) {
+                            findViewById(R.id.pin63).setBackgroundColor(Color.parseColor("#00ff1a"));
+                        } else if (totals.size() == 3) {
+                            findViewById(R.id.pin63).setBackgroundColor(Color.parseColor("#00ff95"));
+                        } else if (totals.size() == 4) {
+                            findViewById(R.id.pin63).setBackgroundColor(Color.parseColor("#00fff2"));
+                        } else if (totals.size() == 5) {
+                            findViewById(R.id.pin63).setBackgroundColor(Color.parseColor("#00b3ff"));
+                        } else if (totals.size() == 6) {
+                            findViewById(R.id.pin63).setBackgroundColor(Color.parseColor("#6600ff"));
+                        } else if (totals.size() == 7) {
+                            findViewById(R.id.pin63).setBackgroundColor(Color.parseColor("#a200ff"));
+                        } else if (totals.size() == 8) {
+                            findViewById(R.id.pin63).setBackgroundColor(Color.parseColor("#d000ff"));
+                        }
+                        coilCounter++;
+                        counter.setText(String.valueOf(coilCounter));
                     } else {
                         pinSelection.remove("$Y063");
                         for (Object Selections : pinSelection) {
@@ -1801,6 +3215,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
+                    findViewById(R.id.pin63).setBackgroundColor(Color.TRANSPARENT);
+                    coilCounter--;
+                    counter.setText(String.valueOf(coilCounter));
                 }
                 break;
         }
@@ -1808,6 +3225,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Method to name a frame (frame)
+     *
      * @param view
      */
     public void nameTheFrame(View view) {
@@ -1817,21 +3235,98 @@ public class MainActivity extends AppCompatActivity {
         setCoils = findViewById(R.id.setCoils);
 
         String content = nameOfFrame.getSelectedItem().toString();
-        commandInformation.add(0, "$F" + content);
+
         //totals.clear();
         if (frameName1.isEmpty()) {
             frameName1.add("$F" + content);
+            commandInformation.add(0, "$F" + content);
+            if (commandInformation.add(true)) {
+                nameOfFrame.findViewById(R.id.nameFrame).setVisibility(View.INVISIBLE);
+                setFrameName.findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                commandInformation.remove(true);
+                numOfCoils.findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                setCoils.findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+            }
         } else if (frameName2.isEmpty()) {
-            frameName2.add("$F" + content);
+            if (!frameName1.contains("$F" + content)) {
+                frameName2.add("$F" + content);
+                commandInformation.add(0, "$F" + content);
+                if (commandInformation.add(true)) {
+                    nameOfFrame.findViewById(R.id.nameFrame).setVisibility(View.INVISIBLE);
+                    setFrameName.findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                    commandInformation.remove(true);
+                    numOfCoils.findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                    setCoils.findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+            }
         } else if (frameName3.isEmpty()) {
-            frameName3.add("$F" + content);
+            if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content)) {
+                frameName3.add("$F" + content);
+                commandInformation.add(0, "$F" + content);
+                if (commandInformation.add(true)) {
+                    nameOfFrame.findViewById(R.id.nameFrame).setVisibility(View.INVISIBLE);
+                    setFrameName.findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                    commandInformation.remove(true);
+                    numOfCoils.findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                    setCoils.findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+            }
         } else if (frameName4.isEmpty()) {
-            frameName4.add("$F" + content);
+            if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)) {
+                frameName4.add("$F" + content);
+                commandInformation.add(0, "$F" + content);
+                if (commandInformation.add(true)) {
+                    nameOfFrame.findViewById(R.id.nameFrame).setVisibility(View.INVISIBLE);
+                    setFrameName.findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                    commandInformation.remove(true);
+                    numOfCoils.findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                    setCoils.findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+            }
         } else if (frameName5.isEmpty()) {
-            frameName5.add("$F" + content);
+            if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)
+                    && !frameName4.contains("$F" + content)) {
+                frameName5.add("$F" + content);
+                commandInformation.add(0, "$F" + content);
+                if (commandInformation.add(true)) {
+                    nameOfFrame.findViewById(R.id.nameFrame).setVisibility(View.INVISIBLE);
+                    setFrameName.findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                    commandInformation.remove(true);
+                    numOfCoils.findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                    setCoils.findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+            }
         } else if (frameName6.isEmpty()) {
-            frameName6.add("$F" + content);
+            if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)
+                    && !frameName4.contains("$F" + content) && !frameName5.contains("$F" + content)) {
+                frameName6.add("$F" + content);
+                commandInformation.add(0, "$F" + content);
+                if (commandInformation.add(true)) {
+                    nameOfFrame.findViewById(R.id.nameFrame).setVisibility(View.INVISIBLE);
+                    setFrameName.findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                    commandInformation.remove(true);
+                    numOfCoils.findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                    setCoils.findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+            }
         }
+
+/*        if(){
+            Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+        }else{
+            frameName2.add("$F" + content);
+            commandInformation.add(0, "$F" + content);
+        }*/
 
         TextView t = (TextView) findViewById(R.id.frameCreationView);
         String start = "";
@@ -1840,18 +3335,12 @@ public class MainActivity extends AppCompatActivity {
         }
         t.setText(start);
 
-        if (commandInformation.add(true)) {
-            nameOfFrame.findViewById(R.id.nameFrame).setVisibility(View.INVISIBLE);
-            setFrameName.findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
-            commandInformation.remove(true);
-            numOfCoils.findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
-            setCoils.findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
-        }
         return;
     }
 
     /**
      * Method to set coils used (frame)
+     *
      * @param view
      */
     public void setTheCoils(View view) {
@@ -1861,8 +3350,6 @@ public class MainActivity extends AppCompatActivity {
         setCoils = findViewById(R.id.setCoils);
         amountOfDelay = findViewById(R.id.amountOfDelay);
         setDelay = findViewById(R.id.setDelay);
-        frameMs = findViewById(R.id.frameMs);
-
 
         String content = numOfCoils.getSelectedItem().toString();
         commandInformation.add(1, "$N00" + content);
@@ -1881,7 +3368,6 @@ public class MainActivity extends AppCompatActivity {
             commandInformation.remove(true);
             setDelay.findViewById(R.id.setDelay).setVisibility(View.VISIBLE);
             amountOfDelay.findViewById(R.id.amountOfDelay).setVisibility(View.VISIBLE);
-            frameMs.findViewById(R.id.frameMs).setVisibility(View.VISIBLE);
         }
         return;
 
@@ -1900,6 +3386,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Method to set a delay (frame)
+     *
      * @param view
      */
     public void setTheDelay(View view) {
@@ -1907,11 +3394,16 @@ public class MainActivity extends AppCompatActivity {
         setDelay = findViewById(R.id.setDelay);
         amountOfOnTime = findViewById(R.id.amountOfOnTime);
         setOnTime = findViewById(R.id.setOnTime);
-        frameMs = findViewById(R.id.frameMs);
-        frameUs = findViewById(R.id.frameUs);
 
         String content = amountOfDelay.getSelectedItem().toString();
-        commandInformation.add(2, "$D0" + content);
+        if (content.equals("Slow")) {
+            commandInformation.add(2, "$D020");
+        } else if (content.equals("Medium")) {
+            commandInformation.add(2, "$D040");
+        } else if (content.equals("Fast")) {
+            commandInformation.add(2, "$D060");
+        }
+        //commandInformation.add(2, "$D0" + content);
 
         TextView t = (TextView) findViewById(R.id.frameCreationView);
         String start = "";
@@ -1924,9 +3416,7 @@ public class MainActivity extends AppCompatActivity {
 
             setDelay.findViewById(R.id.setDelay).setVisibility(View.INVISIBLE);
             amountOfDelay.findViewById(R.id.amountOfDelay).setVisibility(View.INVISIBLE);
-            frameMs.findViewById(R.id.frameMs).setVisibility(View.INVISIBLE);
             commandInformation.remove(true);
-            frameUs.findViewById(R.id.frameUs).setVisibility(View.VISIBLE);
             setOnTime.findViewById(R.id.setOnTime).setVisibility(View.VISIBLE);
             amountOfOnTime.findViewById(R.id.amountOfOnTime).setVisibility(View.VISIBLE);
         }
@@ -1935,6 +3425,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Method to set an on time (frame)
+     *
      * @param view
      */
     public void setTheOnTime(View view) {
@@ -1942,13 +3433,35 @@ public class MainActivity extends AppCompatActivity {
         setOnTime = findViewById(R.id.setOnTime);
         frameCreationView = findViewById(R.id.frameCreationView);
         saveFrame = findViewById(R.id.saveFrame);
-        frameUs = findViewById(R.id.frameUs);
+        indexFinger = findViewById(R.id.indexFinger);
+        middleFinger = findViewById(R.id.middleFinger);
+        ringFinger = findViewById(R.id.ringFinger);
+        counter = findViewById(R.id.counter);
+        coilsCounter = findViewById(R.id.coilsCounter);
 
+        firstCoil = findViewById(R.id.firstCoil);
+        secondCoil = findViewById(R.id.secondCoil);
+        thirdCoil = findViewById(R.id.thirdCoil);
+        fourthCoil = findViewById(R.id.fourthCoil);
+        fifthCoil = findViewById(R.id.fifthCoil);
+        sixthCoil = findViewById(R.id.sixthCoil);
+        seventhCoil = findViewById(R.id.seventhCoil);
+        eighthCoil = findViewById(R.id.eighthCoil);
+
+        numOfCoils = findViewById(R.id.numberOfCoils);
+        String coilNumber = numOfCoils.getSelectedItem().toString();
 
         findViewById(R.id.pin0);
 
         String content = amountOfOnTime.getSelectedItem().toString();
-        commandInformation.add(3, "$P0" + content);
+        if (content.equals("Short")) {
+            commandInformation.add(3, "$P010");
+        } else if (content.equals("Medium")) {
+            commandInformation.add(3, "$P020");
+        } else if (content.equals("Long")) {
+            commandInformation.add(3, "$P030");
+        }
+        //commandInformation.add(3, "$P0" + content);
 
         TextView t = (TextView) findViewById(R.id.frameCreationView);
         String start = "";
@@ -1960,10 +3473,61 @@ public class MainActivity extends AppCompatActivity {
         if (commandInformation.add(true)) {
             setOnTime.findViewById(R.id.setOnTime).setVisibility(View.INVISIBLE);
             amountOfOnTime.findViewById(R.id.amountOfOnTime).setVisibility(View.INVISIBLE);
-            frameUs.findViewById(R.id.frameUs).setVisibility(View.INVISIBLE);
             commandInformation.remove(true);
+            findViewById(R.id.counter).setVisibility(View.VISIBLE);
+            findViewById(R.id.indexFinger).setVisibility(View.VISIBLE);
+            findViewById(R.id.middleFinger).setVisibility(View.VISIBLE);
+            findViewById(R.id.ringFinger).setVisibility(View.VISIBLE);
             findViewById(R.id.frameCreationView).setVisibility(View.VISIBLE);
             findViewById(R.id.saveFrame).setVisibility(View.VISIBLE);
+            findViewById(R.id.coilsCounter).setVisibility(View.VISIBLE);
+
+            if (coilNumber.equals("1")) {
+                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
+            } else if (coilNumber.equals("2")) {
+                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.secondCoil).setVisibility(View.VISIBLE);
+            } else if (coilNumber.equals("3")) {
+                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.secondCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.thirdCoil).setVisibility(View.VISIBLE);
+            } else if (coilNumber.equals("4")) {
+                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.secondCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.thirdCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.fourthCoil).setVisibility(View.VISIBLE);
+            } else if (coilNumber.equals("5")) {
+                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.secondCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.thirdCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.fourthCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.fifthCoil).setVisibility(View.VISIBLE);
+            } else if (coilNumber.equals("6")) {
+                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.secondCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.thirdCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.fourthCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.fifthCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.sixthCoil).setVisibility(View.VISIBLE);
+            } else if (coilNumber.equals("7")) {
+                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.secondCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.thirdCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.fourthCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.fifthCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.sixthCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.seventhCoil).setVisibility(View.VISIBLE);
+            } else if (coilNumber.equals("8")) {
+                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.secondCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.thirdCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.fourthCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.fifthCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.sixthCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.seventhCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.eighthCoil).setVisibility(View.VISIBLE);
+            }
+
             findViewById(R.id.pin0).setVisibility(View.VISIBLE);
             findViewById(R.id.pin1).setVisibility(View.VISIBLE);
             findViewById(R.id.pin2).setVisibility(View.VISIBLE);
@@ -2046,16 +3610,31 @@ public class MainActivity extends AppCompatActivity {
         frameCreationView = findViewById(R.id.frameCreationView);
         nameOfFrame = findViewById(R.id.nameFrame);
         setFrameName = findViewById(R.id.setFrameName);
+        indexFinger = findViewById(R.id.indexFinger);
+        middleFinger = findViewById(R.id.middleFinger);
+        ringFinger = findViewById(R.id.ringFinger);
+        firstCoil = findViewById(R.id.firstCoil);
+        secondCoil = findViewById(R.id.secondCoil);
+        thirdCoil = findViewById(R.id.thirdCoil);
+        fourthCoil = findViewById(R.id.fourthCoil);
+        fifthCoil = findViewById(R.id.fifthCoil);
+        sixthCoil = findViewById(R.id.sixthCoil);
+        seventhCoil = findViewById(R.id.seventhCoil);
+        eighthCoil = findViewById(R.id.eighthCoil);
+
         String contents = numOfCoils.getSelectedItem().toString();
         int coilLimit = Integer.parseInt(contents);
-        if (totals.size() <= coilLimit) {
+        if (totals.size() == coilLimit) {
             TextView t = (TextView) findViewById(R.id.frameCreationView);
             findViewById(R.id.frameCreationView);
             if (frameFinished1.isEmpty()) {
                 pinSelection.add("$T001");
                 frameFinished1.add("" + commandInformation + pinSelection);
-                Toast.makeText(getApplicationContext(), "Frame Saved1" + frameName1, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Frame Saved1" + frameFinished1, Toast.LENGTH_SHORT).show();
             } else if (frameFinished2.isEmpty()) {
+/*                if(!frameName1.isEmpty()){
+                    Toast.makeText(getApplicationContext(), "Error" + frameFinished2, Toast.LENGTH_SHORT).show();
+                }*/
                 pinSelection.add("$T001");
                 frameFinished2.add("" + commandInformation + pinSelection);
                 Toast.makeText(getApplicationContext(), "Frame Saved2" + frameFinished2, Toast.LENGTH_SHORT).show();
@@ -2080,10 +3659,24 @@ public class MainActivity extends AppCompatActivity {
             pinSelection.clear();
             commandInformation.clear();
             coilsUsed.clear();
+
             nameOfFrame.findViewById(R.id.nameFrame).setVisibility(View.VISIBLE);
             setFrameName.findViewById(R.id.setFrameName).setVisibility(View.VISIBLE);
+            findViewById(R.id.indexFinger).setVisibility(View.INVISIBLE);
+            findViewById(R.id.counter).setVisibility(View.INVISIBLE);
+            findViewById(R.id.coilsCounter).setVisibility(View.INVISIBLE);
+            findViewById(R.id.middleFinger).setVisibility(View.INVISIBLE);
+            findViewById(R.id.ringFinger).setVisibility(View.INVISIBLE);
             findViewById(R.id.frameCreationView).setVisibility(View.INVISIBLE);
             findViewById(R.id.saveFrame).setVisibility(View.INVISIBLE);
+            findViewById(R.id.firstCoil).setVisibility(View.INVISIBLE);
+            findViewById(R.id.secondCoil).setVisibility(View.INVISIBLE);
+            findViewById(R.id.thirdCoil).setVisibility(View.INVISIBLE);
+            findViewById(R.id.fourthCoil).setVisibility(View.INVISIBLE);
+            findViewById(R.id.fifthCoil).setVisibility(View.INVISIBLE);
+            findViewById(R.id.sixthCoil).setVisibility(View.INVISIBLE);
+            findViewById(R.id.seventhCoil).setVisibility(View.INVISIBLE);
+            findViewById(R.id.eighthCoil).setVisibility(View.INVISIBLE);
             findViewById(R.id.pin0).setVisibility(View.INVISIBLE);
             findViewById(R.id.pin1).setVisibility(View.INVISIBLE);
             findViewById(R.id.pin2).setVisibility(View.INVISIBLE);
@@ -2149,7 +3742,7 @@ public class MainActivity extends AppCompatActivity {
             findViewById(R.id.pin62).setVisibility(View.INVISIBLE);
             findViewById(R.id.pin63).setVisibility(View.INVISIBLE);
         } else {
-            Toast.makeText(getApplicationContext(), "Frame has exceeded the coil limit set previously", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Please add or remove coils to make your selection of " + coilLimit, Toast.LENGTH_SHORT).show();
         }
 /*
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
@@ -2165,6 +3758,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Saves the frame data to an array (frame)
+     *
      * @param view
      */
     public void saveTheFrame(View view) {
@@ -2173,6 +3767,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Test method, can be removed
+     *
      * @param view
      */
     //TODO Delete this after testing
@@ -2201,6 +3796,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Method to reload the frame and sequence spinner (export)
+     *
      * @param view
      */
     public void reloadFramesAndSequences(View view) {
@@ -2233,6 +3829,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Method to reload the frame spinner (frame)
+     *
      * @param view
      */
     public void reloadTheFrameList(View view) {
@@ -2330,6 +3927,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Method to view the selected frame (frame)
+     *
      * @param view
      */
     public void viewTheSelectedFrame(View view) {

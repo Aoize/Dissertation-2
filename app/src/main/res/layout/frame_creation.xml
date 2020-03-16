@@ -6,20 +6,6 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/frameMs"
-        android:layout_width="91dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="7dp"
-        android:layout_marginLeft="7dp"
-        android:layout_marginBottom="24dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:visibility="invisible"
-        android:text="Values in ms"
-        app:layout_constraintBottom_toTopOf="@+id/saveFrame"
-        app:layout_constraintStart_toEndOf="@+id/frameCreationView" />
-
-    <TextView
         android:id="@+id/frame_creation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -803,19 +789,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/saveFrame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="164dp"
-        android:layout_marginRight="164dp"
-        android:layout_marginBottom="156dp"
-        android:onClick="saveTheFrame"
-        android:visibility="invisible"
-        android:text="Save Frame"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
         android:id="@+id/setCoils"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -828,54 +801,67 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/resetFrame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="160dp"
-        android:layout_marginRight="160dp"
-        android:layout_marginBottom="96dp"
-        android:onClick="resetTheFrame"
-        android:visibility="invisible"
-        android:text="Reset Frame"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <TextView
         android:id="@+id/frameCreationView"
         android:layout_width="119dp"
         android:layout_height="220dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginLeft="92dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/text_border"
-        android:visibility="invisible"
         android:text=""
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/resetFrame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginBottom="96dp"
+        android:onClick="resetTheFrame"
+        android:text="Reset Frame"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/saveFrame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="84dp"
+        android:layout_marginRight="84dp"
+        android:layout_marginBottom="156dp"
+        android:onClick="saveTheFrame"
+        android:text="Save Frame"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <Spinner
         android:id="@+id/numberOfCoils"
-        android:background="@drawable/text_border"
         android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginLeft="28dp"
         android:layout_marginBottom="336dp"
+        android:background="@drawable/text_border"
         android:entries="@array/coils_used"
-        android:visibility="invisible"
         android:spinnerMode="dropdown"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
         android:id="@+id/amountOfDelay"
-        android:background="@drawable/text_border"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="124dp"
         android:layout_marginLeft="124dp"
         android:layout_marginBottom="336dp"
+        android:background="@drawable/text_border"
         android:entries="@array/delay_time"
         android:spinnerMode="dropdown"
         android:visibility="invisible"
@@ -890,43 +876,43 @@
         android:layout_marginRight="160dp"
         android:layout_marginBottom="272dp"
         android:onClick="setTheDelay"
-        android:text="Set Delay Time"
+        android:text="Set Pin Delay"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/counter"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:layout_marginBottom="124dp"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginTop="1dp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/coilsCounter" />
 
     <Button
         android:id="@+id/setOnTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginBottom="272dp"
+        android:layout_width="124dp"
+        android:layout_height="71dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="264dp"
         android:onClick="setTheOnTime"
-        android:text="Set On Time"
+        android:text="Set Pin Activation Time"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Spinner
         android:id="@+id/amountOfOnTime"
-        android:background="@drawable/text_border"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="268dp"
         android:layout_marginLeft="268dp"
         android:layout_marginBottom="336dp"
+        android:background="@drawable/text_border"
         android:entries="@array/coil_on_time"
         android:spinnerMode="dropdown"
         android:visibility="invisible"
@@ -948,29 +934,176 @@
 
     <Spinner
         android:id="@+id/nameFrame"
-        android:background="@drawable/text_border"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="148dp"
         android:layout_marginLeft="148dp"
         android:layout_marginBottom="620dp"
+        android:background="@drawable/text_border"
         android:entries="@array/name_frame"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/frameUs"
-        android:layout_width="117dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="26dp"
-        android:layout_marginRight="26dp"
-        android:layout_marginBottom="52dp"
+        android:id="@+id/indexFinger"
+        android:layout_width="47dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginRight="35dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:rotation="270"
+        android:text="Index"
         android:visibility="invisible"
-        android:text="Values in 100 us"
-        app:layout_constraintBottom_toTopOf="@+id/counter"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frame_creation" />
+
+    <TextView
+        android:id="@+id/middleFinger"
+        android:layout_width="47dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="125dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="35dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:rotation="270"
+        android:text="Middle"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frame_creation" />
+
+    <TextView
+        android:id="@+id/ringFinger"
+        android:layout_width="47dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="222dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="35dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:rotation="270"
+        android:text="Ring"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frame_creation" />
+
+    <TextView
+        android:id="@+id/firstCoil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="34dp"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="101dp"
+        android:text="First coil"
+        android:textColor="#80ff00"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setCoils" />
+
+    <TextView
+        android:id="@+id/secondCoil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="80dp"
+        android:text="Second coil"
+        android:textColor="#00ff1a"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/eighthCoil"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/thirdCoil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="29dp"
+        android:layout_marginLeft="29dp"
+        android:layout_marginBottom="64dp"
+        android:text="Third coil"
+        android:textColor="#00ff95"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/eighthCoil"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/fourthCoil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="48dp"
+        android:text="Fourth coil"
+        android:textColor="#00fff2"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/eighthCoil"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/fifthCoil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginBottom="32dp"
+        android:text="Fifth coil"
+        android:textColor="#00b3ff"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/eighthCoil"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/sixthCoil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="15dp"
+        android:text="Sixth coil"
+        android:textColor="#6600ff"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/eighthCoil"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/seventhCoil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginLeft="11dp"
+        android:layout_marginBottom="53dp"
+        android:text="Seventh coil"
+        android:textColor="#a200ff"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/eighthCoil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginBottom="36dp"
+        android:text="Eighth coil"
+        android:textColor="#d000ff"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/coilsCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="35dp"
+        android:text="Coils Used"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frame_creation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

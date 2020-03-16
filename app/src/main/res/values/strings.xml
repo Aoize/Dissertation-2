@@ -27,18 +27,15 @@
     </string-array>
 
     <string-array name="delay_time">
-        <item>20</item>
-        <item>30</item>
-        <item>40</item>
-        <item>50</item>
+        <item>Slow</item>
+        <item>Medium</item>
+        <item>Fast</item>
     </string-array>
 
     <string-array name="coil_on_time">
-        <item>10</item>
-        <item>15</item>
-        <item>20</item>
-        <item>25</item>
-        <item>30</item>
+        <item>Short</item>
+        <item>Medium</item>
+        <item>Long</item>
     </string-array>
 
     <string-array name="name_frame">
@@ -48,31 +45,6 @@
         <item>003</item>
         <item>004</item>
         <item>005</item>
-        <item>006</item>
-        <item>007</item>
-        <item>008</item>
-        <item>009</item>
-        <item>010</item>
-        <item>011</item>
-        <item>012</item>
-        <item>013</item>
-        <item>014</item>
-        <item>015</item>
-        <item>016</item>
-        <item>017</item>
-        <item>018</item>
-        <item>019</item>
-        <item>020</item>
-        <item>021</item>
-        <item>022</item>
-        <item>023</item>
-        <item>024</item>
-        <item>025</item>
-        <item>026</item>
-        <item>027</item>
-        <item>028</item>
-        <item>029</item>
-        <item>030</item>
     </string-array>
 
 </resources>
