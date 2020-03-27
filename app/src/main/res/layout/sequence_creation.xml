@@ -796,20 +796,20 @@
         android:layout_marginBottom="156dp"
         android:onClick="saveTheSequence"
         android:text="Save Sequence"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/setFrames"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/numOfFrames"
+        android:layout_width="104dp"
+        android:layout_height="60dp"
         android:layout_marginEnd="304dp"
         android:layout_marginRight="304dp"
         android:layout_marginBottom="272dp"
-        android:onClick="setTheFrames"
-        android:text="Set Frames"
-        android:visibility="visible"
+        android:onClick="numOfFrames"
+        android:text="Number of Frames"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -834,51 +834,48 @@
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/text_border"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
-        android:id="@+id/selectFrames"
+        android:id="@+id/setNumFrames"
         android:background="@drawable/text_border"
         android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginLeft="28dp"
         android:layout_marginBottom="336dp"
-        android:entries="@array/coils_used"
-        android:visibility="visible"
+        android:entries="@array/frames_used"
+        android:visibility="invisible"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-        <!--change coils used-->
 
     <Spinner
-        android:id="@+id/frameRepition"
+        android:id="@+id/frameSelection"
         android:background="@drawable/text_border"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
+        android:layout_width="75dp"
+        android:layout_height="21dp"
         android:layout_marginStart="124dp"
         android:layout_marginLeft="124dp"
         android:layout_marginBottom="336dp"
-        android:entries="@array/delay_time"
         android:spinnerMode="dropdown"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-    <!--change delay time-->
 
     <Button
-        android:id="@+id/setRepition"
+        android:id="@+id/setFrames"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="108dp"
-        android:layout_marginRight="108dp"
+        android:layout_marginEnd="160dp"
+        android:layout_marginRight="160dp"
         android:layout_marginBottom="272dp"
-        android:onClick="setTheRepition"
-        android:text="Set Repition Amount"
-        android:visibility="visible"
+        android:onClick="setTheFrames"
+        android:text="Select Frames"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -914,10 +911,38 @@
         android:layout_marginStart="148dp"
         android:layout_marginLeft="148dp"
         android:layout_marginBottom="620dp"
-        android:entries="@array/name_frame"
+        android:entries="@array/name_sequence"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-    <!--change name frame-->
+
+    <Spinner
+        android:id="@+id/selectRepetitionAmount"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="296dp"
+        android:layout_marginLeft="296dp"
+        android:layout_marginBottom="336dp"
+        android:background="@drawable/text_border"
+        android:entries="@array/repetition_amount"
+        android:clickable="false"
+        android:spinnerMode="dropdown"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/setRepetitionAmount"
+        android:layout_width="104dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="260dp"
+        android:clickable="false"
+        android:onClick="repetitionAmount"
+        android:text="Number of Repetitions"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

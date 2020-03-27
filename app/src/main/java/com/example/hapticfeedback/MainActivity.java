@@ -69,12 +69,14 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    //Frame creation stuff
-    Button setCoils, setDelay, setOnTime, setFrameName, saveFrame;
-    Spinner numOfCoils, amountOfDelay, amountOfOnTime, nameOfFrame;
+    //Frame and Sequence creation stuff
+    Button setCoils, setDelay, setOnTime, setFrameName, saveFrame, setSequenceName, setFrames, setFrame,
+            setAmountOfRep, saveTheSequence;
+    Spinner numOfCoils, amountOfDelay, amountOfOnTime, nameOfFrame, nameOfSequence, numOfFramesSelected,
+            frameAmount, selectRepAmount;
     TextView frameCreationView, indexFinger, middleFinger, ringFinger, firstCoil, secondCoil,
             thirdCoil, fourthCoil, fifthCoil, sixthCoil, seventhCoil, eighthCoil, counter, coilsCounter,
-            directoryLocation;
+            sequenceCreationView;
 
     //Saved frame stuff
     Button frameCollection;
@@ -117,12 +119,22 @@ public class MainActivity extends AppCompatActivity {
 
     //Overall pin selection data
     ArrayList<Object> pinSelection = new ArrayList<>();
-    //Overall command data
+    //Overall command data for frames
     ArrayList<Object> commandInformation = new ArrayList<>();
     //Coils used data
     ArrayList<Object> coilsUsed = new ArrayList<>();
-    //Total amount
+    //Total amount of coils
     ArrayList<Integer> totals = new ArrayList<>();
+    //Total amount of frames
+    ArrayList<Integer> totalFrames = new ArrayList<>();
+    //Overall command data for sequences
+    ArrayList<Object> commandInformationSeq = new ArrayList<>();
+    //Overall repetitions
+    ArrayList<Object> repetitions = new ArrayList<>();
+    //Frames used data
+    ArrayList<Object> framesUsed = new ArrayList<>();
+    //FrameSelectionData
+    ArrayList<Object> frameSelections = new ArrayList<>();
 
     //Finished frames
     ArrayList<Object> frameFinished1 = new ArrayList<>();
@@ -132,13 +144,29 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Object> frameFinished5 = new ArrayList<>();
     ArrayList<Object> frameFinished6 = new ArrayList<>();
 
-    //Frame names
+    //Finished sequences
+    ArrayList<Object> sequenceFinished1 = new ArrayList<>();
+    ArrayList<Object> sequenceFinished2 = new ArrayList<>();
+    ArrayList<Object> sequenceFinished3 = new ArrayList<>();
+    ArrayList<Object> sequenceFinished4 = new ArrayList<>();
+    ArrayList<Object> sequenceFinished5 = new ArrayList<>();
+    ArrayList<Object> sequenceFinished6 = new ArrayList<>();
+
+    //Frame names with $F
     ArrayList<Object> frameName1 = new ArrayList<>();
     ArrayList<Object> frameName2 = new ArrayList<>();
     ArrayList<Object> frameName3 = new ArrayList<>();
     ArrayList<Object> frameName4 = new ArrayList<>();
     ArrayList<Object> frameName5 = new ArrayList<>();
     ArrayList<Object> frameName6 = new ArrayList<>();
+
+    //Frame names with $f
+    ArrayList<Object> frameNameF1 = new ArrayList<>();
+    ArrayList<Object> frameNameF2 = new ArrayList<>();
+    ArrayList<Object> frameNameF3 = new ArrayList<>();
+    ArrayList<Object> frameNameF4 = new ArrayList<>();
+    ArrayList<Object> frameNameF5 = new ArrayList<>();
+    ArrayList<Object> frameNameF6 = new ArrayList<>();
 
     //Sequence names
     ArrayList<Object> sequenceName1 = new ArrayList<>();
@@ -3265,6 +3293,7 @@ public class MainActivity extends AppCompatActivity {
         //totals.clear();
         if (frameName1.isEmpty()) {
             frameName1.add("$F" + content);
+            frameNameF1.add("$f" + content);
             commandInformation.add(0, "$F" + content);
             if (commandInformation.add(true)) {
                 nameOfFrame.findViewById(R.id.nameFrame).setVisibility(View.INVISIBLE);
@@ -3276,6 +3305,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (frameName2.isEmpty()) {
             if (!frameName1.contains("$F" + content)) {
                 frameName2.add("$F" + content);
+                frameNameF2.add("$f" + content);
                 commandInformation.add(0, "$F" + content);
                 if (commandInformation.add(true)) {
                     nameOfFrame.findViewById(R.id.nameFrame).setVisibility(View.INVISIBLE);
@@ -3290,6 +3320,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (frameName3.isEmpty()) {
             if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content)) {
                 frameName3.add("$F" + content);
+                frameNameF3.add("$f" + content);
                 commandInformation.add(0, "$F" + content);
                 if (commandInformation.add(true)) {
                     nameOfFrame.findViewById(R.id.nameFrame).setVisibility(View.INVISIBLE);
@@ -3304,6 +3335,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (frameName4.isEmpty()) {
             if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)) {
                 frameName4.add("$F" + content);
+                frameNameF4.add("$f" + content);
                 commandInformation.add(0, "$F" + content);
                 if (commandInformation.add(true)) {
                     nameOfFrame.findViewById(R.id.nameFrame).setVisibility(View.INVISIBLE);
@@ -3319,6 +3351,7 @@ public class MainActivity extends AppCompatActivity {
             if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)
                     && !frameName4.contains("$F" + content)) {
                 frameName5.add("$F" + content);
+                frameNameF5.add("$f" + content);
                 commandInformation.add(0, "$F" + content);
                 if (commandInformation.add(true)) {
                     nameOfFrame.findViewById(R.id.nameFrame).setVisibility(View.INVISIBLE);
@@ -3334,6 +3367,7 @@ public class MainActivity extends AppCompatActivity {
             if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)
                     && !frameName4.contains("$F" + content) && !frameName5.contains("$F" + content)) {
                 frameName6.add("$F" + content);
+                frameNameF6.add("$f" + content);
                 commandInformation.add(0, "$F" + content);
                 if (commandInformation.add(true)) {
                     nameOfFrame.findViewById(R.id.nameFrame).setVisibility(View.INVISIBLE);
@@ -3948,24 +3982,25 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param view
      */
-    //TODO update to work when sequence can be made
     public void viewTheSelectedSequence(View view) {
         Spinner sequenceLists = (Spinner) findViewById(R.id.sequenceList);
         TextView t = (TextView) findViewById(R.id.savedSequenceView);
 //        frameCollection.findViewById(R.id.viewSelectedFrame);
 
         String content = sequenceLists.getSelectedItem().toString();
-      /*  if(content.equals(sequenceName1.toString())){
-            t.setText(frameFinished1.toString());
-        }else if(content.equals(sequenceName2.toString())){
-            t.setText(frameFinished2.toString());
-        }*/
-
-        //TextView t = (TextView) findViewById(R.id.savedFrameView);
-/*        String start = "";
-        for (Object Selections : frameFinished1) {
-            start = start + content + Selections + "\n";
-        }*/
+        if (content.equals(sequenceName1.toString())) {
+            t.setText(sequenceFinished1.toString());
+        } else if (content.equals(sequenceName2.toString())) {
+            t.setText(sequenceFinished2.toString());
+        } else if (content.equals(sequenceName3.toString())) {
+            t.setText(sequenceFinished3.toString());
+        } else if (content.equals(sequenceName4.toString())) {
+            t.setText(sequenceFinished4.toString());
+        } else if (content.equals(sequenceName5.toString())) {
+            t.setText(sequenceFinished5.toString());
+        } else if (content.equals(sequenceName6.toString())) {
+            t.setText(sequenceFinished6.toString());
+        }
     }
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -3988,6 +4023,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //TODO Export for sequences, which contains the sequence AND the frames associated with the sequence
     public void export(View view) throws IOException {
         Spinner frameSequenceList = (Spinner) findViewById(R.id.frameSequenceList);
         TextView t = (TextView) findViewById(R.id.directory);
@@ -4785,5 +4821,431 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Method to give the sequence a name (sequence)
+     *
+     * @param view
+     */
+    public void nameTheSequence(View view) {
+        nameOfSequence = findViewById(R.id.nameSequence);
+        setSequenceName = findViewById(R.id.setSequenceName);
+
+        numOfFramesSelected = findViewById(R.id.setNumFrames);
+        setFrames = findViewById(R.id.numOfFrames);
+
+        String content = nameOfSequence.getSelectedItem().toString();
+
+        //totals.clear();
+        if (sequenceName1.isEmpty()) {
+            sequenceName1.add("$S" + content);
+            commandInformationSeq.add(0, "$S" + content);
+            if (commandInformationSeq.add(true)) {
+                nameOfSequence.findViewById(R.id.nameSequence).setVisibility(View.INVISIBLE);
+                setSequenceName.findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
+                commandInformationSeq.remove(true);
+                numOfFramesSelected.findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
+                setFrames.findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
+            }
+        } else if (sequenceName2.isEmpty()) {
+            if (!sequenceName1.contains("$S" + content)) {
+                sequenceName2.add("$S" + content);
+                commandInformationSeq.add(0, "$S" + content);
+                if (commandInformationSeq.add(true)) {
+                    nameOfSequence.findViewById(R.id.nameSequence).setVisibility(View.INVISIBLE);
+                    setSequenceName.findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
+                    commandInformationSeq.remove(true);
+                    numOfFramesSelected.findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
+                    setFrames.findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+            }
+        } else if (sequenceName3.isEmpty()) {
+            if (!sequenceName1.contains("$S" + content) && !sequenceName2.contains("$S" + content)) {
+                sequenceName3.add("$S" + content);
+                commandInformationSeq.add(0, "$S" + content);
+                if (commandInformationSeq.add(true)) {
+                    nameOfSequence.findViewById(R.id.nameSequence).setVisibility(View.INVISIBLE);
+                    setSequenceName.findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
+                    commandInformationSeq.remove(true);
+                    numOfFramesSelected.findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
+                    setFrames.findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+            }
+        } else if (sequenceName4.isEmpty()) {
+            if (!sequenceName1.contains("$S" + content) && !sequenceName2.contains("$S" + content) && !sequenceName3.contains("$S" + content)) {
+                sequenceName4.add("$S" + content);
+                commandInformationSeq.add(0, "$S" + content);
+                if (commandInformationSeq.add(true)) {
+                    nameOfSequence.findViewById(R.id.nameSequence).setVisibility(View.INVISIBLE);
+                    setSequenceName.findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
+                    commandInformationSeq.remove(true);
+                    numOfFramesSelected.findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
+                    setFrames.findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+            }
+        } else if (sequenceName5.isEmpty()) {
+            if (!sequenceName1.contains("$S" + content) && !sequenceName2.contains("$S" + content) && !sequenceName3.contains("$S" + content)
+                    && !sequenceName4.contains("$S" + content)) {
+                sequenceName5.add("$S" + content);
+                commandInformationSeq.add(0, "$S" + content);
+                if (commandInformationSeq.add(true)) {
+                    nameOfSequence.findViewById(R.id.nameSequence).setVisibility(View.INVISIBLE);
+                    setSequenceName.findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
+                    commandInformationSeq.remove(true);
+                    numOfFramesSelected.findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
+                    setFrames.findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+            }
+        } else if (sequenceName6.isEmpty()) {
+            if (!sequenceName1.contains("$S" + content) && !sequenceName2.contains("$S" + content) && !sequenceName3.contains("$S" + content)
+                    && !sequenceName4.contains("$S" + content) && !sequenceName5.contains("$S" + content)) {
+                sequenceName6.add("$S" + content);
+                commandInformationSeq.add(0, "$S" + content);
+                if (commandInformationSeq.add(true)) {
+                    nameOfSequence.findViewById(R.id.nameSequence).setVisibility(View.INVISIBLE);
+                    setSequenceName.findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
+                    commandInformationSeq.remove(true);
+                    numOfFramesSelected.findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
+                    setFrames.findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        TextView t = (TextView) findViewById(R.id.sequenceCreationView);
+        String start = "";
+        for (Object Selections : commandInformationSeq) {
+            start = start + Selections + "\n";
+        }
+        t.setText(start);
+
+    }
+
+    /**
+     * Method to select the amount of frames to be used (sequence)
+     *
+     * @param view
+     */
+    public void numOfFrames(View view) {
+        TextView t = (TextView) findViewById(R.id.sequenceCreationView);
+        String start = "";
+        numOfFramesSelected = findViewById(R.id.setNumFrames);
+        setFrames = findViewById(R.id.numOfFrames);
+
+        frameAmount = findViewById(R.id.frameSelection);
+        setFrame = findViewById(R.id.setFrames);
+
+        selectRepAmount = findViewById(R.id.selectRepetitionAmount);
+        setAmountOfRep = findViewById(R.id.setRepetitionAmount);
+
+        sequenceCreationView = findViewById(R.id.sequenceCreationView);
+        saveTheSequence = findViewById(R.id.saveSequence);
+
+        String content = numOfFramesSelected.getSelectedItem().toString();
+        commandInformationSeq.add(1, "$n00" + content);
+        //Shows the first command after click
+        for (Object Selections : commandInformationSeq) {
+            start = start + Selections + "\n";
+        }
+        t.setText(start);
+
+        //Saves to a seperate array, maybe for saving?
+        framesUsed.add(content);
+
+        Spinner frameList = (Spinner) findViewById(R.id.frameSelection);
+        ArrayList<Object> frameSelections = new ArrayList<Object>();
+
+        frameSelections.add(frameName1.toString());
+        frameSelections.add(frameName2.toString());
+        frameSelections.add(frameName3.toString());
+        frameSelections.add(frameName4.toString());
+        frameSelections.add(frameName5.toString());
+        frameSelections.add(frameName6.toString());
+
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, frameSelections);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        frameList.setAdapter(adapter);
+
+        String frameNameList = frameList.getSelectedItem().toString();
+
+        if (commandInformationSeq.add(true)) {
+            setFrames.findViewById(R.id.numOfFrames).setVisibility(View.INVISIBLE);
+            numOfFramesSelected.findViewById(R.id.setNumFrames).setVisibility(View.INVISIBLE);
+            commandInformationSeq.remove(true);
+            setFrame.findViewById(R.id.setFrames).setVisibility(View.VISIBLE);
+            frameAmount.findViewById(R.id.frameSelection).setVisibility(View.VISIBLE);
+            selectRepAmount.findViewById(R.id.selectRepetitionAmount).setVisibility(View.VISIBLE);
+            setAmountOfRep.findViewById(R.id.setRepetitionAmount).setVisibility(View.VISIBLE);
+            sequenceCreationView.findViewById(R.id.sequenceCreationView).setVisibility(View.VISIBLE);
+            saveTheSequence.findViewById(R.id.saveSequence).setVisibility(View.VISIBLE);
+        }
+        return;
+    }
+
+    /**
+     * Method to set a frame to be used (sequence)
+     *
+     * @param view
+     */
+    public void setTheFrames(View view) {
+        TextView t = (TextView) findViewById(R.id.sequenceCreationView);
+        String finial_commands = "";
+        String finial_selection = "";
+        String fName = "";
+        String name = "";
+
+        numOfFramesSelected = findViewById(R.id.setNumFrames);
+        String framesSelected = numOfFramesSelected.getSelectedItem().toString();
+        int frameLimit = Integer.parseInt(framesSelected);
+        int frameCount = 0;
+
+        frameAmount = findViewById(R.id.frameSelection);
+        setFrame = findViewById(R.id.setFrames);
+
+        selectRepAmount = findViewById(R.id.selectRepetitionAmount);
+        setAmountOfRep = findViewById(R.id.setRepetitionAmount);
+
+        for (Object Sequence : commandInformationSeq) {
+            finial_commands = finial_commands + Sequence + "\n";
+        }
+
+        Spinner frameList = (Spinner) findViewById(R.id.frameSelection);
+
+        String content = frameList.getSelectedItem().toString();
+        if (content.equals(frameName1.toString()) && !frameSelections.contains(frameNameF1)) {
+            totalFrames.add(frameCount);
+            if (totalFrames.size() <= frameLimit) {
+                fName = frameNameF1.toString();
+                name = fName.substring(1, 6);
+                frameSelections.add(name);
+                for (Object Selections : frameSelections) {
+                    finial_selection = finial_selection + Selections + "\n";
+                }
+                t.setText(finial_commands + finial_selection);
+                setFrame.findViewById(R.id.setFrames).setClickable(false);
+                frameAmount.findViewById(R.id.frameSelection).setClickable(false);
+                selectRepAmount.findViewById(R.id.selectRepetitionAmount).setClickable(true);
+                setAmountOfRep.findViewById(R.id.setRepetitionAmount).setClickable(true);
+            } else {
+                Toast.makeText(getApplicationContext(), "Frame Limit Reached", Toast.LENGTH_SHORT).show();
+            }
+        } else if (content.equals(frameName2.toString()) && !frameSelections.contains(frameNameF2)) {
+            totalFrames.add(frameCount);
+            if (totalFrames.size() <= frameLimit) {
+                fName = frameNameF2.toString();
+                name = fName.substring(1, 6);
+                frameSelections.add(name);
+                for (Object Selections : frameSelections) {
+                    finial_selection = finial_selection + Selections + "\n";
+                }
+                t.setText(finial_commands + finial_selection);
+                setFrame.findViewById(R.id.setFrames).setClickable(false);
+                frameAmount.findViewById(R.id.frameSelection).setClickable(false);
+                selectRepAmount.findViewById(R.id.selectRepetitionAmount).setClickable(true);
+                setAmountOfRep.findViewById(R.id.setRepetitionAmount).setClickable(true);
+            } else {
+                Toast.makeText(getApplicationContext(), "Frame Limit Reached", Toast.LENGTH_SHORT).show();
+            }
+        } else if (content.equals(frameName3.toString()) && !frameSelections.contains(frameNameF3)) {
+            totalFrames.add(frameCount);
+            if (totalFrames.size() <= frameLimit) {
+                fName = frameNameF3.toString();
+                name = fName.substring(1, 6);
+                frameSelections.add(name);
+                for (Object Selections : frameSelections) {
+                    finial_selection = finial_selection + Selections + "\n";
+                }
+                t.setText(finial_commands + finial_selection);
+                setFrame.findViewById(R.id.setFrames).setClickable(false);
+                frameAmount.findViewById(R.id.frameSelection).setClickable(false);
+                selectRepAmount.findViewById(R.id.selectRepetitionAmount).setClickable(true);
+                setAmountOfRep.findViewById(R.id.setRepetitionAmount).setClickable(true);
+            } else {
+                Toast.makeText(getApplicationContext(), "Frame Limit Reached", Toast.LENGTH_SHORT).show();
+            }
+        } else if (content.equals(frameName4.toString()) && !frameSelections.contains(frameNameF4)) {
+            totalFrames.add(frameCount);
+            if (totalFrames.size() <= frameLimit) {
+                fName = frameNameF4.toString();
+                name = fName.substring(1, 6);
+                frameSelections.add(name);
+                for (Object Selections : frameSelections) {
+                    finial_selection = finial_selection + Selections + "\n";
+                }
+                t.setText(finial_commands + finial_selection);
+                setFrame.findViewById(R.id.setFrames).setClickable(false);
+                frameAmount.findViewById(R.id.frameSelection).setClickable(false);
+                selectRepAmount.findViewById(R.id.selectRepetitionAmount).setClickable(true);
+                setAmountOfRep.findViewById(R.id.setRepetitionAmount).setClickable(true);
+            } else {
+                Toast.makeText(getApplicationContext(), "Frame Limit Reached", Toast.LENGTH_SHORT).show();
+            }
+        } else if (content.equals(frameName5.toString()) && !frameSelections.contains(frameNameF5)) {
+            totalFrames.add(frameCount);
+            if (totalFrames.size() <= frameLimit) {
+                fName = frameNameF5.toString();
+                name = fName.substring(1, 6);
+                frameSelections.add(name);
+                for (Object Selections : frameSelections) {
+                    finial_selection = finial_selection + Selections + "\n";
+                }
+                t.setText(finial_commands + finial_selection);
+                setFrame.findViewById(R.id.setFrames).setClickable(false);
+                frameAmount.findViewById(R.id.frameSelection).setClickable(false);
+                selectRepAmount.findViewById(R.id.selectRepetitionAmount).setClickable(true);
+                setAmountOfRep.findViewById(R.id.setRepetitionAmount).setClickable(true);
+            } else {
+                Toast.makeText(getApplicationContext(), "Frame Limit Reached", Toast.LENGTH_SHORT).show();
+            }
+        } else if (content.equals(frameName6.toString()) && !frameSelections.contains(frameNameF6)) {
+            totalFrames.add(frameCount);
+            if (totalFrames.size() <= frameLimit) {
+                fName = frameNameF6.toString();
+                name = fName.substring(1, 6);
+                frameSelections.add(name);
+                for (Object Selections : frameSelections) {
+                    finial_selection = finial_selection + Selections + "\n";
+                }
+                t.setText(finial_commands + finial_selection);
+                setFrame.findViewById(R.id.setFrames).setClickable(false);
+                frameAmount.findViewById(R.id.frameSelection).setClickable(false);
+                selectRepAmount.findViewById(R.id.selectRepetitionAmount).setClickable(true);
+                setAmountOfRep.findViewById(R.id.setRepetitionAmount).setClickable(true);
+            } else {
+                Toast.makeText(getApplicationContext(), "Frame Limit Reached", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    /**
+     * Method to set the repetition of the frame (sequence)
+     *
+     * @param view
+     */
+    public void repetitionAmount(View view) {
+        TextView t = (TextView) findViewById(R.id.sequenceCreationView);
+        String rep = "";
+        String finial_commands = "";
+        String finial_selection = "";
+        frameAmount = findViewById(R.id.frameSelection);
+        setFrame = findViewById(R.id.setFrames);
+
+        selectRepAmount = findViewById(R.id.selectRepetitionAmount);
+        setAmountOfRep = findViewById(R.id.setRepetitionAmount);
+
+        String content = selectRepAmount.getSelectedItem().toString();
+        frameSelections.add("$r00" + content);
+
+        numOfFramesSelected = findViewById(R.id.setNumFrames);
+        String framesSelected = numOfFramesSelected.getSelectedItem().toString();
+        int frameLimit = Integer.parseInt(framesSelected);
+
+        //Shows the first command after click
+        for (Object Sequence : commandInformationSeq) {
+            finial_commands = finial_commands + Sequence + "\n";
+        }
+        for (Object Selections : frameSelections) {
+            finial_selection = finial_selection + Selections + "\n";
+        }
+        t.setText(finial_commands + finial_selection);
+
+        if (totalFrames.size() == frameLimit) {
+            frameSelections.remove(true);
+            setFrame.findViewById(R.id.setFrames).setClickable(false);
+            frameAmount.findViewById(R.id.frameSelection).setClickable(false);
+            selectRepAmount.findViewById(R.id.selectRepetitionAmount).setClickable(false);
+            setAmountOfRep.findViewById(R.id.setRepetitionAmount).setClickable(false);
+        } else if (frameSelections.add(true)) {
+            frameSelections.remove(true);
+            setFrame.findViewById(R.id.setFrames).setClickable(true);
+            frameAmount.findViewById(R.id.frameSelection).setClickable(true);
+            selectRepAmount.findViewById(R.id.selectRepetitionAmount).setClickable(false);
+            setAmountOfRep.findViewById(R.id.setRepetitionAmount).setClickable(false);
+        }
+/*        if (frameSelections.add(true)) {
+            frameSelections.remove(true);
+            setFrame.findViewById(R.id.setFrames).setClickable(true);
+            frameAmount.findViewById(R.id.frameSelection).setClickable(true);
+            selectRepAmount.findViewById(R.id.selectRepetitionAmount).setClickable(false);
+            setAmountOfRep.findViewById(R.id.setRepetitionAmount).setClickable(false);
+        }*/
+
+    }
+
+    /**
+     * Method to save the sequence (sequence)
+     */
+    private void saveSequenceData() {
+        nameOfSequence = findViewById(R.id.nameSequence);
+        setSequenceName = findViewById(R.id.setSequenceName);
+
+        frameAmount = findViewById(R.id.frameSelection);
+        setFrame = findViewById(R.id.setFrames);
+        selectRepAmount = findViewById(R.id.selectRepetitionAmount);
+        setAmountOfRep = findViewById(R.id.setRepetitionAmount);
+        sequenceCreationView = findViewById(R.id.sequenceCreationView);
+
+        numOfFramesSelected = findViewById(R.id.setNumFrames);
+        String framesSelected = numOfFramesSelected.getSelectedItem().toString();
+        int frameLimit = Integer.parseInt(framesSelected);
+        if (totalFrames.size() == frameLimit) {
+            if (sequenceFinished1.isEmpty()) {
+                frameSelections.add("$T001");
+                sequenceFinished1.add("" + commandInformationSeq + frameSelections);
+                Toast.makeText(getApplicationContext(), "Frame Saved1" + sequenceFinished1, Toast.LENGTH_SHORT).show();
+            } else if (sequenceFinished2.isEmpty()) {
+                frameSelections.add("$T001");
+                sequenceFinished2.add("" + commandInformationSeq + frameSelections);
+                Toast.makeText(getApplicationContext(), "Frame Saved1" + sequenceFinished1, Toast.LENGTH_SHORT).show();
+            } else if (sequenceFinished3.isEmpty()) {
+                frameSelections.add("$T001");
+                sequenceFinished3.add("" + commandInformationSeq + frameSelections);
+                Toast.makeText(getApplicationContext(), "Frame Saved1" + sequenceFinished1, Toast.LENGTH_SHORT).show();
+            } else if (sequenceFinished4.isEmpty()) {
+                frameSelections.add("$T001");
+                sequenceFinished4.add("" + commandInformationSeq + frameSelections);
+                Toast.makeText(getApplicationContext(), "Frame Saved1" + sequenceFinished1, Toast.LENGTH_SHORT).show();
+            } else if (sequenceFinished5.isEmpty()) {
+                frameSelections.add("$T001");
+                sequenceFinished5.add("" + commandInformationSeq + frameSelections);
+                Toast.makeText(getApplicationContext(), "Frame Saved1" + sequenceFinished1, Toast.LENGTH_SHORT).show();
+            } else if (sequenceFinished6.isEmpty()) {
+                frameSelections.add("$T001");
+                sequenceFinished6.add("" + commandInformationSeq + frameSelections);
+                Toast.makeText(getApplicationContext(), "Frame Saved1" + sequenceFinished1, Toast.LENGTH_SHORT).show();
+            }
+
+            pinSelection.clear();
+            commandInformation.clear();
+            coilsUsed.clear();
+
+            nameOfSequence.findViewById(R.id.nameSequence).setVisibility(View.VISIBLE);
+            setSequenceName.findViewById(R.id.setSequenceName).setVisibility(View.VISIBLE);
+
+            setFrame.findViewById(R.id.setFrames).setVisibility(View.INVISIBLE);
+            frameAmount.findViewById(R.id.frameSelection).setVisibility(View.INVISIBLE);
+            selectRepAmount.findViewById(R.id.selectRepetitionAmount).setVisibility(View.INVISIBLE);
+            setAmountOfRep.findViewById(R.id.setRepetitionAmount).setVisibility(View.INVISIBLE);
+            sequenceCreationView.findViewById(R.id.sequenceCreationView).setVisibility(View.INVISIBLE);
+
+        } else {
+            Toast.makeText(getApplicationContext(), "Please add more frames to make your selection of  " + totalFrames, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    public void saveTheSequence(View view) {
+        saveSequenceData();
     }
 }

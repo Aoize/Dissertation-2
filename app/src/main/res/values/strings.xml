@@ -15,6 +15,8 @@
     <string name="sequence_creation">Sequence Creation</string>
     <string name="make_frame">Make Frame</string>
 
+    <!--frame stuff-->
+
     <string-array name="coils_used">
         <item>1</item>
         <item>2</item>
@@ -45,6 +47,32 @@
         <item>003</item>
         <item>004</item>
         <item>005</item>
+    </string-array>
+
+    <!--sequence stuff-->
+
+    <string-array name="name_sequence">
+        <item>000</item>
+        <item>001</item>
+        <item>002</item>
+        <item>003</item>
+        <item>004</item>
+        <item>005</item>
+    </string-array>
+
+    <string-array name="frames_used">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
+    <string-array name="repetition_amount">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
     </string-array>
 
 </resources>
