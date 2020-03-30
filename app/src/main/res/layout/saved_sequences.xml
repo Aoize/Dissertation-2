@@ -38,7 +38,7 @@
         android:layout_marginRight="156dp"
         android:layout_marginBottom="444dp"
         android:onClick="reloadTheSequenceList"
-        android:text="Reload the Sequence List"
+        android:text="@string/reload_sequence"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -51,7 +51,7 @@
         android:layout_marginRight="128dp"
         android:layout_marginBottom="308dp"
         android:onClick="viewTheSelectedSequence"
-        android:text="View the selected Sequence"
+        android:text="@string/view_sequence"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

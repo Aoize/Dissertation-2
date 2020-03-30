@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -39,7 +38,7 @@
         android:layout_marginRight="80dp"
         android:layout_marginBottom="484dp"
         android:onClick="reloadFramesAndSequences"
-        android:text="Reload Frames and Sequences"
+        android:text="@string/reload_frame_sequence"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -52,7 +51,7 @@
         android:layout_marginRight="32dp"
         android:layout_marginBottom="304dp"
         android:onClick="export"
-        android:text="Export the selected Frame or Sequence"
+        android:text="@string/export_frame_sequence"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -75,7 +74,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="148dp"
-        android:text="Your file is saved to the Directory shown below."
+        android:text="@string/directory"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

@@ -42,15 +42,14 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     //Frame and Sequence creation stuff
-    Button setCoils, setDelay, setOnTime, setFrameName, saveFrame, setSequenceName, setFrames, setFrame,
-            setAmountOfRep, saveTheSequence;
+    Button setSequenceName, setFrame,
+            setAmountOfRep, saveTheSequence, resetFramesUsed;
 
     Spinner numOfCoils, amountOfDelay, amountOfOnTime, nameOfFrame, nameOfSequence, numOfFramesSelected,
             frameAmount, selectRepAmount;
 
-    TextView frameCreationView, indexFinger, middleFinger, ringFinger, firstCoil, secondCoil,
-            thirdCoil, fourthCoil, fifthCoil, sixthCoil, seventhCoil, eighthCoil, counter, coilsCounter,
-            sequenceCreationView;
+    TextView counter,
+            sequenceCreationView, frameCounter, framesUsedCounter;
 
     CheckBox pin0, pin1, pin2, pin3, pin4, pin5, pin6, pin7, pin8, pin9, pin10, pin11, pin12, pin13,
             pin14, pin15, pin16, pin17, pin18, pin19, pin20, pin21, pin22, pin23, pin24, pin25,
@@ -154,12 +153,11 @@ public class MainActivity extends AppCompatActivity {
     public void pin(View view) {
         numOfCoils = findViewById(R.id.numberOfCoils);
         counter = findViewById(R.id.counter);
-        frameCreationView = findViewById(R.id.frameCreationView);
 
         String finial_commands = "";
         String finial_selection = "";
         boolean checked = ((CheckBox) view).isChecked();
-        TextView t = frameCreationView;
+        TextView t = findViewById(R.id.frameCreationView);
         String coilsSelected = numOfCoils.getSelectedItem().toString();
         int coilLimit = Integer.parseInt(coilsSelected);
         int coilCount = 0;
@@ -3252,99 +3250,195 @@ public class MainActivity extends AppCompatActivity {
      */
     public void nameTheFrame(View view) {
         nameOfFrame = findViewById(R.id.nameFrame);
-        setFrameName = findViewById(R.id.setFrameName);
-        numOfCoils = findViewById(R.id.numberOfCoils);
-        setCoils = findViewById(R.id.setCoils);
 
         String content = nameOfFrame.getSelectedItem().toString();
 
-        if (frameName1.isEmpty()) {
-            frameName1.add("$F" + content);
-            frameNameF1.add("$f" + content);
-            commandInformation.add(0, "$F" + content);
-            if (commandInformation.add(true)) {
-                nameOfFrame.setVisibility(View.INVISIBLE);
-                setFrameName.setVisibility(View.INVISIBLE);
-                commandInformation.remove(true);
-                numOfCoils.setVisibility(View.VISIBLE);
-                setCoils.setVisibility(View.VISIBLE);
-            }
-        } else if (frameName2.isEmpty()) {
-            if (!frameName1.contains("$F" + content)) {
-                frameName2.add("$F" + content);
-                frameNameF2.add("$f" + content);
+        if (commandInformation.isEmpty()) {
+            if (frameName1.isEmpty()) {
+                frameName1.add("$F" + content);
+                frameNameF1.add("$f" + content);
                 commandInformation.add(0, "$F" + content);
                 if (commandInformation.add(true)) {
                     nameOfFrame.setVisibility(View.INVISIBLE);
-                    setFrameName.setVisibility(View.INVISIBLE);
+                    findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
                     commandInformation.remove(true);
-                    numOfCoils.setVisibility(View.VISIBLE);
-                    setCoils.setVisibility(View.VISIBLE);
+                    findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                    findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
                 }
-            } else {
-                Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+            } else if (frameName2.isEmpty()) {
+                if (!frameName1.contains("$F" + content)) {
+                    frameName2.add("$F" + content);
+                    frameNameF2.add("$f" + content);
+                    commandInformation.add(0, "$F" + content);
+                    if (commandInformation.add(true)) {
+                        nameOfFrame.setVisibility(View.INVISIBLE);
+                        findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                        commandInformation.remove(true);
+                        findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                        findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+                }
+            } else if (frameName3.isEmpty()) {
+                if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content)) {
+                    frameName3.add("$F" + content);
+                    frameNameF3.add("$f" + content);
+                    commandInformation.add(0, "$F" + content);
+                    if (commandInformation.add(true)) {
+                        nameOfFrame.setVisibility(View.INVISIBLE);
+                        findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                        commandInformation.remove(true);
+                        findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                        findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+                }
+            } else if (frameName4.isEmpty()) {
+                if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)) {
+                    frameName4.add("$F" + content);
+                    frameNameF4.add("$f" + content);
+                    commandInformation.add(0, "$F" + content);
+                    if (commandInformation.add(true)) {
+                        nameOfFrame.setVisibility(View.INVISIBLE);
+                        findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                        commandInformation.remove(true);
+                        findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                        findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+                }
+            } else if (frameName5.isEmpty()) {
+                if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)
+                        && !frameName4.contains("$F" + content)) {
+                    frameName5.add("$F" + content);
+                    frameNameF5.add("$f" + content);
+                    commandInformation.add(0, "$F" + content);
+                    if (commandInformation.add(true)) {
+                        nameOfFrame.setVisibility(View.INVISIBLE);
+                        findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                        commandInformation.remove(true);
+                        findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                        findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+                }
+            } else if (frameName6.isEmpty()) {
+                if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)
+                        && !frameName4.contains("$F" + content) && !frameName5.contains("$F" + content)) {
+                    frameName6.add("$F" + content);
+                    frameNameF6.add("$f" + content);
+                    commandInformation.add(0, "$F" + content);
+                    if (commandInformation.add(true)) {
+                        nameOfFrame.setVisibility(View.INVISIBLE);
+                        findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                        commandInformation.remove(true);
+                        findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                        findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+                }
             }
-        } else if (frameName3.isEmpty()) {
-            if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content)) {
-                frameName3.add("$F" + content);
-                frameNameF3.add("$f" + content);
+        } else if (!commandInformation.isEmpty()) {
+            commandInformation.clear();
+            frameName1.clear();
+            frameName2.clear();
+            frameName3.clear();
+            frameName4.clear();
+            frameName5.clear();
+            frameName6.clear();
+            if (frameName1.isEmpty()) {
+                frameName1.add("$F" + content);
+                frameNameF1.add("$f" + content);
                 commandInformation.add(0, "$F" + content);
                 if (commandInformation.add(true)) {
                     nameOfFrame.setVisibility(View.INVISIBLE);
-                    setFrameName.setVisibility(View.INVISIBLE);
+                    findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
                     commandInformation.remove(true);
-                    numOfCoils.setVisibility(View.VISIBLE);
-                    setCoils.setVisibility(View.VISIBLE);
+                    findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                    findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
                 }
-            } else {
-                Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
-            }
-        } else if (frameName4.isEmpty()) {
-            if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)) {
-                frameName4.add("$F" + content);
-                frameNameF4.add("$f" + content);
-                commandInformation.add(0, "$F" + content);
-                if (commandInformation.add(true)) {
-                    nameOfFrame.setVisibility(View.INVISIBLE);
-                    setFrameName.setVisibility(View.INVISIBLE);
-                    commandInformation.remove(true);
-                    numOfCoils.setVisibility(View.VISIBLE);
-                    setCoils.setVisibility(View.VISIBLE);
+            } else if (frameName2.isEmpty()) {
+                if (!frameName1.contains("$F" + content)) {
+                    frameName2.add("$F" + content);
+                    frameNameF2.add("$f" + content);
+                    commandInformation.add(0, "$F" + content);
+                    if (commandInformation.add(true)) {
+                        nameOfFrame.setVisibility(View.INVISIBLE);
+                        findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                        commandInformation.remove(true);
+                        findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                        findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
                 }
-            } else {
-                Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
-            }
-        } else if (frameName5.isEmpty()) {
-            if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)
-                    && !frameName4.contains("$F" + content)) {
-                frameName5.add("$F" + content);
-                frameNameF5.add("$f" + content);
-                commandInformation.add(0, "$F" + content);
-                if (commandInformation.add(true)) {
-                    nameOfFrame.setVisibility(View.INVISIBLE);
-                    setFrameName.setVisibility(View.INVISIBLE);
-                    commandInformation.remove(true);
-                    numOfCoils.setVisibility(View.VISIBLE);
-                    setCoils.setVisibility(View.VISIBLE);
+            } else if (frameName3.isEmpty()) {
+                if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content)) {
+                    frameName3.add("$F" + content);
+                    frameNameF3.add("$f" + content);
+                    commandInformation.add(0, "$F" + content);
+                    if (commandInformation.add(true)) {
+                        nameOfFrame.setVisibility(View.INVISIBLE);
+                        findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                        commandInformation.remove(true);
+                        findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                        findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
                 }
-            } else {
-                Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
-            }
-        } else if (frameName6.isEmpty()) {
-            if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)
-                    && !frameName4.contains("$F" + content) && !frameName5.contains("$F" + content)) {
-                frameName6.add("$F" + content);
-                frameNameF6.add("$f" + content);
-                commandInformation.add(0, "$F" + content);
-                if (commandInformation.add(true)) {
-                    nameOfFrame.setVisibility(View.INVISIBLE);
-                    setFrameName.setVisibility(View.INVISIBLE);
-                    commandInformation.remove(true);
-                    numOfCoils.setVisibility(View.VISIBLE);
-                    setCoils.setVisibility(View.VISIBLE);
+            } else if (frameName4.isEmpty()) {
+                if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)) {
+                    frameName4.add("$F" + content);
+                    frameNameF4.add("$f" + content);
+                    commandInformation.add(0, "$F" + content);
+                    if (commandInformation.add(true)) {
+                        nameOfFrame.setVisibility(View.INVISIBLE);
+                        findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                        commandInformation.remove(true);
+                        findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                        findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
                 }
-            } else {
-                Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+            } else if (frameName5.isEmpty()) {
+                if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)
+                        && !frameName4.contains("$F" + content)) {
+                    frameName5.add("$F" + content);
+                    frameNameF5.add("$f" + content);
+                    commandInformation.add(0, "$F" + content);
+                    if (commandInformation.add(true)) {
+                        nameOfFrame.setVisibility(View.INVISIBLE);
+                        findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                        commandInformation.remove(true);
+                        findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                        findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+                }
+            } else if (frameName6.isEmpty()) {
+                if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)
+                        && !frameName4.contains("$F" + content) && !frameName5.contains("$F" + content)) {
+                    frameName6.add("$F" + content);
+                    frameNameF6.add("$f" + content);
+                    commandInformation.add(0, "$F" + content);
+                    if (commandInformation.add(true)) {
+                        nameOfFrame.setVisibility(View.INVISIBLE);
+                        findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                        commandInformation.remove(true);
+                        findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                        findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+                }
             }
         }
 
@@ -3354,8 +3448,6 @@ public class MainActivity extends AppCompatActivity {
             start = start + Selections + "\n";
         }
         t.setText(start);
-
-        return;
     }
 
     /**
@@ -3365,12 +3457,8 @@ public class MainActivity extends AppCompatActivity {
      */
     public void setTheCoils(View view) {
         numOfCoils = findViewById(R.id.numberOfCoils);
-        setCoils = findViewById(R.id.setCoils);
-        amountOfDelay = findViewById(R.id.amountOfDelay);
-        setDelay = findViewById(R.id.setDelay);
-        frameCreationView = findViewById(R.id.frameCreationView);
 
-        TextView t = frameCreationView;
+        TextView t = findViewById(R.id.frameCreationView);
         String start = "";
 
         String content = numOfCoils.getSelectedItem().toString();
@@ -3385,11 +3473,11 @@ public class MainActivity extends AppCompatActivity {
         coilsUsed.add(content);
 
         if (commandInformation.add(true)) {
-            setCoils.findViewById(R.id.setCoils).setVisibility(View.INVISIBLE);
-            numOfCoils.findViewById(R.id.numberOfCoils).setVisibility(View.INVISIBLE);
+            findViewById(R.id.setCoils).setVisibility(View.INVISIBLE);
+            findViewById(R.id.numberOfCoils).setVisibility(View.INVISIBLE);
             commandInformation.remove(true);
-            setDelay.findViewById(R.id.setDelay).setVisibility(View.VISIBLE);
-            amountOfDelay.findViewById(R.id.amountOfDelay).setVisibility(View.VISIBLE);
+            findViewById(R.id.setDelay).setVisibility(View.VISIBLE);
+            findViewById(R.id.amountOfDelay).setVisibility(View.VISIBLE);
         }
     }
 
@@ -3400,10 +3488,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public void setTheDelay(View view) {
         amountOfDelay = findViewById(R.id.amountOfDelay);
-        setDelay = findViewById(R.id.setDelay);
-        amountOfOnTime = findViewById(R.id.amountOfOnTime);
-        setOnTime = findViewById(R.id.setOnTime);
-        frameCreationView = findViewById(R.id.frameCreationView);
 
         String content = amountOfDelay.getSelectedItem().toString();
         if (content.equals("Slow")) {
@@ -3414,7 +3498,7 @@ public class MainActivity extends AppCompatActivity {
             commandInformation.add(2, "$D060");
         }
 
-        TextView t = frameCreationView;
+        TextView t = findViewById(R.id.frameCreationView);
         String start = "";
         for (Object Selections : commandInformation) {
             start = start + Selections + "\n";
@@ -3422,12 +3506,11 @@ public class MainActivity extends AppCompatActivity {
         t.setText(start);
 
         if (commandInformation.add(true)) {
-
-            setDelay.findViewById(R.id.setDelay).setVisibility(View.INVISIBLE);
-            amountOfDelay.findViewById(R.id.amountOfDelay).setVisibility(View.INVISIBLE);
+            findViewById(R.id.setDelay).setVisibility(View.INVISIBLE);
+            findViewById(R.id.amountOfDelay).setVisibility(View.INVISIBLE);
             commandInformation.remove(true);
-            setOnTime.findViewById(R.id.setOnTime).setVisibility(View.VISIBLE);
-            amountOfOnTime.findViewById(R.id.amountOfOnTime).setVisibility(View.VISIBLE);
+            findViewById(R.id.setOnTime).setVisibility(View.VISIBLE);
+            findViewById(R.id.amountOfOnTime).setVisibility(View.VISIBLE);
         }
     }
 
@@ -3438,28 +3521,9 @@ public class MainActivity extends AppCompatActivity {
      */
     public void setTheOnTime(View view) {
         amountOfOnTime = findViewById(R.id.amountOfOnTime);
-        setOnTime = findViewById(R.id.setOnTime);
-        frameCreationView = findViewById(R.id.frameCreationView);
-        saveFrame = findViewById(R.id.saveFrame);
-        indexFinger = findViewById(R.id.indexFinger);
-        middleFinger = findViewById(R.id.middleFinger);
-        ringFinger = findViewById(R.id.ringFinger);
-        counter = findViewById(R.id.counter);
-        coilsCounter = findViewById(R.id.coilsCounter);
-
-        firstCoil = findViewById(R.id.firstCoil);
-        secondCoil = findViewById(R.id.secondCoil);
-        thirdCoil = findViewById(R.id.thirdCoil);
-        fourthCoil = findViewById(R.id.fourthCoil);
-        fifthCoil = findViewById(R.id.fifthCoil);
-        sixthCoil = findViewById(R.id.sixthCoil);
-        seventhCoil = findViewById(R.id.seventhCoil);
-        eighthCoil = findViewById(R.id.eighthCoil);
 
         numOfCoils = findViewById(R.id.numberOfCoils);
         String coilNumber = numOfCoils.getSelectedItem().toString();
-
-        findViewById(R.id.pin0);
 
         String content = amountOfOnTime.getSelectedItem().toString();
         if (content.equals("Short")) {
@@ -3470,7 +3534,7 @@ public class MainActivity extends AppCompatActivity {
             commandInformation.add(3, "$P030");
         }
 
-        TextView t = frameCreationView;
+        TextView t = findViewById(R.id.frameCreationView);
         String start = "";
         for (Object Selections : commandInformation) {
             start = start + Selections + "\n";
@@ -3478,61 +3542,61 @@ public class MainActivity extends AppCompatActivity {
         t.setText(start);
 
         if (commandInformation.add(true)) {
-            setOnTime.setVisibility(View.INVISIBLE);
+            findViewById(R.id.setOnTime).setVisibility(View.INVISIBLE);
             amountOfOnTime.setVisibility(View.INVISIBLE);
             commandInformation.remove(true);
-            counter.setVisibility(View.VISIBLE);
-            indexFinger.setVisibility(View.VISIBLE);
-            middleFinger.setVisibility(View.VISIBLE);
-            ringFinger.setVisibility(View.VISIBLE);
-            frameCreationView.setVisibility(View.VISIBLE);
-            saveFrame.setVisibility(View.VISIBLE);
-            coilsCounter.setVisibility(View.VISIBLE);
+            findViewById(R.id.counter).setVisibility(View.VISIBLE);
+            findViewById(R.id.indexFinger).setVisibility(View.VISIBLE);
+            findViewById(R.id.middleFinger).setVisibility(View.VISIBLE);
+            findViewById(R.id.ringFinger).setVisibility(View.VISIBLE);
+            findViewById(R.id.frameCreationView).setVisibility(View.VISIBLE);
+            findViewById(R.id.saveFrame).setVisibility(View.VISIBLE);
+            findViewById(R.id.coilsCounter).setVisibility(View.VISIBLE);
 
             if (coilNumber.equals("1")) {
-                firstCoil.setVisibility(View.VISIBLE);
+                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
             } else if (coilNumber.equals("2")) {
-                firstCoil.setVisibility(View.VISIBLE);
-                secondCoil.setVisibility(View.VISIBLE);
+                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.secondCoil).setVisibility(View.VISIBLE);
             } else if (coilNumber.equals("3")) {
-                firstCoil.setVisibility(View.VISIBLE);
-                secondCoil.setVisibility(View.VISIBLE);
-                thirdCoil.setVisibility(View.VISIBLE);
+                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.secondCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.thirdCoil).setVisibility(View.VISIBLE);
             } else if (coilNumber.equals("4")) {
-                firstCoil.setVisibility(View.VISIBLE);
-                secondCoil.setVisibility(View.VISIBLE);
-                thirdCoil.setVisibility(View.VISIBLE);
-                fourthCoil.setVisibility(View.VISIBLE);
+                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.secondCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.thirdCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.fourthCoil).setVisibility(View.VISIBLE);
             } else if (coilNumber.equals("5")) {
-                firstCoil.setVisibility(View.VISIBLE);
-                secondCoil.setVisibility(View.VISIBLE);
-                thirdCoil.setVisibility(View.VISIBLE);
-                fourthCoil.setVisibility(View.VISIBLE);
-                fifthCoil.setVisibility(View.VISIBLE);
+                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.secondCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.thirdCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.fourthCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.fifthCoil).setVisibility(View.VISIBLE);
             } else if (coilNumber.equals("6")) {
-                firstCoil.setVisibility(View.VISIBLE);
-                secondCoil.setVisibility(View.VISIBLE);
-                thirdCoil.setVisibility(View.VISIBLE);
-                fourthCoil.setVisibility(View.VISIBLE);
-                fifthCoil.setVisibility(View.VISIBLE);
-                sixthCoil.setVisibility(View.VISIBLE);
+                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.secondCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.thirdCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.fourthCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.fifthCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.sixthCoil).setVisibility(View.VISIBLE);
             } else if (coilNumber.equals("7")) {
-                firstCoil.setVisibility(View.VISIBLE);
-                secondCoil.setVisibility(View.VISIBLE);
-                thirdCoil.setVisibility(View.VISIBLE);
-                fourthCoil.setVisibility(View.VISIBLE);
-                fifthCoil.setVisibility(View.VISIBLE);
-                sixthCoil.setVisibility(View.VISIBLE);
-                seventhCoil.setVisibility(View.VISIBLE);
+                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.secondCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.thirdCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.fourthCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.fifthCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.sixthCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.seventhCoil).setVisibility(View.VISIBLE);
             } else if (coilNumber.equals("8")) {
-                firstCoil.setVisibility(View.VISIBLE);
-                secondCoil.setVisibility(View.VISIBLE);
-                thirdCoil.setVisibility(View.VISIBLE);
-                fourthCoil.setVisibility(View.VISIBLE);
-                fifthCoil.setVisibility(View.VISIBLE);
-                sixthCoil.setVisibility(View.VISIBLE);
-                seventhCoil.setVisibility(View.VISIBLE);
-                eighthCoil.setVisibility(View.VISIBLE);
+                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.secondCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.thirdCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.fourthCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.fifthCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.sixthCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.seventhCoil).setVisibility(View.VISIBLE);
+                findViewById(R.id.eighthCoil).setVisibility(View.VISIBLE);
             }
 
             findViewById(R.id.pin0).setVisibility(View.VISIBLE);
@@ -3606,20 +3670,7 @@ public class MainActivity extends AppCompatActivity {
      * Method to save data from a frame (frame)
      */
     private void saveData() {
-        frameCreationView = findViewById(R.id.frameCreationView);
-        nameOfFrame = findViewById(R.id.nameFrame);
-        setFrameName = findViewById(R.id.setFrameName);
-        indexFinger = findViewById(R.id.indexFinger);
-        middleFinger = findViewById(R.id.middleFinger);
-        ringFinger = findViewById(R.id.ringFinger);
-        firstCoil = findViewById(R.id.firstCoil);
-        secondCoil = findViewById(R.id.secondCoil);
-        thirdCoil = findViewById(R.id.thirdCoil);
-        fourthCoil = findViewById(R.id.fourthCoil);
-        fifthCoil = findViewById(R.id.fifthCoil);
-        sixthCoil = findViewById(R.id.sixthCoil);
-        seventhCoil = findViewById(R.id.seventhCoil);
-        eighthCoil = findViewById(R.id.eighthCoil);
+        counter = findViewById(R.id.counter);
 
         pin0 = findViewById(R.id.pin0);
         pin1 = findViewById(R.id.pin1);
@@ -3686,8 +3737,6 @@ public class MainActivity extends AppCompatActivity {
         pin62 = findViewById(R.id.pin62);
         pin63 = findViewById(R.id.pin63);
 
-        counter = findViewById(R.id.counter);
-
         String contents = numOfCoils.getSelectedItem().toString();
         int coilLimit = Integer.parseInt(contents);
         if (totals.size() == coilLimit) {
@@ -3725,23 +3774,23 @@ public class MainActivity extends AppCompatActivity {
             coilCounter = 0;
             counter.setText(String.valueOf(coilCounter));
 
-            nameOfFrame.setVisibility(View.VISIBLE);
-            setFrameName.setVisibility(View.VISIBLE);
-            indexFinger.setVisibility(View.INVISIBLE);
             counter.setVisibility(View.INVISIBLE);
-            coilsCounter.setVisibility(View.INVISIBLE);
-            middleFinger.setVisibility(View.INVISIBLE);
-            ringFinger.setVisibility(View.INVISIBLE);
-            frameCreationView.setVisibility(View.INVISIBLE);
-            saveFrame.setVisibility(View.INVISIBLE);
-            firstCoil.setVisibility(View.INVISIBLE);
-            secondCoil.setVisibility(View.INVISIBLE);
-            thirdCoil.setVisibility(View.INVISIBLE);
-            fourthCoil.setVisibility(View.INVISIBLE);
-            fifthCoil.setVisibility(View.INVISIBLE);
-            sixthCoil.setVisibility(View.INVISIBLE);
-            seventhCoil.setVisibility(View.INVISIBLE);
-            eighthCoil.setVisibility(View.INVISIBLE);
+            findViewById(R.id.coilsCounter).setVisibility(View.INVISIBLE);
+            findViewById(R.id.saveFrame).setVisibility(View.INVISIBLE);
+            findViewById(R.id.nameFrame).setVisibility(View.VISIBLE);
+            findViewById(R.id.setFrameName).setVisibility(View.VISIBLE);
+            findViewById(R.id.indexFinger).setVisibility(View.INVISIBLE);
+            findViewById(R.id.middleFinger).setVisibility(View.INVISIBLE);
+            findViewById(R.id.ringFinger).setVisibility(View.INVISIBLE);
+            findViewById(R.id.frameCreationView).setVisibility(View.INVISIBLE);
+            findViewById(R.id.firstCoil).setVisibility(View.INVISIBLE);
+            findViewById(R.id.secondCoil).setVisibility(View.INVISIBLE);
+            findViewById(R.id.thirdCoil).setVisibility(View.INVISIBLE);
+            findViewById(R.id.fourthCoil).setVisibility(View.INVISIBLE);
+            findViewById(R.id.fifthCoil).setVisibility(View.INVISIBLE);
+            findViewById(R.id.sixthCoil).setVisibility(View.INVISIBLE);
+            findViewById(R.id.seventhCoil).setVisibility(View.INVISIBLE);
+            findViewById(R.id.eighthCoil).setVisibility(View.INVISIBLE);
 
             pin0.setChecked(false);
             pin0.setBackgroundColor(Color.TRANSPARENT);
@@ -4139,4379 +4188,4403 @@ public class MainActivity extends AppCompatActivity {
 
         if (!text.contains("[]")) {
             if (text.equals(frameName1.toString())) {
-                text = frameFinished1.toString();
-                frameSequenceName = text.substring(2, 7);
-                frameSequenceName = frameSequenceName + ".txt";
-                if (text.length() == 44) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                if (!frameFinished1.isEmpty()) {
+                    text = frameFinished1.toString();
+                    frameSequenceName = text.substring(2, 7);
+                    frameSequenceName = frameSequenceName + ".txt";
+                    if (text.length() == 44) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second;
-                } else if (text.length() == 51) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second;
+                    } else if (text.length() == 51) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third;
-                } else if (text.length() == 58) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third;
+                    } else if (text.length() == 58) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth;
-                } else if (text.length() == 65) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth;
+                    } else if (text.length() == 65) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth;
-                } else if (text.length() == 72) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth;
+                    } else if (text.length() == 72) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth;
-                } else if (text.length() == 79) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth;
+                    } else if (text.length() == 79) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
-                    seventh = text.substring(72, 77);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
+                        seventh = text.substring(72, 77);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth + newLine + seventh;
-                } else if (text.length() == 86) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth + newLine + seventh;
+                    } else if (text.length() == 86) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
-                    seventh = text.substring(72, 77);
-                    eighth = text.substring(79, 84);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
+                        seventh = text.substring(72, 77);
+                        eighth = text.substring(79, 84);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth + newLine + seventh + newLine + eighth;
-                } else if (text.length() == 93) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth + newLine + seventh + newLine + eighth;
+                    } else if (text.length() == 93) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
-                    seventh = text.substring(72, 77);
-                    eighth = text.substring(79, 84);
-                    ninth = text.substring(86, 91);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
+                        seventh = text.substring(72, 77);
+                        eighth = text.substring(79, 84);
+                        ninth = text.substring(86, 91);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth;
-                }
-                File dir = new File(path, frameSequenceName);
-
-                try {
-                    FileOutputStream fos = new FileOutputStream(dir);
-                    fos.write(text.getBytes());
-                    t.setText(dir.toString());
-                    fos.flush();
-                    fos.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth;
+                    }
+                    File dir = new File(path, frameSequenceName);
+                    try {
+                        FileOutputStream fos = new FileOutputStream(dir);
+                        fos.write(text.getBytes());
+                        t.setText(dir.toString());
+                        fos.flush();
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else if (frameFinished1.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Nothing inside this frame to export", Toast.LENGTH_SHORT).show();
                 }
             }
             if (text.equals(frameName2.toString())) {
-                text = frameFinished2.toString();
-                frameSequenceName = text.substring(2, 7);
-                frameSequenceName = frameSequenceName + ".txt";
-                if (text.length() == 44) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                if (!frameFinished2.isEmpty()) {
+                    text = frameFinished2.toString();
+                    frameSequenceName = text.substring(2, 7);
+                    frameSequenceName = frameSequenceName + ".txt";
+                    if (text.length() == 44) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second;
-                } else if (text.length() == 51) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second;
+                    } else if (text.length() == 51) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third;
-                } else if (text.length() == 58) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third;
+                    } else if (text.length() == 58) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth;
-                } else if (text.length() == 65) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth;
+                    } else if (text.length() == 65) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth;
-                } else if (text.length() == 72) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth;
+                    } else if (text.length() == 72) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth;
-                } else if (text.length() == 79) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth;
+                    } else if (text.length() == 79) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
-                    seventh = text.substring(72, 77);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
+                        seventh = text.substring(72, 77);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth + newLine + seventh;
-                } else if (text.length() == 86) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth + newLine + seventh;
+                    } else if (text.length() == 86) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
-                    seventh = text.substring(72, 77);
-                    eighth = text.substring(79, 84);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
+                        seventh = text.substring(72, 77);
+                        eighth = text.substring(79, 84);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth + newLine + seventh + newLine + eighth;
-                } else if (text.length() == 93) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth + newLine + seventh + newLine + eighth;
+                    } else if (text.length() == 93) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
-                    seventh = text.substring(72, 77);
-                    eighth = text.substring(79, 84);
-                    ninth = text.substring(86, 91);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
+                        seventh = text.substring(72, 77);
+                        eighth = text.substring(79, 84);
+                        ninth = text.substring(86, 91);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth;
-                }
-                File dir = new File(path, frameSequenceName);
-
-                try {
-                    FileOutputStream fos = new FileOutputStream(dir);
-                    fos.write(text.getBytes());
-                    t.setText(dir.toString());
-                    fos.flush();
-                    fos.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth;
+                    }
+                    File dir = new File(path, frameSequenceName);
+                    try {
+                        FileOutputStream fos = new FileOutputStream(dir);
+                        fos.write(text.getBytes());
+                        t.setText(dir.toString());
+                        fos.flush();
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else if (frameFinished2.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Nothing inside this frame to export", Toast.LENGTH_SHORT).show();
                 }
             }
             if (text.equals(frameName3.toString())) {
-                text = frameFinished3.toString();
-                frameSequenceName = text.substring(2, 7);
-                frameSequenceName = frameSequenceName + ".txt";
-                if (text.length() == 44) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                if (!frameFinished3.isEmpty()) {
+                    text = frameFinished3.toString();
+                    frameSequenceName = text.substring(2, 7);
+                    frameSequenceName = frameSequenceName + ".txt";
+                    if (text.length() == 44) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second;
-                } else if (text.length() == 51) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second;
+                    } else if (text.length() == 51) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third;
-                } else if (text.length() == 58) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third;
+                    } else if (text.length() == 58) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth;
-                } else if (text.length() == 65) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth;
+                    } else if (text.length() == 65) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth;
-                } else if (text.length() == 72) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth;
+                    } else if (text.length() == 72) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth;
-                } else if (text.length() == 79) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth;
+                    } else if (text.length() == 79) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
-                    seventh = text.substring(72, 77);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
+                        seventh = text.substring(72, 77);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth + newLine + seventh;
-                } else if (text.length() == 86) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth + newLine + seventh;
+                    } else if (text.length() == 86) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
-                    seventh = text.substring(72, 77);
-                    eighth = text.substring(79, 84);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
+                        seventh = text.substring(72, 77);
+                        eighth = text.substring(79, 84);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth + newLine + seventh + newLine + eighth;
-                } else if (text.length() == 93) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth + newLine + seventh + newLine + eighth;
+                    } else if (text.length() == 93) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
-                    seventh = text.substring(72, 77);
-                    eighth = text.substring(79, 84);
-                    ninth = text.substring(86, 91);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
+                        seventh = text.substring(72, 77);
+                        eighth = text.substring(79, 84);
+                        ninth = text.substring(86, 91);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth;
-                }
-                File dir = new File(path, frameSequenceName);
-
-                try {
-                    FileOutputStream fos = new FileOutputStream(dir);
-                    fos.write(text.getBytes());
-                    t.setText(dir.toString());
-                    fos.flush();
-                    fos.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth;
+                    }
+                    File dir = new File(path, frameSequenceName);
+                    try {
+                        FileOutputStream fos = new FileOutputStream(dir);
+                        fos.write(text.getBytes());
+                        t.setText(dir.toString());
+                        fos.flush();
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else if (frameFinished3.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Nothing inside this frame to export", Toast.LENGTH_SHORT).show();
                 }
             }
             if (text.equals(frameName4.toString())) {
-                text = frameFinished4.toString();
-                frameSequenceName = text.substring(2, 7);
-                frameSequenceName = frameSequenceName + ".txt";
-                if (text.length() == 44) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                if (!frameFinished4.isEmpty()) {
+                    text = frameFinished4.toString();
+                    frameSequenceName = text.substring(2, 7);
+                    frameSequenceName = frameSequenceName + ".txt";
+                    if (text.length() == 44) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second;
-                } else if (text.length() == 51) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second;
+                    } else if (text.length() == 51) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third;
-                } else if (text.length() == 58) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third;
+                    } else if (text.length() == 58) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth;
-                } else if (text.length() == 65) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth;
+                    } else if (text.length() == 65) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth;
-                } else if (text.length() == 72) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth;
+                    } else if (text.length() == 72) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth;
-                } else if (text.length() == 79) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth;
+                    } else if (text.length() == 79) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
-                    seventh = text.substring(72, 77);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
+                        seventh = text.substring(72, 77);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth + newLine + seventh;
-                } else if (text.length() == 86) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth + newLine + seventh;
+                    } else if (text.length() == 86) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
-                    seventh = text.substring(72, 77);
-                    eighth = text.substring(79, 84);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
+                        seventh = text.substring(72, 77);
+                        eighth = text.substring(79, 84);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth + newLine + seventh + newLine + eighth;
-                } else if (text.length() == 93) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth + newLine + seventh + newLine + eighth;
+                    } else if (text.length() == 93) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
-                    seventh = text.substring(72, 77);
-                    eighth = text.substring(79, 84);
-                    ninth = text.substring(86, 91);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
+                        seventh = text.substring(72, 77);
+                        eighth = text.substring(79, 84);
+                        ninth = text.substring(86, 91);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth;
-                }
-                File dir = new File(path, frameSequenceName);
-
-                try {
-                    FileOutputStream fos = new FileOutputStream(dir);
-                    fos.write(text.getBytes());
-                    t.setText(dir.toString());
-                    fos.flush();
-                    fos.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth;
+                    }
+                    File dir = new File(path, frameSequenceName);
+                    try {
+                        FileOutputStream fos = new FileOutputStream(dir);
+                        fos.write(text.getBytes());
+                        t.setText(dir.toString());
+                        fos.flush();
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else if (frameFinished4.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Nothing inside this frame to export", Toast.LENGTH_SHORT).show();
                 }
             }
             if (text.equals(frameName5.toString())) {
-                text = frameFinished5.toString();
-                frameSequenceName = text.substring(2, 7);
-                frameSequenceName = frameSequenceName + ".txt";
-                if (text.length() == 44) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                if (!frameFinished5.isEmpty()) {
+                    text = frameFinished5.toString();
+                    frameSequenceName = text.substring(2, 7);
+                    frameSequenceName = frameSequenceName + ".txt";
+                    if (text.length() == 44) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second;
-                } else if (text.length() == 51) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second;
+                    } else if (text.length() == 51) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third;
-                } else if (text.length() == 58) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third;
+                    } else if (text.length() == 58) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth;
-                } else if (text.length() == 65) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth;
+                    } else if (text.length() == 65) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth;
-                } else if (text.length() == 72) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth;
+                    } else if (text.length() == 72) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth;
-                } else if (text.length() == 79) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth;
+                    } else if (text.length() == 79) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
-                    seventh = text.substring(72, 77);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
+                        seventh = text.substring(72, 77);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth + newLine + seventh;
-                } else if (text.length() == 86) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth + newLine + seventh;
+                    } else if (text.length() == 86) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
-                    seventh = text.substring(72, 77);
-                    eighth = text.substring(79, 84);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
+                        seventh = text.substring(72, 77);
+                        eighth = text.substring(79, 84);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth + newLine + seventh + newLine + eighth;
-                } else if (text.length() == 93) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth + newLine + seventh + newLine + eighth;
+                    } else if (text.length() == 93) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
-                    seventh = text.substring(72, 77);
-                    eighth = text.substring(79, 84);
-                    ninth = text.substring(86, 91);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
+                        seventh = text.substring(72, 77);
+                        eighth = text.substring(79, 84);
+                        ninth = text.substring(86, 91);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth;
-                }
-                File dir = new File(path, frameSequenceName);
-
-                try {
-                    FileOutputStream fos = new FileOutputStream(dir);
-                    fos.write(text.getBytes());
-                    t.setText(dir.toString());
-                    fos.flush();
-                    fos.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth;
+                    }
+                    File dir = new File(path, frameSequenceName);
+                    try {
+                        FileOutputStream fos = new FileOutputStream(dir);
+                        fos.write(text.getBytes());
+                        t.setText(dir.toString());
+                        fos.flush();
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else if (frameFinished5.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Nothing inside this frame to export", Toast.LENGTH_SHORT).show();
                 }
             }
             if (text.equals(frameName6.toString())) {
-                text = frameFinished6.toString();
-                frameSequenceName = text.substring(2, 7);
-                frameSequenceName = frameSequenceName + ".txt";
-                if (text.length() == 44) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                if (!frameFinished6.isEmpty()) {
+                    text = frameFinished6.toString();
+                    frameSequenceName = text.substring(2, 7);
+                    frameSequenceName = frameSequenceName + ".txt";
+                    if (text.length() == 44) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second;
-                } else if (text.length() == 51) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second;
+                    } else if (text.length() == 51) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third;
-                } else if (text.length() == 58) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third;
+                    } else if (text.length() == 58) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth;
-                } else if (text.length() == 65) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth;
+                    } else if (text.length() == 65) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth;
-                } else if (text.length() == 72) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth;
+                    } else if (text.length() == 72) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth;
-                } else if (text.length() == 79) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth;
+                    } else if (text.length() == 79) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
-                    seventh = text.substring(72, 77);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
+                        seventh = text.substring(72, 77);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth + newLine + seventh;
-                } else if (text.length() == 86) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth + newLine + seventh;
+                    } else if (text.length() == 86) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
-                    seventh = text.substring(72, 77);
-                    eighth = text.substring(79, 84);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
+                        seventh = text.substring(72, 77);
+                        eighth = text.substring(79, 84);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth + newLine + seventh + newLine + eighth;
-                } else if (text.length() == 93) {
-                    name = text.substring(2, 7);
-                    coils = text.substring(9, 14);
-                    delay = text.substring(16, 21);
-                    time = text.substring(23, 28);
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth + newLine + seventh + newLine + eighth;
+                    } else if (text.length() == 93) {
+                        name = text.substring(2, 7);
+                        coils = text.substring(9, 14);
+                        delay = text.substring(16, 21);
+                        time = text.substring(23, 28);
 
-                    first = text.substring(30, 35);
-                    second = text.substring(37, 42);
-                    third = text.substring(44, 49);
-                    fourth = text.substring(51, 56);
-                    fifth = text.substring(58, 63);
-                    sixth = text.substring(65, 70);
-                    seventh = text.substring(72, 77);
-                    eighth = text.substring(79, 84);
-                    ninth = text.substring(86, 91);
+                        first = text.substring(30, 35);
+                        second = text.substring(37, 42);
+                        third = text.substring(44, 49);
+                        fourth = text.substring(51, 56);
+                        fifth = text.substring(58, 63);
+                        sixth = text.substring(65, 70);
+                        seventh = text.substring(72, 77);
+                        eighth = text.substring(79, 84);
+                        ninth = text.substring(86, 91);
 
-                    text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                            + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                            + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth;
-                }
-                File dir = new File(path, frameSequenceName);
-
-                try {
-                    FileOutputStream fos = new FileOutputStream(dir);
-                    fos.write(text.getBytes());
-                    t.setText(dir.toString());
-                    fos.flush();
-                    fos.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth;
+                    }
+                    File dir = new File(path, frameSequenceName);
+                    try {
+                        FileOutputStream fos = new FileOutputStream(dir);
+                        fos.write(text.getBytes());
+                        t.setText(dir.toString());
+                        fos.flush();
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else if (frameFinished6.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Nothing inside this frame to export", Toast.LENGTH_SHORT).show();
                 }
             }
             if (text.equals(sequenceName1.toString())) {
-                text = sequenceFinished1.toString();
-                frameSequenceName = text.substring(2, 7);
-                frameSequenceName = frameSequenceName + ".txt";
-                if (text.length() == 39) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
+                if (!sequenceFinished1.isEmpty()) {
+                    text = sequenceFinished1.toString();
+                    frameSequenceName = text.substring(2, 7);
+                    frameSequenceName = frameSequenceName + ".txt";
+                    if (text.length() == 39) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
 
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(32, 37);
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(32, 37);
 
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + newLine;
-                } else if (text.length() == 55) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
-
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(33, 38);
-                    fourth = text.substring(41, 46);
-                    fifth = text.substring(48, 53);
-
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + fourth + newLine + fifth + newLine + newLine;
-                } else if (text.length() == 71) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
-
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(33, 38);
-                    fourth = text.substring(41, 46);
-                    fifth = text.substring(49, 54);
-                    sixth = text.substring(57, 62);
-                    seventh = text.substring(64, 69);
-
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                            + newLine + newLine;
-                } else if (text.length() == 87) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
-
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(33, 38);
-                    fourth = text.substring(41, 46);
-                    fifth = text.substring(49, 54);
-                    sixth = text.substring(57, 62);
-                    seventh = text.substring(64, 69);
-                    eighth = text.substring(72, 77);
-                    ninth = text.substring(80, 85);
-
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                            + newLine + eighth + newLine + ninth + newLine + newLine;
-                } else if (text.length() == 103) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
-
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(33, 38);
-                    fourth = text.substring(41, 46);
-                    fifth = text.substring(49, 54);
-                    sixth = text.substring(57, 62);
-                    seventh = text.substring(64, 69);
-                    eighth = text.substring(72, 77);
-                    ninth = text.substring(80, 85);
-                    tenth = text.substring(88, 93);
-                    eleventh = text.substring(96, 101);
-
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                            + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
-                            + newLine + newLine;
-                } else if (text.length() == 119) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
-
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(33, 38);
-                    fourth = text.substring(41, 46);
-                    fifth = text.substring(49, 54);
-                    sixth = text.substring(57, 62);
-                    seventh = text.substring(65, 70);
-                    eighth = text.substring(73, 78);
-                    ninth = text.substring(81, 86);
-                    tenth = text.substring(89, 94);
-                    eleventh = text.substring(97, 102);
-                    twelth = text.substring(105, 110);
-                    thirteen = text.substring(112, 117);
-
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                            + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
-                            + newLine + twelth + newLine + thirteen + newLine + newLine;
-                }
-                if (sequenceFinished1.toString().contains(frameNameF1.toString())) {
-                    frame1 = frameFinished1.toString();
-                    if (frame1.length() == 44) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame1.length() == 51) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame1.length() == 58) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame1.length() == 65) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-                        fifth = frame1.substring(58, 63);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
                                 + newLine + newLine;
-                    } else if (frame1.length() == 72) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
+                    } else if (text.length() == 55) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
 
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-                        fifth = frame1.substring(58, 63);
-                        sixth = frame1.substring(65, 70);
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(33, 38);
+                        fourth = text.substring(41, 46);
+                        fifth = text.substring(48, 53);
 
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame1.length() == 79) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
+                                + newLine + fourth + newLine + fifth + newLine + newLine;
+                    } else if (text.length() == 71) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
 
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-                        fifth = frame1.substring(58, 63);
-                        sixth = frame1.substring(65, 70);
-                        seventh = frame1.substring(72, 77);
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(33, 38);
+                        fourth = text.substring(41, 46);
+                        fifth = text.substring(49, 54);
+                        sixth = text.substring(57, 62);
+                        seventh = text.substring(64, 69);
 
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame1.length() == 86) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-                        fifth = frame1.substring(58, 63);
-                        sixth = frame1.substring(65, 70);
-                        seventh = frame1.substring(72, 77);
-                        eighth = frame1.substring(79, 84);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame1.length() == 93) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-                        fifth = frame1.substring(58, 63);
-                        sixth = frame1.substring(65, 70);
-                        seventh = frame1.substring(72, 77);
-                        eighth = frame1.substring(79, 84);
-                        ninth = frame1.substring(86, 91);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
+                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
                                 + newLine + newLine;
+                    } else if (text.length() == 87) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
+
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(33, 38);
+                        fourth = text.substring(41, 46);
+                        fifth = text.substring(49, 54);
+                        sixth = text.substring(57, 62);
+                        seventh = text.substring(64, 69);
+                        eighth = text.substring(72, 77);
+                        ninth = text.substring(80, 85);
+
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
+                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
+                                + newLine + eighth + newLine + ninth + newLine + newLine;
+                    } else if (text.length() == 103) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
+
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(33, 38);
+                        fourth = text.substring(41, 46);
+                        fifth = text.substring(49, 54);
+                        sixth = text.substring(57, 62);
+                        seventh = text.substring(64, 69);
+                        eighth = text.substring(72, 77);
+                        ninth = text.substring(80, 85);
+                        tenth = text.substring(88, 93);
+                        eleventh = text.substring(96, 101);
+
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
+                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
+                                + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
+                                + newLine + newLine;
+                    } else if (text.length() == 119) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
+
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(33, 38);
+                        fourth = text.substring(41, 46);
+                        fifth = text.substring(49, 54);
+                        sixth = text.substring(57, 62);
+                        seventh = text.substring(65, 70);
+                        eighth = text.substring(73, 78);
+                        ninth = text.substring(81, 86);
+                        tenth = text.substring(89, 94);
+                        eleventh = text.substring(97, 102);
+                        twelth = text.substring(105, 110);
+                        thirteen = text.substring(112, 117);
+
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
+                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
+                                + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
+                                + newLine + twelth + newLine + thirteen + newLine + newLine;
                     }
-                }
-                if (sequenceFinished1.toString().contains(frameNameF2.toString())) {
-                    frame2 = frameFinished2.toString();
-                    if (frame2.length() == 44) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                    if (sequenceFinished1.toString().contains(frameNameF1.toString())) {
+                        frame1 = frameFinished1.toString();
+                        if (frame1.length() == 44) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame2.length() == 51) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame1.length() == 51) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame2.length() == 58) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame1.length() == 58) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame2.length() == 65) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame1.length() == 65) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
-                        fifth = frame2.substring(58, 63);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
+                            fifth = frame1.substring(58, 63);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + newLine;
-                    } else if (frame2.length() == 72) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame1.length() == 72) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
-                        fifth = frame2.substring(58, 63);
-                        sixth = frame2.substring(65, 70);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
+                            fifth = frame1.substring(58, 63);
+                            sixth = frame1.substring(65, 70);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame2.length() == 79) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame1.length() == 79) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
-                        fifth = frame2.substring(58, 63);
-                        sixth = frame2.substring(65, 70);
-                        seventh = frame2.substring(72, 77);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
+                            fifth = frame1.substring(58, 63);
+                            sixth = frame1.substring(65, 70);
+                            seventh = frame1.substring(72, 77);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame2.length() == 86) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame1.length() == 86) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
-                        fifth = frame2.substring(58, 63);
-                        sixth = frame2.substring(65, 70);
-                        seventh = frame2.substring(72, 77);
-                        eighth = frame2.substring(79, 84);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
+                            fifth = frame1.substring(58, 63);
+                            sixth = frame1.substring(65, 70);
+                            seventh = frame1.substring(72, 77);
+                            eighth = frame1.substring(79, 84);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame2.length() == 93) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame1.length() == 93) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
-                        fifth = frame2.substring(58, 63);
-                        sixth = frame2.substring(65, 70);
-                        seventh = frame2.substring(72, 77);
-                        eighth = frame2.substring(79, 84);
-                        ninth = frame2.substring(86, 91);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
+                            fifth = frame1.substring(58, 63);
+                            sixth = frame1.substring(65, 70);
+                            seventh = frame1.substring(72, 77);
+                            eighth = frame1.substring(79, 84);
+                            ninth = frame1.substring(86, 91);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                + newLine + newLine;
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
                     }
-                }
-                if (sequenceFinished1.toString().contains(frameNameF3.toString())) {
-                    frame3 = frameFinished3.toString();
-                    if (frame3.length() == 44) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                    if (sequenceFinished1.toString().contains(frameNameF2.toString())) {
+                        frame2 = frameFinished2.toString();
+                        if (frame2.length() == 44) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame3.length() == 51) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame2.length() == 51) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame3.length() == 58) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame2.length() == 58) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame3.length() == 65) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame2.length() == 65) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
-                        fifth = frame3.substring(58, 63);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
+                            fifth = frame2.substring(58, 63);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + newLine;
-                    } else if (frame3.length() == 72) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame2.length() == 72) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
-                        fifth = frame3.substring(58, 63);
-                        sixth = frame3.substring(65, 70);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
+                            fifth = frame2.substring(58, 63);
+                            sixth = frame2.substring(65, 70);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame3.length() == 79) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame2.length() == 79) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
-                        fifth = frame3.substring(58, 63);
-                        sixth = frame3.substring(65, 70);
-                        seventh = frame3.substring(72, 77);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
+                            fifth = frame2.substring(58, 63);
+                            sixth = frame2.substring(65, 70);
+                            seventh = frame2.substring(72, 77);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame3.length() == 86) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame2.length() == 86) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
-                        fifth = frame3.substring(58, 63);
-                        sixth = frame3.substring(65, 70);
-                        seventh = frame3.substring(72, 77);
-                        eighth = frame3.substring(79, 84);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
+                            fifth = frame2.substring(58, 63);
+                            sixth = frame2.substring(65, 70);
+                            seventh = frame2.substring(72, 77);
+                            eighth = frame2.substring(79, 84);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame3.length() == 93) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame2.length() == 93) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
-                        fifth = frame3.substring(58, 63);
-                        sixth = frame3.substring(65, 70);
-                        seventh = frame3.substring(72, 77);
-                        eighth = frame3.substring(79, 84);
-                        ninth = frame3.substring(86, 91);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
+                            fifth = frame2.substring(58, 63);
+                            sixth = frame2.substring(65, 70);
+                            seventh = frame2.substring(72, 77);
+                            eighth = frame2.substring(79, 84);
+                            ninth = frame2.substring(86, 91);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                + newLine + newLine;
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
                     }
-                }
-                if (sequenceFinished1.toString().contains(frameNameF4.toString())) {
-                    frame4 = frameFinished4.toString();
-                    if (frame4.length() == 44) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                    if (sequenceFinished1.toString().contains(frameNameF3.toString())) {
+                        frame3 = frameFinished3.toString();
+                        if (frame3.length() == 44) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame4.length() == 51) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame3.length() == 51) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame4.length() == 58) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame3.length() == 58) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame4.length() == 65) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame3.length() == 65) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
-                        fifth = frame4.substring(58, 63);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
+                            fifth = frame3.substring(58, 63);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + newLine;
-                    } else if (frame4.length() == 72) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame3.length() == 72) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
-                        fifth = frame4.substring(58, 63);
-                        sixth = frame4.substring(65, 70);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
+                            fifth = frame3.substring(58, 63);
+                            sixth = frame3.substring(65, 70);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame4.length() == 79) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame3.length() == 79) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
-                        fifth = frame4.substring(58, 63);
-                        sixth = frame4.substring(65, 70);
-                        seventh = frame4.substring(72, 77);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
+                            fifth = frame3.substring(58, 63);
+                            sixth = frame3.substring(65, 70);
+                            seventh = frame3.substring(72, 77);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame4.length() == 86) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame3.length() == 86) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
-                        fifth = frame4.substring(58, 63);
-                        sixth = frame4.substring(65, 70);
-                        seventh = frame4.substring(72, 77);
-                        eighth = frame4.substring(79, 84);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
+                            fifth = frame3.substring(58, 63);
+                            sixth = frame3.substring(65, 70);
+                            seventh = frame3.substring(72, 77);
+                            eighth = frame3.substring(79, 84);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame4.length() == 93) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame3.length() == 93) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
-                        fifth = frame4.substring(58, 63);
-                        sixth = frame4.substring(65, 70);
-                        seventh = frame4.substring(72, 77);
-                        eighth = frame4.substring(79, 84);
-                        ninth = frame4.substring(86, 91);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
+                            fifth = frame3.substring(58, 63);
+                            sixth = frame3.substring(65, 70);
+                            seventh = frame3.substring(72, 77);
+                            eighth = frame3.substring(79, 84);
+                            ninth = frame3.substring(86, 91);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                + newLine + newLine;
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
                     }
-                }
-                if (sequenceFinished1.toString().contains(frameNameF5.toString())) {
-                    frame5 = frameFinished5.toString();
-                    if (frame5.length() == 44) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                    if (sequenceFinished1.toString().contains(frameNameF4.toString())) {
+                        frame4 = frameFinished4.toString();
+                        if (frame4.length() == 44) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame5.length() == 51) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame4.length() == 51) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame5.length() == 58) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame4.length() == 58) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame5.length() == 65) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame4.length() == 65) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
-                        fifth = frame5.substring(58, 63);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
+                            fifth = frame4.substring(58, 63);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + newLine;
-                    } else if (frame5.length() == 72) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame4.length() == 72) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
-                        fifth = frame5.substring(58, 63);
-                        sixth = frame5.substring(65, 70);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
+                            fifth = frame4.substring(58, 63);
+                            sixth = frame4.substring(65, 70);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame5.length() == 79) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame4.length() == 79) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
-                        fifth = frame5.substring(58, 63);
-                        sixth = frame5.substring(65, 70);
-                        seventh = frame5.substring(72, 77);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
+                            fifth = frame4.substring(58, 63);
+                            sixth = frame4.substring(65, 70);
+                            seventh = frame4.substring(72, 77);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame5.length() == 86) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame4.length() == 86) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
-                        fifth = frame5.substring(58, 63);
-                        sixth = frame5.substring(65, 70);
-                        seventh = frame5.substring(72, 77);
-                        eighth = frame5.substring(79, 84);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
+                            fifth = frame4.substring(58, 63);
+                            sixth = frame4.substring(65, 70);
+                            seventh = frame4.substring(72, 77);
+                            eighth = frame4.substring(79, 84);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame5.length() == 93) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame4.length() == 93) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
-                        fifth = frame5.substring(58, 63);
-                        sixth = frame5.substring(65, 70);
-                        seventh = frame5.substring(72, 77);
-                        eighth = frame5.substring(79, 84);
-                        ninth = frame5.substring(86, 91);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
+                            fifth = frame4.substring(58, 63);
+                            sixth = frame4.substring(65, 70);
+                            seventh = frame4.substring(72, 77);
+                            eighth = frame4.substring(79, 84);
+                            ninth = frame4.substring(86, 91);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                + newLine + newLine;
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
                     }
-                }
-                if (sequenceFinished1.toString().contains(frameNameF6.toString())) {
-                    frame6 = frameFinished6.toString();
-                    if (frame6.length() == 44) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                    if (sequenceFinished1.toString().contains(frameNameF5.toString())) {
+                        frame5 = frameFinished5.toString();
+                        if (frame5.length() == 44) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame6.length() == 51) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame5.length() == 51) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame6.length() == 58) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame5.length() == 58) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame6.length() == 65) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame5.length() == 65) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
-                        fifth = frame6.substring(58, 63);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
+                            fifth = frame5.substring(58, 63);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + newLine;
-                    } else if (frame6.length() == 72) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame5.length() == 72) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
-                        fifth = frame6.substring(58, 63);
-                        sixth = frame6.substring(65, 70);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
+                            fifth = frame5.substring(58, 63);
+                            sixth = frame5.substring(65, 70);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame6.length() == 79) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame5.length() == 79) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
-                        fifth = frame6.substring(58, 63);
-                        sixth = frame6.substring(65, 70);
-                        seventh = frame6.substring(72, 77);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
+                            fifth = frame5.substring(58, 63);
+                            sixth = frame5.substring(65, 70);
+                            seventh = frame5.substring(72, 77);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame6.length() == 86) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame5.length() == 86) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
-                        fifth = frame6.substring(58, 63);
-                        sixth = frame6.substring(65, 70);
-                        seventh = frame6.substring(72, 77);
-                        eighth = frame6.substring(79, 84);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
+                            fifth = frame5.substring(58, 63);
+                            sixth = frame5.substring(65, 70);
+                            seventh = frame5.substring(72, 77);
+                            eighth = frame5.substring(79, 84);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame6.length() == 93) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame5.length() == 93) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
-                        fifth = frame6.substring(58, 63);
-                        sixth = frame6.substring(65, 70);
-                        seventh = frame6.substring(72, 77);
-                        eighth = frame6.substring(79, 84);
-                        ninth = frame6.substring(86, 91);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
+                            fifth = frame5.substring(58, 63);
+                            sixth = frame5.substring(65, 70);
+                            seventh = frame5.substring(72, 77);
+                            eighth = frame5.substring(79, 84);
+                            ninth = frame5.substring(86, 91);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                + newLine + newLine;
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
                     }
+                    if (sequenceFinished1.toString().contains(frameNameF6.toString())) {
+                        frame6 = frameFinished6.toString();
+                        if (frame6.length() == 44) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame6.length() == 51) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame6.length() == 58) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame6.length() == 65) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+                            fifth = frame6.substring(58, 63);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame6.length() == 72) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+                            fifth = frame6.substring(58, 63);
+                            sixth = frame6.substring(65, 70);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame6.length() == 79) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+                            fifth = frame6.substring(58, 63);
+                            sixth = frame6.substring(65, 70);
+                            seventh = frame6.substring(72, 77);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame6.length() == 86) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+                            fifth = frame6.substring(58, 63);
+                            sixth = frame6.substring(65, 70);
+                            seventh = frame6.substring(72, 77);
+                            eighth = frame6.substring(79, 84);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame6.length() == 93) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+                            fifth = frame6.substring(58, 63);
+                            sixth = frame6.substring(65, 70);
+                            seventh = frame6.substring(72, 77);
+                            eighth = frame6.substring(79, 84);
+                            ninth = frame6.substring(86, 91);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
+                    }
+                    combined = text + frame1 + frame2 + frame3 + frame4 + frame5 + frame6;
+                    File dir = new File(path, frameSequenceName);
+                    try {
+                        FileOutputStream fos = new FileOutputStream(dir);
+                        fos.write(combined.getBytes());
+                        t.setText(dir.toString());
+                        fos.flush();
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else if (sequenceFinished1.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Nothing inside this sequence to export", Toast.LENGTH_SHORT).show();
                 }
-
-                combined = text + frame1 + frame2 + frame3 + frame4 + frame5 + frame6;
-
-                File dir = new File(path, frameSequenceName);
-
-                try {
-                    FileOutputStream fos = new FileOutputStream(dir);
-                    fos.write(combined.getBytes());
-                    t.setText(dir.toString());
-                    fos.flush();
-                    fos.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
             }
             if (text.equals(sequenceName2.toString())) {
-                text = sequenceFinished2.toString();
-                frameSequenceName = text.substring(2, 7);
-                frameSequenceName = frameSequenceName + ".txt";
-                if (text.length() == 39) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
+                if (!sequenceFinished2.isEmpty()) {
+                    text = sequenceFinished2.toString();
+                    frameSequenceName = text.substring(2, 7);
+                    frameSequenceName = frameSequenceName + ".txt";
+                    if (text.length() == 39) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
 
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(32, 37);
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(32, 37);
 
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + newLine;
-                } else if (text.length() == 55) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
-
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(33, 38);
-                    fourth = text.substring(41, 46);
-                    fifth = text.substring(48, 53);
-
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + fourth + newLine + fifth + newLine + newLine;
-                } else if (text.length() == 71) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
-
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(33, 38);
-                    fourth = text.substring(41, 46);
-                    fifth = text.substring(49, 54);
-                    sixth = text.substring(57, 62);
-                    seventh = text.substring(64, 69);
-
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                            + newLine + newLine;
-                } else if (text.length() == 87) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
-
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(33, 38);
-                    fourth = text.substring(41, 46);
-                    fifth = text.substring(49, 54);
-                    sixth = text.substring(57, 62);
-                    seventh = text.substring(64, 69);
-                    eighth = text.substring(72, 77);
-                    ninth = text.substring(80, 85);
-
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                            + newLine + eighth + newLine + ninth + newLine + newLine;
-                } else if (text.length() == 103) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
-
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(33, 38);
-                    fourth = text.substring(41, 46);
-                    fifth = text.substring(49, 54);
-                    sixth = text.substring(57, 62);
-                    seventh = text.substring(64, 69);
-                    eighth = text.substring(72, 77);
-                    ninth = text.substring(80, 85);
-                    tenth = text.substring(88, 93);
-                    eleventh = text.substring(96, 101);
-
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                            + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
-                            + newLine + newLine;
-                } else if (text.length() == 119) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
-
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(33, 38);
-                    fourth = text.substring(41, 46);
-                    fifth = text.substring(49, 54);
-                    sixth = text.substring(57, 62);
-                    seventh = text.substring(65, 70);
-                    eighth = text.substring(73, 78);
-                    ninth = text.substring(81, 86);
-                    tenth = text.substring(89, 94);
-                    eleventh = text.substring(97, 102);
-                    twelth = text.substring(105, 110);
-                    thirteen = text.substring(112, 117);
-
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                            + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
-                            + newLine + twelth + newLine + thirteen + newLine + newLine;
-                }
-                if (sequenceFinished2.toString().contains(frameNameF1.toString())) {
-                    frame1 = frameFinished1.toString();
-                    if (frame1.length() == 44) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame1.length() == 51) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame1.length() == 58) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame1.length() == 65) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-                        fifth = frame1.substring(58, 63);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
                                 + newLine + newLine;
-                    } else if (frame1.length() == 72) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
+                    } else if (text.length() == 55) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
 
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-                        fifth = frame1.substring(58, 63);
-                        sixth = frame1.substring(65, 70);
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(33, 38);
+                        fourth = text.substring(41, 46);
+                        fifth = text.substring(48, 53);
 
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame1.length() == 79) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
+                                + newLine + fourth + newLine + fifth + newLine + newLine;
+                    } else if (text.length() == 71) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
 
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-                        fifth = frame1.substring(58, 63);
-                        sixth = frame1.substring(65, 70);
-                        seventh = frame1.substring(72, 77);
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(33, 38);
+                        fourth = text.substring(41, 46);
+                        fifth = text.substring(49, 54);
+                        sixth = text.substring(57, 62);
+                        seventh = text.substring(64, 69);
 
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame1.length() == 86) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-                        fifth = frame1.substring(58, 63);
-                        sixth = frame1.substring(65, 70);
-                        seventh = frame1.substring(72, 77);
-                        eighth = frame1.substring(79, 84);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame1.length() == 93) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-                        fifth = frame1.substring(58, 63);
-                        sixth = frame1.substring(65, 70);
-                        seventh = frame1.substring(72, 77);
-                        eighth = frame1.substring(79, 84);
-                        ninth = frame1.substring(86, 91);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
+                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
                                 + newLine + newLine;
+                    } else if (text.length() == 87) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
+
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(33, 38);
+                        fourth = text.substring(41, 46);
+                        fifth = text.substring(49, 54);
+                        sixth = text.substring(57, 62);
+                        seventh = text.substring(64, 69);
+                        eighth = text.substring(72, 77);
+                        ninth = text.substring(80, 85);
+
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
+                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
+                                + newLine + eighth + newLine + ninth + newLine + newLine;
+                    } else if (text.length() == 103) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
+
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(33, 38);
+                        fourth = text.substring(41, 46);
+                        fifth = text.substring(49, 54);
+                        sixth = text.substring(57, 62);
+                        seventh = text.substring(64, 69);
+                        eighth = text.substring(72, 77);
+                        ninth = text.substring(80, 85);
+                        tenth = text.substring(88, 93);
+                        eleventh = text.substring(96, 101);
+
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
+                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
+                                + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
+                                + newLine + newLine;
+                    } else if (text.length() == 119) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
+
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(33, 38);
+                        fourth = text.substring(41, 46);
+                        fifth = text.substring(49, 54);
+                        sixth = text.substring(57, 62);
+                        seventh = text.substring(65, 70);
+                        eighth = text.substring(73, 78);
+                        ninth = text.substring(81, 86);
+                        tenth = text.substring(89, 94);
+                        eleventh = text.substring(97, 102);
+                        twelth = text.substring(105, 110);
+                        thirteen = text.substring(112, 117);
+
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
+                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
+                                + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
+                                + newLine + twelth + newLine + thirteen + newLine + newLine;
                     }
-                }
-                if (sequenceFinished2.toString().contains(frameNameF2.toString())) {
-                    frame2 = frameFinished2.toString();
-                    if (frame2.length() == 44) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                    if (sequenceFinished2.toString().contains(frameNameF1.toString())) {
+                        frame1 = frameFinished1.toString();
+                        if (frame1.length() == 44) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame2.length() == 51) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame1.length() == 51) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame2.length() == 58) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame1.length() == 58) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame2.length() == 65) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame1.length() == 65) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
-                        fifth = frame2.substring(58, 63);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
+                            fifth = frame1.substring(58, 63);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + newLine;
-                    } else if (frame2.length() == 72) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame1.length() == 72) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
-                        fifth = frame2.substring(58, 63);
-                        sixth = frame2.substring(65, 70);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
+                            fifth = frame1.substring(58, 63);
+                            sixth = frame1.substring(65, 70);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame2.length() == 79) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame1.length() == 79) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
-                        fifth = frame2.substring(58, 63);
-                        sixth = frame2.substring(65, 70);
-                        seventh = frame2.substring(72, 77);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
+                            fifth = frame1.substring(58, 63);
+                            sixth = frame1.substring(65, 70);
+                            seventh = frame1.substring(72, 77);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame2.length() == 86) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame1.length() == 86) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
-                        fifth = frame2.substring(58, 63);
-                        sixth = frame2.substring(65, 70);
-                        seventh = frame2.substring(72, 77);
-                        eighth = frame2.substring(79, 84);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
+                            fifth = frame1.substring(58, 63);
+                            sixth = frame1.substring(65, 70);
+                            seventh = frame1.substring(72, 77);
+                            eighth = frame1.substring(79, 84);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame2.length() == 93) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame1.length() == 93) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
-                        fifth = frame2.substring(58, 63);
-                        sixth = frame2.substring(65, 70);
-                        seventh = frame2.substring(72, 77);
-                        eighth = frame2.substring(79, 84);
-                        ninth = frame2.substring(86, 91);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
+                            fifth = frame1.substring(58, 63);
+                            sixth = frame1.substring(65, 70);
+                            seventh = frame1.substring(72, 77);
+                            eighth = frame1.substring(79, 84);
+                            ninth = frame1.substring(86, 91);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                + newLine + newLine;
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
                     }
-                }
-                if (sequenceFinished2.toString().contains(frameNameF3.toString())) {
-                    frame3 = frameFinished3.toString();
-                    if (frame3.length() == 44) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                    if (sequenceFinished2.toString().contains(frameNameF2.toString())) {
+                        frame2 = frameFinished2.toString();
+                        if (frame2.length() == 44) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame3.length() == 51) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame2.length() == 51) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame3.length() == 58) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame2.length() == 58) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame3.length() == 65) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame2.length() == 65) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
-                        fifth = frame3.substring(58, 63);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
+                            fifth = frame2.substring(58, 63);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + newLine;
-                    } else if (frame3.length() == 72) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame2.length() == 72) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
-                        fifth = frame3.substring(58, 63);
-                        sixth = frame3.substring(65, 70);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
+                            fifth = frame2.substring(58, 63);
+                            sixth = frame2.substring(65, 70);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame3.length() == 79) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame2.length() == 79) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
-                        fifth = frame3.substring(58, 63);
-                        sixth = frame3.substring(65, 70);
-                        seventh = frame3.substring(72, 77);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
+                            fifth = frame2.substring(58, 63);
+                            sixth = frame2.substring(65, 70);
+                            seventh = frame2.substring(72, 77);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame3.length() == 86) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame2.length() == 86) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
-                        fifth = frame3.substring(58, 63);
-                        sixth = frame3.substring(65, 70);
-                        seventh = frame3.substring(72, 77);
-                        eighth = frame3.substring(79, 84);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
+                            fifth = frame2.substring(58, 63);
+                            sixth = frame2.substring(65, 70);
+                            seventh = frame2.substring(72, 77);
+                            eighth = frame2.substring(79, 84);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame3.length() == 93) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame2.length() == 93) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
-                        fifth = frame3.substring(58, 63);
-                        sixth = frame3.substring(65, 70);
-                        seventh = frame3.substring(72, 77);
-                        eighth = frame3.substring(79, 84);
-                        ninth = frame3.substring(86, 91);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
+                            fifth = frame2.substring(58, 63);
+                            sixth = frame2.substring(65, 70);
+                            seventh = frame2.substring(72, 77);
+                            eighth = frame2.substring(79, 84);
+                            ninth = frame2.substring(86, 91);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                + newLine + newLine;
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
                     }
-                }
-                if (sequenceFinished2.toString().contains(frameNameF4.toString())) {
-                    frame4 = frameFinished4.toString();
-                    if (frame4.length() == 44) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                    if (sequenceFinished2.toString().contains(frameNameF3.toString())) {
+                        frame3 = frameFinished3.toString();
+                        if (frame3.length() == 44) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame4.length() == 51) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame3.length() == 51) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame4.length() == 58) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame3.length() == 58) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame4.length() == 65) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame3.length() == 65) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
-                        fifth = frame4.substring(58, 63);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
+                            fifth = frame3.substring(58, 63);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + newLine;
-                    } else if (frame4.length() == 72) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame3.length() == 72) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
-                        fifth = frame4.substring(58, 63);
-                        sixth = frame4.substring(65, 70);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
+                            fifth = frame3.substring(58, 63);
+                            sixth = frame3.substring(65, 70);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame4.length() == 79) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame3.length() == 79) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
-                        fifth = frame4.substring(58, 63);
-                        sixth = frame4.substring(65, 70);
-                        seventh = frame4.substring(72, 77);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
+                            fifth = frame3.substring(58, 63);
+                            sixth = frame3.substring(65, 70);
+                            seventh = frame3.substring(72, 77);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame4.length() == 86) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame3.length() == 86) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
-                        fifth = frame4.substring(58, 63);
-                        sixth = frame4.substring(65, 70);
-                        seventh = frame4.substring(72, 77);
-                        eighth = frame4.substring(79, 84);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
+                            fifth = frame3.substring(58, 63);
+                            sixth = frame3.substring(65, 70);
+                            seventh = frame3.substring(72, 77);
+                            eighth = frame3.substring(79, 84);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame4.length() == 93) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame3.length() == 93) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
-                        fifth = frame4.substring(58, 63);
-                        sixth = frame4.substring(65, 70);
-                        seventh = frame4.substring(72, 77);
-                        eighth = frame4.substring(79, 84);
-                        ninth = frame4.substring(86, 91);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
+                            fifth = frame3.substring(58, 63);
+                            sixth = frame3.substring(65, 70);
+                            seventh = frame3.substring(72, 77);
+                            eighth = frame3.substring(79, 84);
+                            ninth = frame3.substring(86, 91);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                + newLine + newLine;
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
                     }
-                }
-                if (sequenceFinished2.toString().contains(frameNameF5.toString())) {
-                    frame5 = frameFinished5.toString();
-                    if (frame5.length() == 44) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                    if (sequenceFinished2.toString().contains(frameNameF4.toString())) {
+                        frame4 = frameFinished4.toString();
+                        if (frame4.length() == 44) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame5.length() == 51) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame4.length() == 51) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame5.length() == 58) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame4.length() == 58) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame5.length() == 65) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame4.length() == 65) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
-                        fifth = frame5.substring(58, 63);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
+                            fifth = frame4.substring(58, 63);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + newLine;
-                    } else if (frame5.length() == 72) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame4.length() == 72) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
-                        fifth = frame5.substring(58, 63);
-                        sixth = frame5.substring(65, 70);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
+                            fifth = frame4.substring(58, 63);
+                            sixth = frame4.substring(65, 70);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame5.length() == 79) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame4.length() == 79) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
-                        fifth = frame5.substring(58, 63);
-                        sixth = frame5.substring(65, 70);
-                        seventh = frame5.substring(72, 77);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
+                            fifth = frame4.substring(58, 63);
+                            sixth = frame4.substring(65, 70);
+                            seventh = frame4.substring(72, 77);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame5.length() == 86) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame4.length() == 86) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
-                        fifth = frame5.substring(58, 63);
-                        sixth = frame5.substring(65, 70);
-                        seventh = frame5.substring(72, 77);
-                        eighth = frame5.substring(79, 84);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
+                            fifth = frame4.substring(58, 63);
+                            sixth = frame4.substring(65, 70);
+                            seventh = frame4.substring(72, 77);
+                            eighth = frame4.substring(79, 84);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame5.length() == 93) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame4.length() == 93) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
-                        fifth = frame5.substring(58, 63);
-                        sixth = frame5.substring(65, 70);
-                        seventh = frame5.substring(72, 77);
-                        eighth = frame5.substring(79, 84);
-                        ninth = frame5.substring(86, 91);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
+                            fifth = frame4.substring(58, 63);
+                            sixth = frame4.substring(65, 70);
+                            seventh = frame4.substring(72, 77);
+                            eighth = frame4.substring(79, 84);
+                            ninth = frame4.substring(86, 91);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                + newLine + newLine;
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
                     }
-                }
-                if (sequenceFinished2.toString().contains(frameNameF6.toString())) {
-                    frame6 = frameFinished6.toString();
-                    if (frame6.length() == 44) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                    if (sequenceFinished2.toString().contains(frameNameF5.toString())) {
+                        frame5 = frameFinished5.toString();
+                        if (frame5.length() == 44) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame6.length() == 51) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame5.length() == 51) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame6.length() == 58) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame5.length() == 58) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame6.length() == 65) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame5.length() == 65) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
-                        fifth = frame6.substring(58, 63);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
+                            fifth = frame5.substring(58, 63);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + newLine;
-                    } else if (frame6.length() == 72) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame5.length() == 72) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
-                        fifth = frame6.substring(58, 63);
-                        sixth = frame6.substring(65, 70);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
+                            fifth = frame5.substring(58, 63);
+                            sixth = frame5.substring(65, 70);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame6.length() == 79) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame5.length() == 79) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
-                        fifth = frame6.substring(58, 63);
-                        sixth = frame6.substring(65, 70);
-                        seventh = frame6.substring(72, 77);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
+                            fifth = frame5.substring(58, 63);
+                            sixth = frame5.substring(65, 70);
+                            seventh = frame5.substring(72, 77);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame6.length() == 86) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame5.length() == 86) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
-                        fifth = frame6.substring(58, 63);
-                        sixth = frame6.substring(65, 70);
-                        seventh = frame6.substring(72, 77);
-                        eighth = frame6.substring(79, 84);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
+                            fifth = frame5.substring(58, 63);
+                            sixth = frame5.substring(65, 70);
+                            seventh = frame5.substring(72, 77);
+                            eighth = frame5.substring(79, 84);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame6.length() == 93) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame5.length() == 93) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
-                        fifth = frame6.substring(58, 63);
-                        sixth = frame6.substring(65, 70);
-                        seventh = frame6.substring(72, 77);
-                        eighth = frame6.substring(79, 84);
-                        ninth = frame6.substring(86, 91);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
+                            fifth = frame5.substring(58, 63);
+                            sixth = frame5.substring(65, 70);
+                            seventh = frame5.substring(72, 77);
+                            eighth = frame5.substring(79, 84);
+                            ninth = frame5.substring(86, 91);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                + newLine + newLine;
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
                     }
-                }
-                combined = text + frame1 + frame2 + frame3 + frame4 + frame5 + frame6;
+                    if (sequenceFinished2.toString().contains(frameNameF6.toString())) {
+                        frame6 = frameFinished6.toString();
+                        if (frame6.length() == 44) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
 
-                File dir = new File(path, frameSequenceName);
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
 
-                try {
-                    FileOutputStream fos = new FileOutputStream(dir);
-                    fos.write(combined.getBytes());
-                    t.setText(dir.toString());
-                    fos.flush();
-                    fos.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame6.length() == 51) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame6.length() == 58) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame6.length() == 65) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+                            fifth = frame6.substring(58, 63);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame6.length() == 72) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+                            fifth = frame6.substring(58, 63);
+                            sixth = frame6.substring(65, 70);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame6.length() == 79) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+                            fifth = frame6.substring(58, 63);
+                            sixth = frame6.substring(65, 70);
+                            seventh = frame6.substring(72, 77);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame6.length() == 86) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+                            fifth = frame6.substring(58, 63);
+                            sixth = frame6.substring(65, 70);
+                            seventh = frame6.substring(72, 77);
+                            eighth = frame6.substring(79, 84);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame6.length() == 93) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+                            fifth = frame6.substring(58, 63);
+                            sixth = frame6.substring(65, 70);
+                            seventh = frame6.substring(72, 77);
+                            eighth = frame6.substring(79, 84);
+                            ninth = frame6.substring(86, 91);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
+                    }
+                    combined = text + frame1 + frame2 + frame3 + frame4 + frame5 + frame6;
+                    File dir = new File(path, frameSequenceName);
+                    try {
+                        FileOutputStream fos = new FileOutputStream(dir);
+                        fos.write(combined.getBytes());
+                        t.setText(dir.toString());
+                        fos.flush();
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else if (sequenceFinished2.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Nothing inside this sequence to export", Toast.LENGTH_SHORT).show();
                 }
             }
             if (text.equals(sequenceName3.toString())) {
-                text = sequenceFinished3.toString();
-                frameSequenceName = text.substring(2, 7);
-                frameSequenceName = frameSequenceName + ".txt";
-                if (text.length() == 39) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
+                if (!sequenceFinished3.isEmpty()) {
+                    text = sequenceFinished3.toString();
+                    frameSequenceName = text.substring(2, 7);
+                    frameSequenceName = frameSequenceName + ".txt";
+                    if (text.length() == 39) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
 
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(32, 37);
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(32, 37);
 
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + newLine;
-                } else if (text.length() == 55) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
-
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(33, 38);
-                    fourth = text.substring(41, 46);
-                    fifth = text.substring(48, 53);
-
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + fourth + newLine + fifth + newLine + newLine;
-                } else if (text.length() == 71) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
-
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(33, 38);
-                    fourth = text.substring(41, 46);
-                    fifth = text.substring(49, 54);
-                    sixth = text.substring(57, 62);
-                    seventh = text.substring(64, 69);
-
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                            + newLine + newLine;
-                } else if (text.length() == 87) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
-
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(33, 38);
-                    fourth = text.substring(41, 46);
-                    fifth = text.substring(49, 54);
-                    sixth = text.substring(57, 62);
-                    seventh = text.substring(64, 69);
-                    eighth = text.substring(72, 77);
-                    ninth = text.substring(80, 85);
-
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                            + newLine + eighth + newLine + ninth + newLine + newLine;
-                } else if (text.length() == 103) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
-
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(33, 38);
-                    fourth = text.substring(41, 46);
-                    fifth = text.substring(49, 54);
-                    sixth = text.substring(57, 62);
-                    seventh = text.substring(64, 69);
-                    eighth = text.substring(72, 77);
-                    ninth = text.substring(80, 85);
-                    tenth = text.substring(88, 93);
-                    eleventh = text.substring(96, 101);
-
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                            + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
-                            + newLine + newLine;
-                } else if (text.length() == 119) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
-
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(33, 38);
-                    fourth = text.substring(41, 46);
-                    fifth = text.substring(49, 54);
-                    sixth = text.substring(57, 62);
-                    seventh = text.substring(65, 70);
-                    eighth = text.substring(73, 78);
-                    ninth = text.substring(81, 86);
-                    tenth = text.substring(89, 94);
-                    eleventh = text.substring(97, 102);
-                    twelth = text.substring(105, 110);
-                    thirteen = text.substring(112, 117);
-
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                            + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
-                            + newLine + twelth + newLine + thirteen + newLine + newLine;
-                }
-                if (sequenceFinished3.toString().contains(frameNameF1.toString())) {
-                    frame1 = frameFinished1.toString();
-                    if (frame1.length() == 44) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame1.length() == 51) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame1.length() == 58) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame1.length() == 65) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-                        fifth = frame1.substring(58, 63);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
                                 + newLine + newLine;
-                    } else if (frame1.length() == 72) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
+                    } else if (text.length() == 55) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
 
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-                        fifth = frame1.substring(58, 63);
-                        sixth = frame1.substring(65, 70);
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(33, 38);
+                        fourth = text.substring(41, 46);
+                        fifth = text.substring(48, 53);
 
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame1.length() == 79) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
+                                + newLine + fourth + newLine + fifth + newLine + newLine;
+                    } else if (text.length() == 71) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
 
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-                        fifth = frame1.substring(58, 63);
-                        sixth = frame1.substring(65, 70);
-                        seventh = frame1.substring(72, 77);
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(33, 38);
+                        fourth = text.substring(41, 46);
+                        fifth = text.substring(49, 54);
+                        sixth = text.substring(57, 62);
+                        seventh = text.substring(64, 69);
 
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame1.length() == 86) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-                        fifth = frame1.substring(58, 63);
-                        sixth = frame1.substring(65, 70);
-                        seventh = frame1.substring(72, 77);
-                        eighth = frame1.substring(79, 84);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame1.length() == 93) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-                        fifth = frame1.substring(58, 63);
-                        sixth = frame1.substring(65, 70);
-                        seventh = frame1.substring(72, 77);
-                        eighth = frame1.substring(79, 84);
-                        ninth = frame1.substring(86, 91);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
+                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
                                 + newLine + newLine;
+                    } else if (text.length() == 87) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
+
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(33, 38);
+                        fourth = text.substring(41, 46);
+                        fifth = text.substring(49, 54);
+                        sixth = text.substring(57, 62);
+                        seventh = text.substring(64, 69);
+                        eighth = text.substring(72, 77);
+                        ninth = text.substring(80, 85);
+
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
+                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
+                                + newLine + eighth + newLine + ninth + newLine + newLine;
+                    } else if (text.length() == 103) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
+
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(33, 38);
+                        fourth = text.substring(41, 46);
+                        fifth = text.substring(49, 54);
+                        sixth = text.substring(57, 62);
+                        seventh = text.substring(64, 69);
+                        eighth = text.substring(72, 77);
+                        ninth = text.substring(80, 85);
+                        tenth = text.substring(88, 93);
+                        eleventh = text.substring(96, 101);
+
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
+                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
+                                + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
+                                + newLine + newLine;
+                    } else if (text.length() == 119) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
+
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(33, 38);
+                        fourth = text.substring(41, 46);
+                        fifth = text.substring(49, 54);
+                        sixth = text.substring(57, 62);
+                        seventh = text.substring(65, 70);
+                        eighth = text.substring(73, 78);
+                        ninth = text.substring(81, 86);
+                        tenth = text.substring(89, 94);
+                        eleventh = text.substring(97, 102);
+                        twelth = text.substring(105, 110);
+                        thirteen = text.substring(112, 117);
+
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
+                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
+                                + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
+                                + newLine + twelth + newLine + thirteen + newLine + newLine;
                     }
-                }
-                if (sequenceFinished3.toString().contains(frameNameF2.toString())) {
-                    frame2 = frameFinished2.toString();
-                    if (frame2.length() == 44) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                    if (sequenceFinished3.toString().contains(frameNameF1.toString())) {
+                        frame1 = frameFinished1.toString();
+                        if (frame1.length() == 44) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame2.length() == 51) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame1.length() == 51) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame2.length() == 58) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame1.length() == 58) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame2.length() == 65) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame1.length() == 65) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
-                        fifth = frame2.substring(58, 63);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
+                            fifth = frame1.substring(58, 63);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + newLine;
-                    } else if (frame2.length() == 72) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame1.length() == 72) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
-                        fifth = frame2.substring(58, 63);
-                        sixth = frame2.substring(65, 70);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
+                            fifth = frame1.substring(58, 63);
+                            sixth = frame1.substring(65, 70);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame2.length() == 79) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame1.length() == 79) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
-                        fifth = frame2.substring(58, 63);
-                        sixth = frame2.substring(65, 70);
-                        seventh = frame2.substring(72, 77);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
+                            fifth = frame1.substring(58, 63);
+                            sixth = frame1.substring(65, 70);
+                            seventh = frame1.substring(72, 77);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame2.length() == 86) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame1.length() == 86) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
-                        fifth = frame2.substring(58, 63);
-                        sixth = frame2.substring(65, 70);
-                        seventh = frame2.substring(72, 77);
-                        eighth = frame2.substring(79, 84);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
+                            fifth = frame1.substring(58, 63);
+                            sixth = frame1.substring(65, 70);
+                            seventh = frame1.substring(72, 77);
+                            eighth = frame1.substring(79, 84);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame2.length() == 93) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame1.length() == 93) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
-                        fifth = frame2.substring(58, 63);
-                        sixth = frame2.substring(65, 70);
-                        seventh = frame2.substring(72, 77);
-                        eighth = frame2.substring(79, 84);
-                        ninth = frame2.substring(86, 91);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
+                            fifth = frame1.substring(58, 63);
+                            sixth = frame1.substring(65, 70);
+                            seventh = frame1.substring(72, 77);
+                            eighth = frame1.substring(79, 84);
+                            ninth = frame1.substring(86, 91);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                + newLine + newLine;
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
                     }
-                }
-                if (sequenceFinished3.toString().contains(frameNameF3.toString())) {
-                    frame3 = frameFinished3.toString();
-                    if (frame3.length() == 44) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                    if (sequenceFinished3.toString().contains(frameNameF2.toString())) {
+                        frame2 = frameFinished2.toString();
+                        if (frame2.length() == 44) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame3.length() == 51) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame2.length() == 51) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame3.length() == 58) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame2.length() == 58) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame3.length() == 65) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame2.length() == 65) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
-                        fifth = frame3.substring(58, 63);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
+                            fifth = frame2.substring(58, 63);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + newLine;
-                    } else if (frame3.length() == 72) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame2.length() == 72) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
-                        fifth = frame3.substring(58, 63);
-                        sixth = frame3.substring(65, 70);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
+                            fifth = frame2.substring(58, 63);
+                            sixth = frame2.substring(65, 70);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame3.length() == 79) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame2.length() == 79) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
-                        fifth = frame3.substring(58, 63);
-                        sixth = frame3.substring(65, 70);
-                        seventh = frame3.substring(72, 77);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
+                            fifth = frame2.substring(58, 63);
+                            sixth = frame2.substring(65, 70);
+                            seventh = frame2.substring(72, 77);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame3.length() == 86) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame2.length() == 86) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
-                        fifth = frame3.substring(58, 63);
-                        sixth = frame3.substring(65, 70);
-                        seventh = frame3.substring(72, 77);
-                        eighth = frame3.substring(79, 84);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
+                            fifth = frame2.substring(58, 63);
+                            sixth = frame2.substring(65, 70);
+                            seventh = frame2.substring(72, 77);
+                            eighth = frame2.substring(79, 84);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame3.length() == 93) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame2.length() == 93) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
-                        fifth = frame3.substring(58, 63);
-                        sixth = frame3.substring(65, 70);
-                        seventh = frame3.substring(72, 77);
-                        eighth = frame3.substring(79, 84);
-                        ninth = frame3.substring(86, 91);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
+                            fifth = frame2.substring(58, 63);
+                            sixth = frame2.substring(65, 70);
+                            seventh = frame2.substring(72, 77);
+                            eighth = frame2.substring(79, 84);
+                            ninth = frame2.substring(86, 91);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                + newLine + newLine;
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
                     }
-                }
-                if (sequenceFinished3.toString().contains(frameNameF4.toString())) {
-                    frame4 = frameFinished4.toString();
-                    if (frame4.length() == 44) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                    if (sequenceFinished3.toString().contains(frameNameF3.toString())) {
+                        frame3 = frameFinished3.toString();
+                        if (frame3.length() == 44) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame4.length() == 51) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame3.length() == 51) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame4.length() == 58) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame3.length() == 58) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame4.length() == 65) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame3.length() == 65) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
-                        fifth = frame4.substring(58, 63);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
+                            fifth = frame3.substring(58, 63);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + newLine;
-                    } else if (frame4.length() == 72) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame3.length() == 72) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
-                        fifth = frame4.substring(58, 63);
-                        sixth = frame4.substring(65, 70);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
+                            fifth = frame3.substring(58, 63);
+                            sixth = frame3.substring(65, 70);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame4.length() == 79) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame3.length() == 79) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
-                        fifth = frame4.substring(58, 63);
-                        sixth = frame4.substring(65, 70);
-                        seventh = frame4.substring(72, 77);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
+                            fifth = frame3.substring(58, 63);
+                            sixth = frame3.substring(65, 70);
+                            seventh = frame3.substring(72, 77);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame4.length() == 86) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame3.length() == 86) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
-                        fifth = frame4.substring(58, 63);
-                        sixth = frame4.substring(65, 70);
-                        seventh = frame4.substring(72, 77);
-                        eighth = frame4.substring(79, 84);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
+                            fifth = frame3.substring(58, 63);
+                            sixth = frame3.substring(65, 70);
+                            seventh = frame3.substring(72, 77);
+                            eighth = frame3.substring(79, 84);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame4.length() == 93) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame3.length() == 93) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
-                        fifth = frame4.substring(58, 63);
-                        sixth = frame4.substring(65, 70);
-                        seventh = frame4.substring(72, 77);
-                        eighth = frame4.substring(79, 84);
-                        ninth = frame4.substring(86, 91);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
+                            fifth = frame3.substring(58, 63);
+                            sixth = frame3.substring(65, 70);
+                            seventh = frame3.substring(72, 77);
+                            eighth = frame3.substring(79, 84);
+                            ninth = frame3.substring(86, 91);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                + newLine + newLine;
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
                     }
-                }
-                if (sequenceFinished3.toString().contains(frameNameF5.toString())) {
-                    frame5 = frameFinished5.toString();
-                    if (frame5.length() == 44) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                    if (sequenceFinished3.toString().contains(frameNameF4.toString())) {
+                        frame4 = frameFinished4.toString();
+                        if (frame4.length() == 44) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame5.length() == 51) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame4.length() == 51) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame5.length() == 58) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame4.length() == 58) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame5.length() == 65) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame4.length() == 65) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
-                        fifth = frame5.substring(58, 63);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
+                            fifth = frame4.substring(58, 63);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + newLine;
-                    } else if (frame5.length() == 72) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame4.length() == 72) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
-                        fifth = frame5.substring(58, 63);
-                        sixth = frame5.substring(65, 70);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
+                            fifth = frame4.substring(58, 63);
+                            sixth = frame4.substring(65, 70);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame5.length() == 79) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame4.length() == 79) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
-                        fifth = frame5.substring(58, 63);
-                        sixth = frame5.substring(65, 70);
-                        seventh = frame5.substring(72, 77);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
+                            fifth = frame4.substring(58, 63);
+                            sixth = frame4.substring(65, 70);
+                            seventh = frame4.substring(72, 77);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame5.length() == 86) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame4.length() == 86) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
-                        fifth = frame5.substring(58, 63);
-                        sixth = frame5.substring(65, 70);
-                        seventh = frame5.substring(72, 77);
-                        eighth = frame5.substring(79, 84);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
+                            fifth = frame4.substring(58, 63);
+                            sixth = frame4.substring(65, 70);
+                            seventh = frame4.substring(72, 77);
+                            eighth = frame4.substring(79, 84);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame5.length() == 93) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame4.length() == 93) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
-                        fifth = frame5.substring(58, 63);
-                        sixth = frame5.substring(65, 70);
-                        seventh = frame5.substring(72, 77);
-                        eighth = frame5.substring(79, 84);
-                        ninth = frame5.substring(86, 91);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
+                            fifth = frame4.substring(58, 63);
+                            sixth = frame4.substring(65, 70);
+                            seventh = frame4.substring(72, 77);
+                            eighth = frame4.substring(79, 84);
+                            ninth = frame4.substring(86, 91);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                + newLine + newLine;
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
                     }
-                }
-                if (sequenceFinished3.toString().contains(frameNameF6.toString())) {
-                    frame6 = frameFinished6.toString();
-                    if (frame6.length() == 44) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                    if (sequenceFinished3.toString().contains(frameNameF5.toString())) {
+                        frame5 = frameFinished5.toString();
+                        if (frame5.length() == 44) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame6.length() == 51) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame5.length() == 51) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame6.length() == 58) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame5.length() == 58) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame6.length() == 65) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame5.length() == 65) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
-                        fifth = frame6.substring(58, 63);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
+                            fifth = frame5.substring(58, 63);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + newLine;
-                    } else if (frame6.length() == 72) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame5.length() == 72) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
-                        fifth = frame6.substring(58, 63);
-                        sixth = frame6.substring(65, 70);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
+                            fifth = frame5.substring(58, 63);
+                            sixth = frame5.substring(65, 70);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame6.length() == 79) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame5.length() == 79) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
-                        fifth = frame6.substring(58, 63);
-                        sixth = frame6.substring(65, 70);
-                        seventh = frame6.substring(72, 77);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
+                            fifth = frame5.substring(58, 63);
+                            sixth = frame5.substring(65, 70);
+                            seventh = frame5.substring(72, 77);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame6.length() == 86) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame5.length() == 86) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
-                        fifth = frame6.substring(58, 63);
-                        sixth = frame6.substring(65, 70);
-                        seventh = frame6.substring(72, 77);
-                        eighth = frame6.substring(79, 84);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
+                            fifth = frame5.substring(58, 63);
+                            sixth = frame5.substring(65, 70);
+                            seventh = frame5.substring(72, 77);
+                            eighth = frame5.substring(79, 84);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame6.length() == 93) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame5.length() == 93) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
-                        fifth = frame6.substring(58, 63);
-                        sixth = frame6.substring(65, 70);
-                        seventh = frame6.substring(72, 77);
-                        eighth = frame6.substring(79, 84);
-                        ninth = frame6.substring(86, 91);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
+                            fifth = frame5.substring(58, 63);
+                            sixth = frame5.substring(65, 70);
+                            seventh = frame5.substring(72, 77);
+                            eighth = frame5.substring(79, 84);
+                            ninth = frame5.substring(86, 91);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                + newLine + newLine;
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
                     }
-                }
-                combined = text + frame1 + frame2 + frame3 + frame4 + frame5 + frame6;
+                    if (sequenceFinished3.toString().contains(frameNameF6.toString())) {
+                        frame6 = frameFinished6.toString();
+                        if (frame6.length() == 44) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
 
-                File dir = new File(path, frameSequenceName);
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
 
-                try {
-                    FileOutputStream fos = new FileOutputStream(dir);
-                    fos.write(combined.getBytes());
-                    t.setText(dir.toString());
-                    fos.flush();
-                    fos.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame6.length() == 51) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame6.length() == 58) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame6.length() == 65) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+                            fifth = frame6.substring(58, 63);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame6.length() == 72) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+                            fifth = frame6.substring(58, 63);
+                            sixth = frame6.substring(65, 70);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame6.length() == 79) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+                            fifth = frame6.substring(58, 63);
+                            sixth = frame6.substring(65, 70);
+                            seventh = frame6.substring(72, 77);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame6.length() == 86) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+                            fifth = frame6.substring(58, 63);
+                            sixth = frame6.substring(65, 70);
+                            seventh = frame6.substring(72, 77);
+                            eighth = frame6.substring(79, 84);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame6.length() == 93) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+                            fifth = frame6.substring(58, 63);
+                            sixth = frame6.substring(65, 70);
+                            seventh = frame6.substring(72, 77);
+                            eighth = frame6.substring(79, 84);
+                            ninth = frame6.substring(86, 91);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
+                    }
+                    combined = text + frame1 + frame2 + frame3 + frame4 + frame5 + frame6;
+                    File dir = new File(path, frameSequenceName);
+                    try {
+                        FileOutputStream fos = new FileOutputStream(dir);
+                        fos.write(combined.getBytes());
+                        t.setText(dir.toString());
+                        fos.flush();
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else if (sequenceFinished3.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Nothing inside this sequence to export", Toast.LENGTH_SHORT).show();
                 }
             }
             if (text.equals(sequenceName4.toString())) {
-                text = sequenceFinished4.toString();
-                frameSequenceName = text.substring(2, 7);
-                frameSequenceName = frameSequenceName + ".txt";
-                if (text.length() == 39) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
+                if (!sequenceFinished4.isEmpty()) {
+                    text = sequenceFinished4.toString();
+                    frameSequenceName = text.substring(2, 7);
+                    frameSequenceName = frameSequenceName + ".txt";
+                    if (text.length() == 39) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
 
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(32, 37);
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(32, 37);
 
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + newLine;
-                } else if (text.length() == 55) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
-
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(33, 38);
-                    fourth = text.substring(41, 46);
-                    fifth = text.substring(48, 53);
-
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + fourth + newLine + fifth + newLine + newLine;
-                } else if (text.length() == 71) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
-
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(33, 38);
-                    fourth = text.substring(41, 46);
-                    fifth = text.substring(49, 54);
-                    sixth = text.substring(57, 62);
-                    seventh = text.substring(64, 69);
-
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                            + newLine + newLine;
-                } else if (text.length() == 87) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
-
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(33, 38);
-                    fourth = text.substring(41, 46);
-                    fifth = text.substring(49, 54);
-                    sixth = text.substring(57, 62);
-                    seventh = text.substring(64, 69);
-                    eighth = text.substring(72, 77);
-                    ninth = text.substring(80, 85);
-
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                            + newLine + eighth + newLine + ninth + newLine + newLine;
-                } else if (text.length() == 103) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
-
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(33, 38);
-                    fourth = text.substring(41, 46);
-                    fifth = text.substring(49, 54);
-                    sixth = text.substring(57, 62);
-                    seventh = text.substring(64, 69);
-                    eighth = text.substring(72, 77);
-                    ninth = text.substring(80, 85);
-                    tenth = text.substring(88, 93);
-                    eleventh = text.substring(96, 101);
-
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                            + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
-                            + newLine + newLine;
-                } else if (text.length() == 119) {
-                    name = text.substring(2, 7);
-                    frames = text.substring(9, 14);
-
-                    first = text.substring(17, 22);
-                    second = text.substring(25, 30);
-                    third = text.substring(33, 38);
-                    fourth = text.substring(41, 46);
-                    fifth = text.substring(49, 54);
-                    sixth = text.substring(57, 62);
-                    seventh = text.substring(65, 70);
-                    eighth = text.substring(73, 78);
-                    ninth = text.substring(81, 86);
-                    tenth = text.substring(89, 94);
-                    eleventh = text.substring(97, 102);
-                    twelth = text.substring(105, 110);
-                    thirteen = text.substring(112, 117);
-
-                    text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                            + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                            + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
-                            + newLine + twelth + newLine + thirteen + newLine + newLine;
-                }
-                if (sequenceFinished4.toString().contains(frameNameF1.toString())) {
-                    frame1 = frameFinished1.toString();
-                    if (frame1.length() == 44) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame1.length() == 51) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame1.length() == 58) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame1.length() == 65) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-                        fifth = frame1.substring(58, 63);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
                                 + newLine + newLine;
-                    } else if (frame1.length() == 72) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
+                    } else if (text.length() == 55) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
 
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-                        fifth = frame1.substring(58, 63);
-                        sixth = frame1.substring(65, 70);
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(33, 38);
+                        fourth = text.substring(41, 46);
+                        fifth = text.substring(48, 53);
 
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame1.length() == 79) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
+                                + newLine + fourth + newLine + fifth + newLine + newLine;
+                    } else if (text.length() == 71) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
 
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-                        fifth = frame1.substring(58, 63);
-                        sixth = frame1.substring(65, 70);
-                        seventh = frame1.substring(72, 77);
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(33, 38);
+                        fourth = text.substring(41, 46);
+                        fifth = text.substring(49, 54);
+                        sixth = text.substring(57, 62);
+                        seventh = text.substring(64, 69);
 
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame1.length() == 86) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-                        fifth = frame1.substring(58, 63);
-                        sixth = frame1.substring(65, 70);
-                        seventh = frame1.substring(72, 77);
-                        eighth = frame1.substring(79, 84);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame1.length() == 93) {
-                        name = frame1.substring(2, 7);
-                        coils = frame1.substring(9, 14);
-                        delay = frame1.substring(16, 21);
-                        time = frame1.substring(23, 28);
-
-                        first = frame1.substring(30, 35);
-                        second = frame1.substring(37, 42);
-                        third = frame1.substring(44, 49);
-                        fourth = frame1.substring(51, 56);
-                        fifth = frame1.substring(58, 63);
-                        sixth = frame1.substring(65, 70);
-                        seventh = frame1.substring(72, 77);
-                        eighth = frame1.substring(79, 84);
-                        ninth = frame1.substring(86, 91);
-
-                        frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
+                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
                                 + newLine + newLine;
+                    } else if (text.length() == 87) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
+
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(33, 38);
+                        fourth = text.substring(41, 46);
+                        fifth = text.substring(49, 54);
+                        sixth = text.substring(57, 62);
+                        seventh = text.substring(64, 69);
+                        eighth = text.substring(72, 77);
+                        ninth = text.substring(80, 85);
+
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
+                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
+                                + newLine + eighth + newLine + ninth + newLine + newLine;
+                    } else if (text.length() == 103) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
+
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(33, 38);
+                        fourth = text.substring(41, 46);
+                        fifth = text.substring(49, 54);
+                        sixth = text.substring(57, 62);
+                        seventh = text.substring(64, 69);
+                        eighth = text.substring(72, 77);
+                        ninth = text.substring(80, 85);
+                        tenth = text.substring(88, 93);
+                        eleventh = text.substring(96, 101);
+
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
+                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
+                                + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
+                                + newLine + newLine;
+                    } else if (text.length() == 119) {
+                        name = text.substring(2, 7);
+                        frames = text.substring(9, 14);
+
+                        first = text.substring(17, 22);
+                        second = text.substring(25, 30);
+                        third = text.substring(33, 38);
+                        fourth = text.substring(41, 46);
+                        fifth = text.substring(49, 54);
+                        sixth = text.substring(57, 62);
+                        seventh = text.substring(65, 70);
+                        eighth = text.substring(73, 78);
+                        ninth = text.substring(81, 86);
+                        tenth = text.substring(89, 94);
+                        eleventh = text.substring(97, 102);
+                        twelth = text.substring(105, 110);
+                        thirteen = text.substring(112, 117);
+
+                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
+                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
+                                + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
+                                + newLine + twelth + newLine + thirteen + newLine + newLine;
                     }
-                }
-                if (sequenceFinished4.toString().contains(frameNameF2.toString())) {
-                    frame2 = frameFinished2.toString();
-                    if (frame2.length() == 44) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                    if (sequenceFinished4.toString().contains(frameNameF1.toString())) {
+                        frame1 = frameFinished1.toString();
+                        if (frame1.length() == 44) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame2.length() == 51) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame1.length() == 51) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame2.length() == 58) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame1.length() == 58) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame2.length() == 65) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame1.length() == 65) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
-                        fifth = frame2.substring(58, 63);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
+                            fifth = frame1.substring(58, 63);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + newLine;
-                    } else if (frame2.length() == 72) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame1.length() == 72) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
-                        fifth = frame2.substring(58, 63);
-                        sixth = frame2.substring(65, 70);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
+                            fifth = frame1.substring(58, 63);
+                            sixth = frame1.substring(65, 70);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame2.length() == 79) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame1.length() == 79) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
-                        fifth = frame2.substring(58, 63);
-                        sixth = frame2.substring(65, 70);
-                        seventh = frame2.substring(72, 77);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
+                            fifth = frame1.substring(58, 63);
+                            sixth = frame1.substring(65, 70);
+                            seventh = frame1.substring(72, 77);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame2.length() == 86) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame1.length() == 86) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
-                        fifth = frame2.substring(58, 63);
-                        sixth = frame2.substring(65, 70);
-                        seventh = frame2.substring(72, 77);
-                        eighth = frame2.substring(79, 84);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
+                            fifth = frame1.substring(58, 63);
+                            sixth = frame1.substring(65, 70);
+                            seventh = frame1.substring(72, 77);
+                            eighth = frame1.substring(79, 84);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame2.length() == 93) {
-                        name = frame2.substring(2, 7);
-                        coils = frame2.substring(9, 14);
-                        delay = frame2.substring(16, 21);
-                        time = frame2.substring(23, 28);
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame1.length() == 93) {
+                            name = frame1.substring(2, 7);
+                            coils = frame1.substring(9, 14);
+                            delay = frame1.substring(16, 21);
+                            time = frame1.substring(23, 28);
 
-                        first = frame2.substring(30, 35);
-                        second = frame2.substring(37, 42);
-                        third = frame2.substring(44, 49);
-                        fourth = frame2.substring(51, 56);
-                        fifth = frame2.substring(58, 63);
-                        sixth = frame2.substring(65, 70);
-                        seventh = frame2.substring(72, 77);
-                        eighth = frame2.substring(79, 84);
-                        ninth = frame2.substring(86, 91);
+                            first = frame1.substring(30, 35);
+                            second = frame1.substring(37, 42);
+                            third = frame1.substring(44, 49);
+                            fourth = frame1.substring(51, 56);
+                            fifth = frame1.substring(58, 63);
+                            sixth = frame1.substring(65, 70);
+                            seventh = frame1.substring(72, 77);
+                            eighth = frame1.substring(79, 84);
+                            ninth = frame1.substring(86, 91);
 
-                        frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                + newLine + newLine;
+                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
                     }
-                }
-                if (sequenceFinished4.toString().contains(frameNameF3.toString())) {
-                    frame3 = frameFinished3.toString();
-                    if (frame3.length() == 44) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                    if (sequenceFinished4.toString().contains(frameNameF2.toString())) {
+                        frame2 = frameFinished2.toString();
+                        if (frame2.length() == 44) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame3.length() == 51) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame2.length() == 51) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame3.length() == 58) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame2.length() == 58) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame3.length() == 65) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame2.length() == 65) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
-                        fifth = frame3.substring(58, 63);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
+                            fifth = frame2.substring(58, 63);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + newLine;
-                    } else if (frame3.length() == 72) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame2.length() == 72) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
-                        fifth = frame3.substring(58, 63);
-                        sixth = frame3.substring(65, 70);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
+                            fifth = frame2.substring(58, 63);
+                            sixth = frame2.substring(65, 70);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame3.length() == 79) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame2.length() == 79) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
-                        fifth = frame3.substring(58, 63);
-                        sixth = frame3.substring(65, 70);
-                        seventh = frame3.substring(72, 77);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
+                            fifth = frame2.substring(58, 63);
+                            sixth = frame2.substring(65, 70);
+                            seventh = frame2.substring(72, 77);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame3.length() == 86) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame2.length() == 86) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
-                        fifth = frame3.substring(58, 63);
-                        sixth = frame3.substring(65, 70);
-                        seventh = frame3.substring(72, 77);
-                        eighth = frame3.substring(79, 84);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
+                            fifth = frame2.substring(58, 63);
+                            sixth = frame2.substring(65, 70);
+                            seventh = frame2.substring(72, 77);
+                            eighth = frame2.substring(79, 84);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame3.length() == 93) {
-                        name = frame3.substring(2, 7);
-                        coils = frame3.substring(9, 14);
-                        delay = frame3.substring(16, 21);
-                        time = frame3.substring(23, 28);
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame2.length() == 93) {
+                            name = frame2.substring(2, 7);
+                            coils = frame2.substring(9, 14);
+                            delay = frame2.substring(16, 21);
+                            time = frame2.substring(23, 28);
 
-                        first = frame3.substring(30, 35);
-                        second = frame3.substring(37, 42);
-                        third = frame3.substring(44, 49);
-                        fourth = frame3.substring(51, 56);
-                        fifth = frame3.substring(58, 63);
-                        sixth = frame3.substring(65, 70);
-                        seventh = frame3.substring(72, 77);
-                        eighth = frame3.substring(79, 84);
-                        ninth = frame3.substring(86, 91);
+                            first = frame2.substring(30, 35);
+                            second = frame2.substring(37, 42);
+                            third = frame2.substring(44, 49);
+                            fourth = frame2.substring(51, 56);
+                            fifth = frame2.substring(58, 63);
+                            sixth = frame2.substring(65, 70);
+                            seventh = frame2.substring(72, 77);
+                            eighth = frame2.substring(79, 84);
+                            ninth = frame2.substring(86, 91);
 
-                        frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                + newLine + newLine;
+                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
                     }
-                }
-                if (sequenceFinished4.toString().contains(frameNameF4.toString())) {
-                    frame4 = frameFinished4.toString();
-                    if (frame4.length() == 44) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                    if (sequenceFinished4.toString().contains(frameNameF3.toString())) {
+                        frame3 = frameFinished3.toString();
+                        if (frame3.length() == 44) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame4.length() == 51) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame3.length() == 51) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame4.length() == 58) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame3.length() == 58) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame4.length() == 65) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame3.length() == 65) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
-                        fifth = frame4.substring(58, 63);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
+                            fifth = frame3.substring(58, 63);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + newLine;
-                    } else if (frame4.length() == 72) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame3.length() == 72) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
-                        fifth = frame4.substring(58, 63);
-                        sixth = frame4.substring(65, 70);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
+                            fifth = frame3.substring(58, 63);
+                            sixth = frame3.substring(65, 70);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame4.length() == 79) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame3.length() == 79) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
-                        fifth = frame4.substring(58, 63);
-                        sixth = frame4.substring(65, 70);
-                        seventh = frame4.substring(72, 77);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
+                            fifth = frame3.substring(58, 63);
+                            sixth = frame3.substring(65, 70);
+                            seventh = frame3.substring(72, 77);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame4.length() == 86) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame3.length() == 86) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
-                        fifth = frame4.substring(58, 63);
-                        sixth = frame4.substring(65, 70);
-                        seventh = frame4.substring(72, 77);
-                        eighth = frame4.substring(79, 84);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
+                            fifth = frame3.substring(58, 63);
+                            sixth = frame3.substring(65, 70);
+                            seventh = frame3.substring(72, 77);
+                            eighth = frame3.substring(79, 84);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame4.length() == 93) {
-                        name = frame4.substring(2, 7);
-                        coils = frame4.substring(9, 14);
-                        delay = frame4.substring(16, 21);
-                        time = frame4.substring(23, 28);
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame3.length() == 93) {
+                            name = frame3.substring(2, 7);
+                            coils = frame3.substring(9, 14);
+                            delay = frame3.substring(16, 21);
+                            time = frame3.substring(23, 28);
 
-                        first = frame4.substring(30, 35);
-                        second = frame4.substring(37, 42);
-                        third = frame4.substring(44, 49);
-                        fourth = frame4.substring(51, 56);
-                        fifth = frame4.substring(58, 63);
-                        sixth = frame4.substring(65, 70);
-                        seventh = frame4.substring(72, 77);
-                        eighth = frame4.substring(79, 84);
-                        ninth = frame4.substring(86, 91);
+                            first = frame3.substring(30, 35);
+                            second = frame3.substring(37, 42);
+                            third = frame3.substring(44, 49);
+                            fourth = frame3.substring(51, 56);
+                            fifth = frame3.substring(58, 63);
+                            sixth = frame3.substring(65, 70);
+                            seventh = frame3.substring(72, 77);
+                            eighth = frame3.substring(79, 84);
+                            ninth = frame3.substring(86, 91);
 
-                        frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                + newLine + newLine;
+                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
                     }
-                }
-                if (sequenceFinished4.toString().contains(frameNameF5.toString())) {
-                    frame5 = frameFinished5.toString();
-                    if (frame5.length() == 44) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                    if (sequenceFinished4.toString().contains(frameNameF4.toString())) {
+                        frame4 = frameFinished4.toString();
+                        if (frame4.length() == 44) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame5.length() == 51) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame4.length() == 51) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame5.length() == 58) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame4.length() == 58) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame5.length() == 65) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame4.length() == 65) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
-                        fifth = frame5.substring(58, 63);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
+                            fifth = frame4.substring(58, 63);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + newLine;
-                    } else if (frame5.length() == 72) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame4.length() == 72) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
-                        fifth = frame5.substring(58, 63);
-                        sixth = frame5.substring(65, 70);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
+                            fifth = frame4.substring(58, 63);
+                            sixth = frame4.substring(65, 70);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame5.length() == 79) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame4.length() == 79) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
-                        fifth = frame5.substring(58, 63);
-                        sixth = frame5.substring(65, 70);
-                        seventh = frame5.substring(72, 77);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
+                            fifth = frame4.substring(58, 63);
+                            sixth = frame4.substring(65, 70);
+                            seventh = frame4.substring(72, 77);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame5.length() == 86) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame4.length() == 86) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
-                        fifth = frame5.substring(58, 63);
-                        sixth = frame5.substring(65, 70);
-                        seventh = frame5.substring(72, 77);
-                        eighth = frame5.substring(79, 84);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
+                            fifth = frame4.substring(58, 63);
+                            sixth = frame4.substring(65, 70);
+                            seventh = frame4.substring(72, 77);
+                            eighth = frame4.substring(79, 84);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame5.length() == 93) {
-                        name = frame5.substring(2, 7);
-                        coils = frame5.substring(9, 14);
-                        delay = frame5.substring(16, 21);
-                        time = frame5.substring(23, 28);
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame4.length() == 93) {
+                            name = frame4.substring(2, 7);
+                            coils = frame4.substring(9, 14);
+                            delay = frame4.substring(16, 21);
+                            time = frame4.substring(23, 28);
 
-                        first = frame5.substring(30, 35);
-                        second = frame5.substring(37, 42);
-                        third = frame5.substring(44, 49);
-                        fourth = frame5.substring(51, 56);
-                        fifth = frame5.substring(58, 63);
-                        sixth = frame5.substring(65, 70);
-                        seventh = frame5.substring(72, 77);
-                        eighth = frame5.substring(79, 84);
-                        ninth = frame5.substring(86, 91);
+                            first = frame4.substring(30, 35);
+                            second = frame4.substring(37, 42);
+                            third = frame4.substring(44, 49);
+                            fourth = frame4.substring(51, 56);
+                            fifth = frame4.substring(58, 63);
+                            sixth = frame4.substring(65, 70);
+                            seventh = frame4.substring(72, 77);
+                            eighth = frame4.substring(79, 84);
+                            ninth = frame4.substring(86, 91);
 
-                        frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                + newLine + newLine;
+                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
                     }
-                }
-                if (sequenceFinished4.toString().contains(frameNameF6.toString())) {
-                    frame6 = frameFinished6.toString();
-                    if (frame6.length() == 44) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                    if (sequenceFinished4.toString().contains(frameNameF5.toString())) {
+                        frame5 = frameFinished5.toString();
+                        if (frame5.length() == 44) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + newLine;
-                    } else if (frame6.length() == 51) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame5.length() == 51) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + newLine;
-                    } else if (frame6.length() == 58) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame5.length() == 58) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine
-                                + newLine;
-                    } else if (frame6.length() == 65) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame5.length() == 65) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
-                        fifth = frame6.substring(58, 63);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
+                            fifth = frame5.substring(58, 63);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + newLine;
-                    } else if (frame6.length() == 72) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame5.length() == 72) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
-                        fifth = frame6.substring(58, 63);
-                        sixth = frame6.substring(65, 70);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
+                            fifth = frame5.substring(58, 63);
+                            sixth = frame5.substring(65, 70);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + newLine;
-                    } else if (frame6.length() == 79) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame5.length() == 79) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
-                        fifth = frame6.substring(58, 63);
-                        sixth = frame6.substring(65, 70);
-                        seventh = frame6.substring(72, 77);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
+                            fifth = frame5.substring(58, 63);
+                            sixth = frame5.substring(65, 70);
+                            seventh = frame5.substring(72, 77);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + newLine;
-                    } else if (frame6.length() == 86) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame5.length() == 86) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
-                        fifth = frame6.substring(58, 63);
-                        sixth = frame6.substring(65, 70);
-                        seventh = frame6.substring(72, 77);
-                        eighth = frame6.substring(79, 84);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
+                            fifth = frame5.substring(58, 63);
+                            sixth = frame5.substring(65, 70);
+                            seventh = frame5.substring(72, 77);
+                            eighth = frame5.substring(79, 84);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                + newLine;
-                    } else if (frame6.length() == 93) {
-                        name = frame6.substring(2, 7);
-                        coils = frame6.substring(9, 14);
-                        delay = frame6.substring(16, 21);
-                        time = frame6.substring(23, 28);
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame5.length() == 93) {
+                            name = frame5.substring(2, 7);
+                            coils = frame5.substring(9, 14);
+                            delay = frame5.substring(16, 21);
+                            time = frame5.substring(23, 28);
 
-                        first = frame6.substring(30, 35);
-                        second = frame6.substring(37, 42);
-                        third = frame6.substring(44, 49);
-                        fourth = frame6.substring(51, 56);
-                        fifth = frame6.substring(58, 63);
-                        sixth = frame6.substring(65, 70);
-                        seventh = frame6.substring(72, 77);
-                        eighth = frame6.substring(79, 84);
-                        ninth = frame6.substring(86, 91);
+                            first = frame5.substring(30, 35);
+                            second = frame5.substring(37, 42);
+                            third = frame5.substring(44, 49);
+                            fourth = frame5.substring(51, 56);
+                            fifth = frame5.substring(58, 63);
+                            sixth = frame5.substring(65, 70);
+                            seventh = frame5.substring(72, 77);
+                            eighth = frame5.substring(79, 84);
+                            ninth = frame5.substring(86, 91);
 
-                        frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                + newLine + newLine;
+                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
                     }
-                }
-                combined = text + frame1 + frame2 + frame3 + frame4 + frame5 + frame6;
+                    if (sequenceFinished4.toString().contains(frameNameF6.toString())) {
+                        frame6 = frameFinished6.toString();
+                        if (frame6.length() == 44) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
 
-                File dir = new File(path, frameSequenceName);
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
 
-                try {
-                    FileOutputStream fos = new FileOutputStream(dir);
-                    fos.write(combined.getBytes());
-                    t.setText(dir.toString());
-                    fos.flush();
-                    fos.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + newLine;
+                        } else if (frame6.length() == 51) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + newLine;
+                        } else if (frame6.length() == 58) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine
+                                    + newLine;
+                        } else if (frame6.length() == 65) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+                            fifth = frame6.substring(58, 63);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + newLine;
+                        } else if (frame6.length() == 72) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+                            fifth = frame6.substring(58, 63);
+                            sixth = frame6.substring(65, 70);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + newLine;
+                        } else if (frame6.length() == 79) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+                            fifth = frame6.substring(58, 63);
+                            sixth = frame6.substring(65, 70);
+                            seventh = frame6.substring(72, 77);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + newLine;
+                        } else if (frame6.length() == 86) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+                            fifth = frame6.substring(58, 63);
+                            sixth = frame6.substring(65, 70);
+                            seventh = frame6.substring(72, 77);
+                            eighth = frame6.substring(79, 84);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
+                                    + newLine;
+                        } else if (frame6.length() == 93) {
+                            name = frame6.substring(2, 7);
+                            coils = frame6.substring(9, 14);
+                            delay = frame6.substring(16, 21);
+                            time = frame6.substring(23, 28);
+
+                            first = frame6.substring(30, 35);
+                            second = frame6.substring(37, 42);
+                            third = frame6.substring(44, 49);
+                            fourth = frame6.substring(51, 56);
+                            fifth = frame6.substring(58, 63);
+                            sixth = frame6.substring(65, 70);
+                            seventh = frame6.substring(72, 77);
+                            eighth = frame6.substring(79, 84);
+                            ninth = frame6.substring(86, 91);
+
+                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
+                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
+                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
+                                    + newLine + newLine;
+                        }
+                    }
+                    combined = text + frame1 + frame2 + frame3 + frame4 + frame5 + frame6;
+                    File dir = new File(path, frameSequenceName);
+                    try {
+                        FileOutputStream fos = new FileOutputStream(dir);
+                        fos.write(combined.getBytes());
+                        t.setText(dir.toString());
+                        fos.flush();
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else if (sequenceFinished4.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Nothing inside this sequence to export", Toast.LENGTH_SHORT).show();
                 }
             }
         } else {
@@ -8526,64 +8599,125 @@ public class MainActivity extends AppCompatActivity {
      */
     public void nameTheSequence(View view) {
         nameOfSequence = findViewById(R.id.nameSequence);
-        setSequenceName = findViewById(R.id.setSequenceName);
-
-        numOfFramesSelected = findViewById(R.id.setNumFrames);
-        setFrames = findViewById(R.id.numOfFrames);
 
         String content = nameOfSequence.getSelectedItem().toString();
 
-        if (sequenceName1.isEmpty()) {
-            sequenceName1.add("$S" + content);
-            commandInformationSeq.add(0, "$S" + content);
-            if (commandInformationSeq.add(true)) {
-                nameOfSequence.setVisibility(View.INVISIBLE);
-                setSequenceName.setVisibility(View.INVISIBLE);
-                commandInformationSeq.remove(true);
-                numOfFramesSelected.setVisibility(View.VISIBLE);
-                setFrames.setVisibility(View.VISIBLE);
-            }
-        } else if (sequenceName2.isEmpty()) {
-            if (!sequenceName1.contains("$S" + content)) {
-                sequenceName2.add("$S" + content);
+        if (commandInformationSeq.isEmpty()) {
+            if (sequenceName1.isEmpty()) {
+                sequenceName1.add("$S" + content);
                 commandInformationSeq.add(0, "$S" + content);
                 if (commandInformationSeq.add(true)) {
                     nameOfSequence.setVisibility(View.INVISIBLE);
-                    setSequenceName.setVisibility(View.INVISIBLE);
+                    findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
                     commandInformationSeq.remove(true);
-                    numOfFramesSelected.setVisibility(View.VISIBLE);
-                    setFrames.setVisibility(View.VISIBLE);
+                    findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
+                    findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
                 }
-            } else {
-                Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+            } else if (sequenceName2.isEmpty()) {
+                if (!sequenceName1.contains("$S" + content)) {
+                    sequenceName2.add("$S" + content);
+                    commandInformationSeq.add(0, "$S" + content);
+                    if (commandInformationSeq.add(true)) {
+                        nameOfSequence.setVisibility(View.INVISIBLE);
+                        findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
+                        commandInformationSeq.remove(true);
+                        findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
+                        findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+                }
+            } else if (sequenceName3.isEmpty()) {
+                if (!sequenceName1.contains("$S" + content) && !sequenceName2.contains("$S" + content)) {
+                    sequenceName3.add("$S" + content);
+                    commandInformationSeq.add(0, "$S" + content);
+                    if (commandInformationSeq.add(true)) {
+                        nameOfSequence.setVisibility(View.INVISIBLE);
+                        findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
+                        commandInformationSeq.remove(true);
+                        findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
+                        findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+                }
+            } else if (sequenceName4.isEmpty()) {
+                if (!sequenceName1.contains("$S" + content) && !sequenceName2.contains("$S" + content) && !sequenceName3.contains("$S" + content)) {
+                    sequenceName4.add("$S" + content);
+                    commandInformationSeq.add(0, "$S" + content);
+                    if (commandInformationSeq.add(true)) {
+                        nameOfSequence.setVisibility(View.INVISIBLE);
+                        findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
+                        commandInformationSeq.remove(true);
+                        findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
+                        findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+                }
             }
-        } else if (sequenceName3.isEmpty()) {
-            if (!sequenceName1.contains("$S" + content) && !sequenceName2.contains("$S" + content)) {
-                sequenceName3.add("$S" + content);
+        } else if (!commandInformationSeq.isEmpty()) {
+            commandInformationSeq.clear();
+            sequenceName1.clear();
+            sequenceName2.clear();
+            sequenceName3.clear();
+            sequenceName4.clear();
+            frameSelections.clear();
+            totalFrames.clear();
+            frameCounting = 0;
+            framesUsedCounter.setText(String.valueOf(frameCounting));
+            if (sequenceName1.isEmpty()) {
+                sequenceName1.add("$S" + content);
                 commandInformationSeq.add(0, "$S" + content);
                 if (commandInformationSeq.add(true)) {
                     nameOfSequence.setVisibility(View.INVISIBLE);
-                    setSequenceName.setVisibility(View.INVISIBLE);
+                    findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
                     commandInformationSeq.remove(true);
-                    numOfFramesSelected.setVisibility(View.VISIBLE);
-                    setFrames.setVisibility(View.VISIBLE);
+                    findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
+                    findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
                 }
-            } else {
-                Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
-            }
-        } else if (sequenceName4.isEmpty()) {
-            if (!sequenceName1.contains("$S" + content) && !sequenceName2.contains("$S" + content) && !sequenceName3.contains("$S" + content)) {
-                sequenceName4.add("$S" + content);
-                commandInformationSeq.add(0, "$S" + content);
-                if (commandInformationSeq.add(true)) {
-                    nameOfSequence.setVisibility(View.INVISIBLE);
-                    setSequenceName.setVisibility(View.INVISIBLE);
-                    commandInformationSeq.remove(true);
-                    numOfFramesSelected.setVisibility(View.VISIBLE);
-                    setFrames.setVisibility(View.VISIBLE);
+            } else if (sequenceName2.isEmpty()) {
+                if (!sequenceName1.contains("$S" + content)) {
+                    sequenceName2.add("$S" + content);
+                    commandInformationSeq.add(0, "$S" + content);
+                    if (commandInformationSeq.add(true)) {
+                        nameOfSequence.setVisibility(View.INVISIBLE);
+                        findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
+                        commandInformationSeq.remove(true);
+                        findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
+                        findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
                 }
-            } else {
-                Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+            } else if (sequenceName3.isEmpty()) {
+                if (!sequenceName1.contains("$S" + content) && !sequenceName2.contains("$S" + content)) {
+                    sequenceName3.add("$S" + content);
+                    commandInformationSeq.add(0, "$S" + content);
+                    if (commandInformationSeq.add(true)) {
+                        nameOfSequence.setVisibility(View.INVISIBLE);
+                        findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
+                        commandInformationSeq.remove(true);
+                        findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
+                        findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+                }
+            } else if (sequenceName4.isEmpty()) {
+                if (!sequenceName1.contains("$S" + content) && !sequenceName2.contains("$S" + content) && !sequenceName3.contains("$S" + content)) {
+                    sequenceName4.add("$S" + content);
+                    commandInformationSeq.add(0, "$S" + content);
+                    if (commandInformationSeq.add(true)) {
+                        nameOfSequence.setVisibility(View.INVISIBLE);
+                        findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
+                        commandInformationSeq.remove(true);
+                        findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
+                        findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+                }
             }
         }
 
@@ -8602,31 +8736,24 @@ public class MainActivity extends AppCompatActivity {
      */
     public void numOfFrames(View view) {
         numOfFramesSelected = findViewById(R.id.setNumFrames);
-        setFrames = findViewById(R.id.numOfFrames);
-
-        frameAmount = findViewById(R.id.frameSelection);
         setFrame = findViewById(R.id.setFrames);
-
         selectRepAmount = findViewById(R.id.selectRepetitionAmount);
         setAmountOfRep = findViewById(R.id.setRepetitionAmount);
 
-        sequenceCreationView = findViewById(R.id.sequenceCreationView);
-        saveTheSequence = findViewById(R.id.saveSequence);
-
-        TextView t = sequenceCreationView;
+        TextView t = findViewById(R.id.sequenceCreationView);
         String start = "";
 
-        String content = numOfFramesSelected.getSelectedItem().toString();
-        commandInformationSeq.add(1, "$n00" + content);
+        String frameNumberSelected = numOfFramesSelected.getSelectedItem().toString();
+        commandInformationSeq.add(1, "$n00" + frameNumberSelected);
 
         for (Object Selections : commandInformationSeq) {
             start = start + Selections + "\n";
         }
         t.setText(start);
 
-        framesUsed.add(content);
+        framesUsed.add(frameNumberSelected);
 
-        Spinner frameList = frameAmount;
+        Spinner frameList = findViewById(R.id.frameSelection);
         ArrayList<Object> frameSelections = new ArrayList<>();
 
         frameSelections.add(frameName1.toString());
@@ -8642,15 +8769,112 @@ public class MainActivity extends AppCompatActivity {
         frameList.setAdapter(adapter);
 
         if (commandInformationSeq.add(true)) {
-            setFrames.setVisibility(View.INVISIBLE);
+            findViewById(R.id.numOfFrames).setVisibility(View.INVISIBLE);
             numOfFramesSelected.setVisibility(View.INVISIBLE);
             commandInformationSeq.remove(true);
             setFrame.setVisibility(View.VISIBLE);
-            frameAmount.setVisibility(View.VISIBLE);
+            findViewById(R.id.frameSelection).setVisibility(View.VISIBLE);
             selectRepAmount.setVisibility(View.VISIBLE);
             setAmountOfRep.setVisibility(View.VISIBLE);
-            sequenceCreationView.setVisibility(View.VISIBLE);
-            saveTheSequence.setVisibility(View.VISIBLE);
+            findViewById(R.id.sequenceCreationView).setVisibility(View.VISIBLE);
+            findViewById(R.id.saveSequence).setVisibility(View.VISIBLE);
+            findViewById(R.id.frameCounter).setVisibility(View.VISIBLE);
+            findViewById(R.id.framesUsedCounter).setVisibility(View.VISIBLE);
+            findViewById(R.id.resetFramesUsed).setVisibility(View.VISIBLE);
+
+/*            if(frameNumberSelected.equals("1")){
+                findViewById(R.id.firstFrame).setVisibility(View.VISIBLE);
+            }else if(frameNumberSelected.equals("2")){
+                findViewById(R.id.firstFrame).setVisibility(View.VISIBLE);
+                findViewById(R.id.secondFrame).setVisibility(View.VISIBLE);
+            }else if(frameNumberSelected.equals("3")){
+                findViewById(R.id.firstFrame).setVisibility(View.VISIBLE);
+                findViewById(R.id.secondFrame).setVisibility(View.VISIBLE);
+                findViewById(R.id.thirdFrame).setVisibility(View.VISIBLE);
+            }else if(frameNumberSelected.equals("4")){
+                findViewById(R.id.firstFrame).setVisibility(View.VISIBLE);
+                findViewById(R.id.secondFrame).setVisibility(View.VISIBLE);
+                findViewById(R.id.thirdFrame).setVisibility(View.VISIBLE);
+                findViewById(R.id.fourthFrame).setVisibility(View.VISIBLE);
+            }else if(frameNumberSelected.equals("5")){
+                findViewById(R.id.firstFrame).setVisibility(View.VISIBLE);
+                findViewById(R.id.secondFrame).setVisibility(View.VISIBLE);
+                findViewById(R.id.thirdFrame).setVisibility(View.VISIBLE);
+                findViewById(R.id.fourthFrame).setVisibility(View.VISIBLE);
+                findViewById(R.id.fifthFrame).setVisibility(View.VISIBLE);
+            }else if(frameNumberSelected.equals("6")){
+                findViewById(R.id.firstFrame).setVisibility(View.VISIBLE);
+                findViewById(R.id.secondFrame).setVisibility(View.VISIBLE);
+                findViewById(R.id.thirdFrame).setVisibility(View.VISIBLE);
+                findViewById(R.id.fourthFrame).setVisibility(View.VISIBLE);
+                findViewById(R.id.fifthFrame).setVisibility(View.VISIBLE);
+                findViewById(R.id.sixthFrame).setVisibility(View.VISIBLE);
+            }*/
+
+            findViewById(R.id.pin0).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin1).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin2).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin3).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin4).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin5).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin6).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin7).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin8).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin9).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin10).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin11).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin12).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin13).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin14).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin15).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin16).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin17).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin18).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin19).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin20).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin21).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin22).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin23).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin24).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin25).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin26).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin27).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin28).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin29).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin30).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin31).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin32).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin33).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin34).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin35).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin36).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin37).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin38).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin39).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin40).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin41).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin42).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin43).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin44).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin45).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin46).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin47).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin48).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin49).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin50).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin51).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin52).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin53).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin54).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin55).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin56).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin57).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin58).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin59).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin60).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin61).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin62).setVisibility(View.VISIBLE);
+            findViewById(R.id.pin63).setVisibility(View.VISIBLE);
 
             selectRepAmount.setEnabled(false);
             setAmountOfRep.setEnabled(false);
@@ -8662,10 +8886,81 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param view
      */
+    public static int frameCounting = 0;
+
     public void setTheFrames(View view) {
+        pin0 = findViewById(R.id.pin0);
+        pin1 = findViewById(R.id.pin1);
+        pin2 = findViewById(R.id.pin2);
+        pin3 = findViewById(R.id.pin3);
+        pin4 = findViewById(R.id.pin4);
+        pin5 = findViewById(R.id.pin5);
+        pin6 = findViewById(R.id.pin6);
+        pin7 = findViewById(R.id.pin7);
+        pin8 = findViewById(R.id.pin8);
+        pin9 = findViewById(R.id.pin9);
+        pin10 = findViewById(R.id.pin10);
+        pin11 = findViewById(R.id.pin11);
+        pin12 = findViewById(R.id.pin12);
+        pin13 = findViewById(R.id.pin13);
+        pin14 = findViewById(R.id.pin14);
+        pin15 = findViewById(R.id.pin15);
+        pin16 = findViewById(R.id.pin16);
+        pin17 = findViewById(R.id.pin17);
+        pin18 = findViewById(R.id.pin18);
+        pin19 = findViewById(R.id.pin19);
+        pin20 = findViewById(R.id.pin20);
+        pin21 = findViewById(R.id.pin21);
+        pin22 = findViewById(R.id.pin22);
+        pin23 = findViewById(R.id.pin23);
+        pin24 = findViewById(R.id.pin24);
+        pin25 = findViewById(R.id.pin25);
+        pin26 = findViewById(R.id.pin26);
+        pin27 = findViewById(R.id.pin27);
+        pin28 = findViewById(R.id.pin28);
+        pin29 = findViewById(R.id.pin29);
+        pin30 = findViewById(R.id.pin30);
+        pin31 = findViewById(R.id.pin31);
+        pin32 = findViewById(R.id.pin32);
+        pin33 = findViewById(R.id.pin33);
+        pin34 = findViewById(R.id.pin34);
+        pin35 = findViewById(R.id.pin35);
+        pin36 = findViewById(R.id.pin36);
+        pin37 = findViewById(R.id.pin37);
+        pin38 = findViewById(R.id.pin38);
+        pin39 = findViewById(R.id.pin39);
+        pin40 = findViewById(R.id.pin40);
+        pin41 = findViewById(R.id.pin41);
+        pin42 = findViewById(R.id.pin42);
+        pin43 = findViewById(R.id.pin43);
+        pin44 = findViewById(R.id.pin44);
+        pin45 = findViewById(R.id.pin45);
+        pin46 = findViewById(R.id.pin46);
+        pin47 = findViewById(R.id.pin47);
+        pin48 = findViewById(R.id.pin48);
+        pin49 = findViewById(R.id.pin49);
+        pin50 = findViewById(R.id.pin50);
+        pin51 = findViewById(R.id.pin51);
+        pin52 = findViewById(R.id.pin52);
+        pin53 = findViewById(R.id.pin53);
+        pin54 = findViewById(R.id.pin54);
+        pin55 = findViewById(R.id.pin55);
+        pin56 = findViewById(R.id.pin56);
+        pin57 = findViewById(R.id.pin57);
+        pin58 = findViewById(R.id.pin58);
+        pin59 = findViewById(R.id.pin59);
+        pin60 = findViewById(R.id.pin60);
+        pin61 = findViewById(R.id.pin61);
+        pin62 = findViewById(R.id.pin62);
+        pin63 = findViewById(R.id.pin63);
+
+        sequenceCreationView = findViewById(R.id.sequenceCreationView);
+
         TextView t = findViewById(R.id.sequenceCreationView);
         String finial_commands = "";
         String finial_selection = "";
+
+        framesUsedCounter = findViewById(R.id.framesUsedCounter);
 
         numOfFramesSelected = findViewById(R.id.setNumFrames);
         String framesSelected = numOfFramesSelected.getSelectedItem().toString();
@@ -8688,6 +8983,8 @@ public class MainActivity extends AppCompatActivity {
         if (content.equals(frameName1.toString()) && !frameSelections.contains(frameNameF1)) {
             if (!frameName1.toString().contains("[]")) {
                 totalFrames.add(frameCount);
+                frameCounting++;
+                framesUsedCounter.setText(String.valueOf(frameCounting));
                 if (totalFrames.size() <= frameLimit) {
                     frameSelections.add(frameNameF1);
                     for (Object Selections : frameSelections) {
@@ -8699,12 +8996,16 @@ public class MainActivity extends AppCompatActivity {
                     selectRepAmount.setEnabled(true);
                     setAmountOfRep.setEnabled(true);
                 }
+            } else if (frameName1.toString().contains("[]")) {
+                Toast.makeText(getApplicationContext(), "Please select a valid frame", Toast.LENGTH_SHORT).show();
             }
         } else if (content.equals(frameName1.toString()) && frameSelections.contains(frameNameF1)) {
             Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
         } else if (content.equals(frameName2.toString()) && !frameSelections.contains(frameNameF2)) {
             if (!frameName2.toString().contains("[]")) {
                 totalFrames.add(frameCount);
+                frameCounting++;
+                framesUsedCounter.setText(String.valueOf(frameCounting));
                 if (totalFrames.size() <= frameLimit) {
                     frameSelections.add(frameNameF2);
                     for (Object Selections : frameSelections) {
@@ -8716,12 +9017,16 @@ public class MainActivity extends AppCompatActivity {
                     selectRepAmount.setEnabled(true);
                     setAmountOfRep.setEnabled(true);
                 }
+            } else if (frameName2.toString().contains("[]")) {
+                Toast.makeText(getApplicationContext(), "Please select a valid frame", Toast.LENGTH_SHORT).show();
             }
         } else if (content.equals(frameName2.toString()) && frameSelections.contains(frameNameF2)) {
             Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
         } else if (content.equals(frameName3.toString()) && !frameSelections.contains(frameNameF3)) {
             if (!frameName3.toString().contains("[]")) {
                 totalFrames.add(frameCount);
+                frameCounting++;
+                framesUsedCounter.setText(String.valueOf(frameCounting));
                 if (totalFrames.size() <= frameLimit) {
                     frameSelections.add(frameNameF3);
                     for (Object Selections : frameSelections) {
@@ -8733,12 +9038,16 @@ public class MainActivity extends AppCompatActivity {
                     selectRepAmount.setEnabled(true);
                     setAmountOfRep.setEnabled(true);
                 }
+            } else if (frameName3.toString().contains("[]")) {
+                Toast.makeText(getApplicationContext(), "Please select a valid frame", Toast.LENGTH_SHORT).show();
             }
         } else if (content.equals(frameName3.toString()) && frameSelections.contains(frameNameF3)) {
             Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
         } else if (content.equals(frameName4.toString()) && !frameSelections.contains(frameNameF4)) {
             if (!frameName4.toString().contains("[]")) {
                 totalFrames.add(frameCount);
+                frameCounting++;
+                framesUsedCounter.setText(String.valueOf(frameCounting));
                 if (totalFrames.size() <= frameLimit) {
                     frameSelections.add(frameNameF4);
                     for (Object Selections : frameSelections) {
@@ -8750,12 +9059,16 @@ public class MainActivity extends AppCompatActivity {
                     selectRepAmount.setEnabled(true);
                     setAmountOfRep.setEnabled(true);
                 }
+            } else if (frameName4.toString().contains("[]")) {
+                Toast.makeText(getApplicationContext(), "Please select a valid frame", Toast.LENGTH_SHORT).show();
             }
         } else if (content.equals(frameName4.toString()) && frameSelections.contains(frameNameF4)) {
             Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
         } else if (content.equals(frameName5.toString()) && !frameSelections.contains(frameNameF5)) {
             if (!frameName5.toString().contains("[]")) {
                 totalFrames.add(frameCount);
+                frameCounting++;
+                framesUsedCounter.setText(String.valueOf(frameCounting));
                 if (totalFrames.size() <= frameLimit) {
                     frameSelections.add(frameNameF5);
                     for (Object Selections : frameSelections) {
@@ -8767,12 +9080,16 @@ public class MainActivity extends AppCompatActivity {
                     selectRepAmount.setEnabled(true);
                     setAmountOfRep.setEnabled(true);
                 }
+            } else if (frameName5.toString().contains("[]")) {
+                Toast.makeText(getApplicationContext(), "Please select a valid frame", Toast.LENGTH_SHORT).show();
             }
         } else if (content.equals(frameName5.toString()) && frameSelections.contains(frameNameF5)) {
             Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
         } else if (content.equals(frameName6.toString()) && !frameSelections.contains(frameNameF6)) {
             if (!frameName6.toString().contains("[]")) {
                 totalFrames.add(frameCount);
+                frameCounting++;
+                framesUsedCounter.setText(String.valueOf(frameCounting));
                 if (totalFrames.size() <= frameLimit) {
                     frameSelections.add(frameNameF6);
                     for (Object Selections : frameSelections) {
@@ -8784,9 +9101,1572 @@ public class MainActivity extends AppCompatActivity {
                     selectRepAmount.setEnabled(true);
                     setAmountOfRep.setEnabled(true);
                 }
+            } else if (frameName6.toString().contains("[]")) {
+                Toast.makeText(getApplicationContext(), "Please select a valid frame", Toast.LENGTH_SHORT).show();
             }
         } else if (content.equals(frameName6.toString()) && frameSelections.contains(frameNameF6)) {
             Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
+        }
+
+        String frame1;
+        String frame2;
+        String frame3;
+        String frame4;
+        String frame5;
+        String frame6;
+        if (sequenceCreationView.getText().toString().contains(frameNameF1.toString())) {
+            frame1 = frameFinished1.toString();
+            if (frame1.contains("$Y000")) {
+                pin0.setChecked(true);
+                pin0.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y001")) {
+                pin1.setChecked(true);
+                pin1.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y002")) {
+                pin2.setChecked(true);
+                pin2.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y003")) {
+                pin3.setChecked(true);
+                pin3.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y004")) {
+                pin4.setChecked(true);
+                pin4.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y005")) {
+                pin5.setChecked(true);
+                pin5.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y006")) {
+                pin6.setChecked(true);
+                pin6.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y007")) {
+                pin7.setChecked(true);
+                pin7.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y008")) {
+                pin8.setChecked(true);
+                pin8.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y009")) {
+                pin9.setChecked(true);
+                pin9.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y010")) {
+                pin10.setChecked(true);
+                pin10.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y011")) {
+                pin11.setChecked(true);
+                pin11.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y012")) {
+                pin12.setChecked(true);
+                pin12.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y013")) {
+                pin13.setChecked(true);
+                pin13.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y014")) {
+                pin14.setChecked(true);
+                pin14.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y015")) {
+                pin15.setChecked(true);
+                pin15.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y016")) {
+                pin16.setChecked(true);
+                pin16.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y017")) {
+                pin17.setChecked(true);
+                pin17.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y018")) {
+                pin18.setChecked(true);
+                pin18.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y019")) {
+                pin19.setChecked(true);
+                pin19.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y020")) {
+                pin20.setChecked(true);
+                pin20.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y021")) {
+                pin21.setChecked(true);
+                pin21.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y022")) {
+                pin22.setChecked(true);
+                pin22.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y023")) {
+                pin23.setChecked(true);
+                pin23.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y024")) {
+                pin24.setChecked(true);
+                pin24.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y025")) {
+                pin25.setChecked(true);
+                pin25.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y026")) {
+                pin26.setChecked(true);
+                pin26.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y027")) {
+                pin27.setChecked(true);
+                pin27.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y028")) {
+                pin28.setChecked(true);
+                pin28.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y029")) {
+                pin29.setChecked(true);
+                pin29.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y030")) {
+                pin30.setChecked(true);
+                pin30.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y031")) {
+                pin31.setChecked(true);
+                pin31.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y032")) {
+                pin32.setChecked(true);
+                pin32.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y033")) {
+                pin33.setChecked(true);
+                pin33.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y034")) {
+                pin34.setChecked(true);
+                pin34.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y035")) {
+                pin35.setChecked(true);
+                pin35.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y036")) {
+                pin36.setChecked(true);
+                pin36.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y037")) {
+                pin37.setChecked(true);
+                pin37.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y038")) {
+                pin38.setChecked(true);
+                pin38.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y039")) {
+                pin39.setChecked(true);
+                pin39.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y040")) {
+                pin40.setChecked(true);
+                pin40.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y041")) {
+                pin41.setChecked(true);
+                pin41.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y042")) {
+                pin42.setChecked(true);
+                pin42.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y043")) {
+                pin43.setChecked(true);
+                pin43.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y044")) {
+                pin44.setChecked(true);
+                pin44.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y045")) {
+                pin45.setChecked(true);
+                pin45.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y046")) {
+                pin46.setChecked(true);
+                pin46.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y047")) {
+                pin47.setChecked(true);
+                pin47.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y048")) {
+                pin48.setChecked(true);
+                pin48.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y049")) {
+                pin49.setChecked(true);
+                pin49.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y050")) {
+                pin50.setChecked(true);
+                pin50.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y051")) {
+                pin51.setChecked(true);
+                pin51.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y052")) {
+                pin52.setChecked(true);
+                pin52.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y053")) {
+                pin53.setChecked(true);
+                pin53.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y054")) {
+                pin54.setChecked(true);
+                pin54.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y055")) {
+                pin55.setChecked(true);
+                pin55.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y056")) {
+                pin56.setChecked(true);
+                pin56.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y057")) {
+                pin57.setChecked(true);
+                pin57.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y058")) {
+                pin58.setChecked(true);
+                pin58.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y059")) {
+                pin59.setChecked(true);
+                pin59.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y060")) {
+                pin60.setChecked(true);
+                pin60.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y061")) {
+                pin61.setChecked(true);
+                pin61.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y062")) {
+                pin62.setChecked(true);
+                pin62.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+            if (frame1.contains("$Y063")) {
+                pin63.setChecked(true);
+                pin63.setBackgroundColor(Color.parseColor("#80ff00"));
+            }
+        }
+        if (sequenceCreationView.getText().toString().contains(frameNameF2.toString())) {
+            frame2 = frameFinished2.toString();
+            if (frame2.contains("$Y000")) {
+                pin0.setChecked(true);
+                pin0.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y001")) {
+                pin1.setChecked(true);
+                pin1.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y002")) {
+                pin2.setChecked(true);
+                pin2.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y003")) {
+                pin3.setChecked(true);
+                pin3.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y004")) {
+                pin4.setChecked(true);
+                pin4.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y005")) {
+                pin5.setChecked(true);
+                pin5.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y006")) {
+                pin6.setChecked(true);
+                pin6.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y007")) {
+                pin7.setChecked(true);
+                pin7.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y008")) {
+                pin8.setChecked(true);
+                pin8.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y009")) {
+                pin9.setChecked(true);
+                pin9.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y010")) {
+                pin10.setChecked(true);
+                pin10.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y011")) {
+                pin11.setChecked(true);
+                pin11.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y012")) {
+                pin12.setChecked(true);
+                pin12.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y013")) {
+                pin13.setChecked(true);
+                pin13.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y014")) {
+                pin14.setChecked(true);
+                pin14.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y015")) {
+                pin15.setChecked(true);
+                pin15.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y016")) {
+                pin16.setChecked(true);
+                pin16.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y017")) {
+                pin17.setChecked(true);
+                pin17.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y018")) {
+                pin18.setChecked(true);
+                pin18.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y019")) {
+                pin19.setChecked(true);
+                pin19.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y020")) {
+                pin20.setChecked(true);
+                pin20.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y021")) {
+                pin21.setChecked(true);
+                pin21.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y022")) {
+                pin22.setChecked(true);
+                pin22.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y023")) {
+                pin23.setChecked(true);
+                pin23.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y024")) {
+                pin24.setChecked(true);
+                pin24.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y025")) {
+                pin25.setChecked(true);
+                pin25.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y026")) {
+                pin26.setChecked(true);
+                pin26.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y027")) {
+                pin27.setChecked(true);
+                pin27.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y028")) {
+                pin28.setChecked(true);
+                pin28.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y029")) {
+                pin29.setChecked(true);
+                pin29.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y030")) {
+                pin30.setChecked(true);
+                pin30.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y031")) {
+                pin31.setChecked(true);
+                pin31.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y032")) {
+                pin32.setChecked(true);
+                pin32.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y033")) {
+                pin33.setChecked(true);
+                pin33.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y034")) {
+                pin34.setChecked(true);
+                pin34.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y035")) {
+                pin35.setChecked(true);
+                pin35.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y036")) {
+                pin36.setChecked(true);
+                pin36.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y037")) {
+                pin37.setChecked(true);
+                pin37.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y038")) {
+                pin38.setChecked(true);
+                pin38.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y039")) {
+                pin39.setChecked(true);
+                pin39.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y040")) {
+                pin40.setChecked(true);
+                pin40.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y041")) {
+                pin41.setChecked(true);
+                pin41.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y042")) {
+                pin42.setChecked(true);
+                pin42.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y043")) {
+                pin43.setChecked(true);
+                pin43.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y044")) {
+                pin44.setChecked(true);
+                pin44.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y045")) {
+                pin45.setChecked(true);
+                pin45.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y046")) {
+                pin46.setChecked(true);
+                pin46.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y047")) {
+                pin47.setChecked(true);
+                pin47.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y048")) {
+                pin48.setChecked(true);
+                pin48.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y049")) {
+                pin49.setChecked(true);
+                pin49.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y050")) {
+                pin50.setChecked(true);
+                pin50.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y051")) {
+                pin51.setChecked(true);
+                pin51.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y052")) {
+                pin52.setChecked(true);
+                pin52.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y053")) {
+                pin53.setChecked(true);
+                pin53.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y054")) {
+                pin54.setChecked(true);
+                pin54.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y055")) {
+                pin55.setChecked(true);
+                pin55.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y056")) {
+                pin56.setChecked(true);
+                pin56.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y057")) {
+                pin57.setChecked(true);
+                pin57.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y058")) {
+                pin58.setChecked(true);
+                pin58.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y059")) {
+                pin59.setChecked(true);
+                pin59.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y060")) {
+                pin60.setChecked(true);
+                pin60.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y061")) {
+                pin61.setChecked(true);
+                pin61.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y062")) {
+                pin62.setChecked(true);
+                pin62.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+            if (frame2.contains("$Y063")) {
+                pin63.setChecked(true);
+                pin63.setBackgroundColor(Color.parseColor("#d000ff"));
+            }
+        }
+        if (sequenceCreationView.getText().toString().contains(frameNameF3.toString())) {
+            frame3 = frameFinished3.toString();
+            if (frame3.contains("$Y000")) {
+                pin0.setChecked(true);
+                pin0.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y001")) {
+                pin1.setChecked(true);
+                pin1.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y002")) {
+                pin2.setChecked(true);
+                pin2.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y003")) {
+                pin3.setChecked(true);
+                pin3.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y004")) {
+                pin4.setChecked(true);
+                pin4.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y005")) {
+                pin5.setChecked(true);
+                pin5.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y006")) {
+                pin6.setChecked(true);
+                pin6.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y007")) {
+                pin7.setChecked(true);
+                pin7.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y008")) {
+                pin8.setChecked(true);
+                pin8.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y009")) {
+                pin9.setChecked(true);
+                pin9.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y010")) {
+                pin10.setChecked(true);
+                pin10.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y011")) {
+                pin11.setChecked(true);
+                pin11.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y012")) {
+                pin12.setChecked(true);
+                pin12.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y013")) {
+                pin13.setChecked(true);
+                pin13.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y014")) {
+                pin14.setChecked(true);
+                pin14.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y015")) {
+                pin15.setChecked(true);
+                pin15.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y016")) {
+                pin16.setChecked(true);
+                pin16.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y017")) {
+                pin17.setChecked(true);
+                pin17.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y018")) {
+                pin18.setChecked(true);
+                pin18.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y019")) {
+                pin19.setChecked(true);
+                pin19.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y020")) {
+                pin20.setChecked(true);
+                pin20.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y021")) {
+                pin21.setChecked(true);
+                pin21.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y022")) {
+                pin22.setChecked(true);
+                pin22.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y023")) {
+                pin23.setChecked(true);
+                pin23.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y024")) {
+                pin24.setChecked(true);
+                pin24.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y025")) {
+                pin25.setChecked(true);
+                pin25.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y026")) {
+                pin26.setChecked(true);
+                pin26.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y027")) {
+                pin27.setChecked(true);
+                pin27.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y028")) {
+                pin28.setChecked(true);
+                pin28.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y029")) {
+                pin29.setChecked(true);
+                pin29.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y030")) {
+                pin30.setChecked(true);
+                pin30.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y031")) {
+                pin31.setChecked(true);
+                pin31.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y032")) {
+                pin32.setChecked(true);
+                pin32.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y033")) {
+                pin33.setChecked(true);
+                pin33.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y034")) {
+                pin34.setChecked(true);
+                pin34.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y035")) {
+                pin35.setChecked(true);
+                pin35.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y036")) {
+                pin36.setChecked(true);
+                pin36.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y037")) {
+                pin37.setChecked(true);
+                pin37.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y038")) {
+                pin38.setChecked(true);
+                pin38.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y039")) {
+                pin39.setChecked(true);
+                pin39.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y040")) {
+                pin40.setChecked(true);
+                pin40.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y041")) {
+                pin41.setChecked(true);
+                pin41.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y042")) {
+                pin42.setChecked(true);
+                pin42.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y043")) {
+                pin43.setChecked(true);
+                pin43.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y044")) {
+                pin44.setChecked(true);
+                pin44.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y045")) {
+                pin45.setChecked(true);
+                pin45.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y046")) {
+                pin46.setChecked(true);
+                pin46.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y047")) {
+                pin47.setChecked(true);
+                pin47.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y048")) {
+                pin48.setChecked(true);
+                pin48.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y049")) {
+                pin49.setChecked(true);
+                pin49.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y050")) {
+                pin50.setChecked(true);
+                pin50.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y051")) {
+                pin51.setChecked(true);
+                pin51.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y052")) {
+                pin52.setChecked(true);
+                pin52.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y053")) {
+                pin53.setChecked(true);
+                pin53.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y054")) {
+                pin54.setChecked(true);
+                pin54.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y055")) {
+                pin55.setChecked(true);
+                pin55.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y056")) {
+                pin56.setChecked(true);
+                pin56.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y057")) {
+                pin57.setChecked(true);
+                pin57.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y058")) {
+                pin58.setChecked(true);
+                pin58.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y059")) {
+                pin59.setChecked(true);
+                pin59.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y060")) {
+                pin60.setChecked(true);
+                pin60.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y061")) {
+                pin61.setChecked(true);
+                pin61.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y062")) {
+                pin62.setChecked(true);
+                pin62.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+            if (frame3.contains("$Y063")) {
+                pin63.setChecked(true);
+                pin63.setBackgroundColor(Color.parseColor("#a200ff"));
+            }
+        }
+        if (sequenceCreationView.getText().toString().contains(frameNameF4.toString())) {
+            frame4 = frameFinished4.toString();
+            if (frame4.contains("$Y000")) {
+                pin0.setChecked(true);
+                pin0.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y001")) {
+                pin1.setChecked(true);
+                pin1.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y002")) {
+                pin2.setChecked(true);
+                pin2.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y003")) {
+                pin3.setChecked(true);
+                pin3.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y004")) {
+                pin4.setChecked(true);
+                pin4.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y005")) {
+                pin5.setChecked(true);
+                pin5.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y006")) {
+                pin6.setChecked(true);
+                pin6.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y007")) {
+                pin7.setChecked(true);
+                pin7.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y008")) {
+                pin8.setChecked(true);
+                pin8.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y009")) {
+                pin9.setChecked(true);
+                pin9.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y010")) {
+                pin10.setChecked(true);
+                pin10.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y011")) {
+                pin11.setChecked(true);
+                pin11.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y012")) {
+                pin12.setChecked(true);
+                pin12.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y013")) {
+                pin13.setChecked(true);
+                pin13.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y014")) {
+                pin14.setChecked(true);
+                pin14.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y015")) {
+                pin15.setChecked(true);
+                pin15.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y016")) {
+                pin16.setChecked(true);
+                pin16.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y017")) {
+                pin17.setChecked(true);
+                pin17.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y018")) {
+                pin18.setChecked(true);
+                pin18.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y019")) {
+                pin19.setChecked(true);
+                pin19.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y020")) {
+                pin20.setChecked(true);
+                pin20.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y021")) {
+                pin21.setChecked(true);
+                pin21.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y022")) {
+                pin22.setChecked(true);
+                pin22.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y023")) {
+                pin23.setChecked(true);
+                pin23.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y024")) {
+                pin24.setChecked(true);
+                pin24.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y025")) {
+                pin25.setChecked(true);
+                pin25.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y026")) {
+                pin26.setChecked(true);
+                pin26.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y027")) {
+                pin27.setChecked(true);
+                pin27.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y028")) {
+                pin28.setChecked(true);
+                pin28.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y029")) {
+                pin29.setChecked(true);
+                pin29.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y030")) {
+                pin30.setChecked(true);
+                pin30.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y031")) {
+                pin31.setChecked(true);
+                pin31.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y032")) {
+                pin32.setChecked(true);
+                pin32.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y033")) {
+                pin33.setChecked(true);
+                pin33.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y034")) {
+                pin34.setChecked(true);
+                pin34.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y035")) {
+                pin35.setChecked(true);
+                pin35.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y036")) {
+                pin36.setChecked(true);
+                pin36.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y037")) {
+                pin37.setChecked(true);
+                pin37.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y038")) {
+                pin38.setChecked(true);
+                pin38.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y039")) {
+                pin39.setChecked(true);
+                pin39.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y040")) {
+                pin40.setChecked(true);
+                pin40.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y041")) {
+                pin41.setChecked(true);
+                pin41.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y042")) {
+                pin42.setChecked(true);
+                pin42.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y043")) {
+                pin43.setChecked(true);
+                pin43.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y044")) {
+                pin44.setChecked(true);
+                pin44.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y045")) {
+                pin45.setChecked(true);
+                pin45.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y046")) {
+                pin46.setChecked(true);
+                pin46.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y047")) {
+                pin47.setChecked(true);
+                pin47.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y048")) {
+                pin48.setChecked(true);
+                pin48.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y049")) {
+                pin49.setChecked(true);
+                pin49.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y050")) {
+                pin50.setChecked(true);
+                pin50.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y051")) {
+                pin51.setChecked(true);
+                pin51.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y052")) {
+                pin52.setChecked(true);
+                pin52.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y053")) {
+                pin53.setChecked(true);
+                pin53.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y054")) {
+                pin54.setChecked(true);
+                pin54.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y055")) {
+                pin55.setChecked(true);
+                pin55.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y056")) {
+                pin56.setChecked(true);
+                pin56.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y057")) {
+                pin57.setChecked(true);
+                pin57.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y058")) {
+                pin58.setChecked(true);
+                pin58.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y059")) {
+                pin59.setChecked(true);
+                pin59.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y060")) {
+                pin60.setChecked(true);
+                pin60.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y061")) {
+                pin61.setChecked(true);
+                pin61.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y062")) {
+                pin62.setChecked(true);
+                pin62.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+            if (frame4.contains("$Y063")) {
+                pin63.setChecked(true);
+                pin63.setBackgroundColor(Color.parseColor("#6600ff"));
+            }
+        }
+        if (sequenceCreationView.getText().toString().contains(frameNameF5.toString())) {
+            frame5 = frameFinished5.toString();
+            if (frame5.contains("$Y000")) {
+                pin0.setChecked(true);
+                pin0.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y001")) {
+                pin1.setChecked(true);
+                pin1.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y002")) {
+                pin2.setChecked(true);
+                pin2.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y003")) {
+                pin3.setChecked(true);
+                pin3.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y004")) {
+                pin4.setChecked(true);
+                pin4.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y005")) {
+                pin5.setChecked(true);
+                pin5.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y006")) {
+                pin6.setChecked(true);
+                pin6.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y007")) {
+                pin7.setChecked(true);
+                pin7.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y008")) {
+                pin8.setChecked(true);
+                pin8.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y009")) {
+                pin9.setChecked(true);
+                pin9.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y010")) {
+                pin10.setChecked(true);
+                pin10.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y011")) {
+                pin11.setChecked(true);
+                pin11.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y012")) {
+                pin12.setChecked(true);
+                pin12.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y013")) {
+                pin13.setChecked(true);
+                pin13.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y014")) {
+                pin14.setChecked(true);
+                pin14.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y015")) {
+                pin15.setChecked(true);
+                pin15.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y016")) {
+                pin16.setChecked(true);
+                pin16.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y017")) {
+                pin17.setChecked(true);
+                pin17.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y018")) {
+                pin18.setChecked(true);
+                pin18.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y019")) {
+                pin19.setChecked(true);
+                pin19.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y020")) {
+                pin20.setChecked(true);
+                pin20.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y021")) {
+                pin21.setChecked(true);
+                pin21.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y022")) {
+                pin22.setChecked(true);
+                pin22.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y023")) {
+                pin23.setChecked(true);
+                pin23.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y024")) {
+                pin24.setChecked(true);
+                pin24.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y025")) {
+                pin25.setChecked(true);
+                pin25.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y026")) {
+                pin26.setChecked(true);
+                pin26.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y027")) {
+                pin27.setChecked(true);
+                pin27.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y028")) {
+                pin28.setChecked(true);
+                pin28.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y029")) {
+                pin29.setChecked(true);
+                pin29.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y030")) {
+                pin30.setChecked(true);
+                pin30.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y031")) {
+                pin31.setChecked(true);
+                pin31.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y032")) {
+                pin32.setChecked(true);
+                pin32.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y033")) {
+                pin33.setChecked(true);
+                pin33.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y034")) {
+                pin34.setChecked(true);
+                pin34.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y035")) {
+                pin35.setChecked(true);
+                pin35.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y036")) {
+                pin36.setChecked(true);
+                pin36.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y037")) {
+                pin37.setChecked(true);
+                pin37.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y038")) {
+                pin38.setChecked(true);
+                pin38.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y039")) {
+                pin39.setChecked(true);
+                pin39.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y040")) {
+                pin40.setChecked(true);
+                pin40.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y041")) {
+                pin41.setChecked(true);
+                pin41.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y042")) {
+                pin42.setChecked(true);
+                pin42.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y043")) {
+                pin43.setChecked(true);
+                pin43.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y044")) {
+                pin44.setChecked(true);
+                pin44.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y045")) {
+                pin45.setChecked(true);
+                pin45.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y046")) {
+                pin46.setChecked(true);
+                pin46.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y047")) {
+                pin47.setChecked(true);
+                pin47.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y048")) {
+                pin48.setChecked(true);
+                pin48.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y049")) {
+                pin49.setChecked(true);
+                pin49.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y050")) {
+                pin50.setChecked(true);
+                pin50.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y051")) {
+                pin51.setChecked(true);
+                pin51.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y052")) {
+                pin52.setChecked(true);
+                pin52.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y053")) {
+                pin53.setChecked(true);
+                pin53.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y054")) {
+                pin54.setChecked(true);
+                pin54.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y055")) {
+                pin55.setChecked(true);
+                pin55.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y056")) {
+                pin56.setChecked(true);
+                pin56.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y057")) {
+                pin57.setChecked(true);
+                pin57.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y058")) {
+                pin58.setChecked(true);
+                pin58.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y059")) {
+                pin59.setChecked(true);
+                pin59.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y060")) {
+                pin60.setChecked(true);
+                pin60.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y061")) {
+                pin61.setChecked(true);
+                pin61.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y062")) {
+                pin62.setChecked(true);
+                pin62.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+            if (frame5.contains("$Y063")) {
+                pin63.setChecked(true);
+                pin63.setBackgroundColor(Color.parseColor("#00b3ff"));
+            }
+        }
+        if (sequenceCreationView.getText().toString().contains(frameNameF6.toString())) {
+            frame6 = frameFinished6.toString();
+            if (frame6.contains("$Y000")) {
+                pin0.setChecked(true);
+                pin0.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y001")) {
+                pin1.setChecked(true);
+                pin1.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y002")) {
+                pin2.setChecked(true);
+                pin2.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y003")) {
+                pin3.setChecked(true);
+                pin3.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y004")) {
+                pin4.setChecked(true);
+                pin4.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y005")) {
+                pin5.setChecked(true);
+                pin5.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y006")) {
+                pin6.setChecked(true);
+                pin6.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y007")) {
+                pin7.setChecked(true);
+                pin7.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y008")) {
+                pin8.setChecked(true);
+                pin8.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y009")) {
+                pin9.setChecked(true);
+                pin9.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y010")) {
+                pin10.setChecked(true);
+                pin10.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y011")) {
+                pin11.setChecked(true);
+                pin11.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y012")) {
+                pin12.setChecked(true);
+                pin12.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y013")) {
+                pin13.setChecked(true);
+                pin13.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y014")) {
+                pin14.setChecked(true);
+                pin14.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y015")) {
+                pin15.setChecked(true);
+                pin15.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y016")) {
+                pin16.setChecked(true);
+                pin16.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y017")) {
+                pin17.setChecked(true);
+                pin17.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y018")) {
+                pin18.setChecked(true);
+                pin18.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y019")) {
+                pin19.setChecked(true);
+                pin19.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y020")) {
+                pin20.setChecked(true);
+                pin20.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y021")) {
+                pin21.setChecked(true);
+                pin21.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y022")) {
+                pin22.setChecked(true);
+                pin22.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y023")) {
+                pin23.setChecked(true);
+                pin23.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y024")) {
+                pin24.setChecked(true);
+                pin24.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y025")) {
+                pin25.setChecked(true);
+                pin25.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y026")) {
+                pin26.setChecked(true);
+                pin26.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y027")) {
+                pin27.setChecked(true);
+                pin27.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y028")) {
+                pin28.setChecked(true);
+                pin28.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y029")) {
+                pin29.setChecked(true);
+                pin29.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y030")) {
+                pin30.setChecked(true);
+                pin30.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y031")) {
+                pin31.setChecked(true);
+                pin31.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y032")) {
+                pin32.setChecked(true);
+                pin32.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y033")) {
+                pin33.setChecked(true);
+                pin33.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y034")) {
+                pin34.setChecked(true);
+                pin34.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y035")) {
+                pin35.setChecked(true);
+                pin35.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y036")) {
+                pin36.setChecked(true);
+                pin36.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y037")) {
+                pin37.setChecked(true);
+                pin37.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y038")) {
+                pin38.setChecked(true);
+                pin38.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y039")) {
+                pin39.setChecked(true);
+                pin39.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y040")) {
+                pin40.setChecked(true);
+                pin40.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y041")) {
+                pin41.setChecked(true);
+                pin41.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y042")) {
+                pin42.setChecked(true);
+                pin42.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y043")) {
+                pin43.setChecked(true);
+                pin43.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y044")) {
+                pin44.setChecked(true);
+                pin44.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y045")) {
+                pin45.setChecked(true);
+                pin45.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y046")) {
+                pin46.setChecked(true);
+                pin46.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y047")) {
+                pin47.setChecked(true);
+                pin47.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y048")) {
+                pin48.setChecked(true);
+                pin48.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y049")) {
+                pin49.setChecked(true);
+                pin49.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y050")) {
+                pin50.setChecked(true);
+                pin50.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y051")) {
+                pin51.setChecked(true);
+                pin51.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y052")) {
+                pin52.setChecked(true);
+                pin52.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y053")) {
+                pin53.setChecked(true);
+                pin53.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y054")) {
+                pin54.setChecked(true);
+                pin54.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y055")) {
+                pin55.setChecked(true);
+                pin55.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y056")) {
+                pin56.setChecked(true);
+                pin56.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y057")) {
+                pin57.setChecked(true);
+                pin57.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y058")) {
+                pin58.setChecked(true);
+                pin58.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y059")) {
+                pin59.setChecked(true);
+                pin59.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y060")) {
+                pin60.setChecked(true);
+                pin60.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y061")) {
+                pin61.setChecked(true);
+                pin61.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y062")) {
+                pin62.setChecked(true);
+                pin62.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
+            if (frame6.contains("$Y063")) {
+                pin63.setChecked(true);
+                pin63.setBackgroundColor(Color.parseColor("#00fff2"));
+            }
         }
     }
 
@@ -8838,11 +10718,175 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Resets the frames used whilst creating a sequence
+     *
+     * @param view
+     */
+    public void resetTheSequence(View view) {
+        frameAmount = findViewById(R.id.frameSelection);
+        setFrame = findViewById(R.id.setFrames);
+        framesUsedCounter = findViewById(R.id.framesUsedCounter);
+
+        pin0.setChecked(false);
+        pin1.setChecked(false);
+        pin2.setChecked(false);
+        pin3.setChecked(false);
+        pin4.setChecked(false);
+        pin5.setChecked(false);
+        pin6.setChecked(false);
+        pin7.setChecked(false);
+        pin8.setChecked(false);
+        pin9.setChecked(false);
+        pin10.setChecked(false);
+        pin11.setChecked(false);
+        pin12.setChecked(false);
+        pin13.setChecked(false);
+        pin14.setChecked(false);
+        pin15.setChecked(false);
+        pin16.setChecked(false);
+        pin17.setChecked(false);
+        pin18.setChecked(false);
+        pin19.setChecked(false);
+        pin20.setChecked(false);
+        pin21.setChecked(false);
+        pin22.setChecked(false);
+        pin23.setChecked(false);
+        pin24.setChecked(false);
+        pin25.setChecked(false);
+        pin26.setChecked(false);
+        pin27.setChecked(false);
+        pin28.setChecked(false);
+        pin29.setChecked(false);
+        pin30.setChecked(false);
+        pin31.setChecked(false);
+        pin32.setChecked(false);
+        pin33.setChecked(false);
+        pin34.setChecked(false);
+        pin35.setChecked(false);
+        pin36.setChecked(false);
+        pin37.setChecked(false);
+        pin38.setChecked(false);
+        pin39.setChecked(false);
+        pin40.setChecked(false);
+        pin41.setChecked(false);
+        pin42.setChecked(false);
+        pin43.setChecked(false);
+        pin44.setChecked(false);
+        pin45.setChecked(false);
+        pin46.setChecked(false);
+        pin47.setChecked(false);
+        pin48.setChecked(false);
+        pin49.setChecked(false);
+        pin50.setChecked(false);
+        pin51.setChecked(false);
+        pin52.setChecked(false);
+        pin53.setChecked(false);
+        pin54.setChecked(false);
+        pin55.setChecked(false);
+        pin56.setChecked(false);
+        pin57.setChecked(false);
+        pin58.setChecked(false);
+        pin59.setChecked(false);
+        pin60.setChecked(false);
+        pin61.setChecked(false);
+        pin62.setChecked(false);
+        pin63.setChecked(false);
+
+        pin0.setBackgroundColor(Color.TRANSPARENT);
+        pin1.setBackgroundColor(Color.TRANSPARENT);
+        pin2.setBackgroundColor(Color.TRANSPARENT);
+        pin3.setBackgroundColor(Color.TRANSPARENT);
+        pin4.setBackgroundColor(Color.TRANSPARENT);
+        pin5.setBackgroundColor(Color.TRANSPARENT);
+        pin6.setBackgroundColor(Color.TRANSPARENT);
+        pin7.setBackgroundColor(Color.TRANSPARENT);
+        pin8.setBackgroundColor(Color.TRANSPARENT);
+        pin9.setBackgroundColor(Color.TRANSPARENT);
+        pin10.setBackgroundColor(Color.TRANSPARENT);
+        pin11.setBackgroundColor(Color.TRANSPARENT);
+        pin12.setBackgroundColor(Color.TRANSPARENT);
+        pin13.setBackgroundColor(Color.TRANSPARENT);
+        pin14.setBackgroundColor(Color.TRANSPARENT);
+        pin15.setBackgroundColor(Color.TRANSPARENT);
+        pin16.setBackgroundColor(Color.TRANSPARENT);
+        pin17.setBackgroundColor(Color.TRANSPARENT);
+        pin18.setBackgroundColor(Color.TRANSPARENT);
+        pin19.setBackgroundColor(Color.TRANSPARENT);
+        pin20.setBackgroundColor(Color.TRANSPARENT);
+        pin21.setBackgroundColor(Color.TRANSPARENT);
+        pin22.setBackgroundColor(Color.TRANSPARENT);
+        pin23.setBackgroundColor(Color.TRANSPARENT);
+        pin24.setBackgroundColor(Color.TRANSPARENT);
+        pin25.setBackgroundColor(Color.TRANSPARENT);
+        pin26.setBackgroundColor(Color.TRANSPARENT);
+        pin27.setBackgroundColor(Color.TRANSPARENT);
+        pin28.setBackgroundColor(Color.TRANSPARENT);
+        pin29.setBackgroundColor(Color.TRANSPARENT);
+        pin30.setBackgroundColor(Color.TRANSPARENT);
+        pin31.setBackgroundColor(Color.TRANSPARENT);
+        pin32.setBackgroundColor(Color.TRANSPARENT);
+        pin33.setBackgroundColor(Color.TRANSPARENT);
+        pin34.setBackgroundColor(Color.TRANSPARENT);
+        pin35.setBackgroundColor(Color.TRANSPARENT);
+        pin36.setBackgroundColor(Color.TRANSPARENT);
+        pin37.setBackgroundColor(Color.TRANSPARENT);
+        pin38.setBackgroundColor(Color.TRANSPARENT);
+        pin39.setBackgroundColor(Color.TRANSPARENT);
+        pin40.setBackgroundColor(Color.TRANSPARENT);
+        pin41.setBackgroundColor(Color.TRANSPARENT);
+        pin42.setBackgroundColor(Color.TRANSPARENT);
+        pin43.setBackgroundColor(Color.TRANSPARENT);
+        pin44.setBackgroundColor(Color.TRANSPARENT);
+        pin45.setBackgroundColor(Color.TRANSPARENT);
+        pin46.setBackgroundColor(Color.TRANSPARENT);
+        pin47.setBackgroundColor(Color.TRANSPARENT);
+        pin48.setBackgroundColor(Color.TRANSPARENT);
+        pin49.setBackgroundColor(Color.TRANSPARENT);
+        pin50.setBackgroundColor(Color.TRANSPARENT);
+        pin51.setBackgroundColor(Color.TRANSPARENT);
+        pin52.setBackgroundColor(Color.TRANSPARENT);
+        pin53.setBackgroundColor(Color.TRANSPARENT);
+        pin54.setBackgroundColor(Color.TRANSPARENT);
+        pin55.setBackgroundColor(Color.TRANSPARENT);
+        pin56.setBackgroundColor(Color.TRANSPARENT);
+        pin57.setBackgroundColor(Color.TRANSPARENT);
+        pin58.setBackgroundColor(Color.TRANSPARENT);
+        pin59.setBackgroundColor(Color.TRANSPARENT);
+        pin60.setBackgroundColor(Color.TRANSPARENT);
+        pin61.setBackgroundColor(Color.TRANSPARENT);
+        pin62.setBackgroundColor(Color.TRANSPARENT);
+        pin63.setBackgroundColor(Color.TRANSPARENT);
+
+        setFrame.setEnabled(true);
+        frameAmount.setEnabled(true);
+        selectRepAmount.setEnabled(false);
+        setAmountOfRep.setEnabled(false);
+        frameSelections.clear();
+        totalFrames.clear();
+        frameCounting = 0;
+        framesUsedCounter.setText(String.valueOf(frameCounting));
+
+        String finial_commands = "";
+        String finial_selection = "";
+
+        TextView t = findViewById(R.id.sequenceCreationView);
+        for (Object Sequence : commandInformationSeq) {
+            finial_commands = finial_commands + Sequence + "\n";
+        }
+        for (Object Selections : frameSelections) {
+            finial_selection = finial_selection + Selections + "\n";
+        }
+        t.setText(finial_commands + finial_selection);
+    }
+
+    /**
      * Method to save the sequence (sequence)
      */
     private void saveSequenceData() {
         nameOfSequence = findViewById(R.id.nameSequence);
         setSequenceName = findViewById(R.id.setSequenceName);
+
+        resetFramesUsed = findViewById(R.id.resetFramesUsed);
 
         saveTheSequence = findViewById(R.id.saveSequence);
 
@@ -8851,6 +10895,16 @@ public class MainActivity extends AppCompatActivity {
         selectRepAmount = findViewById(R.id.selectRepetitionAmount);
         setAmountOfRep = findViewById(R.id.setRepetitionAmount);
         sequenceCreationView = findViewById(R.id.sequenceCreationView);
+
+        frameCounter = findViewById(R.id.frameCounter);
+        framesUsedCounter = findViewById(R.id.framesUsedCounter);
+
+        findViewById(R.id.firstFrame).setVisibility(View.INVISIBLE);
+        findViewById(R.id.secondFrame).setVisibility(View.INVISIBLE);
+        findViewById(R.id.thirdFrame).setVisibility(View.INVISIBLE);
+        findViewById(R.id.fourthFrame).setVisibility(View.INVISIBLE);
+        findViewById(R.id.fifthFrame).setVisibility(View.INVISIBLE);
+        findViewById(R.id.sixthFrame).setVisibility(View.INVISIBLE);
 
         numOfFramesSelected = findViewById(R.id.setNumFrames);
         String framesSelected = numOfFramesSelected.getSelectedItem().toString();
@@ -8873,25 +10927,219 @@ public class MainActivity extends AppCompatActivity {
                 sequenceFinished4.add("" + commandInformationSeq + frameSelections);
                 Toast.makeText(getApplicationContext(), "Sequence Saved " + sequenceFinished4, Toast.LENGTH_SHORT).show();
             }
-
             setFrame.setEnabled(true);
             frameAmount.setEnabled(true);
             selectRepAmount.setEnabled(false);
             setAmountOfRep.setEnabled(false);
-
             commandInformationSeq.clear();
             frameSelections.clear();
             totalFrames.clear();
-
             nameOfSequence.setVisibility(View.VISIBLE);
             setSequenceName.setVisibility(View.VISIBLE);
-
             setFrame.setVisibility(View.INVISIBLE);
+            resetFramesUsed.setVisibility(View.INVISIBLE);
             frameAmount.setVisibility(View.INVISIBLE);
             selectRepAmount.setVisibility(View.INVISIBLE);
             setAmountOfRep.setVisibility(View.INVISIBLE);
             sequenceCreationView.setVisibility(View.INVISIBLE);
             saveTheSequence.setVisibility(View.INVISIBLE);
+            frameCounter.setVisibility(View.INVISIBLE);
+            framesUsedCounter.setVisibility(View.INVISIBLE);
+            frameCounting = 0;
+            framesUsedCounter.setText(String.valueOf(frameCounting));
+
+            pin0.setChecked(false);
+            pin0.setBackgroundColor(Color.TRANSPARENT);
+            pin0.setVisibility(View.INVISIBLE);
+            pin1.setChecked(false);
+            pin1.setBackgroundColor(Color.TRANSPARENT);
+            pin1.setVisibility(View.INVISIBLE);
+            pin2.setChecked(false);
+            pin2.setBackgroundColor(Color.TRANSPARENT);
+            pin2.setVisibility(View.INVISIBLE);
+            pin3.setChecked(false);
+            pin3.setBackgroundColor(Color.TRANSPARENT);
+            pin3.setVisibility(View.INVISIBLE);
+            pin4.setChecked(false);
+            pin4.setBackgroundColor(Color.TRANSPARENT);
+            pin4.setVisibility(View.INVISIBLE);
+            pin5.setChecked(false);
+            pin5.setBackgroundColor(Color.TRANSPARENT);
+            pin5.setVisibility(View.INVISIBLE);
+            pin6.setChecked(false);
+            pin6.setBackgroundColor(Color.TRANSPARENT);
+            pin6.setVisibility(View.INVISIBLE);
+            pin7.setChecked(false);
+            pin7.setBackgroundColor(Color.TRANSPARENT);
+            pin7.setVisibility(View.INVISIBLE);
+            pin8.setChecked(false);
+            pin8.setBackgroundColor(Color.TRANSPARENT);
+            pin8.setVisibility(View.INVISIBLE);
+            pin9.setChecked(false);
+            pin9.setBackgroundColor(Color.TRANSPARENT);
+            pin9.setVisibility(View.INVISIBLE);
+            pin10.setChecked(false);
+            pin10.setBackgroundColor(Color.TRANSPARENT);
+            pin10.setVisibility(View.INVISIBLE);
+            pin11.setChecked(false);
+            pin11.setBackgroundColor(Color.TRANSPARENT);
+            pin11.setVisibility(View.INVISIBLE);
+            pin12.setChecked(false);
+            pin12.setBackgroundColor(Color.TRANSPARENT);
+            pin12.setVisibility(View.INVISIBLE);
+            pin13.setChecked(false);
+            pin13.setBackgroundColor(Color.TRANSPARENT);
+            pin13.setVisibility(View.INVISIBLE);
+            pin14.setChecked(false);
+            pin14.setBackgroundColor(Color.TRANSPARENT);
+            pin14.setVisibility(View.INVISIBLE);
+            pin15.setChecked(false);
+            pin15.setBackgroundColor(Color.TRANSPARENT);
+            pin15.setVisibility(View.INVISIBLE);
+            pin16.setChecked(false);
+            pin16.setBackgroundColor(Color.TRANSPARENT);
+            pin16.setVisibility(View.INVISIBLE);
+            pin17.setChecked(false);
+            pin17.setBackgroundColor(Color.TRANSPARENT);
+            pin17.setVisibility(View.INVISIBLE);
+            pin18.setChecked(false);
+            pin18.setBackgroundColor(Color.TRANSPARENT);
+            pin18.setVisibility(View.INVISIBLE);
+            pin19.setChecked(false);
+            pin19.setBackgroundColor(Color.TRANSPARENT);
+            pin19.setVisibility(View.INVISIBLE);
+            pin20.setChecked(false);
+            pin20.setBackgroundColor(Color.TRANSPARENT);
+            pin20.setVisibility(View.INVISIBLE);
+            pin21.setChecked(false);
+            pin21.setBackgroundColor(Color.TRANSPARENT);
+            pin21.setVisibility(View.INVISIBLE);
+            pin22.setChecked(false);
+            pin22.setBackgroundColor(Color.TRANSPARENT);
+            pin22.setVisibility(View.INVISIBLE);
+            pin23.setChecked(false);
+            pin23.setBackgroundColor(Color.TRANSPARENT);
+            pin23.setVisibility(View.INVISIBLE);
+            pin24.setChecked(false);
+            pin24.setBackgroundColor(Color.TRANSPARENT);
+            pin24.setVisibility(View.INVISIBLE);
+            pin25.setChecked(false);
+            pin25.setBackgroundColor(Color.TRANSPARENT);
+            pin25.setVisibility(View.INVISIBLE);
+            pin26.setChecked(false);
+            pin26.setBackgroundColor(Color.TRANSPARENT);
+            pin26.setVisibility(View.INVISIBLE);
+            pin27.setChecked(false);
+            pin27.setBackgroundColor(Color.TRANSPARENT);
+            pin27.setVisibility(View.INVISIBLE);
+            pin28.setChecked(false);
+            pin28.setBackgroundColor(Color.TRANSPARENT);
+            pin28.setVisibility(View.INVISIBLE);
+            pin29.setChecked(false);
+            pin29.setBackgroundColor(Color.TRANSPARENT);
+            pin29.setVisibility(View.INVISIBLE);
+            pin30.setChecked(false);
+            pin30.setBackgroundColor(Color.TRANSPARENT);
+            pin30.setVisibility(View.INVISIBLE);
+            pin31.setChecked(false);
+            pin31.setBackgroundColor(Color.TRANSPARENT);
+            pin31.setVisibility(View.INVISIBLE);
+            pin32.setChecked(false);
+            pin32.setBackgroundColor(Color.TRANSPARENT);
+            pin32.setVisibility(View.INVISIBLE);
+            pin33.setChecked(false);
+            pin33.setBackgroundColor(Color.TRANSPARENT);
+            pin33.setVisibility(View.INVISIBLE);
+            pin34.setChecked(false);
+            pin34.setBackgroundColor(Color.TRANSPARENT);
+            pin34.setVisibility(View.INVISIBLE);
+            pin35.setChecked(false);
+            pin35.setBackgroundColor(Color.TRANSPARENT);
+            pin35.setVisibility(View.INVISIBLE);
+            pin36.setChecked(false);
+            pin36.setBackgroundColor(Color.TRANSPARENT);
+            pin36.setVisibility(View.INVISIBLE);
+            pin37.setChecked(false);
+            pin37.setBackgroundColor(Color.TRANSPARENT);
+            pin37.setVisibility(View.INVISIBLE);
+            pin38.setChecked(false);
+            pin38.setBackgroundColor(Color.TRANSPARENT);
+            pin38.setVisibility(View.INVISIBLE);
+            pin39.setChecked(false);
+            pin39.setBackgroundColor(Color.TRANSPARENT);
+            pin39.setVisibility(View.INVISIBLE);
+            pin40.setChecked(false);
+            pin40.setBackgroundColor(Color.TRANSPARENT);
+            pin40.setVisibility(View.INVISIBLE);
+            pin41.setChecked(false);
+            pin41.setBackgroundColor(Color.TRANSPARENT);
+            pin41.setVisibility(View.INVISIBLE);
+            pin42.setChecked(false);
+            pin42.setBackgroundColor(Color.TRANSPARENT);
+            pin42.setVisibility(View.INVISIBLE);
+            pin43.setChecked(false);
+            pin43.setBackgroundColor(Color.TRANSPARENT);
+            pin43.setVisibility(View.INVISIBLE);
+            pin44.setChecked(false);
+            pin44.setBackgroundColor(Color.TRANSPARENT);
+            pin44.setVisibility(View.INVISIBLE);
+            pin45.setChecked(false);
+            pin45.setBackgroundColor(Color.TRANSPARENT);
+            pin45.setVisibility(View.INVISIBLE);
+            pin46.setChecked(false);
+            pin46.setBackgroundColor(Color.TRANSPARENT);
+            pin46.setVisibility(View.INVISIBLE);
+            pin47.setChecked(false);
+            pin47.setBackgroundColor(Color.TRANSPARENT);
+            pin47.setVisibility(View.INVISIBLE);
+            pin48.setChecked(false);
+            pin48.setBackgroundColor(Color.TRANSPARENT);
+            pin48.setVisibility(View.INVISIBLE);
+            pin49.setChecked(false);
+            pin49.setBackgroundColor(Color.TRANSPARENT);
+            pin49.setVisibility(View.INVISIBLE);
+            pin50.setChecked(false);
+            pin50.setBackgroundColor(Color.TRANSPARENT);
+            pin50.setVisibility(View.INVISIBLE);
+            pin51.setChecked(false);
+            pin51.setBackgroundColor(Color.TRANSPARENT);
+            pin51.setVisibility(View.INVISIBLE);
+            pin52.setChecked(false);
+            pin52.setBackgroundColor(Color.TRANSPARENT);
+            pin52.setVisibility(View.INVISIBLE);
+            pin53.setChecked(false);
+            pin53.setBackgroundColor(Color.TRANSPARENT);
+            pin53.setVisibility(View.INVISIBLE);
+            pin54.setChecked(false);
+            pin54.setBackgroundColor(Color.TRANSPARENT);
+            pin54.setVisibility(View.INVISIBLE);
+            pin55.setChecked(false);
+            pin55.setBackgroundColor(Color.TRANSPARENT);
+            pin55.setVisibility(View.INVISIBLE);
+            pin56.setChecked(false);
+            pin56.setBackgroundColor(Color.TRANSPARENT);
+            pin56.setVisibility(View.INVISIBLE);
+            pin57.setChecked(false);
+            pin57.setBackgroundColor(Color.TRANSPARENT);
+            pin57.setVisibility(View.INVISIBLE);
+            pin58.setChecked(false);
+            pin58.setBackgroundColor(Color.TRANSPARENT);
+            pin58.setVisibility(View.INVISIBLE);
+            pin59.setChecked(false);
+            pin59.setBackgroundColor(Color.TRANSPARENT);
+            pin59.setVisibility(View.INVISIBLE);
+            pin60.setChecked(false);
+            pin60.setBackgroundColor(Color.TRANSPARENT);
+            pin60.setVisibility(View.INVISIBLE);
+            pin61.setChecked(false);
+            pin61.setBackgroundColor(Color.TRANSPARENT);
+            pin61.setVisibility(View.INVISIBLE);
+            pin62.setChecked(false);
+            pin62.setBackgroundColor(Color.TRANSPARENT);
+            pin62.setVisibility(View.INVISIBLE);
+            pin63.setChecked(false);
+            pin63.setBackgroundColor(Color.TRANSPARENT);
+            pin63.setVisibility(View.INVISIBLE);
         } else {
             Toast.makeText(getApplicationContext(), "Please add more frames to make your selection of  " + frameLimit, Toast.LENGTH_SHORT).show();
         }
@@ -8900,4 +11148,5 @@ public class MainActivity extends AppCompatActivity {
     public void saveTheSequence(View view) {
         saveSequenceData();
     }
+
 }

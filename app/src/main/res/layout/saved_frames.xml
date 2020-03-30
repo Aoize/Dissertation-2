@@ -38,7 +38,7 @@
         android:layout_marginRight="156dp"
         android:layout_marginBottom="444dp"
         android:onClick="reloadTheFrameList"
-        android:text="Reload the Frame list"
+        android:text="@string/reload_frames"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -51,7 +51,7 @@
         android:layout_marginRight="128dp"
         android:layout_marginBottom="308dp"
         android:onClick="viewTheSelectedFrame"
-        android:text="View the selected Frame"
+        android:text="@string/view_frames"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

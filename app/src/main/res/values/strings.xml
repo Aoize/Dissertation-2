@@ -2,20 +2,40 @@
     <string name="app_name">HapticFeedback</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Menu</string>
-    <string name="nav_header_subtitle">Please select your option below</string>
     <string name="action_settings">Settings</string>
 
+    <!--Menu Strings-->
+    <string name="nav_header_title">Menu</string>
+    <string name="nav_header_subtitle">Please select your option below</string>
     <string name="menu_frameCreation">Frame Creation</string>
     <string name="menu_sequenceCreation">Sequence Creation</string>
     <string name="menu_savedFrames">Saved Frames</string>
     <string name="menu_savedSequences">Saved Sequences</string>
     <string name="menu_exportFramesSequences">Export Frames/Sequences</string>
+
+    <!--Page Header Strings-->
     <string name="frame_creation">Frame Creation</string>
     <string name="sequence_creation">Sequence Creation</string>
     <string name="make_frame">Make Frame</string>
 
-    <!--frame stuff-->
+    <!--Frame Creation Strings-->
+    <string name="set_coils">Set Coils</string>
+    <string name="save_frame">Save Frame</string>
+    <string name="pin_delay">Set Pin Delays</string>
+    <string name="pin_time">Set Pin Activation Time</string>
+    <string name="select_frame_name">Select Name</string>
+    <string name="index">Index</string>
+    <string name="middle">Middle</string>
+    <string name="ring">Ring</string>
+    <string name="first_coil">First coil</string>
+    <string name="second_coil">Second coil</string>
+    <string name="third_coil">Third coil</string>
+    <string name="fourth_coil">Fourth coil</string>
+    <string name="fifth_coil">Fifth coil</string>
+    <string name="sixth_coil">Sixth coil</string>
+    <string name="seventh_coil">Seventh coil</string>
+    <string name="eighth_coil">Eighth coil</string>
+    <string name="coils_used">Coils Used</string>
 
     <string-array name="coils_used">
         <item>1</item>
@@ -49,7 +69,23 @@
         <item>005</item>
     </string-array>
 
-    <!--sequence stuff-->
+    <!--Sequence Creation Strings-->
+    <string name="save_sequence">Save Sequence</string>
+    <string name="reset_frame">Reset Frames Used</string>
+    <string name="number_of_frames">Number of Frames</string>
+    <string name="select_frames">Select Frames</string>
+    <string name="select_sequence_name">Select Name</string>
+    <string name="repetition_amount">Number of Repetitions</string>
+    <string name="frames_used">Frames Used</string>
+    <string name="first_frame">First frame</string>
+    <string name="second_frame">Second frame</string>
+    <string name="third_frame">Third frame</string>
+    <string name="fourth_frame">Fourth frame</string>
+    <string name="fifth_frame">Fifth frame</string>
+    <string name="sixth_frame">Sixth frame</string>
+
+
+    <string name="refresh">Refresh</string>
 
     <string-array name="name_sequence">
         <item>000</item>
@@ -72,5 +108,18 @@
         <item>2</item>
         <item>3</item>
     </string-array>
+
+    <!--Saved Frame Strings-->
+    <string name="reload_frames">Reload the Frame list</string>
+    <string name="view_frames">View the selected Frame</string>
+
+    <!--Saved Sequence Strings-->
+    <string name="reload_sequence">Reload the Sequence List</string>
+    <string name="view_sequence">View the selected Sequence</string>
+
+    <!--Export Frame and Sequence Strings-->
+    <string name="reload_frame_sequence">Reload Frames and Sequences</string>
+    <string name="export_frame_sequence">Export the selected Frame or Sequence</string>
+    <string name="directory">Your file is saved to the Directory shown below.</string>
 
 </resources>
