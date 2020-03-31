@@ -926,6 +926,7 @@
         android:layout_marginLeft="124dp"
         android:layout_marginBottom="336dp"
         android:spinnerMode="dropdown"
+        android:entries="@array/blank"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -1016,6 +1017,19 @@
         android:layout_height="21dp"
         android:layout_marginStart="28dp"
         android:layout_marginLeft="28dp"
+        android:visibility="invisible"
+        android:text="0"
+        android:textColor="#06F326"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameCounter" />
+
+    <TextView
+        android:id="@+id/frameUsedLimit"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginLeft="43dp"
+        android:textColor="#F30606"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameCounter" />

@@ -36,6 +36,7 @@ import android.widget.Toast;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     Spinner numOfCoils, amountOfDelay, amountOfOnTime, nameOfFrame, nameOfSequence, numOfFramesSelected,
             frameAmount, selectRepAmount;
 
-    TextView counter,
+    TextView counter, limit, frameUsedLimit,
             sequenceCreationView, frameCounter, framesUsedCounter;
 
     CheckBox pin0, pin1, pin2, pin3, pin4, pin5, pin6, pin7, pin8, pin9, pin10, pin11, pin12, pin13,
@@ -150,9 +151,90 @@ public class MainActivity extends AppCompatActivity {
      */
     public static int coilCounter = 0;
 
+    /**
+     * Boolean operators for name verification
+     */
+    public boolean firstFrame = false;
+    public boolean secondFrame = false;
+    public boolean thirdFrame = false;
+    public boolean fourthFrame = false;
+    public boolean fifthFrame = false;
+    public boolean sixthFrame = false;
+    public boolean firstSequence = false;
+    public boolean secondSequence = false;
+    public boolean thirdSequence = false;
+    public boolean fourthSequence = false;
+
     public void pin(View view) {
         numOfCoils = findViewById(R.id.numberOfCoils);
         counter = findViewById(R.id.counter);
+
+        limit = findViewById(R.id.limit);
+
+        pin0 = findViewById(R.id.pin0);
+        pin1 = findViewById(R.id.pin1);
+        pin2 = findViewById(R.id.pin2);
+        pin3 = findViewById(R.id.pin3);
+        pin4 = findViewById(R.id.pin4);
+        pin5 = findViewById(R.id.pin5);
+        pin6 = findViewById(R.id.pin6);
+        pin7 = findViewById(R.id.pin7);
+        pin8 = findViewById(R.id.pin8);
+        pin9 = findViewById(R.id.pin9);
+        pin10 = findViewById(R.id.pin10);
+        pin11 = findViewById(R.id.pin11);
+        pin12 = findViewById(R.id.pin12);
+        pin13 = findViewById(R.id.pin13);
+        pin14 = findViewById(R.id.pin14);
+        pin15 = findViewById(R.id.pin15);
+        pin16 = findViewById(R.id.pin16);
+        pin17 = findViewById(R.id.pin17);
+        pin18 = findViewById(R.id.pin18);
+        pin19 = findViewById(R.id.pin19);
+        pin20 = findViewById(R.id.pin20);
+        pin21 = findViewById(R.id.pin21);
+        pin22 = findViewById(R.id.pin22);
+        pin23 = findViewById(R.id.pin23);
+        pin24 = findViewById(R.id.pin24);
+        pin25 = findViewById(R.id.pin25);
+        pin26 = findViewById(R.id.pin26);
+        pin27 = findViewById(R.id.pin27);
+        pin28 = findViewById(R.id.pin28);
+        pin29 = findViewById(R.id.pin29);
+        pin30 = findViewById(R.id.pin30);
+        pin31 = findViewById(R.id.pin31);
+        pin32 = findViewById(R.id.pin32);
+        pin33 = findViewById(R.id.pin33);
+        pin34 = findViewById(R.id.pin34);
+        pin35 = findViewById(R.id.pin35);
+        pin36 = findViewById(R.id.pin36);
+        pin37 = findViewById(R.id.pin37);
+        pin38 = findViewById(R.id.pin38);
+        pin39 = findViewById(R.id.pin39);
+        pin40 = findViewById(R.id.pin40);
+        pin41 = findViewById(R.id.pin41);
+        pin42 = findViewById(R.id.pin42);
+        pin43 = findViewById(R.id.pin43);
+        pin44 = findViewById(R.id.pin44);
+        pin45 = findViewById(R.id.pin45);
+        pin46 = findViewById(R.id.pin46);
+        pin47 = findViewById(R.id.pin47);
+        pin48 = findViewById(R.id.pin48);
+        pin49 = findViewById(R.id.pin49);
+        pin50 = findViewById(R.id.pin50);
+        pin51 = findViewById(R.id.pin51);
+        pin52 = findViewById(R.id.pin52);
+        pin53 = findViewById(R.id.pin53);
+        pin54 = findViewById(R.id.pin54);
+        pin55 = findViewById(R.id.pin55);
+        pin56 = findViewById(R.id.pin56);
+        pin57 = findViewById(R.id.pin57);
+        pin58 = findViewById(R.id.pin58);
+        pin59 = findViewById(R.id.pin59);
+        pin60 = findViewById(R.id.pin60);
+        pin61 = findViewById(R.id.pin61);
+        pin62 = findViewById(R.id.pin62);
+        pin63 = findViewById(R.id.pin63);
 
         String finial_commands = "";
         String finial_selection = "";
@@ -177,21 +259,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin0).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin0.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin0).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin0.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin0).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin0.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin0).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin0.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin0).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin0.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin0).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin0.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin0).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin0.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin0).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin0.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -202,18 +284,19 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin0.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
                     pinSelection.remove("$Y000");
-                    findViewById(R.id.pin0).setBackgroundColor(Color.TRANSPARENT);
                     for (Object Selections : pinSelection) {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin0).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin0.setText("");
                 }
                 break;
             case R.id.pin1:
@@ -226,21 +309,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin1).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin1.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin1).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin1.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin1).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin1.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin1).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin1.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin1).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin1.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin1).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin1.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin1).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin1.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin1).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin1.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -251,6 +334,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin1.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -259,9 +344,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin1).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin1.setText("");
                 }
                 break;
             case R.id.pin2:
@@ -274,21 +359,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin2).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin2.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin2).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin2.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin2).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin2.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin2).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin2.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin2).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin2.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin2).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin2.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin2).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin2.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin2).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin2.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -299,6 +384,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin2.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -307,9 +394,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin2).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin2.setText("");
                 }
                 break;
             case R.id.pin3:
@@ -322,21 +409,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin3).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin3.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin3).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin3.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin3).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin3.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin3).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin3.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin3).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin3.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin3).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin3.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin3).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin3.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin3).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin3.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -347,6 +434,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin3.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -355,9 +444,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin3).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin3.setText("");
                 }
                 break;
             case R.id.pin4:
@@ -370,21 +459,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin4).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin4.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin4).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin4.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin4).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin4.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin4).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin4.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin4).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin4.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin4).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin4.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin4).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin4.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin4).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin4.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -395,6 +484,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin4.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -403,9 +494,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin4).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin4.setText("");
                 }
                 break;
             case R.id.pin5:
@@ -418,21 +509,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin5).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin5.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin5).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin5.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin5).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin5.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin5).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin5.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin5).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin5.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin5).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin5.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin5).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin5.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin5).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin5.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -443,6 +534,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin5.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -451,9 +544,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin5).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin5.setText("");
                 }
                 break;
             case R.id.pin6:
@@ -466,21 +559,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin6).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin6.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin6).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin6.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin6).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin6.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin6).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin6.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin6).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin6.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin6).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin6.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin6).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin6.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin6).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin6.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -491,6 +584,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin6.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -499,9 +594,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin6).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin6.setText("");
                 }
                 break;
             case R.id.pin7:
@@ -514,21 +609,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin7).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin7.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin7).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin7.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin7).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin7.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin7).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin7.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin7).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin7.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin7).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin7.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin7).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin7.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin7).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin7.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -539,6 +634,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin7.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -547,9 +644,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin7).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin7.setText("");
                 }
                 break;
             case R.id.pin8:
@@ -562,21 +659,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin8).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin8.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin8).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin8.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin8).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin8.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin8).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin8.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin8).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin8.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin8).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin8.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin8).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin8.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin8).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin8.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -587,6 +684,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin8.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -595,9 +694,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin8).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin8.setText("");
                 }
                 break;
             case R.id.pin9:
@@ -610,21 +709,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin9).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin9.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin9).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin9.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin9).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin9.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin9).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin9.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin9).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin9.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin9).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin9.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin9).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin9.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin9).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin9.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -635,6 +734,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin9.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -643,9 +744,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin9).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin9.setText("");
                 }
                 break;
             case R.id.pin10:
@@ -658,21 +759,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin10).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin10.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin10).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin10.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin10).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin10.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin10).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin10.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin10).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin10.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin10).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin10.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin10).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin10.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin10).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin10.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -683,6 +784,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin10.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -691,9 +794,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin10).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin10.setText("");
                 }
                 break;
             case R.id.pin11:
@@ -706,21 +809,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin11).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin11.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin11).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin11.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin11).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin11.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin11).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin11.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin11).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin11.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin11).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin11.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin11).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin11.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin11).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin11.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -731,6 +834,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin11.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -739,9 +844,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin11).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin11.setText("");
                 }
                 break;
             case R.id.pin12:
@@ -754,21 +859,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin12).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin12.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin12).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin12.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin12).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin12.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin12).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin12.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin12).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin12.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin12).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin12.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin12).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin12.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin12).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin12.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -779,6 +884,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin12.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -787,9 +894,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin12).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin12.setText("");
                 }
                 break;
             case R.id.pin13:
@@ -802,21 +909,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin13).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin13.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin13).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin13.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin13).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin13.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin13).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin13.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin13).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin13.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin13).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin13.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin13).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin13.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin13).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin13.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -827,6 +934,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin13.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -835,9 +944,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin13).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin13.setText("");
                 }
                 break;
             case R.id.pin14:
@@ -850,21 +959,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin14).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin14.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin14).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin14.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin14).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin14.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin14).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin14.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin14).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin14.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin14).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin14.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin14).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin14.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin14).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin14.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -875,6 +984,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin14.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -883,9 +994,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin14).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin14.setText("");
                 }
                 break;
             case R.id.pin15:
@@ -898,21 +1009,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin15).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin15.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin15).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin15.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin15).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin15.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin15).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin15.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin15).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin15.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin15).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin15.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin15).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin15.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin15).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin15.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -923,6 +1034,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin15.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -931,9 +1044,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin15).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin15.setText("");
                 }
                 break;
             case R.id.pin16:
@@ -946,21 +1059,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin16).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin16.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin16).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin16.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin16).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin16.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin16).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin16.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin16).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin16.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin16).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin16.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin16).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin16.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin16).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin16.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -971,6 +1084,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin16.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -979,9 +1094,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin16).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin16.setText("");
                 }
                 break;
             case R.id.pin17:
@@ -994,21 +1109,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin17).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin17.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin17).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin17.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin17).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin17.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin17).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin17.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin17).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin17.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin17).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin17.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin17).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin17.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin17).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin17.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -1019,6 +1134,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin17.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -1027,9 +1144,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin17).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin17.setText("");
                 }
                 break;
             case R.id.pin18:
@@ -1042,21 +1159,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin18).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin18.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin18).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin18.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin18).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin18.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin18).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin18.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin18).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin18.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin18).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin18.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin18).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin18.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin18).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin18.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -1067,6 +1184,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin18.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -1075,9 +1194,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin18).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin18.setText("");
                 }
                 break;
             case R.id.pin19:
@@ -1090,21 +1209,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin19).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin19.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin19).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin19.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin19).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin19.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin19).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin19.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin19).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin19.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin19).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin19.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin19).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin19.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin19).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin19.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -1115,6 +1234,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin19.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -1123,9 +1244,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin19).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin19.setText("");
                 }
                 break;
             case R.id.pin20:
@@ -1138,21 +1259,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin20).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin20.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin20).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin20.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin20).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin20.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin20).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin20.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin20).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin20.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin20).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin20.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin20).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin20.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin20).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin20.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -1163,6 +1284,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin20.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -1171,9 +1294,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin20).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin20.setText("");
                 }
                 break;
             case R.id.pin21:
@@ -1186,21 +1309,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin21).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin21.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin21).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin21.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin21).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin21.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin21).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin21.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin21).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin21.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin21).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin21.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin21).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin21.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin21).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin21.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -1211,6 +1334,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin21.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -1219,9 +1344,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin21).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin21.setText("");
                 }
                 break;
             case R.id.pin22:
@@ -1234,21 +1359,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin22).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin22.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin22).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin22.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin22).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin22.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin22).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin22.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin22).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin22.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin22).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin22.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin22).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin22.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin22).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin22.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -1259,6 +1384,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin22.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -1267,9 +1394,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin22).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin22.setText("");
                 }
                 break;
             case R.id.pin23:
@@ -1282,21 +1409,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin23).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin23.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin23).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin23.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin23).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin23.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin23).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin23.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin23).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin23.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin23).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin23.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin23).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin23.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin23).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin23.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -1307,6 +1434,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin23.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -1315,9 +1444,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin23).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin23.setText("");
                 }
                 break;
             case R.id.pin24:
@@ -1330,21 +1459,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin24).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin24.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin24).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin24.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin24).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin24.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin24).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin24.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin24).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin24.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin24).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin24.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin24).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin24.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin24).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin24.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -1355,6 +1484,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin24.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -1363,9 +1494,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin24).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin24.setText("");
                 }
                 break;
             case R.id.pin25:
@@ -1378,21 +1509,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin25).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin25.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin25).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin25.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin25).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin25.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin25).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin25.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin25).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin25.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin25).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin25.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin25).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin25.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin25).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin25.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -1403,6 +1534,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin25.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -1411,9 +1544,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin25).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin25.setText("");
                 }
                 break;
             case R.id.pin26:
@@ -1426,21 +1559,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin26).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin26.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin26).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin26.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin26).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin26.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin26).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin26.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin26).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin26.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin26).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin26.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin26).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin26.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin26).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin26.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -1451,6 +1584,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin26.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -1459,9 +1594,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin26).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin26.setText("");
                 }
                 break;
             case R.id.pin27:
@@ -1474,21 +1609,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin27).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin27.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin27).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin27.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin27).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin27.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin27).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin27.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin27).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin27.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin27).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin27.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin27).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin27.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin27).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin27.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -1499,6 +1634,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin27.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -1507,9 +1644,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin27).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin27.setText("");
                 }
                 break;
             case R.id.pin28:
@@ -1522,21 +1659,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin28).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin28.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin28).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin28.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin28).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin28.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin28).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin28.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin28).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin28.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin28).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin28.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin28).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin28.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin28).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin28.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -1547,6 +1684,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin28.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -1555,9 +1694,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin28).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin28.setText("");
                 }
                 break;
             case R.id.pin29:
@@ -1570,21 +1709,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin29).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin29.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin29).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin29.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin29).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin29.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin29).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin29.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin29).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin29.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin29).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin29.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin29).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin29.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin29).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin29.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -1595,6 +1734,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin29.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -1603,9 +1744,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin29).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin29.setText("");
                 }
                 break;
             case R.id.pin30:
@@ -1618,21 +1759,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin30).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin30.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin30).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin30.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin30).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin30.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin30).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin30.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin30).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin30.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin30).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin30.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin30).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin30.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin30).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin30.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -1643,6 +1784,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin30.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -1651,9 +1794,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin30).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin30.setText("");
                 }
                 break;
             case R.id.pin31:
@@ -1666,21 +1809,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin31).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin31.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin31).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin31.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin31).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin31.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin31).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin31.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin31).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin31.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin31).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin31.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin31).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin31.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin31).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin31.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -1691,6 +1834,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin31.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -1699,9 +1844,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin31).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin31.setText("");
                 }
                 break;
             case R.id.pin32:
@@ -1714,21 +1859,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin32).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin32.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin32).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin32.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin32).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin32.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin32).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin32.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin32).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin32.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin32).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin32.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin32).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin32.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin32).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin32.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -1739,6 +1884,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin32.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -1747,9 +1894,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin32).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin32.setText("");
                 }
                 break;
             case R.id.pin33:
@@ -1762,21 +1909,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin33).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin33.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin33).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin33.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin33).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin33.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin33).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin33.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin33).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin33.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin33).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin33.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin33).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin33.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin33).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin33.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -1787,6 +1934,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin33.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -1795,9 +1944,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin33).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin33.setText("");
                 }
                 break;
             case R.id.pin34:
@@ -1810,21 +1959,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin34).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin34.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin34).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin34.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin34).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin34.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin34).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin34.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin34).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin34.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin34).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin34.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin34).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin34.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin34).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin34.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -1835,6 +1984,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin34.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -1843,9 +1994,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin34).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin34.setText("");
                 }
                 break;
             case R.id.pin35:
@@ -1858,21 +2009,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin35).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin35.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin35).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin35.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin35).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin35.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin35).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin35.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin35).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin35.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin35).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin35.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin35).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin35.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin35).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin35.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -1883,6 +2034,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin35.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -1891,9 +2044,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin35).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin35.setText("");
                 }
                 break;
             case R.id.pin36:
@@ -1906,21 +2059,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin36).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin36.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin36).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin36.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin36).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin36.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin36).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin36.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin36).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin36.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin36).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin36.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin36).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin36.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin36).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin36.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -1931,6 +2084,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin36.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -1939,9 +2094,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin36).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin36.setText("");
                 }
                 break;
             case R.id.pin37:
@@ -1954,21 +2109,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin37).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin37.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin37).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin37.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin37).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin37.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin37).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin37.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin37).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin37.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin37).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin37.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin37).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin37.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin37).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin37.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -1979,6 +2134,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin37.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -1987,9 +2144,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin37).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin37.setText("");
                 }
                 break;
             case R.id.pin38:
@@ -2002,21 +2159,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin38).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin38.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin38).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin38.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin38).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin38.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin38).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin38.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin38).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin38.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin38).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin38.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin38).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin38.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin38).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin38.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -2027,6 +2184,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin38.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -2035,9 +2194,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin38).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin38.setText("");
                 }
                 break;
             case R.id.pin39:
@@ -2050,21 +2209,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin39).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin39.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin39).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin39.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin39).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin39.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin39).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin39.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin39).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin39.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin39).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin39.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin39).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin39.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin39).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin39.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -2075,6 +2234,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin39.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -2083,9 +2244,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin39).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin39.setText("");
                 }
                 break;
             case R.id.pin40:
@@ -2098,21 +2259,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin40).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin40.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin40).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin40.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin40).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin40.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin40).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin40.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin40).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin40.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin40).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin40.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin40).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin40.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin40).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin40.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -2123,6 +2284,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin40.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -2131,9 +2294,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin40).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin40.setText("");
                 }
                 break;
             case R.id.pin41:
@@ -2146,21 +2309,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin41).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin41.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin41).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin41.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin41).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin41.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin41).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin41.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin41).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin41.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin41).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin41.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin41).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin41.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin41).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin41.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -2171,6 +2334,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin41.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -2179,9 +2344,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin41).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin41.setText("");
                 }
                 break;
             case R.id.pin42:
@@ -2194,21 +2359,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin42).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin42.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin42).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin42.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin42).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin42.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin42).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin42.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin42).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin42.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin42).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin42.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin42).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin42.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin42).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin42.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -2219,6 +2384,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin42.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -2227,9 +2394,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin42).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin42.setText("");
                 }
                 break;
             case R.id.pin43:
@@ -2242,21 +2409,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin43).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin43.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin43).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin43.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin43).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin43.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin43).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin43.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin43).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin43.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin43).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin43.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin43).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin43.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin43).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin43.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -2267,6 +2434,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin43.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -2275,9 +2444,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin43).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin43.setText("");
                 }
                 break;
             case R.id.pin44:
@@ -2290,21 +2459,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin44).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin44.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin44).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin44.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin44).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin44.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin44).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin44.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin44).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin44.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin44).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin44.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin44).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin44.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin44).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin44.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -2315,6 +2484,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin44.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -2323,9 +2494,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin44).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin44.setText("");
                 }
                 break;
             case R.id.pin45:
@@ -2338,21 +2509,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin45).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin45.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin45).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin45.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin45).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin45.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin45).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin45.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin45).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin45.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin45).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin45.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin45).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin45.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin45).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin45.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -2363,6 +2534,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin45.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -2371,9 +2544,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin45).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin45.setText("");
                 }
                 break;
             case R.id.pin46:
@@ -2386,21 +2559,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin46).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin46.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin46).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin46.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin46).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin46.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin46).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin46.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin46).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin46.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin46).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin46.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin46).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin46.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin46).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin46.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -2411,6 +2584,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin46.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -2419,9 +2594,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin46).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin46.setText("");
                 }
                 break;
             case R.id.pin47:
@@ -2434,21 +2609,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin47).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin47.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin47).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin47.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin47).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin47.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin47).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin47.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin47).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin47.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin47).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin47.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin47).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin47.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin47).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin47.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -2459,6 +2634,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin47.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -2467,9 +2644,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin47).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin47.setText("");
                 }
                 break;
             case R.id.pin48:
@@ -2482,21 +2659,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin48).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin48.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin48).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin48.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin48).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin48.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin48).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin48.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin48).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin48.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin48).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin48.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin48).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin48.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin48).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin48.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -2507,6 +2684,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin48.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -2515,9 +2694,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin48).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin48.setText("");
                 }
                 break;
             case R.id.pin49:
@@ -2530,21 +2709,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin49).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin49.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin49).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin49.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin49).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin49.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin49).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin49.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin49).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin49.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin49).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin49.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin49).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin49.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin49).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin49.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -2555,6 +2734,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin49.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -2563,9 +2744,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin49).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin49.setText("");
                 }
                 break;
             case R.id.pin50:
@@ -2578,21 +2759,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin50).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin50.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin50).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin50.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin50).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin50.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin50).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin50.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin50).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin50.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin50).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin50.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin50).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin50.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin50).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin50.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -2603,6 +2784,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin50.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -2611,9 +2794,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin50).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin50.setText("");
                 }
                 break;
             case R.id.pin51:
@@ -2626,21 +2809,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin51).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin51.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin51).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin51.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin51).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin51.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin51).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin51.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin51).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin51.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin51).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin51.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin51).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin51.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin51).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin51.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -2651,6 +2834,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin51.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -2659,9 +2844,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin51).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin51.setText("");
                 }
                 break;
             case R.id.pin52:
@@ -2674,21 +2859,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin52).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin52.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin52).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin52.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin52).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin52.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin52).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin52.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin52).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin52.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin52).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin52.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin52).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin52.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin52).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin52.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -2699,6 +2884,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin52.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -2707,9 +2894,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin52).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin52.setText("");
                 }
                 break;
             case R.id.pin53:
@@ -2722,21 +2909,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin53).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin53.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin53).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin53.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin53).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin53.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin53).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin53.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin53).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin53.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin53).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin53.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin53).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin53.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin53).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin53.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -2747,6 +2934,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin53.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -2755,9 +2944,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin53).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin53.setText("");
                 }
                 break;
             case R.id.pin54:
@@ -2770,21 +2959,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin54).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin54.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin54).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin54.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin54).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin54.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin54).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin54.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin54).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin54.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin54).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin54.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin54).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin54.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin54).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin54.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -2795,6 +2984,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin54.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -2803,9 +2994,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin54).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin54.setText("");
                 }
                 break;
             case R.id.pin55:
@@ -2818,21 +3009,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin55).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin55.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin55).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin55.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin55).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin55.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin55).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin55.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin55).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin55.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin55).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin55.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin55).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin55.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin55).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin55.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -2843,6 +3034,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin55.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -2851,9 +3044,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin55).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin55.setText("");
                 }
                 break;
             case R.id.pin56:
@@ -2866,21 +3059,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin56).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin56.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin56).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin56.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin56).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin56.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin56).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin56.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin56).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin56.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin56).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin56.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin56).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin56.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin56).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin56.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -2891,6 +3084,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin56.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -2899,9 +3094,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin56).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin56.setText("");
                 }
                 break;
             case R.id.pin57:
@@ -2914,21 +3109,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin57).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin57.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin57).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin57.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin57).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin57.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin57).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin57.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin57).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin57.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin57).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin57.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin57).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin57.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin57).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin57.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -2939,6 +3134,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin57.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -2947,9 +3144,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin57).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin57.setText("");
                 }
                 break;
             case R.id.pin58:
@@ -2962,21 +3159,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin58).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin58.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin58).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin58.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin58).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin58.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin58).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin58.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin58).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin58.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin58).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin58.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin58).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin58.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin58).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin58.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -2987,6 +3184,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin58.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -2995,9 +3194,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin58).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin58.setText("");
                 }
                 break;
             case R.id.pin59:
@@ -3010,21 +3209,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin59).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin59.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin59).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin59.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin59).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin59.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin59).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin59.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin59).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin59.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin59).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin59.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin59).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin59.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin59).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin59.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -3035,6 +3234,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin59.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -3043,9 +3244,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin59).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin59.setText("");
                 }
                 break;
             case R.id.pin60:
@@ -3058,21 +3259,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin60).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin60.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin60).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin60.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin60).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin60.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin60).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin60.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin60).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin60.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin60).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin60.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin60).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin60.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin60).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin60.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -3083,6 +3284,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin60.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -3091,9 +3294,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin60).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin60.setText("");
                 }
                 break;
             case R.id.pin61:
@@ -3106,21 +3309,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin61).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin61.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin61).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin61.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin61).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin61.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin61).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin61.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin61).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin61.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin61).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin61.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin61).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin61.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin61).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin61.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -3131,6 +3334,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin61.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -3139,9 +3344,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin61).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin61.setText("");
                 }
                 break;
             case R.id.pin62:
@@ -3154,21 +3359,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin62).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin62.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin62).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin62.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin62).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin62.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin62).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin62.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin62).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin62.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin62).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin62.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin62).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin62.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin62).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin62.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -3179,6 +3384,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin62.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -3187,9 +3394,9 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin62).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin62.setText("");
                 }
                 break;
             case R.id.pin63:
@@ -3202,21 +3409,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         if (totals.size() == 1) {
-                            findViewById(R.id.pin63).setBackgroundColor(Color.parseColor("#80ff00"));
+                            pin63.setText("1");
                         } else if (totals.size() == 2) {
-                            findViewById(R.id.pin63).setBackgroundColor(Color.parseColor("#00ff1a"));
+                            pin63.setText("2");
                         } else if (totals.size() == 3) {
-                            findViewById(R.id.pin63).setBackgroundColor(Color.parseColor("#00ff95"));
+                            pin63.setText("3");
                         } else if (totals.size() == 4) {
-                            findViewById(R.id.pin63).setBackgroundColor(Color.parseColor("#00fff2"));
+                            pin63.setText("4");
                         } else if (totals.size() == 5) {
-                            findViewById(R.id.pin63).setBackgroundColor(Color.parseColor("#00b3ff"));
+                            pin63.setText("5");
                         } else if (totals.size() == 6) {
-                            findViewById(R.id.pin63).setBackgroundColor(Color.parseColor("#6600ff"));
+                            pin63.setText("6");
                         } else if (totals.size() == 7) {
-                            findViewById(R.id.pin63).setBackgroundColor(Color.parseColor("#a200ff"));
+                            pin63.setText("7");
                         } else if (totals.size() == 8) {
-                            findViewById(R.id.pin63).setBackgroundColor(Color.parseColor("#d000ff"));
+                            pin63.setText("8");
                         }
                         coilCounter++;
                         counter.setText(String.valueOf(coilCounter));
@@ -3227,6 +3434,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         t.setText(finial_commands + finial_selection);
                         Toast.makeText(getApplicationContext(), "Coil Limit Reached", Toast.LENGTH_SHORT).show();
+                        pin63.setChecked(false);
+                        totals.remove(coilCount);
                     }
                 } else {
                     totals.remove(0);
@@ -3235,11 +3444,17 @@ public class MainActivity extends AppCompatActivity {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    findViewById(R.id.pin63).setBackgroundColor(Color.TRANSPARENT);
                     coilCounter--;
                     counter.setText(String.valueOf(coilCounter));
+                    pin63.setText("");
                 }
                 break;
+        }
+
+        if (coilCounter == coilLimit) {
+            counter.setTextColor(Color.parseColor("#F30606"));
+        } else {
+            counter.setTextColor(Color.parseColor("#06F326"));
         }
     }
 
@@ -3250,6 +3465,8 @@ public class MainActivity extends AppCompatActivity {
      */
     public void nameTheFrame(View view) {
         nameOfFrame = findViewById(R.id.nameFrame);
+
+        counter = findViewById(R.id.counter);
 
         String content = nameOfFrame.getSelectedItem().toString();
 
@@ -3344,13 +3561,38 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         } else if (!commandInformation.isEmpty()) {
+
+            if (firstFrame == false) {
+                frameName1.clear();
+                frameNameF1.clear();
+            }
+            if (secondFrame == false) {
+                frameName2.clear();
+                frameNameF2.clear();
+            }
+            if (thirdFrame == false) {
+                frameName3.clear();
+                frameNameF3.clear();
+            }
+            if (fourthFrame == false) {
+                frameName4.clear();
+                frameNameF4.clear();
+            }
+            if (fifthFrame == false) {
+                frameName5.clear();
+                frameNameF5.clear();
+            }
+            if (sixthFrame == false) {
+                frameName6.clear();
+                frameNameF6.clear();
+            }
+
             commandInformation.clear();
-            frameName1.clear();
-            frameName2.clear();
-            frameName3.clear();
-            frameName4.clear();
-            frameName5.clear();
-            frameName6.clear();
+            totals.clear();
+            pinSelection.clear();
+            coilCounter = 0;
+            counter.setText(String.valueOf(coilCounter));
+
             if (frameName1.isEmpty()) {
                 frameName1.add("$F" + content);
                 frameNameF1.add("$f" + content);
@@ -3361,6 +3603,8 @@ public class MainActivity extends AppCompatActivity {
                     commandInformation.remove(true);
                     findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
                     findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
                 }
             } else if (frameName2.isEmpty()) {
                 if (!frameName1.contains("$F" + content)) {
@@ -3520,7 +3764,76 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void setTheOnTime(View view) {
+        pin0 = findViewById(R.id.pin0);
+        pin1 = findViewById(R.id.pin1);
+        pin2 = findViewById(R.id.pin2);
+        pin3 = findViewById(R.id.pin3);
+        pin4 = findViewById(R.id.pin4);
+        pin5 = findViewById(R.id.pin5);
+        pin6 = findViewById(R.id.pin6);
+        pin7 = findViewById(R.id.pin7);
+        pin8 = findViewById(R.id.pin8);
+        pin9 = findViewById(R.id.pin9);
+        pin10 = findViewById(R.id.pin10);
+        pin11 = findViewById(R.id.pin11);
+        pin12 = findViewById(R.id.pin12);
+        pin13 = findViewById(R.id.pin13);
+        pin14 = findViewById(R.id.pin14);
+        pin15 = findViewById(R.id.pin15);
+        pin16 = findViewById(R.id.pin16);
+        pin17 = findViewById(R.id.pin17);
+        pin18 = findViewById(R.id.pin18);
+        pin19 = findViewById(R.id.pin19);
+        pin20 = findViewById(R.id.pin20);
+        pin21 = findViewById(R.id.pin21);
+        pin22 = findViewById(R.id.pin22);
+        pin23 = findViewById(R.id.pin23);
+        pin24 = findViewById(R.id.pin24);
+        pin25 = findViewById(R.id.pin25);
+        pin26 = findViewById(R.id.pin26);
+        pin27 = findViewById(R.id.pin27);
+        pin28 = findViewById(R.id.pin28);
+        pin29 = findViewById(R.id.pin29);
+        pin30 = findViewById(R.id.pin30);
+        pin31 = findViewById(R.id.pin31);
+        pin32 = findViewById(R.id.pin32);
+        pin33 = findViewById(R.id.pin33);
+        pin34 = findViewById(R.id.pin34);
+        pin35 = findViewById(R.id.pin35);
+        pin36 = findViewById(R.id.pin36);
+        pin37 = findViewById(R.id.pin37);
+        pin38 = findViewById(R.id.pin38);
+        pin39 = findViewById(R.id.pin39);
+        pin40 = findViewById(R.id.pin40);
+        pin41 = findViewById(R.id.pin41);
+        pin42 = findViewById(R.id.pin42);
+        pin43 = findViewById(R.id.pin43);
+        pin44 = findViewById(R.id.pin44);
+        pin45 = findViewById(R.id.pin45);
+        pin46 = findViewById(R.id.pin46);
+        pin47 = findViewById(R.id.pin47);
+        pin48 = findViewById(R.id.pin48);
+        pin49 = findViewById(R.id.pin49);
+        pin50 = findViewById(R.id.pin50);
+        pin51 = findViewById(R.id.pin51);
+        pin52 = findViewById(R.id.pin52);
+        pin53 = findViewById(R.id.pin53);
+        pin54 = findViewById(R.id.pin54);
+        pin55 = findViewById(R.id.pin55);
+        pin56 = findViewById(R.id.pin56);
+        pin57 = findViewById(R.id.pin57);
+        pin58 = findViewById(R.id.pin58);
+        pin59 = findViewById(R.id.pin59);
+        pin60 = findViewById(R.id.pin60);
+        pin61 = findViewById(R.id.pin61);
+        pin62 = findViewById(R.id.pin62);
+        pin63 = findViewById(R.id.pin63);
+
         amountOfOnTime = findViewById(R.id.amountOfOnTime);
+
+        String coilsSelected = numOfCoils.getSelectedItem().toString();
+        int coilLimit = Integer.parseInt(coilsSelected);
+        limit = findViewById(R.id.limit);
 
         numOfCoils = findViewById(R.id.numberOfCoils);
         String coilNumber = numOfCoils.getSelectedItem().toString();
@@ -3540,7 +3853,6 @@ public class MainActivity extends AppCompatActivity {
             start = start + Selections + "\n";
         }
         t.setText(start);
-
         if (commandInformation.add(true)) {
             findViewById(R.id.setOnTime).setVisibility(View.INVISIBLE);
             amountOfOnTime.setVisibility(View.INVISIBLE);
@@ -3552,51 +3864,24 @@ public class MainActivity extends AppCompatActivity {
             findViewById(R.id.frameCreationView).setVisibility(View.VISIBLE);
             findViewById(R.id.saveFrame).setVisibility(View.VISIBLE);
             findViewById(R.id.coilsCounter).setVisibility(View.VISIBLE);
+            findViewById(R.id.limit).setVisibility(View.VISIBLE);
 
-            if (coilNumber.equals("1")) {
-                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
-            } else if (coilNumber.equals("2")) {
-                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.secondCoil).setVisibility(View.VISIBLE);
-            } else if (coilNumber.equals("3")) {
-                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.secondCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.thirdCoil).setVisibility(View.VISIBLE);
-            } else if (coilNumber.equals("4")) {
-                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.secondCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.thirdCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.fourthCoil).setVisibility(View.VISIBLE);
-            } else if (coilNumber.equals("5")) {
-                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.secondCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.thirdCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.fourthCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.fifthCoil).setVisibility(View.VISIBLE);
-            } else if (coilNumber.equals("6")) {
-                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.secondCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.thirdCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.fourthCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.fifthCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.sixthCoil).setVisibility(View.VISIBLE);
-            } else if (coilNumber.equals("7")) {
-                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.secondCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.thirdCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.fourthCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.fifthCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.sixthCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.seventhCoil).setVisibility(View.VISIBLE);
-            } else if (coilNumber.equals("8")) {
-                findViewById(R.id.firstCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.secondCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.thirdCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.fourthCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.fifthCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.sixthCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.seventhCoil).setVisibility(View.VISIBLE);
-                findViewById(R.id.eighthCoil).setVisibility(View.VISIBLE);
+            if (coilLimit == 1) {
+                limit.setText("/ 1");
+            } else if (coilLimit == 2) {
+                limit.setText("/ 2");
+            } else if (coilLimit == 3) {
+                limit.setText("/ 3");
+            } else if (coilLimit == 4) {
+                limit.setText("/ 4");
+            } else if (coilLimit == 5) {
+                limit.setText("/ 5");
+            } else if (coilLimit == 6) {
+                limit.setText("/ 6");
+            } else if (coilLimit == 7) {
+                limit.setText("/ 7");
+            } else if (coilLimit == 8) {
+                limit.setText("/ 8");
             }
 
             findViewById(R.id.pin0).setVisibility(View.VISIBLE);
@@ -3663,6 +3948,1184 @@ public class MainActivity extends AppCompatActivity {
             findViewById(R.id.pin61).setVisibility(View.VISIBLE);
             findViewById(R.id.pin62).setVisibility(View.VISIBLE);
             findViewById(R.id.pin63).setVisibility(View.VISIBLE);
+
+            String frame1;
+            String frame2;
+            String frame3;
+            String frame4;
+            String frame5;
+            String frame6;
+
+            if (!frameNameF1.isEmpty()) {
+                frame1 = frameFinished1.toString();
+                if (frame1.contains("$Y000")) {
+                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y001")) {
+                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y002")) {
+                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y003")) {
+                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y004")) {
+                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y005")) {
+                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y006")) {
+                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y007")) {
+                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y008")) {
+                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y009")) {
+                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y010")) {
+                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y011")) {
+                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y012")) {
+                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y013")) {
+                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y014")) {
+                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y015")) {
+                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y016")) {
+                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y017")) {
+                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y018")) {
+                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y019")) {
+                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y020")) {
+                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y021")) {
+                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y022")) {
+                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y023")) {
+                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y024")) {
+                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y025")) {
+                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y026")) {
+                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y027")) {
+                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y028")) {
+                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y029")) {
+                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y030")) {
+                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y031")) {
+                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y032")) {
+                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y033")) {
+                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y034")) {
+                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y035")) {
+                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y036")) {
+                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y037")) {
+                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y038")) {
+                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y039")) {
+                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y040")) {
+                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y041")) {
+                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y042")) {
+                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y043")) {
+                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y044")) {
+                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y045")) {
+                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y046")) {
+                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y047")) {
+                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y048")) {
+                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y049")) {
+                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y050")) {
+                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y051")) {
+                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y052")) {
+                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y053")) {
+                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y054")) {
+                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y055")) {
+                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y056")) {
+                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y057")) {
+                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y058")) {
+                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y059")) {
+                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y060")) {
+                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y061")) {
+                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y062")) {
+                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y063")) {
+                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+            }
+            if (!frameNameF2.isEmpty()) {
+                frame2 = frameFinished2.toString();
+                if (frame2.contains("$Y000")) {
+                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y001")) {
+                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y002")) {
+                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y003")) {
+                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y004")) {
+                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y005")) {
+                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y006")) {
+                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y007")) {
+                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y008")) {
+                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y009")) {
+                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y010")) {
+                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y011")) {
+                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y012")) {
+                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y013")) {
+                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y014")) {
+                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y015")) {
+                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y016")) {
+                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y017")) {
+                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y018")) {
+                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y019")) {
+                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y020")) {
+                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y021")) {
+                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y022")) {
+                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y023")) {
+                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y024")) {
+                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y025")) {
+                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y026")) {
+                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y027")) {
+                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y028")) {
+                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y029")) {
+                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y030")) {
+                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y031")) {
+                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y032")) {
+                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y033")) {
+                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y034")) {
+                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y035")) {
+                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y036")) {
+                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y037")) {
+                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y038")) {
+                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y039")) {
+                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y040")) {
+                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y041")) {
+                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y042")) {
+                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y043")) {
+                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y044")) {
+                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y045")) {
+                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y046")) {
+                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y047")) {
+                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y048")) {
+                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y049")) {
+                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y050")) {
+                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y051")) {
+                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y052")) {
+                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y053")) {
+                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y054")) {
+                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y055")) {
+                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y056")) {
+                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y057")) {
+                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y058")) {
+                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y059")) {
+                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y060")) {
+                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y061")) {
+                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y062")) {
+                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y063")) {
+                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+            }
+            if (!frameNameF3.isEmpty()) {
+                frame3 = frameFinished3.toString();
+                if (frame3.contains("$Y000")) {
+                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y001")) {
+                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y002")) {
+                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y003")) {
+                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y004")) {
+                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y005")) {
+                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y006")) {
+                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y007")) {
+                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y008")) {
+                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y009")) {
+                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y010")) {
+                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y011")) {
+                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y012")) {
+                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y013")) {
+                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y014")) {
+                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y015")) {
+                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y016")) {
+                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y017")) {
+                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y018")) {
+                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y019")) {
+                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y020")) {
+                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y021")) {
+                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y022")) {
+                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y023")) {
+                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y024")) {
+                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y025")) {
+                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y026")) {
+                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y027")) {
+                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y028")) {
+                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y029")) {
+                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y030")) {
+                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y031")) {
+                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y032")) {
+                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y033")) {
+                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y034")) {
+                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y035")) {
+                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y036")) {
+                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y037")) {
+                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y038")) {
+                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y039")) {
+                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y040")) {
+                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y041")) {
+                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y042")) {
+                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y043")) {
+                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y044")) {
+                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y045")) {
+                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y046")) {
+                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y047")) {
+                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y048")) {
+                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y049")) {
+                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y050")) {
+                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y051")) {
+                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y052")) {
+                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y053")) {
+                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y054")) {
+                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y055")) {
+                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y056")) {
+                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y057")) {
+                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y058")) {
+                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y059")) {
+                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y060")) {
+                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y061")) {
+                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y062")) {
+                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y063")) {
+                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+            }
+            if (!frameNameF4.isEmpty()) {
+                frame4 = frameFinished4.toString();
+                if (frame4.contains("$Y000")) {
+                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y001")) {
+                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y002")) {
+                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y003")) {
+                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y004")) {
+                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y005")) {
+                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y006")) {
+                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y007")) {
+                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y008")) {
+                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y009")) {
+                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y010")) {
+                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y011")) {
+                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y012")) {
+                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y013")) {
+                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y014")) {
+                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y015")) {
+                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y016")) {
+                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y017")) {
+                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y018")) {
+                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y019")) {
+                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y020")) {
+                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y021")) {
+                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y022")) {
+                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y023")) {
+                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y024")) {
+                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y025")) {
+                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y026")) {
+                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y027")) {
+                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y028")) {
+                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y029")) {
+                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y030")) {
+                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y031")) {
+                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y032")) {
+                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y033")) {
+                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y034")) {
+                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y035")) {
+                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y036")) {
+                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y037")) {
+                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y038")) {
+                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y039")) {
+                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y040")) {
+                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y041")) {
+                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y042")) {
+                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y043")) {
+                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y044")) {
+                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y045")) {
+                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y046")) {
+                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y047")) {
+                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y048")) {
+                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y049")) {
+                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y050")) {
+                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y051")) {
+                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y052")) {
+                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y053")) {
+                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y054")) {
+                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y055")) {
+                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y056")) {
+                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y057")) {
+                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y058")) {
+                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y059")) {
+                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y060")) {
+                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y061")) {
+                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y062")) {
+                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y063")) {
+                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+            }
+            if (!frameNameF5.isEmpty()) {
+                frame5 = frameFinished5.toString();
+                if (frame5.contains("$Y000")) {
+                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y001")) {
+                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y002")) {
+                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y003")) {
+                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y004")) {
+                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y005")) {
+                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y006")) {
+                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y007")) {
+                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y008")) {
+                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y009")) {
+                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y010")) {
+                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y011")) {
+                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y012")) {
+                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y013")) {
+                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y014")) {
+                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y015")) {
+                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y016")) {
+                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y017")) {
+                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y018")) {
+                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y019")) {
+                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y020")) {
+                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y021")) {
+                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y022")) {
+                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y023")) {
+                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y024")) {
+                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y025")) {
+                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y026")) {
+                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y027")) {
+                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y028")) {
+                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y029")) {
+                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y030")) {
+                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y031")) {
+                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y032")) {
+                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y033")) {
+                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y034")) {
+                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y035")) {
+                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y036")) {
+                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y037")) {
+                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y038")) {
+                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y039")) {
+                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y040")) {
+                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y041")) {
+                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y042")) {
+                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y043")) {
+                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y044")) {
+                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y045")) {
+                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y046")) {
+                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y047")) {
+                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y048")) {
+                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y049")) {
+                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y050")) {
+                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y051")) {
+                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y052")) {
+                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y053")) {
+                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y054")) {
+                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y055")) {
+                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y056")) {
+                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y057")) {
+                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y058")) {
+                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y059")) {
+                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y060")) {
+                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y061")) {
+                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y062")) {
+                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y063")) {
+                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+            }
+            if (!frameNameF6.isEmpty()) {
+                frame6 = frameFinished6.toString();
+                if (frame6.contains("$Y000")) {
+                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y001")) {
+                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y002")) {
+                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y003")) {
+                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y004")) {
+                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y005")) {
+                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y006")) {
+                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y007")) {
+                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y008")) {
+                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y009")) {
+                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y010")) {
+                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y011")) {
+                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y012")) {
+                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y013")) {
+                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y014")) {
+                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y015")) {
+                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y016")) {
+                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y017")) {
+                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y018")) {
+                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y019")) {
+                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y020")) {
+                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y021")) {
+                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y022")) {
+                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y023")) {
+                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y024")) {
+                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y025")) {
+                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y026")) {
+                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y027")) {
+                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y028")) {
+                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y029")) {
+                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y030")) {
+                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y031")) {
+                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y032")) {
+                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y033")) {
+                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y034")) {
+                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y035")) {
+                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y036")) {
+                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y037")) {
+                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y038")) {
+                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y039")) {
+                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y040")) {
+                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y041")) {
+                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y042")) {
+                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y043")) {
+                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y044")) {
+                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y045")) {
+                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y046")) {
+                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y047")) {
+                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y048")) {
+                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y049")) {
+                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y050")) {
+                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y051")) {
+                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y052")) {
+                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y053")) {
+                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y054")) {
+                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y055")) {
+                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y056")) {
+                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y057")) {
+                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y058")) {
+                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y059")) {
+                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y060")) {
+                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y061")) {
+                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y062")) {
+                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y063")) {
+                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+            }
         }
     }
 
@@ -3737,32 +5200,53 @@ public class MainActivity extends AppCompatActivity {
         pin62 = findViewById(R.id.pin62);
         pin63 = findViewById(R.id.pin63);
 
+        String commandInfoReplace;
+        String pinSelectReplace;
+
         String contents = numOfCoils.getSelectedItem().toString();
         int coilLimit = Integer.parseInt(contents);
         if (totals.size() == coilLimit) {
             if (frameFinished1.isEmpty()) {
                 pinSelection.add("$T001");
-                frameFinished1.add("" + commandInformation + pinSelection);
+                commandInfoReplace = commandInformation.toString().replaceAll("(^\\[|\\])", "");
+                pinSelectReplace = pinSelection.toString().replaceAll("(^\\[|\\])", "\n");
+                frameFinished1.add(commandInfoReplace + pinSelectReplace);
+                firstFrame = true;
                 Toast.makeText(getApplicationContext(), "Frame Saved1" + frameFinished1, Toast.LENGTH_SHORT).show();
             } else if (frameFinished2.isEmpty()) {
                 pinSelection.add("$T001");
-                frameFinished2.add("" + commandInformation + pinSelection);
+                commandInfoReplace = commandInformation.toString().replaceAll("(^\\[|\\])", "");
+                pinSelectReplace = pinSelection.toString().replaceAll("(^\\[|\\])", "\n");
+                frameFinished2.add(commandInfoReplace + pinSelectReplace);
+                secondFrame = true;
                 Toast.makeText(getApplicationContext(), "Frame Saved2" + frameFinished2, Toast.LENGTH_SHORT).show();
             } else if (frameFinished3.isEmpty()) {
                 pinSelection.add("$T001");
-                frameFinished3.add("" + commandInformation + pinSelection);
+                commandInfoReplace = commandInformation.toString().replaceAll("(^\\[|\\])", "");
+                pinSelectReplace = pinSelection.toString().replaceAll("(^\\[|\\])", "\n");
+                frameFinished3.add(commandInfoReplace + pinSelectReplace);
+                thirdFrame = true;
                 Toast.makeText(getApplicationContext(), "Frame Saved3" + frameFinished3, Toast.LENGTH_SHORT).show();
             } else if (frameFinished4.isEmpty()) {
                 pinSelection.add("$T001");
-                frameFinished4.add("" + commandInformation + pinSelection);
+                commandInfoReplace = commandInformation.toString().replaceAll("(^\\[|\\])", "");
+                pinSelectReplace = pinSelection.toString().replaceAll("(^\\[|\\])", "\n");
+                frameFinished4.add(commandInfoReplace + pinSelectReplace);
+                fourthFrame = true;
                 Toast.makeText(getApplicationContext(), "Frame Saved4" + frameFinished4, Toast.LENGTH_SHORT).show();
             } else if (frameFinished5.isEmpty()) {
                 pinSelection.add("$T001");
-                frameFinished5.add("" + commandInformation + pinSelection);
+                commandInfoReplace = commandInformation.toString().replaceAll("(^\\[|\\])", "");
+                pinSelectReplace = pinSelection.toString().replaceAll("(^\\[|\\])", "\n");
+                frameFinished5.add(commandInfoReplace + pinSelectReplace);
+                fifthFrame = true;
                 Toast.makeText(getApplicationContext(), "Frame Saved5" + frameFinished5, Toast.LENGTH_SHORT).show();
             } else if (frameFinished6.isEmpty()) {
                 pinSelection.add("$T001");
-                frameFinished6.add("" + commandInformation + pinSelection);
+                commandInfoReplace = commandInformation.toString().replaceAll("(^\\[|\\])", "");
+                pinSelectReplace = pinSelection.toString().replaceAll("(^\\[|\\])", "\n");
+                frameFinished6.add(commandInfoReplace + pinSelectReplace);
+                sixthFrame = true;
                 Toast.makeText(getApplicationContext(), "Frame Saved6" + frameFinished6, Toast.LENGTH_SHORT).show();
             }
 
@@ -3783,207 +5267,1442 @@ public class MainActivity extends AppCompatActivity {
             findViewById(R.id.middleFinger).setVisibility(View.INVISIBLE);
             findViewById(R.id.ringFinger).setVisibility(View.INVISIBLE);
             findViewById(R.id.frameCreationView).setVisibility(View.INVISIBLE);
-            findViewById(R.id.firstCoil).setVisibility(View.INVISIBLE);
-            findViewById(R.id.secondCoil).setVisibility(View.INVISIBLE);
-            findViewById(R.id.thirdCoil).setVisibility(View.INVISIBLE);
-            findViewById(R.id.fourthCoil).setVisibility(View.INVISIBLE);
-            findViewById(R.id.fifthCoil).setVisibility(View.INVISIBLE);
-            findViewById(R.id.sixthCoil).setVisibility(View.INVISIBLE);
-            findViewById(R.id.seventhCoil).setVisibility(View.INVISIBLE);
-            findViewById(R.id.eighthCoil).setVisibility(View.INVISIBLE);
+            findViewById(R.id.limit).setVisibility(View.INVISIBLE);
 
             pin0.setChecked(false);
             pin0.setBackgroundColor(Color.TRANSPARENT);
             pin0.setVisibility(View.INVISIBLE);
+            pin0.setText("");
             pin1.setChecked(false);
             pin1.setBackgroundColor(Color.TRANSPARENT);
             pin1.setVisibility(View.INVISIBLE);
+            pin1.setText("");
             pin2.setChecked(false);
             pin2.setBackgroundColor(Color.TRANSPARENT);
             pin2.setVisibility(View.INVISIBLE);
+            pin2.setText("");
             pin3.setChecked(false);
             pin3.setBackgroundColor(Color.TRANSPARENT);
             pin3.setVisibility(View.INVISIBLE);
+            pin3.setText("");
             pin4.setChecked(false);
             pin4.setBackgroundColor(Color.TRANSPARENT);
             pin4.setVisibility(View.INVISIBLE);
+            pin4.setText("");
             pin5.setChecked(false);
             pin5.setBackgroundColor(Color.TRANSPARENT);
             pin5.setVisibility(View.INVISIBLE);
+            pin5.setText("");
             pin6.setChecked(false);
             pin6.setBackgroundColor(Color.TRANSPARENT);
             pin6.setVisibility(View.INVISIBLE);
+            pin6.setText("");
             pin7.setChecked(false);
             pin7.setBackgroundColor(Color.TRANSPARENT);
             pin7.setVisibility(View.INVISIBLE);
+            pin7.setText("");
             pin8.setChecked(false);
             pin8.setBackgroundColor(Color.TRANSPARENT);
             pin8.setVisibility(View.INVISIBLE);
+            pin8.setText("");
             pin9.setChecked(false);
             pin9.setBackgroundColor(Color.TRANSPARENT);
             pin9.setVisibility(View.INVISIBLE);
+            pin9.setText("");
             pin10.setChecked(false);
             pin10.setBackgroundColor(Color.TRANSPARENT);
             pin10.setVisibility(View.INVISIBLE);
+            pin10.setText("");
             pin11.setChecked(false);
             pin11.setBackgroundColor(Color.TRANSPARENT);
             pin11.setVisibility(View.INVISIBLE);
+            pin11.setText("");
             pin12.setChecked(false);
             pin12.setBackgroundColor(Color.TRANSPARENT);
             pin12.setVisibility(View.INVISIBLE);
+            pin12.setText("");
             pin13.setChecked(false);
             pin13.setBackgroundColor(Color.TRANSPARENT);
             pin13.setVisibility(View.INVISIBLE);
+            pin13.setText("");
             pin14.setChecked(false);
             pin14.setBackgroundColor(Color.TRANSPARENT);
             pin14.setVisibility(View.INVISIBLE);
+            pin14.setText("");
             pin15.setChecked(false);
             pin15.setBackgroundColor(Color.TRANSPARENT);
             pin15.setVisibility(View.INVISIBLE);
+            pin15.setText("");
             pin16.setChecked(false);
             pin16.setBackgroundColor(Color.TRANSPARENT);
             pin16.setVisibility(View.INVISIBLE);
+            pin16.setText("");
             pin17.setChecked(false);
             pin17.setBackgroundColor(Color.TRANSPARENT);
             pin17.setVisibility(View.INVISIBLE);
+            pin17.setText("");
             pin18.setChecked(false);
             pin18.setBackgroundColor(Color.TRANSPARENT);
             pin18.setVisibility(View.INVISIBLE);
+            pin18.setText("");
             pin19.setChecked(false);
             pin19.setBackgroundColor(Color.TRANSPARENT);
             pin19.setVisibility(View.INVISIBLE);
+            pin19.setText("");
             pin20.setChecked(false);
             pin20.setBackgroundColor(Color.TRANSPARENT);
             pin20.setVisibility(View.INVISIBLE);
+            pin20.setText("");
             pin21.setChecked(false);
             pin21.setBackgroundColor(Color.TRANSPARENT);
             pin21.setVisibility(View.INVISIBLE);
+            pin21.setText("");
             pin22.setChecked(false);
             pin22.setBackgroundColor(Color.TRANSPARENT);
             pin22.setVisibility(View.INVISIBLE);
+            pin22.setText("");
             pin23.setChecked(false);
             pin23.setBackgroundColor(Color.TRANSPARENT);
             pin23.setVisibility(View.INVISIBLE);
+            pin23.setText("");
             pin24.setChecked(false);
             pin24.setBackgroundColor(Color.TRANSPARENT);
             pin24.setVisibility(View.INVISIBLE);
+            pin24.setText("");
             pin25.setChecked(false);
             pin25.setBackgroundColor(Color.TRANSPARENT);
             pin25.setVisibility(View.INVISIBLE);
+            pin25.setText("");
             pin26.setChecked(false);
             pin26.setBackgroundColor(Color.TRANSPARENT);
             pin26.setVisibility(View.INVISIBLE);
+            pin26.setText("");
             pin27.setChecked(false);
             pin27.setBackgroundColor(Color.TRANSPARENT);
             pin27.setVisibility(View.INVISIBLE);
+            pin27.setText("");
             pin28.setChecked(false);
             pin28.setBackgroundColor(Color.TRANSPARENT);
             pin28.setVisibility(View.INVISIBLE);
+            pin28.setText("");
             pin29.setChecked(false);
             pin29.setBackgroundColor(Color.TRANSPARENT);
             pin29.setVisibility(View.INVISIBLE);
+            pin29.setText("");
             pin30.setChecked(false);
             pin30.setBackgroundColor(Color.TRANSPARENT);
             pin30.setVisibility(View.INVISIBLE);
+            pin30.setText("");
             pin31.setChecked(false);
             pin31.setBackgroundColor(Color.TRANSPARENT);
             pin31.setVisibility(View.INVISIBLE);
+            pin31.setText("");
             pin32.setChecked(false);
             pin32.setBackgroundColor(Color.TRANSPARENT);
             pin32.setVisibility(View.INVISIBLE);
+            pin32.setText("");
             pin33.setChecked(false);
             pin33.setBackgroundColor(Color.TRANSPARENT);
             pin33.setVisibility(View.INVISIBLE);
+            pin33.setText("");
             pin34.setChecked(false);
             pin34.setBackgroundColor(Color.TRANSPARENT);
             pin34.setVisibility(View.INVISIBLE);
+            pin34.setText("");
             pin35.setChecked(false);
             pin35.setBackgroundColor(Color.TRANSPARENT);
             pin35.setVisibility(View.INVISIBLE);
+            pin35.setText("");
             pin36.setChecked(false);
             pin36.setBackgroundColor(Color.TRANSPARENT);
             pin36.setVisibility(View.INVISIBLE);
+            pin36.setText("");
             pin37.setChecked(false);
             pin37.setBackgroundColor(Color.TRANSPARENT);
             pin37.setVisibility(View.INVISIBLE);
+            pin37.setText("");
             pin38.setChecked(false);
             pin38.setBackgroundColor(Color.TRANSPARENT);
             pin38.setVisibility(View.INVISIBLE);
+            pin38.setText("");
             pin39.setChecked(false);
             pin39.setBackgroundColor(Color.TRANSPARENT);
             pin39.setVisibility(View.INVISIBLE);
+            pin39.setText("");
             pin40.setChecked(false);
             pin40.setBackgroundColor(Color.TRANSPARENT);
             pin40.setVisibility(View.INVISIBLE);
+            pin40.setText("");
             pin41.setChecked(false);
             pin41.setBackgroundColor(Color.TRANSPARENT);
             pin41.setVisibility(View.INVISIBLE);
+            pin41.setText("");
             pin42.setChecked(false);
             pin42.setBackgroundColor(Color.TRANSPARENT);
             pin42.setVisibility(View.INVISIBLE);
+            pin42.setText("");
             pin43.setChecked(false);
             pin43.setBackgroundColor(Color.TRANSPARENT);
             pin43.setVisibility(View.INVISIBLE);
+            pin43.setText("");
             pin44.setChecked(false);
             pin44.setBackgroundColor(Color.TRANSPARENT);
             pin44.setVisibility(View.INVISIBLE);
+            pin44.setText("");
             pin45.setChecked(false);
             pin45.setBackgroundColor(Color.TRANSPARENT);
             pin45.setVisibility(View.INVISIBLE);
+            pin45.setText("");
             pin46.setChecked(false);
             pin46.setBackgroundColor(Color.TRANSPARENT);
             pin46.setVisibility(View.INVISIBLE);
+            pin46.setText("");
             pin47.setChecked(false);
             pin47.setBackgroundColor(Color.TRANSPARENT);
             pin47.setVisibility(View.INVISIBLE);
+            pin47.setText("");
             pin48.setChecked(false);
             pin48.setBackgroundColor(Color.TRANSPARENT);
             pin48.setVisibility(View.INVISIBLE);
+            pin48.setText("");
             pin49.setChecked(false);
             pin49.setBackgroundColor(Color.TRANSPARENT);
             pin49.setVisibility(View.INVISIBLE);
+            pin49.setText("");
             pin50.setChecked(false);
             pin50.setBackgroundColor(Color.TRANSPARENT);
             pin50.setVisibility(View.INVISIBLE);
+            pin50.setText("");
             pin51.setChecked(false);
             pin51.setBackgroundColor(Color.TRANSPARENT);
             pin51.setVisibility(View.INVISIBLE);
+            pin51.setText("");
             pin52.setChecked(false);
             pin52.setBackgroundColor(Color.TRANSPARENT);
             pin52.setVisibility(View.INVISIBLE);
+            pin52.setText("");
             pin53.setChecked(false);
             pin53.setBackgroundColor(Color.TRANSPARENT);
             pin53.setVisibility(View.INVISIBLE);
+            pin53.setText("");
             pin54.setChecked(false);
             pin54.setBackgroundColor(Color.TRANSPARENT);
             pin54.setVisibility(View.INVISIBLE);
+            pin54.setText("");
             pin55.setChecked(false);
             pin55.setBackgroundColor(Color.TRANSPARENT);
             pin55.setVisibility(View.INVISIBLE);
+            pin55.setText("");
             pin56.setChecked(false);
             pin56.setBackgroundColor(Color.TRANSPARENT);
             pin56.setVisibility(View.INVISIBLE);
+            pin56.setText("");
             pin57.setChecked(false);
             pin57.setBackgroundColor(Color.TRANSPARENT);
             pin57.setVisibility(View.INVISIBLE);
+            pin57.setText("");
             pin58.setChecked(false);
             pin58.setBackgroundColor(Color.TRANSPARENT);
             pin58.setVisibility(View.INVISIBLE);
+            pin58.setText("");
             pin59.setChecked(false);
             pin59.setBackgroundColor(Color.TRANSPARENT);
             pin59.setVisibility(View.INVISIBLE);
+            pin59.setText("");
             pin60.setChecked(false);
             pin60.setBackgroundColor(Color.TRANSPARENT);
             pin60.setVisibility(View.INVISIBLE);
+            pin60.setText("");
             pin61.setChecked(false);
             pin61.setBackgroundColor(Color.TRANSPARENT);
             pin61.setVisibility(View.INVISIBLE);
+            pin61.setText("");
             pin62.setChecked(false);
             pin62.setBackgroundColor(Color.TRANSPARENT);
             pin62.setVisibility(View.INVISIBLE);
+            pin62.setText("");
             pin63.setChecked(false);
             pin63.setBackgroundColor(Color.TRANSPARENT);
             pin63.setVisibility(View.INVISIBLE);
+            pin63.setText("");
+
+            String frame1;
+            String frame2;
+            String frame3;
+            String frame4;
+            String frame5;
+            String frame6;
+
+            if (!frameNameF1.isEmpty()) {
+                frame1 = frameFinished1.toString();
+                if (frame1.contains("$Y000")) {
+                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y001")) {
+                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y002")) {
+                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y003")) {
+                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y004")) {
+                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y005")) {
+                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y006")) {
+                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y007")) {
+                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y008")) {
+                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y009")) {
+                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y010")) {
+                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y011")) {
+                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y012")) {
+                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y013")) {
+                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y014")) {
+                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y015")) {
+                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y016")) {
+                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y017")) {
+                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y018")) {
+                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y019")) {
+                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y020")) {
+                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y021")) {
+                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y022")) {
+                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y023")) {
+                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y024")) {
+                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y025")) {
+                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y026")) {
+                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y027")) {
+                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y028")) {
+                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y029")) {
+                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y030")) {
+                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y031")) {
+                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y032")) {
+                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y033")) {
+                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y034")) {
+                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y035")) {
+                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y036")) {
+                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y037")) {
+                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y038")) {
+                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y039")) {
+                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y040")) {
+                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y041")) {
+                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y042")) {
+                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y043")) {
+                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y044")) {
+                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y045")) {
+                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y046")) {
+                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y047")) {
+                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y048")) {
+                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y049")) {
+                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y050")) {
+                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y051")) {
+                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y052")) {
+                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y053")) {
+                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y054")) {
+                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y055")) {
+                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y056")) {
+                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y057")) {
+                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y058")) {
+                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y059")) {
+                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y060")) {
+                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y061")) {
+                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y062")) {
+                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y063")) {
+                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+            }
+            if (!frameNameF2.isEmpty()) {
+                frame2 = frameFinished2.toString();
+                if (frame2.contains("$Y000")) {
+                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y001")) {
+                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y002")) {
+                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y003")) {
+                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y004")) {
+                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y005")) {
+                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y006")) {
+                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y007")) {
+                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y008")) {
+                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y009")) {
+                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y010")) {
+                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y011")) {
+                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y012")) {
+                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y013")) {
+                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y014")) {
+                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y015")) {
+                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y016")) {
+                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y017")) {
+                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y018")) {
+                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y019")) {
+                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y020")) {
+                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y021")) {
+                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y022")) {
+                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y023")) {
+                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y024")) {
+                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y025")) {
+                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y026")) {
+                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y027")) {
+                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y028")) {
+                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y029")) {
+                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y030")) {
+                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y031")) {
+                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y032")) {
+                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y033")) {
+                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y034")) {
+                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y035")) {
+                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y036")) {
+                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y037")) {
+                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y038")) {
+                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y039")) {
+                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y040")) {
+                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y041")) {
+                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y042")) {
+                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y043")) {
+                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y044")) {
+                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y045")) {
+                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y046")) {
+                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y047")) {
+                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y048")) {
+                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y049")) {
+                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y050")) {
+                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y051")) {
+                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y052")) {
+                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y053")) {
+                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y054")) {
+                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y055")) {
+                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y056")) {
+                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y057")) {
+                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y058")) {
+                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y059")) {
+                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y060")) {
+                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y061")) {
+                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y062")) {
+                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y063")) {
+                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+            }
+            if (!frameNameF3.isEmpty()) {
+                frame3 = frameFinished3.toString();
+                if (frame3.contains("$Y000")) {
+                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y001")) {
+                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y002")) {
+                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y003")) {
+                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y004")) {
+                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y005")) {
+                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y006")) {
+                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y007")) {
+                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y008")) {
+                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y009")) {
+                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y010")) {
+                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y011")) {
+                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y012")) {
+                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y013")) {
+                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y014")) {
+                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y015")) {
+                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y016")) {
+                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y017")) {
+                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y018")) {
+                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y019")) {
+                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y020")) {
+                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y021")) {
+                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y022")) {
+                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y023")) {
+                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y024")) {
+                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y025")) {
+                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y026")) {
+                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y027")) {
+                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y028")) {
+                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y029")) {
+                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y030")) {
+                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y031")) {
+                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y032")) {
+                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y033")) {
+                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y034")) {
+                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y035")) {
+                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y036")) {
+                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y037")) {
+                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y038")) {
+                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y039")) {
+                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y040")) {
+                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y041")) {
+                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y042")) {
+                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y043")) {
+                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y044")) {
+                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y045")) {
+                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y046")) {
+                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y047")) {
+                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y048")) {
+                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y049")) {
+                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y050")) {
+                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y051")) {
+                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y052")) {
+                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y053")) {
+                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y054")) {
+                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y055")) {
+                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y056")) {
+                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y057")) {
+                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y058")) {
+                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y059")) {
+                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y060")) {
+                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y061")) {
+                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y062")) {
+                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y063")) {
+                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+            }
+            if (!frameNameF4.isEmpty()) {
+                frame4 = frameFinished4.toString();
+                if (frame4.contains("$Y000")) {
+                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y001")) {
+                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y002")) {
+                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y003")) {
+                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y004")) {
+                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y005")) {
+                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y006")) {
+                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y007")) {
+                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y008")) {
+                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y009")) {
+                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y010")) {
+                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y011")) {
+                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y012")) {
+                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y013")) {
+                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y014")) {
+                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y015")) {
+                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y016")) {
+                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y017")) {
+                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y018")) {
+                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y019")) {
+                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y020")) {
+                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y021")) {
+                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y022")) {
+                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y023")) {
+                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y024")) {
+                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y025")) {
+                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y026")) {
+                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y027")) {
+                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y028")) {
+                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y029")) {
+                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y030")) {
+                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y031")) {
+                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y032")) {
+                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y033")) {
+                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y034")) {
+                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y035")) {
+                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y036")) {
+                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y037")) {
+                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y038")) {
+                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y039")) {
+                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y040")) {
+                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y041")) {
+                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y042")) {
+                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y043")) {
+                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y044")) {
+                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y045")) {
+                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y046")) {
+                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y047")) {
+                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y048")) {
+                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y049")) {
+                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y050")) {
+                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y051")) {
+                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y052")) {
+                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y053")) {
+                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y054")) {
+                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y055")) {
+                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y056")) {
+                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y057")) {
+                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y058")) {
+                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y059")) {
+                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y060")) {
+                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y061")) {
+                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y062")) {
+                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y063")) {
+                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+            }
+            if (!frameNameF5.isEmpty()) {
+                frame5 = frameFinished5.toString();
+                if (frame5.contains("$Y000")) {
+                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y001")) {
+                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y002")) {
+                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y003")) {
+                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y004")) {
+                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y005")) {
+                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y006")) {
+                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y007")) {
+                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y008")) {
+                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y009")) {
+                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y010")) {
+                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y011")) {
+                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y012")) {
+                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y013")) {
+                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y014")) {
+                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y015")) {
+                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y016")) {
+                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y017")) {
+                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y018")) {
+                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y019")) {
+                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y020")) {
+                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y021")) {
+                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y022")) {
+                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y023")) {
+                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y024")) {
+                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y025")) {
+                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y026")) {
+                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y027")) {
+                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y028")) {
+                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y029")) {
+                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y030")) {
+                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y031")) {
+                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y032")) {
+                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y033")) {
+                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y034")) {
+                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y035")) {
+                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y036")) {
+                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y037")) {
+                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y038")) {
+                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y039")) {
+                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y040")) {
+                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y041")) {
+                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y042")) {
+                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y043")) {
+                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y044")) {
+                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y045")) {
+                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y046")) {
+                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y047")) {
+                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y048")) {
+                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y049")) {
+                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y050")) {
+                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y051")) {
+                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y052")) {
+                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y053")) {
+                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y054")) {
+                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y055")) {
+                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y056")) {
+                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y057")) {
+                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y058")) {
+                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y059")) {
+                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y060")) {
+                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y061")) {
+                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y062")) {
+                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y063")) {
+                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+            }
+            if (!frameNameF6.isEmpty()) {
+                frame6 = frameFinished6.toString();
+                if (frame6.contains("$Y000")) {
+                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y001")) {
+                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y002")) {
+                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y003")) {
+                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y004")) {
+                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y005")) {
+                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y006")) {
+                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y007")) {
+                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y008")) {
+                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y009")) {
+                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y010")) {
+                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y011")) {
+                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y012")) {
+                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y013")) {
+                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y014")) {
+                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y015")) {
+                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y016")) {
+                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y017")) {
+                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y018")) {
+                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y019")) {
+                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y020")) {
+                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y021")) {
+                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y022")) {
+                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y023")) {
+                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y024")) {
+                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y025")) {
+                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y026")) {
+                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y027")) {
+                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y028")) {
+                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y029")) {
+                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y030")) {
+                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y031")) {
+                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y032")) {
+                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y033")) {
+                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y034")) {
+                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y035")) {
+                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y036")) {
+                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y037")) {
+                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y038")) {
+                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y039")) {
+                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y040")) {
+                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y041")) {
+                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y042")) {
+                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y043")) {
+                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y044")) {
+                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y045")) {
+                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y046")) {
+                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y047")) {
+                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y048")) {
+                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y049")) {
+                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y050")) {
+                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y051")) {
+                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y052")) {
+                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y053")) {
+                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y054")) {
+                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y055")) {
+                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y056")) {
+                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y057")) {
+                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y058")) {
+                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y059")) {
+                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y060")) {
+                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y061")) {
+                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y062")) {
+                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y063")) {
+                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+            }
         } else {
             Toast.makeText(getApplicationContext(), "Please add or remove coils to make your selection of " + coilLimit, Toast.LENGTH_SHORT).show();
         }
@@ -4006,23 +6725,49 @@ public class MainActivity extends AppCompatActivity {
     public void reloadFramesAndSequences(View view) {
         Spinner frameSequenceList = findViewById(R.id.frameSequenceList);
         ArrayList<Object> frameSequenceLists = new ArrayList<>();
-
-        frameSequenceLists.add(frameName1.toString());
-        frameSequenceLists.add(frameName2.toString());
-        frameSequenceLists.add(frameName3.toString());
-        frameSequenceLists.add(frameName4.toString());
-        frameSequenceLists.add(frameName5.toString());
-        frameSequenceLists.add(frameName6.toString());
-
-        frameSequenceLists.add(sequenceName1.toString());
-        frameSequenceLists.add(sequenceName2.toString());
-        frameSequenceLists.add(sequenceName3.toString());
-        frameSequenceLists.add(sequenceName4.toString());
+        ArrayList<Object> blank = new ArrayList<>();
 
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, frameSequenceLists);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        frameSequenceList.setAdapter(adapter);
+        if (!frameFinished1.isEmpty()) {
+            if (!frameFinished1.isEmpty()) {
+                frameSequenceLists.add(frameName1.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!frameFinished2.isEmpty()) {
+                frameSequenceLists.add(frameName2.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!frameFinished3.isEmpty()) {
+                frameSequenceLists.add(frameName3.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!frameFinished4.isEmpty()) {
+                frameSequenceLists.add(frameName4.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!frameFinished5.isEmpty()) {
+                frameSequenceLists.add(frameName5.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!frameFinished6.isEmpty()) {
+                frameSequenceLists.add(frameName6.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!sequenceFinished1.isEmpty()) {
+                frameSequenceLists.add(sequenceName1.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!sequenceFinished2.isEmpty()) {
+                frameSequenceLists.add(sequenceName2.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!sequenceFinished3.isEmpty()) {
+                frameSequenceLists.add(sequenceName3.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!sequenceFinished4.isEmpty()) {
+                frameSequenceLists.add(sequenceName4.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            frameSequenceList.setAdapter(adapter);
+        } else {
+            ArrayAdapter blankSpinner = new ArrayAdapter(this, android.R.layout.simple_spinner_item, blank);
+            blankSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            blank.add(" ");
+            frameSequenceList.setAdapter(blankSpinner);
+        }
     }
 
     /**
@@ -4033,18 +6778,37 @@ public class MainActivity extends AppCompatActivity {
     public void reloadTheFrameList(View view) {
         Spinner frameLists = findViewById(R.id.frameList);
         ArrayList<Object> frameList = new ArrayList<>();
-
-        frameList.add(frameName1.toString());
-        frameList.add(frameName2.toString());
-        frameList.add(frameName3.toString());
-        frameList.add(frameName4.toString());
-        frameList.add(frameName5.toString());
-        frameList.add(frameName6.toString());
+        ArrayList<Object> blank = new ArrayList<>();
 
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, frameList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        frameLists.setAdapter(adapter);
+        if (!frameFinished1.isEmpty()) {
+            if (!frameFinished1.isEmpty()) {
+                frameList.add(frameName1.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!frameFinished2.isEmpty()) {
+                frameList.add(frameName2.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!frameFinished3.isEmpty()) {
+                frameList.add(frameName3.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!frameFinished4.isEmpty()) {
+                frameList.add(frameName4.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!frameFinished5.isEmpty()) {
+                frameList.add(frameName5.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!frameFinished6.isEmpty()) {
+                frameList.add(frameName6.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            frameLists.setAdapter(adapter);
+        } else {
+            ArrayAdapter blankSpinner = new ArrayAdapter(this, android.R.layout.simple_spinner_item, blank);
+            blankSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            blank.add(" ");
+            frameLists.setAdapter(blankSpinner);
+        }
     }
 
     /**
@@ -4055,16 +6819,31 @@ public class MainActivity extends AppCompatActivity {
     public void reloadTheSequenceList(View view) {
         Spinner sequenceLists = findViewById(R.id.sequenceList);
         ArrayList<Object> sequenceList = new ArrayList<>();
-
-        sequenceList.add(sequenceName1.toString());
-        sequenceList.add(sequenceName2.toString());
-        sequenceList.add(sequenceName3.toString());
-        sequenceList.add(sequenceName4.toString());
+        ArrayList<Object> blank = new ArrayList<>();
 
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, sequenceList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        sequenceLists.setAdapter(adapter);
+        if (!sequenceFinished1.isEmpty()) {
+            if (!sequenceFinished1.isEmpty()) {
+                sequenceList.add(sequenceName1.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!sequenceFinished2.isEmpty()) {
+                sequenceList.add(sequenceName2.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!sequenceFinished3.isEmpty()) {
+                sequenceList.add(sequenceName3.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!sequenceFinished4.isEmpty()) {
+                sequenceList.add(sequenceName4.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            sequenceLists.setAdapter(adapter);
+        } else {
+            ArrayAdapter blankSpinner = new ArrayAdapter(this, android.R.layout.simple_spinner_item, blank);
+            blankSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            blank.add(" ");
+            sequenceLists.setAdapter(blankSpinner);
+        }
     }
 
     /**
@@ -4076,23 +6855,53 @@ public class MainActivity extends AppCompatActivity {
         Spinner frameLists = findViewById(R.id.frameList);
         TextView t = findViewById(R.id.savedFrameView);
 
-        String content = frameLists.getSelectedItem().toString();
-        if (!content.contains("[]")) {
-            if (content.equals(frameName1.toString())) {
-                t.setText(frameFinished1.toString());
-            } else if (content.equals(frameName2.toString())) {
-                t.setText(frameFinished2.toString());
-            } else if (content.equals(frameName3.toString())) {
-                t.setText(frameFinished3.toString());
-            } else if (content.equals(frameName4.toString())) {
-                t.setText(frameFinished4.toString());
-            } else if (content.equals(frameName5.toString())) {
-                t.setText(frameFinished5.toString());
-            } else if (content.equals(frameName6.toString())) {
-                t.setText(frameFinished6.toString());
+        if (frameFinished1.isEmpty()) {
+            ArrayList<Object> blank = new ArrayList<>();
+            ArrayAdapter blankSpinner = new ArrayAdapter(this, android.R.layout.simple_spinner_item, blank);
+            blankSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            blank.add(" ");
+            frameLists.setAdapter(blankSpinner);
+            if (frameLists.getSelectedItem().toString().contains(" ")) {
+                Toast.makeText(getApplicationContext(), "No frames have been made yet", Toast.LENGTH_SHORT).show();
             }
-        } else {
-            Toast.makeText(getApplicationContext(), "Can't view an empty frame!", Toast.LENGTH_SHORT).show();
+        }
+
+        String frameReplace1;
+        String frameReplace2;
+        String finialReplace;
+        if (!frameLists.getSelectedItem().toString().contains(" ")) {
+            String content = frameLists.getSelectedItem().toString();
+            if (content.equals(frameName1.toString().replaceAll("(^\\[|\\])", ""))) {
+                frameReplace1 = frameFinished1.toString().replace(",", "");
+                frameReplace2 = frameReplace1.replaceAll("(^\\[|\\])", "");
+                finialReplace = frameReplace2.replace(" ", "\n");
+                t.setText(finialReplace);
+            } else if (content.equals(frameName2.toString().replaceAll("(^\\[|\\])", ""))) {
+                frameReplace1 = frameFinished2.toString().replace(",", "");
+                frameReplace2 = frameReplace1.replaceAll("(^\\[|\\])", "");
+                finialReplace = frameReplace2.replace(" ", "\n");
+                t.setText(finialReplace);
+            } else if (content.equals(frameName3.toString().replaceAll("(^\\[|\\])", ""))) {
+                frameReplace1 = frameFinished3.toString().replace(",", "");
+                frameReplace2 = frameReplace1.replaceAll("(^\\[|\\])", "");
+                finialReplace = frameReplace2.replace(" ", "\n");
+                t.setText(finialReplace);
+            } else if (content.equals(frameName4.toString().replaceAll("(^\\[|\\])", ""))) {
+                frameReplace1 = frameFinished4.toString().replace(",", "");
+                frameReplace2 = frameReplace1.replaceAll("(^\\[|\\])", "");
+                finialReplace = frameReplace2.replace(" ", "\n");
+                t.setText(finialReplace);
+            } else if (content.equals(frameName5.toString().replaceAll("(^\\[|\\])", ""))) {
+                frameReplace1 = frameFinished5.toString().replace(",", "");
+                frameReplace2 = frameReplace1.replaceAll("(^\\[|\\])", "");
+                finialReplace = frameReplace2.replace(" ", "\n");
+                t.setText(finialReplace);
+            } else if (content.equals(frameName6.toString().replaceAll("(^\\[|\\])", ""))) {
+                frameReplace1 = frameFinished6.toString().replace(",", "");
+                frameReplace2 = frameReplace1.replaceAll("(^\\[|\\])", "");
+                finialReplace = frameReplace2.replace(" ", "\n");
+                t.setText(finialReplace);
+            }
         }
     }
 
@@ -4105,19 +6914,43 @@ public class MainActivity extends AppCompatActivity {
         Spinner sequenceLists = findViewById(R.id.sequenceList);
         TextView t = findViewById(R.id.savedSequenceView);
 
-        String content = sequenceLists.getSelectedItem().toString();
-        if (!content.contains("[]")) {
-            if (content.equals(sequenceName1.toString())) {
-                t.setText(sequenceFinished1.toString());
-            } else if (content.equals(sequenceName2.toString())) {
-                t.setText(sequenceFinished2.toString());
-            } else if (content.equals(sequenceName3.toString())) {
-                t.setText(sequenceFinished3.toString());
-            } else if (content.equals(sequenceName4.toString())) {
-                t.setText(sequenceFinished4.toString());
+        if (frameFinished1.isEmpty()) {
+            ArrayList<Object> blank = new ArrayList<>();
+            ArrayAdapter blankSpinner = new ArrayAdapter(this, android.R.layout.simple_spinner_item, blank);
+            blankSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            blank.add(" ");
+            sequenceLists.setAdapter(blankSpinner);
+            if (sequenceLists.getSelectedItem().toString().contains(" ")) {
+                Toast.makeText(getApplicationContext(), "No sequences have been made yet", Toast.LENGTH_SHORT).show();
             }
-        } else {
-            Toast.makeText(getApplicationContext(), "Can't export an empty frame/sequence!", Toast.LENGTH_SHORT).show();
+        }
+
+        String sequenceReplace1;
+        String sequenceReplace2;
+        String sequenceReplace3;
+        if (!sequenceLists.getSelectedItem().toString().contains(" ")) {
+            String content = sequenceLists.getSelectedItem().toString();
+            if (content.equals(sequenceName1.toString().replaceAll("(^\\[|\\])", ""))) {
+                sequenceReplace1 = sequenceFinished1.toString().replace(",", "");
+                sequenceReplace2 = sequenceReplace1.replaceAll("(^\\[|\\])", "");
+                sequenceReplace3 = sequenceReplace2.replaceAll(" ", "\n");
+                t.setText(sequenceReplace3);
+            } else if (content.equals(sequenceName2.toString().replaceAll("(^\\[|\\])", ""))) {
+                sequenceReplace1 = sequenceFinished2.toString().replace(",", "");
+                sequenceReplace2 = sequenceReplace1.replaceAll("(^\\[|\\])", "");
+                sequenceReplace3 = sequenceReplace2.replaceAll(" ", "\n");
+                t.setText(sequenceReplace3);
+            } else if (content.equals(sequenceName3.toString().replaceAll("(^\\[|\\])", ""))) {
+                sequenceReplace1 = sequenceFinished3.toString().replace(",", "");
+                sequenceReplace2 = sequenceReplace1.replaceAll("(^\\[|\\])", "");
+                sequenceReplace3 = sequenceReplace2.replaceAll(" ", "\n");
+                t.setText(sequenceReplace3);
+            } else if (content.equals(sequenceName4.toString().replaceAll("(^\\[|\\])", ""))) {
+                sequenceReplace1 = sequenceFinished4.toString().replace(",", "");
+                sequenceReplace2 = sequenceReplace1.replaceAll("(^\\[|\\])", "");
+                sequenceReplace3 = sequenceReplace2.replaceAll(" ", "\n");
+                t.setText(sequenceReplace3);
+            }
         }
     }
 
@@ -4143,6 +6976,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void export(View view) {
         Spinner frameSequenceList = findViewById(R.id.frameSequenceList);
+
         TextView t = findViewById(R.id.directory);
         File path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "Haptic_Feedback");
         if (path.exists() && path.isDirectory()) {
@@ -4155,4440 +6989,395 @@ public class MainActivity extends AppCompatActivity {
         String frameSequenceName;
         String newLine = "\n";
 
-        String name;
-        String coils;
-        String delay;
-        String time;
-
-        String frames;
-
-        String first;
-        String second;
-        String third;
-        String fourth;
-        String fifth;
-        String sixth;
-        String seventh;
-        String eighth;
-        String ninth;
-
-        String tenth;
-        String eleventh;
-        String twelth;
-        String thirteen;
-
-        String frame1 = "";
-        String frame2 = "";
-        String frame3 = "";
-        String frame4 = "";
-        String frame5 = "";
-        String frame6 = "";
-
         String combined;
 
-        if (!text.contains("[]")) {
-            if (text.equals(frameName1.toString())) {
-                if (!frameFinished1.isEmpty()) {
-                    text = frameFinished1.toString();
-                    frameSequenceName = text.substring(2, 7);
-                    frameSequenceName = frameSequenceName + ".txt";
-                    if (text.length() == 44) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second;
-                    } else if (text.length() == 51) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third;
-                    } else if (text.length() == 58) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth;
-                    } else if (text.length() == 65) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth;
-                    } else if (text.length() == 72) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth;
-                    } else if (text.length() == 79) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-                        seventh = text.substring(72, 77);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh;
-                    } else if (text.length() == 86) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-                        seventh = text.substring(72, 77);
-                        eighth = text.substring(79, 84);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth;
-                    } else if (text.length() == 93) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-                        seventh = text.substring(72, 77);
-                        eighth = text.substring(79, 84);
-                        ninth = text.substring(86, 91);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth;
-                    }
-                    File dir = new File(path, frameSequenceName);
-                    try {
-                        FileOutputStream fos = new FileOutputStream(dir);
-                        fos.write(text.getBytes());
-                        t.setText(dir.toString());
-                        fos.flush();
-                        fos.close();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else if (frameFinished1.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Nothing inside this frame to export", Toast.LENGTH_SHORT).show();
-                }
-            }
-            if (text.equals(frameName2.toString())) {
-                if (!frameFinished2.isEmpty()) {
-                    text = frameFinished2.toString();
-                    frameSequenceName = text.substring(2, 7);
-                    frameSequenceName = frameSequenceName + ".txt";
-                    if (text.length() == 44) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second;
-                    } else if (text.length() == 51) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third;
-                    } else if (text.length() == 58) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth;
-                    } else if (text.length() == 65) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth;
-                    } else if (text.length() == 72) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth;
-                    } else if (text.length() == 79) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-                        seventh = text.substring(72, 77);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh;
-                    } else if (text.length() == 86) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-                        seventh = text.substring(72, 77);
-                        eighth = text.substring(79, 84);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth;
-                    } else if (text.length() == 93) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-                        seventh = text.substring(72, 77);
-                        eighth = text.substring(79, 84);
-                        ninth = text.substring(86, 91);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth;
-                    }
-                    File dir = new File(path, frameSequenceName);
-                    try {
-                        FileOutputStream fos = new FileOutputStream(dir);
-                        fos.write(text.getBytes());
-                        t.setText(dir.toString());
-                        fos.flush();
-                        fos.close();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else if (frameFinished2.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Nothing inside this frame to export", Toast.LENGTH_SHORT).show();
-                }
-            }
-            if (text.equals(frameName3.toString())) {
-                if (!frameFinished3.isEmpty()) {
-                    text = frameFinished3.toString();
-                    frameSequenceName = text.substring(2, 7);
-                    frameSequenceName = frameSequenceName + ".txt";
-                    if (text.length() == 44) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second;
-                    } else if (text.length() == 51) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third;
-                    } else if (text.length() == 58) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth;
-                    } else if (text.length() == 65) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth;
-                    } else if (text.length() == 72) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth;
-                    } else if (text.length() == 79) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-                        seventh = text.substring(72, 77);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh;
-                    } else if (text.length() == 86) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-                        seventh = text.substring(72, 77);
-                        eighth = text.substring(79, 84);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth;
-                    } else if (text.length() == 93) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-                        seventh = text.substring(72, 77);
-                        eighth = text.substring(79, 84);
-                        ninth = text.substring(86, 91);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth;
-                    }
-                    File dir = new File(path, frameSequenceName);
-                    try {
-                        FileOutputStream fos = new FileOutputStream(dir);
-                        fos.write(text.getBytes());
-                        t.setText(dir.toString());
-                        fos.flush();
-                        fos.close();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else if (frameFinished3.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Nothing inside this frame to export", Toast.LENGTH_SHORT).show();
-                }
-            }
-            if (text.equals(frameName4.toString())) {
-                if (!frameFinished4.isEmpty()) {
-                    text = frameFinished4.toString();
-                    frameSequenceName = text.substring(2, 7);
-                    frameSequenceName = frameSequenceName + ".txt";
-                    if (text.length() == 44) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second;
-                    } else if (text.length() == 51) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third;
-                    } else if (text.length() == 58) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth;
-                    } else if (text.length() == 65) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth;
-                    } else if (text.length() == 72) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth;
-                    } else if (text.length() == 79) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-                        seventh = text.substring(72, 77);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh;
-                    } else if (text.length() == 86) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-                        seventh = text.substring(72, 77);
-                        eighth = text.substring(79, 84);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth;
-                    } else if (text.length() == 93) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-                        seventh = text.substring(72, 77);
-                        eighth = text.substring(79, 84);
-                        ninth = text.substring(86, 91);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth;
-                    }
-                    File dir = new File(path, frameSequenceName);
-                    try {
-                        FileOutputStream fos = new FileOutputStream(dir);
-                        fos.write(text.getBytes());
-                        t.setText(dir.toString());
-                        fos.flush();
-                        fos.close();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else if (frameFinished4.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Nothing inside this frame to export", Toast.LENGTH_SHORT).show();
-                }
-            }
-            if (text.equals(frameName5.toString())) {
-                if (!frameFinished5.isEmpty()) {
-                    text = frameFinished5.toString();
-                    frameSequenceName = text.substring(2, 7);
-                    frameSequenceName = frameSequenceName + ".txt";
-                    if (text.length() == 44) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second;
-                    } else if (text.length() == 51) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third;
-                    } else if (text.length() == 58) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth;
-                    } else if (text.length() == 65) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth;
-                    } else if (text.length() == 72) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth;
-                    } else if (text.length() == 79) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-                        seventh = text.substring(72, 77);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh;
-                    } else if (text.length() == 86) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-                        seventh = text.substring(72, 77);
-                        eighth = text.substring(79, 84);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth;
-                    } else if (text.length() == 93) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-                        seventh = text.substring(72, 77);
-                        eighth = text.substring(79, 84);
-                        ninth = text.substring(86, 91);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth;
-                    }
-                    File dir = new File(path, frameSequenceName);
-                    try {
-                        FileOutputStream fos = new FileOutputStream(dir);
-                        fos.write(text.getBytes());
-                        t.setText(dir.toString());
-                        fos.flush();
-                        fos.close();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else if (frameFinished5.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Nothing inside this frame to export", Toast.LENGTH_SHORT).show();
-                }
-            }
-            if (text.equals(frameName6.toString())) {
-                if (!frameFinished6.isEmpty()) {
-                    text = frameFinished6.toString();
-                    frameSequenceName = text.substring(2, 7);
-                    frameSequenceName = frameSequenceName + ".txt";
-                    if (text.length() == 44) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second;
-                    } else if (text.length() == 51) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third;
-                    } else if (text.length() == 58) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth;
-                    } else if (text.length() == 65) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth;
-                    } else if (text.length() == 72) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth;
-                    } else if (text.length() == 79) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-                        seventh = text.substring(72, 77);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh;
-                    } else if (text.length() == 86) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-                        seventh = text.substring(72, 77);
-                        eighth = text.substring(79, 84);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth;
-                    } else if (text.length() == 93) {
-                        name = text.substring(2, 7);
-                        coils = text.substring(9, 14);
-                        delay = text.substring(16, 21);
-                        time = text.substring(23, 28);
-
-                        first = text.substring(30, 35);
-                        second = text.substring(37, 42);
-                        third = text.substring(44, 49);
-                        fourth = text.substring(51, 56);
-                        fifth = text.substring(58, 63);
-                        sixth = text.substring(65, 70);
-                        seventh = text.substring(72, 77);
-                        eighth = text.substring(79, 84);
-                        ninth = text.substring(86, 91);
-
-                        text = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth;
-                    }
-                    File dir = new File(path, frameSequenceName);
-                    try {
-                        FileOutputStream fos = new FileOutputStream(dir);
-                        fos.write(text.getBytes());
-                        t.setText(dir.toString());
-                        fos.flush();
-                        fos.close();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else if (frameFinished6.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Nothing inside this frame to export", Toast.LENGTH_SHORT).show();
-                }
-            }
-            if (text.equals(sequenceName1.toString())) {
-                if (!sequenceFinished1.isEmpty()) {
-                    text = sequenceFinished1.toString();
-                    frameSequenceName = text.substring(2, 7);
-                    frameSequenceName = frameSequenceName + ".txt";
-                    if (text.length() == 39) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(32, 37);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + newLine;
-                    } else if (text.length() == 55) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(33, 38);
-                        fourth = text.substring(41, 46);
-                        fifth = text.substring(48, 53);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + fourth + newLine + fifth + newLine + newLine;
-                    } else if (text.length() == 71) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(33, 38);
-                        fourth = text.substring(41, 46);
-                        fifth = text.substring(49, 54);
-                        sixth = text.substring(57, 62);
-                        seventh = text.substring(64, 69);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                                + newLine + newLine;
-                    } else if (text.length() == 87) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(33, 38);
-                        fourth = text.substring(41, 46);
-                        fifth = text.substring(49, 54);
-                        sixth = text.substring(57, 62);
-                        seventh = text.substring(64, 69);
-                        eighth = text.substring(72, 77);
-                        ninth = text.substring(80, 85);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                                + newLine + eighth + newLine + ninth + newLine + newLine;
-                    } else if (text.length() == 103) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(33, 38);
-                        fourth = text.substring(41, 46);
-                        fifth = text.substring(49, 54);
-                        sixth = text.substring(57, 62);
-                        seventh = text.substring(64, 69);
-                        eighth = text.substring(72, 77);
-                        ninth = text.substring(80, 85);
-                        tenth = text.substring(88, 93);
-                        eleventh = text.substring(96, 101);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                                + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
-                                + newLine + newLine;
-                    } else if (text.length() == 119) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(33, 38);
-                        fourth = text.substring(41, 46);
-                        fifth = text.substring(49, 54);
-                        sixth = text.substring(57, 62);
-                        seventh = text.substring(65, 70);
-                        eighth = text.substring(73, 78);
-                        ninth = text.substring(81, 86);
-                        tenth = text.substring(89, 94);
-                        eleventh = text.substring(97, 102);
-                        twelth = text.substring(105, 110);
-                        thirteen = text.substring(112, 117);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                                + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
-                                + newLine + twelth + newLine + thirteen + newLine + newLine;
-                    }
-                    if (sequenceFinished1.toString().contains(frameNameF1.toString())) {
-                        frame1 = frameFinished1.toString();
-                        if (frame1.length() == 44) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame1.length() == 51) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame1.length() == 58) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame1.length() == 65) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-                            fifth = frame1.substring(58, 63);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame1.length() == 72) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-                            fifth = frame1.substring(58, 63);
-                            sixth = frame1.substring(65, 70);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame1.length() == 79) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-                            fifth = frame1.substring(58, 63);
-                            sixth = frame1.substring(65, 70);
-                            seventh = frame1.substring(72, 77);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame1.length() == 86) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-                            fifth = frame1.substring(58, 63);
-                            sixth = frame1.substring(65, 70);
-                            seventh = frame1.substring(72, 77);
-                            eighth = frame1.substring(79, 84);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame1.length() == 93) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-                            fifth = frame1.substring(58, 63);
-                            sixth = frame1.substring(65, 70);
-                            seventh = frame1.substring(72, 77);
-                            eighth = frame1.substring(79, 84);
-                            ninth = frame1.substring(86, 91);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    if (sequenceFinished1.toString().contains(frameNameF2.toString())) {
-                        frame2 = frameFinished2.toString();
-                        if (frame2.length() == 44) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame2.length() == 51) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame2.length() == 58) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame2.length() == 65) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-                            fifth = frame2.substring(58, 63);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame2.length() == 72) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-                            fifth = frame2.substring(58, 63);
-                            sixth = frame2.substring(65, 70);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame2.length() == 79) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-                            fifth = frame2.substring(58, 63);
-                            sixth = frame2.substring(65, 70);
-                            seventh = frame2.substring(72, 77);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame2.length() == 86) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-                            fifth = frame2.substring(58, 63);
-                            sixth = frame2.substring(65, 70);
-                            seventh = frame2.substring(72, 77);
-                            eighth = frame2.substring(79, 84);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame2.length() == 93) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-                            fifth = frame2.substring(58, 63);
-                            sixth = frame2.substring(65, 70);
-                            seventh = frame2.substring(72, 77);
-                            eighth = frame2.substring(79, 84);
-                            ninth = frame2.substring(86, 91);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    if (sequenceFinished1.toString().contains(frameNameF3.toString())) {
-                        frame3 = frameFinished3.toString();
-                        if (frame3.length() == 44) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame3.length() == 51) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame3.length() == 58) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame3.length() == 65) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-                            fifth = frame3.substring(58, 63);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame3.length() == 72) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-                            fifth = frame3.substring(58, 63);
-                            sixth = frame3.substring(65, 70);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame3.length() == 79) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-                            fifth = frame3.substring(58, 63);
-                            sixth = frame3.substring(65, 70);
-                            seventh = frame3.substring(72, 77);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame3.length() == 86) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-                            fifth = frame3.substring(58, 63);
-                            sixth = frame3.substring(65, 70);
-                            seventh = frame3.substring(72, 77);
-                            eighth = frame3.substring(79, 84);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame3.length() == 93) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-                            fifth = frame3.substring(58, 63);
-                            sixth = frame3.substring(65, 70);
-                            seventh = frame3.substring(72, 77);
-                            eighth = frame3.substring(79, 84);
-                            ninth = frame3.substring(86, 91);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    if (sequenceFinished1.toString().contains(frameNameF4.toString())) {
-                        frame4 = frameFinished4.toString();
-                        if (frame4.length() == 44) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame4.length() == 51) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame4.length() == 58) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame4.length() == 65) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-                            fifth = frame4.substring(58, 63);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame4.length() == 72) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-                            fifth = frame4.substring(58, 63);
-                            sixth = frame4.substring(65, 70);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame4.length() == 79) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-                            fifth = frame4.substring(58, 63);
-                            sixth = frame4.substring(65, 70);
-                            seventh = frame4.substring(72, 77);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame4.length() == 86) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-                            fifth = frame4.substring(58, 63);
-                            sixth = frame4.substring(65, 70);
-                            seventh = frame4.substring(72, 77);
-                            eighth = frame4.substring(79, 84);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame4.length() == 93) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-                            fifth = frame4.substring(58, 63);
-                            sixth = frame4.substring(65, 70);
-                            seventh = frame4.substring(72, 77);
-                            eighth = frame4.substring(79, 84);
-                            ninth = frame4.substring(86, 91);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    if (sequenceFinished1.toString().contains(frameNameF5.toString())) {
-                        frame5 = frameFinished5.toString();
-                        if (frame5.length() == 44) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame5.length() == 51) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame5.length() == 58) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame5.length() == 65) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-                            fifth = frame5.substring(58, 63);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame5.length() == 72) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-                            fifth = frame5.substring(58, 63);
-                            sixth = frame5.substring(65, 70);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame5.length() == 79) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-                            fifth = frame5.substring(58, 63);
-                            sixth = frame5.substring(65, 70);
-                            seventh = frame5.substring(72, 77);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame5.length() == 86) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-                            fifth = frame5.substring(58, 63);
-                            sixth = frame5.substring(65, 70);
-                            seventh = frame5.substring(72, 77);
-                            eighth = frame5.substring(79, 84);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame5.length() == 93) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-                            fifth = frame5.substring(58, 63);
-                            sixth = frame5.substring(65, 70);
-                            seventh = frame5.substring(72, 77);
-                            eighth = frame5.substring(79, 84);
-                            ninth = frame5.substring(86, 91);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    if (sequenceFinished1.toString().contains(frameNameF6.toString())) {
-                        frame6 = frameFinished6.toString();
-                        if (frame6.length() == 44) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame6.length() == 51) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame6.length() == 58) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame6.length() == 65) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-                            fifth = frame6.substring(58, 63);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame6.length() == 72) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-                            fifth = frame6.substring(58, 63);
-                            sixth = frame6.substring(65, 70);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame6.length() == 79) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-                            fifth = frame6.substring(58, 63);
-                            sixth = frame6.substring(65, 70);
-                            seventh = frame6.substring(72, 77);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame6.length() == 86) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-                            fifth = frame6.substring(58, 63);
-                            sixth = frame6.substring(65, 70);
-                            seventh = frame6.substring(72, 77);
-                            eighth = frame6.substring(79, 84);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame6.length() == 93) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-                            fifth = frame6.substring(58, 63);
-                            sixth = frame6.substring(65, 70);
-                            seventh = frame6.substring(72, 77);
-                            eighth = frame6.substring(79, 84);
-                            ninth = frame6.substring(86, 91);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    combined = text + frame1 + frame2 + frame3 + frame4 + frame5 + frame6;
-                    File dir = new File(path, frameSequenceName);
-                    try {
-                        FileOutputStream fos = new FileOutputStream(dir);
-                        fos.write(combined.getBytes());
-                        t.setText(dir.toString());
-                        fos.flush();
-                        fos.close();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else if (sequenceFinished1.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Nothing inside this sequence to export", Toast.LENGTH_SHORT).show();
-                }
-            }
-            if (text.equals(sequenceName2.toString())) {
-                if (!sequenceFinished2.isEmpty()) {
-                    text = sequenceFinished2.toString();
-                    frameSequenceName = text.substring(2, 7);
-                    frameSequenceName = frameSequenceName + ".txt";
-                    if (text.length() == 39) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(32, 37);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + newLine;
-                    } else if (text.length() == 55) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(33, 38);
-                        fourth = text.substring(41, 46);
-                        fifth = text.substring(48, 53);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + fourth + newLine + fifth + newLine + newLine;
-                    } else if (text.length() == 71) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(33, 38);
-                        fourth = text.substring(41, 46);
-                        fifth = text.substring(49, 54);
-                        sixth = text.substring(57, 62);
-                        seventh = text.substring(64, 69);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                                + newLine + newLine;
-                    } else if (text.length() == 87) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(33, 38);
-                        fourth = text.substring(41, 46);
-                        fifth = text.substring(49, 54);
-                        sixth = text.substring(57, 62);
-                        seventh = text.substring(64, 69);
-                        eighth = text.substring(72, 77);
-                        ninth = text.substring(80, 85);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                                + newLine + eighth + newLine + ninth + newLine + newLine;
-                    } else if (text.length() == 103) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(33, 38);
-                        fourth = text.substring(41, 46);
-                        fifth = text.substring(49, 54);
-                        sixth = text.substring(57, 62);
-                        seventh = text.substring(64, 69);
-                        eighth = text.substring(72, 77);
-                        ninth = text.substring(80, 85);
-                        tenth = text.substring(88, 93);
-                        eleventh = text.substring(96, 101);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                                + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
-                                + newLine + newLine;
-                    } else if (text.length() == 119) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(33, 38);
-                        fourth = text.substring(41, 46);
-                        fifth = text.substring(49, 54);
-                        sixth = text.substring(57, 62);
-                        seventh = text.substring(65, 70);
-                        eighth = text.substring(73, 78);
-                        ninth = text.substring(81, 86);
-                        tenth = text.substring(89, 94);
-                        eleventh = text.substring(97, 102);
-                        twelth = text.substring(105, 110);
-                        thirteen = text.substring(112, 117);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                                + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
-                                + newLine + twelth + newLine + thirteen + newLine + newLine;
-                    }
-                    if (sequenceFinished2.toString().contains(frameNameF1.toString())) {
-                        frame1 = frameFinished1.toString();
-                        if (frame1.length() == 44) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame1.length() == 51) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame1.length() == 58) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame1.length() == 65) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-                            fifth = frame1.substring(58, 63);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame1.length() == 72) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-                            fifth = frame1.substring(58, 63);
-                            sixth = frame1.substring(65, 70);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame1.length() == 79) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-                            fifth = frame1.substring(58, 63);
-                            sixth = frame1.substring(65, 70);
-                            seventh = frame1.substring(72, 77);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame1.length() == 86) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-                            fifth = frame1.substring(58, 63);
-                            sixth = frame1.substring(65, 70);
-                            seventh = frame1.substring(72, 77);
-                            eighth = frame1.substring(79, 84);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame1.length() == 93) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-                            fifth = frame1.substring(58, 63);
-                            sixth = frame1.substring(65, 70);
-                            seventh = frame1.substring(72, 77);
-                            eighth = frame1.substring(79, 84);
-                            ninth = frame1.substring(86, 91);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    if (sequenceFinished2.toString().contains(frameNameF2.toString())) {
-                        frame2 = frameFinished2.toString();
-                        if (frame2.length() == 44) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame2.length() == 51) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame2.length() == 58) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame2.length() == 65) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-                            fifth = frame2.substring(58, 63);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame2.length() == 72) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-                            fifth = frame2.substring(58, 63);
-                            sixth = frame2.substring(65, 70);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame2.length() == 79) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-                            fifth = frame2.substring(58, 63);
-                            sixth = frame2.substring(65, 70);
-                            seventh = frame2.substring(72, 77);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame2.length() == 86) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-                            fifth = frame2.substring(58, 63);
-                            sixth = frame2.substring(65, 70);
-                            seventh = frame2.substring(72, 77);
-                            eighth = frame2.substring(79, 84);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame2.length() == 93) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-                            fifth = frame2.substring(58, 63);
-                            sixth = frame2.substring(65, 70);
-                            seventh = frame2.substring(72, 77);
-                            eighth = frame2.substring(79, 84);
-                            ninth = frame2.substring(86, 91);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    if (sequenceFinished2.toString().contains(frameNameF3.toString())) {
-                        frame3 = frameFinished3.toString();
-                        if (frame3.length() == 44) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame3.length() == 51) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame3.length() == 58) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame3.length() == 65) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-                            fifth = frame3.substring(58, 63);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame3.length() == 72) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-                            fifth = frame3.substring(58, 63);
-                            sixth = frame3.substring(65, 70);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame3.length() == 79) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-                            fifth = frame3.substring(58, 63);
-                            sixth = frame3.substring(65, 70);
-                            seventh = frame3.substring(72, 77);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame3.length() == 86) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-                            fifth = frame3.substring(58, 63);
-                            sixth = frame3.substring(65, 70);
-                            seventh = frame3.substring(72, 77);
-                            eighth = frame3.substring(79, 84);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame3.length() == 93) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-                            fifth = frame3.substring(58, 63);
-                            sixth = frame3.substring(65, 70);
-                            seventh = frame3.substring(72, 77);
-                            eighth = frame3.substring(79, 84);
-                            ninth = frame3.substring(86, 91);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    if (sequenceFinished2.toString().contains(frameNameF4.toString())) {
-                        frame4 = frameFinished4.toString();
-                        if (frame4.length() == 44) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame4.length() == 51) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame4.length() == 58) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame4.length() == 65) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-                            fifth = frame4.substring(58, 63);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame4.length() == 72) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-                            fifth = frame4.substring(58, 63);
-                            sixth = frame4.substring(65, 70);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame4.length() == 79) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-                            fifth = frame4.substring(58, 63);
-                            sixth = frame4.substring(65, 70);
-                            seventh = frame4.substring(72, 77);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame4.length() == 86) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-                            fifth = frame4.substring(58, 63);
-                            sixth = frame4.substring(65, 70);
-                            seventh = frame4.substring(72, 77);
-                            eighth = frame4.substring(79, 84);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame4.length() == 93) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-                            fifth = frame4.substring(58, 63);
-                            sixth = frame4.substring(65, 70);
-                            seventh = frame4.substring(72, 77);
-                            eighth = frame4.substring(79, 84);
-                            ninth = frame4.substring(86, 91);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    if (sequenceFinished2.toString().contains(frameNameF5.toString())) {
-                        frame5 = frameFinished5.toString();
-                        if (frame5.length() == 44) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame5.length() == 51) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame5.length() == 58) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame5.length() == 65) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-                            fifth = frame5.substring(58, 63);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame5.length() == 72) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-                            fifth = frame5.substring(58, 63);
-                            sixth = frame5.substring(65, 70);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame5.length() == 79) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-                            fifth = frame5.substring(58, 63);
-                            sixth = frame5.substring(65, 70);
-                            seventh = frame5.substring(72, 77);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame5.length() == 86) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-                            fifth = frame5.substring(58, 63);
-                            sixth = frame5.substring(65, 70);
-                            seventh = frame5.substring(72, 77);
-                            eighth = frame5.substring(79, 84);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame5.length() == 93) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-                            fifth = frame5.substring(58, 63);
-                            sixth = frame5.substring(65, 70);
-                            seventh = frame5.substring(72, 77);
-                            eighth = frame5.substring(79, 84);
-                            ninth = frame5.substring(86, 91);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    if (sequenceFinished2.toString().contains(frameNameF6.toString())) {
-                        frame6 = frameFinished6.toString();
-                        if (frame6.length() == 44) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame6.length() == 51) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame6.length() == 58) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame6.length() == 65) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-                            fifth = frame6.substring(58, 63);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame6.length() == 72) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-                            fifth = frame6.substring(58, 63);
-                            sixth = frame6.substring(65, 70);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame6.length() == 79) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-                            fifth = frame6.substring(58, 63);
-                            sixth = frame6.substring(65, 70);
-                            seventh = frame6.substring(72, 77);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame6.length() == 86) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-                            fifth = frame6.substring(58, 63);
-                            sixth = frame6.substring(65, 70);
-                            seventh = frame6.substring(72, 77);
-                            eighth = frame6.substring(79, 84);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame6.length() == 93) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-                            fifth = frame6.substring(58, 63);
-                            sixth = frame6.substring(65, 70);
-                            seventh = frame6.substring(72, 77);
-                            eighth = frame6.substring(79, 84);
-                            ninth = frame6.substring(86, 91);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    combined = text + frame1 + frame2 + frame3 + frame4 + frame5 + frame6;
-                    File dir = new File(path, frameSequenceName);
-                    try {
-                        FileOutputStream fos = new FileOutputStream(dir);
-                        fos.write(combined.getBytes());
-                        t.setText(dir.toString());
-                        fos.flush();
-                        fos.close();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else if (sequenceFinished2.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Nothing inside this sequence to export", Toast.LENGTH_SHORT).show();
-                }
-            }
-            if (text.equals(sequenceName3.toString())) {
-                if (!sequenceFinished3.isEmpty()) {
-                    text = sequenceFinished3.toString();
-                    frameSequenceName = text.substring(2, 7);
-                    frameSequenceName = frameSequenceName + ".txt";
-                    if (text.length() == 39) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(32, 37);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + newLine;
-                    } else if (text.length() == 55) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(33, 38);
-                        fourth = text.substring(41, 46);
-                        fifth = text.substring(48, 53);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + fourth + newLine + fifth + newLine + newLine;
-                    } else if (text.length() == 71) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(33, 38);
-                        fourth = text.substring(41, 46);
-                        fifth = text.substring(49, 54);
-                        sixth = text.substring(57, 62);
-                        seventh = text.substring(64, 69);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                                + newLine + newLine;
-                    } else if (text.length() == 87) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(33, 38);
-                        fourth = text.substring(41, 46);
-                        fifth = text.substring(49, 54);
-                        sixth = text.substring(57, 62);
-                        seventh = text.substring(64, 69);
-                        eighth = text.substring(72, 77);
-                        ninth = text.substring(80, 85);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                                + newLine + eighth + newLine + ninth + newLine + newLine;
-                    } else if (text.length() == 103) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(33, 38);
-                        fourth = text.substring(41, 46);
-                        fifth = text.substring(49, 54);
-                        sixth = text.substring(57, 62);
-                        seventh = text.substring(64, 69);
-                        eighth = text.substring(72, 77);
-                        ninth = text.substring(80, 85);
-                        tenth = text.substring(88, 93);
-                        eleventh = text.substring(96, 101);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                                + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
-                                + newLine + newLine;
-                    } else if (text.length() == 119) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(33, 38);
-                        fourth = text.substring(41, 46);
-                        fifth = text.substring(49, 54);
-                        sixth = text.substring(57, 62);
-                        seventh = text.substring(65, 70);
-                        eighth = text.substring(73, 78);
-                        ninth = text.substring(81, 86);
-                        tenth = text.substring(89, 94);
-                        eleventh = text.substring(97, 102);
-                        twelth = text.substring(105, 110);
-                        thirteen = text.substring(112, 117);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                                + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
-                                + newLine + twelth + newLine + thirteen + newLine + newLine;
-                    }
-                    if (sequenceFinished3.toString().contains(frameNameF1.toString())) {
-                        frame1 = frameFinished1.toString();
-                        if (frame1.length() == 44) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame1.length() == 51) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame1.length() == 58) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame1.length() == 65) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-                            fifth = frame1.substring(58, 63);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame1.length() == 72) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-                            fifth = frame1.substring(58, 63);
-                            sixth = frame1.substring(65, 70);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame1.length() == 79) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-                            fifth = frame1.substring(58, 63);
-                            sixth = frame1.substring(65, 70);
-                            seventh = frame1.substring(72, 77);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame1.length() == 86) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-                            fifth = frame1.substring(58, 63);
-                            sixth = frame1.substring(65, 70);
-                            seventh = frame1.substring(72, 77);
-                            eighth = frame1.substring(79, 84);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame1.length() == 93) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-                            fifth = frame1.substring(58, 63);
-                            sixth = frame1.substring(65, 70);
-                            seventh = frame1.substring(72, 77);
-                            eighth = frame1.substring(79, 84);
-                            ninth = frame1.substring(86, 91);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    if (sequenceFinished3.toString().contains(frameNameF2.toString())) {
-                        frame2 = frameFinished2.toString();
-                        if (frame2.length() == 44) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame2.length() == 51) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame2.length() == 58) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame2.length() == 65) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-                            fifth = frame2.substring(58, 63);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame2.length() == 72) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-                            fifth = frame2.substring(58, 63);
-                            sixth = frame2.substring(65, 70);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame2.length() == 79) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-                            fifth = frame2.substring(58, 63);
-                            sixth = frame2.substring(65, 70);
-                            seventh = frame2.substring(72, 77);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame2.length() == 86) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-                            fifth = frame2.substring(58, 63);
-                            sixth = frame2.substring(65, 70);
-                            seventh = frame2.substring(72, 77);
-                            eighth = frame2.substring(79, 84);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame2.length() == 93) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-                            fifth = frame2.substring(58, 63);
-                            sixth = frame2.substring(65, 70);
-                            seventh = frame2.substring(72, 77);
-                            eighth = frame2.substring(79, 84);
-                            ninth = frame2.substring(86, 91);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    if (sequenceFinished3.toString().contains(frameNameF3.toString())) {
-                        frame3 = frameFinished3.toString();
-                        if (frame3.length() == 44) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame3.length() == 51) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame3.length() == 58) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame3.length() == 65) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-                            fifth = frame3.substring(58, 63);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame3.length() == 72) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-                            fifth = frame3.substring(58, 63);
-                            sixth = frame3.substring(65, 70);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame3.length() == 79) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-                            fifth = frame3.substring(58, 63);
-                            sixth = frame3.substring(65, 70);
-                            seventh = frame3.substring(72, 77);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame3.length() == 86) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-                            fifth = frame3.substring(58, 63);
-                            sixth = frame3.substring(65, 70);
-                            seventh = frame3.substring(72, 77);
-                            eighth = frame3.substring(79, 84);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame3.length() == 93) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-                            fifth = frame3.substring(58, 63);
-                            sixth = frame3.substring(65, 70);
-                            seventh = frame3.substring(72, 77);
-                            eighth = frame3.substring(79, 84);
-                            ninth = frame3.substring(86, 91);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    if (sequenceFinished3.toString().contains(frameNameF4.toString())) {
-                        frame4 = frameFinished4.toString();
-                        if (frame4.length() == 44) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame4.length() == 51) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame4.length() == 58) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame4.length() == 65) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-                            fifth = frame4.substring(58, 63);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame4.length() == 72) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-                            fifth = frame4.substring(58, 63);
-                            sixth = frame4.substring(65, 70);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame4.length() == 79) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-                            fifth = frame4.substring(58, 63);
-                            sixth = frame4.substring(65, 70);
-                            seventh = frame4.substring(72, 77);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame4.length() == 86) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-                            fifth = frame4.substring(58, 63);
-                            sixth = frame4.substring(65, 70);
-                            seventh = frame4.substring(72, 77);
-                            eighth = frame4.substring(79, 84);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame4.length() == 93) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-                            fifth = frame4.substring(58, 63);
-                            sixth = frame4.substring(65, 70);
-                            seventh = frame4.substring(72, 77);
-                            eighth = frame4.substring(79, 84);
-                            ninth = frame4.substring(86, 91);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    if (sequenceFinished3.toString().contains(frameNameF5.toString())) {
-                        frame5 = frameFinished5.toString();
-                        if (frame5.length() == 44) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame5.length() == 51) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame5.length() == 58) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame5.length() == 65) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-                            fifth = frame5.substring(58, 63);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame5.length() == 72) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-                            fifth = frame5.substring(58, 63);
-                            sixth = frame5.substring(65, 70);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame5.length() == 79) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-                            fifth = frame5.substring(58, 63);
-                            sixth = frame5.substring(65, 70);
-                            seventh = frame5.substring(72, 77);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame5.length() == 86) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-                            fifth = frame5.substring(58, 63);
-                            sixth = frame5.substring(65, 70);
-                            seventh = frame5.substring(72, 77);
-                            eighth = frame5.substring(79, 84);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame5.length() == 93) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-                            fifth = frame5.substring(58, 63);
-                            sixth = frame5.substring(65, 70);
-                            seventh = frame5.substring(72, 77);
-                            eighth = frame5.substring(79, 84);
-                            ninth = frame5.substring(86, 91);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    if (sequenceFinished3.toString().contains(frameNameF6.toString())) {
-                        frame6 = frameFinished6.toString();
-                        if (frame6.length() == 44) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame6.length() == 51) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame6.length() == 58) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame6.length() == 65) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-                            fifth = frame6.substring(58, 63);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame6.length() == 72) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-                            fifth = frame6.substring(58, 63);
-                            sixth = frame6.substring(65, 70);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame6.length() == 79) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-                            fifth = frame6.substring(58, 63);
-                            sixth = frame6.substring(65, 70);
-                            seventh = frame6.substring(72, 77);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame6.length() == 86) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-                            fifth = frame6.substring(58, 63);
-                            sixth = frame6.substring(65, 70);
-                            seventh = frame6.substring(72, 77);
-                            eighth = frame6.substring(79, 84);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame6.length() == 93) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-                            fifth = frame6.substring(58, 63);
-                            sixth = frame6.substring(65, 70);
-                            seventh = frame6.substring(72, 77);
-                            eighth = frame6.substring(79, 84);
-                            ninth = frame6.substring(86, 91);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    combined = text + frame1 + frame2 + frame3 + frame4 + frame5 + frame6;
-                    File dir = new File(path, frameSequenceName);
-                    try {
-                        FileOutputStream fos = new FileOutputStream(dir);
-                        fos.write(combined.getBytes());
-                        t.setText(dir.toString());
-                        fos.flush();
-                        fos.close();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else if (sequenceFinished3.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Nothing inside this sequence to export", Toast.LENGTH_SHORT).show();
-                }
-            }
-            if (text.equals(sequenceName4.toString())) {
-                if (!sequenceFinished4.isEmpty()) {
-                    text = sequenceFinished4.toString();
-                    frameSequenceName = text.substring(2, 7);
-                    frameSequenceName = frameSequenceName + ".txt";
-                    if (text.length() == 39) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(32, 37);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + newLine;
-                    } else if (text.length() == 55) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(33, 38);
-                        fourth = text.substring(41, 46);
-                        fifth = text.substring(48, 53);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + fourth + newLine + fifth + newLine + newLine;
-                    } else if (text.length() == 71) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(33, 38);
-                        fourth = text.substring(41, 46);
-                        fifth = text.substring(49, 54);
-                        sixth = text.substring(57, 62);
-                        seventh = text.substring(64, 69);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                                + newLine + newLine;
-                    } else if (text.length() == 87) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(33, 38);
-                        fourth = text.substring(41, 46);
-                        fifth = text.substring(49, 54);
-                        sixth = text.substring(57, 62);
-                        seventh = text.substring(64, 69);
-                        eighth = text.substring(72, 77);
-                        ninth = text.substring(80, 85);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                                + newLine + eighth + newLine + ninth + newLine + newLine;
-                    } else if (text.length() == 103) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(33, 38);
-                        fourth = text.substring(41, 46);
-                        fifth = text.substring(49, 54);
-                        sixth = text.substring(57, 62);
-                        seventh = text.substring(64, 69);
-                        eighth = text.substring(72, 77);
-                        ninth = text.substring(80, 85);
-                        tenth = text.substring(88, 93);
-                        eleventh = text.substring(96, 101);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                                + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
-                                + newLine + newLine;
-                    } else if (text.length() == 119) {
-                        name = text.substring(2, 7);
-                        frames = text.substring(9, 14);
-
-                        first = text.substring(17, 22);
-                        second = text.substring(25, 30);
-                        third = text.substring(33, 38);
-                        fourth = text.substring(41, 46);
-                        fifth = text.substring(49, 54);
-                        sixth = text.substring(57, 62);
-                        seventh = text.substring(65, 70);
-                        eighth = text.substring(73, 78);
-                        ninth = text.substring(81, 86);
-                        tenth = text.substring(89, 94);
-                        eleventh = text.substring(97, 102);
-                        twelth = text.substring(105, 110);
-                        thirteen = text.substring(112, 117);
-
-                        text = name + newLine + frames + newLine + first + newLine + second + newLine + third
-                                + newLine + fourth + newLine + fifth + newLine + sixth + newLine + seventh
-                                + newLine + eighth + newLine + ninth + newLine + tenth + newLine + eleventh
-                                + newLine + twelth + newLine + thirteen + newLine + newLine;
-                    }
-                    if (sequenceFinished4.toString().contains(frameNameF1.toString())) {
-                        frame1 = frameFinished1.toString();
-                        if (frame1.length() == 44) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame1.length() == 51) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame1.length() == 58) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame1.length() == 65) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-                            fifth = frame1.substring(58, 63);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame1.length() == 72) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-                            fifth = frame1.substring(58, 63);
-                            sixth = frame1.substring(65, 70);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame1.length() == 79) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-                            fifth = frame1.substring(58, 63);
-                            sixth = frame1.substring(65, 70);
-                            seventh = frame1.substring(72, 77);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame1.length() == 86) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-                            fifth = frame1.substring(58, 63);
-                            sixth = frame1.substring(65, 70);
-                            seventh = frame1.substring(72, 77);
-                            eighth = frame1.substring(79, 84);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame1.length() == 93) {
-                            name = frame1.substring(2, 7);
-                            coils = frame1.substring(9, 14);
-                            delay = frame1.substring(16, 21);
-                            time = frame1.substring(23, 28);
-
-                            first = frame1.substring(30, 35);
-                            second = frame1.substring(37, 42);
-                            third = frame1.substring(44, 49);
-                            fourth = frame1.substring(51, 56);
-                            fifth = frame1.substring(58, 63);
-                            sixth = frame1.substring(65, 70);
-                            seventh = frame1.substring(72, 77);
-                            eighth = frame1.substring(79, 84);
-                            ninth = frame1.substring(86, 91);
-
-                            frame1 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    if (sequenceFinished4.toString().contains(frameNameF2.toString())) {
-                        frame2 = frameFinished2.toString();
-                        if (frame2.length() == 44) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame2.length() == 51) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame2.length() == 58) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame2.length() == 65) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-                            fifth = frame2.substring(58, 63);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame2.length() == 72) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-                            fifth = frame2.substring(58, 63);
-                            sixth = frame2.substring(65, 70);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame2.length() == 79) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-                            fifth = frame2.substring(58, 63);
-                            sixth = frame2.substring(65, 70);
-                            seventh = frame2.substring(72, 77);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame2.length() == 86) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-                            fifth = frame2.substring(58, 63);
-                            sixth = frame2.substring(65, 70);
-                            seventh = frame2.substring(72, 77);
-                            eighth = frame2.substring(79, 84);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame2.length() == 93) {
-                            name = frame2.substring(2, 7);
-                            coils = frame2.substring(9, 14);
-                            delay = frame2.substring(16, 21);
-                            time = frame2.substring(23, 28);
-
-                            first = frame2.substring(30, 35);
-                            second = frame2.substring(37, 42);
-                            third = frame2.substring(44, 49);
-                            fourth = frame2.substring(51, 56);
-                            fifth = frame2.substring(58, 63);
-                            sixth = frame2.substring(65, 70);
-                            seventh = frame2.substring(72, 77);
-                            eighth = frame2.substring(79, 84);
-                            ninth = frame2.substring(86, 91);
-
-                            frame2 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    if (sequenceFinished4.toString().contains(frameNameF3.toString())) {
-                        frame3 = frameFinished3.toString();
-                        if (frame3.length() == 44) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame3.length() == 51) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame3.length() == 58) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame3.length() == 65) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-                            fifth = frame3.substring(58, 63);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame3.length() == 72) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-                            fifth = frame3.substring(58, 63);
-                            sixth = frame3.substring(65, 70);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame3.length() == 79) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-                            fifth = frame3.substring(58, 63);
-                            sixth = frame3.substring(65, 70);
-                            seventh = frame3.substring(72, 77);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame3.length() == 86) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-                            fifth = frame3.substring(58, 63);
-                            sixth = frame3.substring(65, 70);
-                            seventh = frame3.substring(72, 77);
-                            eighth = frame3.substring(79, 84);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame3.length() == 93) {
-                            name = frame3.substring(2, 7);
-                            coils = frame3.substring(9, 14);
-                            delay = frame3.substring(16, 21);
-                            time = frame3.substring(23, 28);
-
-                            first = frame3.substring(30, 35);
-                            second = frame3.substring(37, 42);
-                            third = frame3.substring(44, 49);
-                            fourth = frame3.substring(51, 56);
-                            fifth = frame3.substring(58, 63);
-                            sixth = frame3.substring(65, 70);
-                            seventh = frame3.substring(72, 77);
-                            eighth = frame3.substring(79, 84);
-                            ninth = frame3.substring(86, 91);
-
-                            frame3 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    if (sequenceFinished4.toString().contains(frameNameF4.toString())) {
-                        frame4 = frameFinished4.toString();
-                        if (frame4.length() == 44) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame4.length() == 51) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame4.length() == 58) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame4.length() == 65) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-                            fifth = frame4.substring(58, 63);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame4.length() == 72) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-                            fifth = frame4.substring(58, 63);
-                            sixth = frame4.substring(65, 70);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame4.length() == 79) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-                            fifth = frame4.substring(58, 63);
-                            sixth = frame4.substring(65, 70);
-                            seventh = frame4.substring(72, 77);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame4.length() == 86) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-                            fifth = frame4.substring(58, 63);
-                            sixth = frame4.substring(65, 70);
-                            seventh = frame4.substring(72, 77);
-                            eighth = frame4.substring(79, 84);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame4.length() == 93) {
-                            name = frame4.substring(2, 7);
-                            coils = frame4.substring(9, 14);
-                            delay = frame4.substring(16, 21);
-                            time = frame4.substring(23, 28);
-
-                            first = frame4.substring(30, 35);
-                            second = frame4.substring(37, 42);
-                            third = frame4.substring(44, 49);
-                            fourth = frame4.substring(51, 56);
-                            fifth = frame4.substring(58, 63);
-                            sixth = frame4.substring(65, 70);
-                            seventh = frame4.substring(72, 77);
-                            eighth = frame4.substring(79, 84);
-                            ninth = frame4.substring(86, 91);
-
-                            frame4 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    if (sequenceFinished4.toString().contains(frameNameF5.toString())) {
-                        frame5 = frameFinished5.toString();
-                        if (frame5.length() == 44) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame5.length() == 51) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame5.length() == 58) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame5.length() == 65) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-                            fifth = frame5.substring(58, 63);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame5.length() == 72) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-                            fifth = frame5.substring(58, 63);
-                            sixth = frame5.substring(65, 70);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame5.length() == 79) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-                            fifth = frame5.substring(58, 63);
-                            sixth = frame5.substring(65, 70);
-                            seventh = frame5.substring(72, 77);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame5.length() == 86) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-                            fifth = frame5.substring(58, 63);
-                            sixth = frame5.substring(65, 70);
-                            seventh = frame5.substring(72, 77);
-                            eighth = frame5.substring(79, 84);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame5.length() == 93) {
-                            name = frame5.substring(2, 7);
-                            coils = frame5.substring(9, 14);
-                            delay = frame5.substring(16, 21);
-                            time = frame5.substring(23, 28);
-
-                            first = frame5.substring(30, 35);
-                            second = frame5.substring(37, 42);
-                            third = frame5.substring(44, 49);
-                            fourth = frame5.substring(51, 56);
-                            fifth = frame5.substring(58, 63);
-                            sixth = frame5.substring(65, 70);
-                            seventh = frame5.substring(72, 77);
-                            eighth = frame5.substring(79, 84);
-                            ninth = frame5.substring(86, 91);
-
-                            frame5 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    if (sequenceFinished4.toString().contains(frameNameF6.toString())) {
-                        frame6 = frameFinished6.toString();
-                        if (frame6.length() == 44) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + newLine;
-                        } else if (frame6.length() == 51) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + newLine;
-                        } else if (frame6.length() == 58) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine
-                                    + newLine;
-                        } else if (frame6.length() == 65) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-                            fifth = frame6.substring(58, 63);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + newLine;
-                        } else if (frame6.length() == 72) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-                            fifth = frame6.substring(58, 63);
-                            sixth = frame6.substring(65, 70);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + newLine;
-                        } else if (frame6.length() == 79) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-                            fifth = frame6.substring(58, 63);
-                            sixth = frame6.substring(65, 70);
-                            seventh = frame6.substring(72, 77);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + newLine;
-                        } else if (frame6.length() == 86) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-                            fifth = frame6.substring(58, 63);
-                            sixth = frame6.substring(65, 70);
-                            seventh = frame6.substring(72, 77);
-                            eighth = frame6.substring(79, 84);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine
-                                    + newLine;
-                        } else if (frame6.length() == 93) {
-                            name = frame6.substring(2, 7);
-                            coils = frame6.substring(9, 14);
-                            delay = frame6.substring(16, 21);
-                            time = frame6.substring(23, 28);
-
-                            first = frame6.substring(30, 35);
-                            second = frame6.substring(37, 42);
-                            third = frame6.substring(44, 49);
-                            fourth = frame6.substring(51, 56);
-                            fifth = frame6.substring(58, 63);
-                            sixth = frame6.substring(65, 70);
-                            seventh = frame6.substring(72, 77);
-                            eighth = frame6.substring(79, 84);
-                            ninth = frame6.substring(86, 91);
-
-                            frame6 = name + newLine + coils + newLine + delay + newLine + time + newLine + first
-                                    + newLine + second + newLine + third + newLine + fourth + newLine + fifth
-                                    + newLine + sixth + newLine + seventh + newLine + eighth + newLine + ninth
-                                    + newLine + newLine;
-                        }
-                    }
-                    combined = text + frame1 + frame2 + frame3 + frame4 + frame5 + frame6;
-                    File dir = new File(path, frameSequenceName);
-                    try {
-                        FileOutputStream fos = new FileOutputStream(dir);
-                        fos.write(combined.getBytes());
-                        t.setText(dir.toString());
-                        fos.flush();
-                        fos.close();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else if (sequenceFinished4.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Nothing inside this sequence to export", Toast.LENGTH_SHORT).show();
-                }
+        String frameReplace1;
+        String frameReplace2;
+        String frameReplace3;
+
+        String sequenceReplace1;
+        String sequenceReplace2;
+        String sequenceReplace3;
+
+        String firstFrameReplace1;
+        String firstFrameReplace2;
+        String firstFrameReplace3 = "";
+
+        String secondFrameReplace1;
+        String secondFrameReplace2;
+        String secondFrameReplace3 = "";
+
+        String thirdFrameReplace1;
+        String thirdFrameReplace2;
+        String thirdFrameReplace3 = "";
+
+        String fourthFrameReplace1;
+        String fourthFrameReplace2;
+        String fourthFrameReplace3 = "";
+
+        String fifthFrameReplace1;
+        String fifthFrameReplace2;
+        String fifthFrameReplace3 = "";
+
+        String sixthFrameReplace1;
+        String sixthFrameReplace2;
+        String sixthFrameReplace3 = "";
+
+        if (frameSequenceList.getSelectedItem().toString().contains(" ")) {
+            ArrayList<Object> blank = new ArrayList<>();
+            ArrayAdapter blankSpinner = new ArrayAdapter(this, android.R.layout.simple_spinner_item, blank);
+            blankSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            blank.add(" ");
+            frameSequenceList.setAdapter(blankSpinner);
+            if (text.equals(" ")) {
+                Toast.makeText(getApplicationContext(), "Nothing to export", Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(getApplicationContext(), "Can't export an empty frame/sequence!", Toast.LENGTH_SHORT).show();
+            if (text.equals(frameName1.toString().replaceAll("(^\\[|\\])", ""))) {
+                if (!frameFinished1.isEmpty()) {
+                    frameReplace1 = frameFinished1.toString().replace(",", "");
+                    frameReplace2 = frameReplace1.replaceAll("(^\\[|\\])", "");
+                    frameReplace3 = frameReplace2.replace(" ", "\n");
+                    frameSequenceName = frameReplace3.substring(0, 5);
+                    frameSequenceName = frameSequenceName + ".txt";
+
+                    File dir = new File(path, frameSequenceName);
+                    try {
+                        FileOutputStream fos = new FileOutputStream(dir);
+                        fos.write(frameReplace3.getBytes());
+                        t.setText(dir.toString());
+                        fos.flush();
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            if (text.equals(frameName2.toString().replaceAll("(^\\[|\\])", ""))) {
+                if (!frameFinished2.isEmpty()) {
+                    frameReplace1 = frameFinished2.toString().replace(",", "");
+                    frameReplace2 = frameReplace1.replaceAll("(^\\[|\\])", "");
+                    frameReplace3 = frameReplace2.replace(" ", "\n");
+                    frameSequenceName = frameReplace3.substring(0, 5);
+                    frameSequenceName = frameSequenceName + ".txt";
+                    File dir = new File(path, frameSequenceName);
+                    try {
+                        FileOutputStream fos = new FileOutputStream(dir);
+                        fos.write(frameReplace3.getBytes());
+                        t.setText(dir.toString());
+                        fos.flush();
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            if (text.equals(frameName3.toString().replaceAll("(^\\[|\\])", ""))) {
+                if (!frameFinished3.isEmpty()) {
+                    frameReplace1 = frameFinished3.toString().replace(",", "");
+                    frameReplace2 = frameReplace1.replaceAll("(^\\[|\\])", "");
+                    frameReplace3 = frameReplace2.replace(" ", "\n");
+                    frameSequenceName = frameReplace3.substring(0, 5);
+                    frameSequenceName = frameSequenceName + ".txt";
+
+                    File dir = new File(path, frameSequenceName);
+                    try {
+                        FileOutputStream fos = new FileOutputStream(dir);
+                        fos.write(frameReplace3.getBytes());
+                        t.setText(dir.toString());
+                        fos.flush();
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            if (text.equals(frameName4.toString().replaceAll("(^\\[|\\])", ""))) {
+                if (!frameFinished4.isEmpty()) {
+                    frameReplace1 = frameFinished4.toString().replace(",", "");
+                    frameReplace2 = frameReplace1.replaceAll("(^\\[|\\])", "");
+                    frameReplace3 = frameReplace2.replace(" ", "\n");
+                    frameSequenceName = frameReplace3.substring(0, 5);
+                    frameSequenceName = frameSequenceName + ".txt";
+
+                    File dir = new File(path, frameSequenceName);
+                    try {
+                        FileOutputStream fos = new FileOutputStream(dir);
+                        fos.write(frameReplace3.getBytes());
+                        t.setText(dir.toString());
+                        fos.flush();
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            if (text.equals(frameName5.toString().replaceAll("(^\\[|\\])", ""))) {
+                if (!frameFinished5.isEmpty()) {
+                    frameReplace1 = frameFinished5.toString().replace(",", "");
+                    frameReplace2 = frameReplace1.replaceAll("(^\\[|\\])", "");
+                    frameReplace3 = frameReplace2.replace(" ", "\n");
+                    frameSequenceName = frameReplace3.substring(0, 5);
+                    frameSequenceName = frameSequenceName + ".txt";
+                    File dir = new File(path, frameSequenceName);
+                    try {
+                        FileOutputStream fos = new FileOutputStream(dir);
+                        fos.write(frameReplace3.getBytes());
+                        t.setText(dir.toString());
+                        fos.flush();
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            if (text.equals(frameName6.toString().replaceAll("(^\\[|\\])", ""))) {
+                if (!frameFinished6.isEmpty()) {
+                    frameReplace1 = frameFinished6.toString().replace(",", "");
+                    frameReplace2 = frameReplace1.replaceAll("(^\\[|\\])", "");
+                    frameReplace3 = frameReplace2.replace(" ", "\n");
+                    frameSequenceName = frameReplace3.substring(0, 5);
+                    frameSequenceName = frameSequenceName + ".txt";
+                    File dir = new File(path, frameSequenceName);
+                    try {
+                        FileOutputStream fos = new FileOutputStream(dir);
+                        fos.write(frameReplace3.getBytes());
+                        t.setText(dir.toString());
+                        fos.flush();
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            if (text.equals(sequenceName1.toString().replaceAll("(^\\[|\\])", ""))) {
+                if (!sequenceFinished1.isEmpty()) {
+                    sequenceReplace1 = sequenceFinished1.toString().replace(",", "");
+                    sequenceReplace2 = sequenceReplace1.replaceAll("(^\\[|\\])", "");
+                    sequenceReplace3 = sequenceReplace2.replace(" ", "\n");
+                    frameSequenceName = sequenceReplace3.substring(0, 5);
+                    frameSequenceName = frameSequenceName + ".txt";
+                    if (sequenceFinished1.toString().contains(frameNameF1.toString().replaceAll("(^\\[|\\])", ""))) {
+                        firstFrameReplace1 = frameFinished1.toString().replace(",", "");
+                        firstFrameReplace2 = firstFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        firstFrameReplace3 = firstFrameReplace2.replace(" ", "\n");
+                    }
+                    if (sequenceFinished1.toString().contains(frameNameF2.toString().replaceAll("(^\\[|\\])", ""))) {
+                        secondFrameReplace1 = frameFinished2.toString().replace(",", "");
+                        secondFrameReplace2 = secondFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        secondFrameReplace3 = secondFrameReplace2.replace(" ", "\n");
+                    }
+                    if (sequenceFinished1.toString().contains(frameNameF3.toString().replaceAll("(^\\[|\\])", ""))) {
+                        thirdFrameReplace1 = frameFinished3.toString().replace(",", "");
+                        thirdFrameReplace2 = thirdFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        thirdFrameReplace3 = thirdFrameReplace2.replace(" ", "\n");
+                    }
+                    if (sequenceFinished1.toString().contains(frameNameF4.toString().replaceAll("(^\\[|\\])", ""))) {
+                        fourthFrameReplace1 = frameFinished4.toString().replace(",", "");
+                        fourthFrameReplace2 = fourthFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        fourthFrameReplace3 = fourthFrameReplace2.replace(" ", "\n");
+                    }
+                    if (sequenceFinished1.toString().contains(frameNameF5.toString().replaceAll("(^\\[|\\])", ""))) {
+                        fifthFrameReplace1 = frameFinished5.toString().replace(",", "");
+                        fifthFrameReplace2 = fifthFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        fifthFrameReplace3 = fifthFrameReplace2.replace(" ", "\n");
+                    }
+                    if (sequenceFinished1.toString().contains(frameNameF6.toString().replaceAll("(^\\[|\\])", ""))) {
+                        sixthFrameReplace1 = frameFinished6.toString().replace(",", "");
+                        sixthFrameReplace2 = sixthFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        sixthFrameReplace3 = sixthFrameReplace2.replace(" ", "\n");
+                    }
+                    combined = sequenceReplace3 + newLine + firstFrameReplace3 + newLine + secondFrameReplace3
+                            + newLine + thirdFrameReplace3 + newLine + fourthFrameReplace3
+                            + newLine + fifthFrameReplace3 + newLine + sixthFrameReplace3;
+                    File dir = new File(path, frameSequenceName);
+                    try {
+                        FileOutputStream fos = new FileOutputStream(dir);
+                        fos.write(combined.getBytes());
+                        t.setText(dir.toString());
+                        fos.flush();
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            if (text.equals(sequenceName2.toString().replaceAll("(^\\[|\\])", ""))) {
+                if (!sequenceFinished2.isEmpty()) {
+                    sequenceReplace1 = sequenceFinished2.toString().replace(",", "");
+                    sequenceReplace2 = sequenceReplace1.replaceAll("(^\\[|\\])", "");
+                    sequenceReplace3 = sequenceReplace2.replace(" ", "\n");
+                    frameSequenceName = sequenceReplace3.substring(0, 5);
+                    frameSequenceName = frameSequenceName + ".txt";
+                    if (sequenceFinished2.toString().contains(frameNameF1.toString().replaceAll("(^\\[|\\])", ""))) {
+                        firstFrameReplace1 = frameFinished1.toString().replace(",", "");
+                        firstFrameReplace2 = firstFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        firstFrameReplace3 = firstFrameReplace2.replace(" ", "\n");
+                    }
+                    if (sequenceFinished2.toString().contains(frameNameF2.toString().replaceAll("(^\\[|\\])", ""))) {
+                        secondFrameReplace1 = frameFinished2.toString().replace(",", "");
+                        secondFrameReplace2 = secondFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        secondFrameReplace3 = secondFrameReplace2.replace(" ", "\n");
+                    }
+                    if (sequenceFinished2.toString().contains(frameNameF3.toString().replaceAll("(^\\[|\\])", ""))) {
+                        thirdFrameReplace1 = frameFinished3.toString().replace(",", "");
+                        thirdFrameReplace2 = thirdFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        thirdFrameReplace3 = thirdFrameReplace2.replace(" ", "\n");
+                    }
+                    if (sequenceFinished2.toString().contains(frameNameF4.toString().replaceAll("(^\\[|\\])", ""))) {
+                        fourthFrameReplace1 = frameFinished4.toString().replace(",", "");
+                        fourthFrameReplace2 = fourthFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        fourthFrameReplace3 = fourthFrameReplace2.replace(" ", "\n");
+                    }
+                    if (sequenceFinished2.toString().contains(frameNameF5.toString().replaceAll("(^\\[|\\])", ""))) {
+                        fifthFrameReplace1 = frameFinished5.toString().replace(",", "");
+                        fifthFrameReplace2 = fifthFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        fifthFrameReplace3 = fifthFrameReplace2.replace(" ", "\n");
+                    }
+                    if (sequenceFinished2.toString().contains(frameNameF6.toString().replaceAll("(^\\[|\\])", ""))) {
+                        sixthFrameReplace1 = frameFinished6.toString().replace(",", "");
+                        sixthFrameReplace2 = sixthFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        sixthFrameReplace3 = sixthFrameReplace2.replace(" ", "\n");
+                    }
+                    combined = sequenceReplace3 + newLine + firstFrameReplace3 + newLine + secondFrameReplace3
+                            + newLine + thirdFrameReplace3 + newLine + fourthFrameReplace3
+                            + newLine + fifthFrameReplace3 + newLine + sixthFrameReplace3;
+                    File dir = new File(path, frameSequenceName);
+                    try {
+                        FileOutputStream fos = new FileOutputStream(dir);
+                        fos.write(combined.getBytes());
+                        t.setText(dir.toString());
+                        fos.flush();
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            if (text.equals(sequenceName3.toString().replaceAll("(^\\[|\\])", ""))) {
+                if (!sequenceFinished3.isEmpty()) {
+                    sequenceReplace1 = sequenceFinished3.toString().replace(",", "");
+                    sequenceReplace2 = sequenceReplace1.replaceAll("(^\\[|\\])", "");
+                    sequenceReplace3 = sequenceReplace2.replace(" ", "\n");
+                    frameSequenceName = sequenceReplace3.substring(0, 5);
+                    frameSequenceName = frameSequenceName + ".txt";
+                    if (sequenceFinished3.toString().contains(frameNameF1.toString().replaceAll("(^\\[|\\])", ""))) {
+                        firstFrameReplace1 = frameFinished1.toString().replace(",", "");
+                        firstFrameReplace2 = firstFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        firstFrameReplace3 = firstFrameReplace2.replace(" ", "\n");
+                    }
+                    if (sequenceFinished3.toString().contains(frameNameF2.toString().replaceAll("(^\\[|\\])", ""))) {
+                        secondFrameReplace1 = frameFinished2.toString().replace(",", "");
+                        secondFrameReplace2 = secondFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        secondFrameReplace3 = secondFrameReplace2.replace(" ", "\n");
+                    }
+                    if (sequenceFinished3.toString().contains(frameNameF3.toString().replaceAll("(^\\[|\\])", ""))) {
+                        thirdFrameReplace1 = frameFinished3.toString().replace(",", "");
+                        thirdFrameReplace2 = thirdFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        thirdFrameReplace3 = thirdFrameReplace2.replace(" ", "\n");
+                    }
+                    if (sequenceFinished3.toString().contains(frameNameF4.toString().replaceAll("(^\\[|\\])", ""))) {
+                        fourthFrameReplace1 = frameFinished4.toString().replace(",", "");
+                        fourthFrameReplace2 = fourthFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        fourthFrameReplace3 = fourthFrameReplace2.replace(" ", "\n");
+                    }
+                    if (sequenceFinished3.toString().contains(frameNameF5.toString().replaceAll("(^\\[|\\])", ""))) {
+                        fifthFrameReplace1 = frameFinished5.toString().replace(",", "");
+                        fifthFrameReplace2 = fifthFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        fifthFrameReplace3 = fifthFrameReplace2.replace(" ", "\n");
+                    }
+                    if (sequenceFinished3.toString().contains(frameNameF6.toString().replaceAll("(^\\[|\\])", ""))) {
+                        sixthFrameReplace1 = frameFinished6.toString().replace(",", "");
+                        sixthFrameReplace2 = sixthFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        sixthFrameReplace3 = sixthFrameReplace2.replace(" ", "\n");
+                    }
+                    combined = sequenceReplace3 + newLine + firstFrameReplace3 + newLine + secondFrameReplace3
+                            + newLine + thirdFrameReplace3 + newLine + fourthFrameReplace3
+                            + newLine + fifthFrameReplace3 + newLine + sixthFrameReplace3;
+                    File dir = new File(path, frameSequenceName);
+                    try {
+                        FileOutputStream fos = new FileOutputStream(dir);
+                        fos.write(combined.getBytes());
+                        t.setText(dir.toString());
+                        fos.flush();
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            if (text.equals(sequenceName4.toString().replaceAll("(^\\[|\\])", ""))) {
+                if (!sequenceFinished4.isEmpty()) {
+                    sequenceReplace1 = sequenceFinished4.toString().replace(",", "");
+                    sequenceReplace2 = sequenceReplace1.replaceAll("(^\\[|\\])", "");
+                    sequenceReplace3 = sequenceReplace2.replace(" ", "\n");
+                    frameSequenceName = sequenceReplace3.substring(0, 5);
+                    frameSequenceName = frameSequenceName + ".txt";
+                    if (sequenceFinished4.toString().contains(frameNameF1.toString().replaceAll("(^\\[|\\])", ""))) {
+                        firstFrameReplace1 = frameFinished1.toString().replace(",", "");
+                        firstFrameReplace2 = firstFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        firstFrameReplace3 = firstFrameReplace2.replace(" ", "\n");
+                    }
+                    if (sequenceFinished4.toString().contains(frameNameF2.toString().replaceAll("(^\\[|\\])", ""))) {
+                        secondFrameReplace1 = frameFinished2.toString().replace(",", "");
+                        secondFrameReplace2 = secondFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        secondFrameReplace3 = secondFrameReplace2.replace(" ", "\n");
+                    }
+                    if (sequenceFinished4.toString().contains(frameNameF3.toString().replaceAll("(^\\[|\\])", ""))) {
+                        thirdFrameReplace1 = frameFinished3.toString().replace(",", "");
+                        thirdFrameReplace2 = thirdFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        thirdFrameReplace3 = thirdFrameReplace2.replace(" ", "\n");
+                    }
+                    if (sequenceFinished4.toString().contains(frameNameF4.toString().replaceAll("(^\\[|\\])", ""))) {
+                        fourthFrameReplace1 = frameFinished4.toString().replace(",", "");
+                        fourthFrameReplace2 = fourthFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        fourthFrameReplace3 = fourthFrameReplace2.replace(" ", "\n");
+                    }
+                    if (sequenceFinished4.toString().contains(frameNameF5.toString().replaceAll("(^\\[|\\])", ""))) {
+                        fifthFrameReplace1 = frameFinished5.toString().replace(",", "");
+                        fifthFrameReplace2 = fifthFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        fifthFrameReplace3 = fifthFrameReplace2.replace(" ", "\n");
+                    }
+                    if (sequenceFinished4.toString().contains(frameNameF6.toString().replaceAll("(^\\[|\\])", ""))) {
+                        sixthFrameReplace1 = frameFinished6.toString().replace(",", "");
+                        sixthFrameReplace2 = sixthFrameReplace1.replaceAll("(^\\[|\\])", "");
+                        sixthFrameReplace3 = sixthFrameReplace2.replace(" ", "\n");
+                    }
+                    combined = sequenceReplace3 + newLine + firstFrameReplace3 + newLine + secondFrameReplace3
+                            + newLine + thirdFrameReplace3 + newLine + fourthFrameReplace3
+                            + newLine + fifthFrameReplace3 + newLine + sixthFrameReplace3;
+                    File dir = new File(path, frameSequenceName);
+                    try {
+                        FileOutputStream fos = new FileOutputStream(dir);
+                        fos.write(combined.getBytes());
+                        t.setText(dir.toString());
+                        fos.flush();
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
     }
 
@@ -8599,6 +7388,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void nameTheSequence(View view) {
         nameOfSequence = findViewById(R.id.nameSequence);
+        framesUsedCounter = findViewById(R.id.framesUsedCounter);
 
         String content = nameOfSequence.getSelectedItem().toString();
 
@@ -8657,11 +7447,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         } else if (!commandInformationSeq.isEmpty()) {
+            if (firstSequence == false) {
+                sequenceName1.clear();
+            }
+            if (secondSequence == false) {
+                sequenceName2.clear();
+            }
+            if (thirdSequence == false) {
+                sequenceName3.clear();
+            }
+            if (fourthSequence == false) {
+                sequenceName4.clear();
+            }
             commandInformationSeq.clear();
-            sequenceName1.clear();
-            sequenceName2.clear();
-            sequenceName3.clear();
-            sequenceName4.clear();
             frameSelections.clear();
             totalFrames.clear();
             frameCounting = 0;
@@ -8740,6 +7538,9 @@ public class MainActivity extends AppCompatActivity {
         selectRepAmount = findViewById(R.id.selectRepetitionAmount);
         setAmountOfRep = findViewById(R.id.setRepetitionAmount);
 
+        frameUsedLimit = findViewById(R.id.frameUsedLimit);
+        framesUsedCounter = findViewById(R.id.frameUsedLimit);
+
         TextView t = findViewById(R.id.sequenceCreationView);
         String start = "";
 
@@ -8756,12 +7557,46 @@ public class MainActivity extends AppCompatActivity {
         Spinner frameList = findViewById(R.id.frameSelection);
         ArrayList<Object> frameSelections = new ArrayList<>();
 
-        frameSelections.add(frameName1.toString());
-        frameSelections.add(frameName2.toString());
-        frameSelections.add(frameName3.toString());
-        frameSelections.add(frameName4.toString());
-        frameSelections.add(frameName5.toString());
-        frameSelections.add(frameName6.toString());
+        if (!frameFinished1.isEmpty()) {
+            frameSelections.add(frameName1.toString().replaceAll("(^\\[|\\])", ""));
+        }
+        if (!frameFinished2.isEmpty()) {
+            frameSelections.add(frameName2.toString().replaceAll("(^\\[|\\])", ""));
+        }
+        if (!frameFinished3.isEmpty()) {
+            frameSelections.add(frameName3.toString().replaceAll("(^\\[|\\])", ""));
+        }
+        if (!frameFinished4.isEmpty()) {
+            frameSelections.add(frameName4.toString().replaceAll("(^\\[|\\])", ""));
+        }
+        if (!frameFinished5.isEmpty()) {
+            frameSelections.add(frameName5.toString().replaceAll("(^\\[|\\])", ""));
+        }
+        if (!frameFinished6.isEmpty()) {
+            frameSelections.add(frameName6.toString().replaceAll("(^\\[|\\])", ""));
+        }
+
+        numOfFramesSelected = findViewById(R.id.setNumFrames);
+        String framesSelected = numOfFramesSelected.getSelectedItem().toString();
+        int frameLimit = Integer.parseInt(framesSelected);
+
+        if (frameLimit == 1) {
+            frameUsedLimit.setText("/ 1");
+        } else if (frameLimit == 2) {
+            frameUsedLimit.setText("/ 2");
+        } else if (frameLimit == 3) {
+            frameUsedLimit.setText("/ 3");
+        } else if (frameLimit == 4) {
+            frameUsedLimit.setText("/ 4");
+        } else if (frameLimit == 5) {
+            frameUsedLimit.setText("/ 5");
+        } else if (frameLimit == 6) {
+            frameUsedLimit.setText("/ 6");
+        } else if (frameLimit == 7) {
+            frameUsedLimit.setText("/ 7");
+        } else if (frameLimit == 8) {
+            frameUsedLimit.setText("/ 8");
+        }
 
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, frameSelections);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -8781,7 +7616,8 @@ public class MainActivity extends AppCompatActivity {
             findViewById(R.id.frameCounter).setVisibility(View.VISIBLE);
             findViewById(R.id.framesUsedCounter).setVisibility(View.VISIBLE);
             findViewById(R.id.resetFramesUsed).setVisibility(View.VISIBLE);
-
+            findViewById(R.id.frameUsedLimit).setVisibility(View.VISIBLE);
+            findViewById(R.id.frameUsedLimit).setVisibility(View.VISIBLE);
 /*            if(frameNumberSelected.equals("1")){
                 findViewById(R.id.firstFrame).setVisibility(View.VISIBLE);
             }else if(frameNumberSelected.equals("2")){
@@ -8959,6 +7795,7 @@ public class MainActivity extends AppCompatActivity {
         TextView t = findViewById(R.id.sequenceCreationView);
         String finial_commands = "";
         String finial_selection = "";
+        ArrayList<Object> blank = new ArrayList<>();
 
         framesUsedCounter = findViewById(R.id.framesUsedCounter);
 
@@ -8979,14 +7816,14 @@ public class MainActivity extends AppCompatActivity {
 
         Spinner frameList = frameAmount;
 
-        String content = frameList.getSelectedItem().toString();
-        if (content.equals(frameName1.toString()) && !frameSelections.contains(frameNameF1)) {
-            if (!frameName1.toString().contains("[]")) {
+        if (!frameFinished1.isEmpty()) {
+            String content = frameList.getSelectedItem().toString();
+            if (content.equals(frameName1.toString().replaceAll("(^\\[|\\])", "")) && !frameSelections.contains(frameNameF1.toString().replaceAll("(^\\[|\\])", ""))) {
                 totalFrames.add(frameCount);
                 frameCounting++;
                 framesUsedCounter.setText(String.valueOf(frameCounting));
                 if (totalFrames.size() <= frameLimit) {
-                    frameSelections.add(frameNameF1);
+                    frameSelections.add(frameNameF1.toString().replaceAll("(^\\[|\\])", ""));
                     for (Object Selections : frameSelections) {
                         finial_selection = finial_selection + Selections + "\n";
                     }
@@ -8996,18 +7833,14 @@ public class MainActivity extends AppCompatActivity {
                     selectRepAmount.setEnabled(true);
                     setAmountOfRep.setEnabled(true);
                 }
-            } else if (frameName1.toString().contains("[]")) {
-                Toast.makeText(getApplicationContext(), "Please select a valid frame", Toast.LENGTH_SHORT).show();
-            }
-        } else if (content.equals(frameName1.toString()) && frameSelections.contains(frameNameF1)) {
-            Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
-        } else if (content.equals(frameName2.toString()) && !frameSelections.contains(frameNameF2)) {
-            if (!frameName2.toString().contains("[]")) {
+            } else if (content.equals(frameName1.toString().replaceAll("(^\\[|\\])", "")) && frameSelections.contains(frameNameF1.toString().replaceAll("(^\\[|\\])", ""))) {
+                Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
+            } else if (content.equals(frameName2.toString().replaceAll("(^\\[|\\])", "")) && !frameSelections.contains(frameNameF2.toString().replaceAll("(^\\[|\\])", ""))) {
                 totalFrames.add(frameCount);
                 frameCounting++;
                 framesUsedCounter.setText(String.valueOf(frameCounting));
                 if (totalFrames.size() <= frameLimit) {
-                    frameSelections.add(frameNameF2);
+                    frameSelections.add(frameNameF2.toString().replaceAll("(^\\[|\\])", ""));
                     for (Object Selections : frameSelections) {
                         finial_selection = finial_selection + Selections + "\n";
                     }
@@ -9017,18 +7850,32 @@ public class MainActivity extends AppCompatActivity {
                     selectRepAmount.setEnabled(true);
                     setAmountOfRep.setEnabled(true);
                 }
-            } else if (frameName2.toString().contains("[]")) {
-                Toast.makeText(getApplicationContext(), "Please select a valid frame", Toast.LENGTH_SHORT).show();
-            }
-        } else if (content.equals(frameName2.toString()) && frameSelections.contains(frameNameF2)) {
-            Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
-        } else if (content.equals(frameName3.toString()) && !frameSelections.contains(frameNameF3)) {
-            if (!frameName3.toString().contains("[]")) {
+            } else if (content.equals(frameName2.toString().replaceAll("(^\\[|\\])", "")) && frameSelections.contains(frameNameF2.toString().replaceAll("(^\\[|\\])", ""))) {
+                Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
+            } else if (content.equals(frameName3.toString().replaceAll("(^\\[|\\])", "")) && !frameSelections.contains(frameNameF3)) {
                 totalFrames.add(frameCount);
                 frameCounting++;
                 framesUsedCounter.setText(String.valueOf(frameCounting));
                 if (totalFrames.size() <= frameLimit) {
-                    frameSelections.add(frameNameF3);
+                    frameSelections.add(frameNameF3.toString().replaceAll("(^\\[|\\])", ""));
+                    for (Object Selections : frameSelections) {
+                        finial_selection = finial_selection + Selections + "\n";
+                    }
+                    t.setText(finial_commands + finial_selection);
+                    setFrame.setEnabled(false);
+                    frameAmount.setEnabled(false);
+                    selectRepAmount.setEnabled(true);
+                    setAmountOfRep.setEnabled(true);
+
+                }
+            } else if (content.equals(frameName3.toString().replaceAll("(^\\[|\\])", "")) && frameSelections.contains(frameNameF3.toString().replaceAll("(^\\[|\\])", ""))) {
+                Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
+            } else if (content.equals(frameName4.toString().replaceAll("(^\\[|\\])", "")) && !frameSelections.contains(frameNameF4.toString().replaceAll("(^\\[|\\])", ""))) {
+                totalFrames.add(frameCount);
+                frameCounting++;
+                framesUsedCounter.setText(String.valueOf(frameCounting));
+                if (totalFrames.size() <= frameLimit) {
+                    frameSelections.add(frameNameF4.toString().replaceAll("(^\\[|\\])", ""));
                     for (Object Selections : frameSelections) {
                         finial_selection = finial_selection + Selections + "\n";
                     }
@@ -9038,18 +7885,15 @@ public class MainActivity extends AppCompatActivity {
                     selectRepAmount.setEnabled(true);
                     setAmountOfRep.setEnabled(true);
                 }
-            } else if (frameName3.toString().contains("[]")) {
-                Toast.makeText(getApplicationContext(), "Please select a valid frame", Toast.LENGTH_SHORT).show();
-            }
-        } else if (content.equals(frameName3.toString()) && frameSelections.contains(frameNameF3)) {
-            Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
-        } else if (content.equals(frameName4.toString()) && !frameSelections.contains(frameNameF4)) {
-            if (!frameName4.toString().contains("[]")) {
+
+            } else if (content.equals(frameName4.toString().replaceAll("(^\\[|\\])", "")) && frameSelections.contains(frameNameF4.toString().replaceAll("(^\\[|\\])", ""))) {
+                Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
+            } else if (content.equals(frameName5.toString().replaceAll("(^\\[|\\])", "")) && !frameSelections.contains(frameNameF5.toString().replaceAll("(^\\[|\\])", ""))) {
                 totalFrames.add(frameCount);
                 frameCounting++;
                 framesUsedCounter.setText(String.valueOf(frameCounting));
                 if (totalFrames.size() <= frameLimit) {
-                    frameSelections.add(frameNameF4);
+                    frameSelections.add(frameNameF5.toString().replaceAll("(^\\[|\\])", ""));
                     for (Object Selections : frameSelections) {
                         finial_selection = finial_selection + Selections + "\n";
                     }
@@ -9059,18 +7903,15 @@ public class MainActivity extends AppCompatActivity {
                     selectRepAmount.setEnabled(true);
                     setAmountOfRep.setEnabled(true);
                 }
-            } else if (frameName4.toString().contains("[]")) {
-                Toast.makeText(getApplicationContext(), "Please select a valid frame", Toast.LENGTH_SHORT).show();
-            }
-        } else if (content.equals(frameName4.toString()) && frameSelections.contains(frameNameF4)) {
-            Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
-        } else if (content.equals(frameName5.toString()) && !frameSelections.contains(frameNameF5)) {
-            if (!frameName5.toString().contains("[]")) {
+
+            } else if (content.equals(frameName5.toString().replaceAll("(^\\[|\\])", "")) && frameSelections.contains(frameNameF5.toString().replaceAll("(^\\[|\\])", ""))) {
+                Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
+            } else if (content.equals(frameName6.toString().replaceAll("(^\\[|\\])", "")) && !frameSelections.contains(frameNameF6.toString().replaceAll("(^\\[|\\])", ""))) {
                 totalFrames.add(frameCount);
                 frameCounting++;
                 framesUsedCounter.setText(String.valueOf(frameCounting));
                 if (totalFrames.size() <= frameLimit) {
-                    frameSelections.add(frameNameF5);
+                    frameSelections.add(frameNameF6.toString().replaceAll("(^\\[|\\])", ""));
                     for (Object Selections : frameSelections) {
                         finial_selection = finial_selection + Selections + "\n";
                     }
@@ -9080,32 +7921,22 @@ public class MainActivity extends AppCompatActivity {
                     selectRepAmount.setEnabled(true);
                     setAmountOfRep.setEnabled(true);
                 }
-            } else if (frameName5.toString().contains("[]")) {
-                Toast.makeText(getApplicationContext(), "Please select a valid frame", Toast.LENGTH_SHORT).show();
+
+            } else if (content.equals(frameName6.toString().replaceAll("(^\\[|\\])", "")) && frameSelections.contains(frameNameF6.toString().replaceAll("(^\\[|\\])", ""))) {
+                Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
             }
-        } else if (content.equals(frameName5.toString()) && frameSelections.contains(frameNameF5)) {
-            Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
-        } else if (content.equals(frameName6.toString()) && !frameSelections.contains(frameNameF6)) {
-            if (!frameName6.toString().contains("[]")) {
-                totalFrames.add(frameCount);
-                frameCounting++;
-                framesUsedCounter.setText(String.valueOf(frameCounting));
-                if (totalFrames.size() <= frameLimit) {
-                    frameSelections.add(frameNameF6);
-                    for (Object Selections : frameSelections) {
-                        finial_selection = finial_selection + Selections + "\n";
-                    }
-                    t.setText(finial_commands + finial_selection);
-                    setFrame.setEnabled(false);
-                    frameAmount.setEnabled(false);
-                    selectRepAmount.setEnabled(true);
-                    setAmountOfRep.setEnabled(true);
-                }
-            } else if (frameName6.toString().contains("[]")) {
-                Toast.makeText(getApplicationContext(), "Please select a valid frame", Toast.LENGTH_SHORT).show();
-            }
-        } else if (content.equals(frameName6.toString()) && frameSelections.contains(frameNameF6)) {
-            Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
+        } else {
+            ArrayAdapter blankSpinner = new ArrayAdapter(this, android.R.layout.simple_spinner_item, blank);
+            blankSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            blank.add(" ");
+            frameList.setAdapter(blankSpinner);
+            Toast.makeText(getApplicationContext(), "Please make a frame first", Toast.LENGTH_SHORT).show();
+        }
+
+        if (frameCounting == frameLimit) {
+            framesUsedCounter.setTextColor(Color.parseColor("#F30606"));
+        } else {
+            framesUsedCounter.setTextColor(Color.parseColor("#06F326"));
         }
 
         String frame1;
@@ -9114,7 +7945,8 @@ public class MainActivity extends AppCompatActivity {
         String frame4;
         String frame5;
         String frame6;
-        if (sequenceCreationView.getText().toString().contains(frameNameF1.toString())) {
+
+        if (sequenceCreationView.getText().toString().contains(frameNameF1.toString().replaceAll("(^\\[|\\])", ""))) {
             frame1 = frameFinished1.toString();
             if (frame1.contains("$Y000")) {
                 pin0.setChecked(true);
@@ -9373,7 +8205,7 @@ public class MainActivity extends AppCompatActivity {
                 pin63.setBackgroundColor(Color.parseColor("#80ff00"));
             }
         }
-        if (sequenceCreationView.getText().toString().contains(frameNameF2.toString())) {
+        if (sequenceCreationView.getText().toString().contains(frameNameF2.toString().replaceAll("(^\\[|\\])", ""))) {
             frame2 = frameFinished2.toString();
             if (frame2.contains("$Y000")) {
                 pin0.setChecked(true);
@@ -9632,7 +8464,7 @@ public class MainActivity extends AppCompatActivity {
                 pin63.setBackgroundColor(Color.parseColor("#d000ff"));
             }
         }
-        if (sequenceCreationView.getText().toString().contains(frameNameF3.toString())) {
+        if (sequenceCreationView.getText().toString().contains(frameNameF3.toString().replaceAll("(^\\[|\\])", ""))) {
             frame3 = frameFinished3.toString();
             if (frame3.contains("$Y000")) {
                 pin0.setChecked(true);
@@ -9891,7 +8723,7 @@ public class MainActivity extends AppCompatActivity {
                 pin63.setBackgroundColor(Color.parseColor("#a200ff"));
             }
         }
-        if (sequenceCreationView.getText().toString().contains(frameNameF4.toString())) {
+        if (sequenceCreationView.getText().toString().contains(frameNameF4.toString().replaceAll("(^\\[|\\])", ""))) {
             frame4 = frameFinished4.toString();
             if (frame4.contains("$Y000")) {
                 pin0.setChecked(true);
@@ -10150,7 +8982,7 @@ public class MainActivity extends AppCompatActivity {
                 pin63.setBackgroundColor(Color.parseColor("#6600ff"));
             }
         }
-        if (sequenceCreationView.getText().toString().contains(frameNameF5.toString())) {
+        if (sequenceCreationView.getText().toString().contains(frameNameF5.toString().replaceAll("(^\\[|\\])", ""))) {
             frame5 = frameFinished5.toString();
             if (frame5.contains("$Y000")) {
                 pin0.setChecked(true);
@@ -10409,7 +9241,7 @@ public class MainActivity extends AppCompatActivity {
                 pin63.setBackgroundColor(Color.parseColor("#00b3ff"));
             }
         }
-        if (sequenceCreationView.getText().toString().contains(frameNameF6.toString())) {
+        if (sequenceCreationView.getText().toString().contains(frameNameF6.toString().replaceAll("(^\\[|\\])", ""))) {
             frame6 = frameFinished6.toString();
             if (frame6.contains("$Y000")) {
                 pin0.setChecked(true);
@@ -10727,6 +9559,9 @@ public class MainActivity extends AppCompatActivity {
         setFrame = findViewById(R.id.setFrames);
         framesUsedCounter = findViewById(R.id.framesUsedCounter);
 
+        framesUsedCounter = findViewById(R.id.framesUsedCounter);
+        framesUsedCounter.setTextColor(Color.parseColor("#06F326"));
+
         pin0.setChecked(false);
         pin1.setChecked(false);
         pin2.setChecked(false);
@@ -10905,6 +9740,11 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.fourthFrame).setVisibility(View.INVISIBLE);
         findViewById(R.id.fifthFrame).setVisibility(View.INVISIBLE);
         findViewById(R.id.sixthFrame).setVisibility(View.INVISIBLE);
+        findViewById(R.id.frameUsedLimit).setVisibility(View.INVISIBLE);
+
+        String commandInfoSeqReplace;
+        String frameSelectReplace;
+        String combined;
 
         numOfFramesSelected = findViewById(R.id.setNumFrames);
         String framesSelected = numOfFramesSelected.getSelectedItem().toString();
@@ -10912,19 +9752,35 @@ public class MainActivity extends AppCompatActivity {
         if (totalFrames.size() == frameLimit) {
             if (sequenceFinished1.isEmpty()) {
                 frameSelections.add("$T001");
-                sequenceFinished1.add("" + commandInformationSeq + frameSelections);
-                Toast.makeText(getApplicationContext(), "Sequence Saved " + sequenceFinished1, Toast.LENGTH_SHORT).show();
+                commandInfoSeqReplace = commandInformationSeq.toString().replaceAll("(^\\[|\\])", "");
+                frameSelectReplace = frameSelections.toString().replaceAll("(^\\[|\\])", "\n");
+                combined = frameSelectReplace.replaceAll("(^\\[|\\])", "");
+                sequenceFinished1.add(commandInfoSeqReplace + combined);
+                firstSequence = true;
+                Toast.makeText(getApplicationContext(), "frame select " + frameSelectReplace, Toast.LENGTH_SHORT).show();
             } else if (sequenceFinished2.isEmpty()) {
                 frameSelections.add("$T001");
-                sequenceFinished2.add("" + commandInformationSeq + frameSelections);
+                commandInfoSeqReplace = commandInformationSeq.toString().replaceAll("(^\\[|\\])", "");
+                frameSelectReplace = frameSelections.toString().replaceAll("(^\\[|\\])", "\n");
+                combined = frameSelectReplace.replaceAll("(^\\[|\\])", "");
+                sequenceFinished2.add(commandInfoSeqReplace + combined);
+                secondSequence = true;
                 Toast.makeText(getApplicationContext(), "Sequence Saved " + sequenceFinished2, Toast.LENGTH_SHORT).show();
             } else if (sequenceFinished3.isEmpty()) {
                 frameSelections.add("$T001");
-                sequenceFinished3.add("" + commandInformationSeq + frameSelections);
+                commandInfoSeqReplace = commandInformationSeq.toString().replaceAll("(^\\[|\\])", "");
+                frameSelectReplace = frameSelections.toString().replaceAll("(^\\[|\\])", "\n");
+                combined = frameSelectReplace.replaceAll("(^\\[|\\])", "");
+                sequenceFinished3.add(commandInfoSeqReplace + combined);
+                thirdSequence = true;
                 Toast.makeText(getApplicationContext(), "Sequence Saved " + sequenceFinished3, Toast.LENGTH_SHORT).show();
             } else if (sequenceFinished4.isEmpty()) {
                 frameSelections.add("$T001");
-                sequenceFinished4.add("" + commandInformationSeq + frameSelections);
+                commandInfoSeqReplace = commandInformationSeq.toString().replaceAll("(^\\[|\\])", "");
+                frameSelectReplace = frameSelections.toString().replaceAll("(^\\[|\\])", "\n");
+                combined = frameSelectReplace.replaceAll("(^\\[|\\])", "");
+                sequenceFinished4.add(commandInfoSeqReplace + combined);
+                fourthSequence = true;
                 Toast.makeText(getApplicationContext(), "Sequence Saved " + sequenceFinished4, Toast.LENGTH_SHORT).show();
             }
             setFrame.setEnabled(true);

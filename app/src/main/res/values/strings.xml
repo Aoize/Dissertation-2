@@ -18,6 +18,12 @@
     <string name="sequence_creation">Sequence Creation</string>
     <string name="make_frame">Make Frame</string>
 
+    <!--Blank spinner for verification-->
+    <string-array name="blank">
+        <item> </item>
+    </string-array>
+
+
     <!--Frame Creation Strings-->
     <string name="set_coils">Set Coils</string>
     <string name="save_frame">Save Frame</string>
@@ -83,7 +89,6 @@
     <string name="fourth_frame">Fourth frame</string>
     <string name="fifth_frame">Fifth frame</string>
     <string name="sixth_frame">Sixth frame</string>
-
 
     <string name="refresh">Refresh</string>
 

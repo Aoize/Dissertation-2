@@ -26,6 +26,7 @@
         android:layout_marginBottom="584dp"
         android:background="@drawable/text_border"
         android:spinnerMode="dropdown"
+        android:entries="@array/blank"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
