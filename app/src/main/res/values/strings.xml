@@ -23,6 +23,11 @@
         <item> </item>
     </string-array>
 
+    <!--Limit details-->
+    <string name="base">0</string>
+    <string name="out_of">/</string>
+    <string name="limit">0</string>
+
 
     <!--Frame Creation Strings-->
     <string name="set_coils">Set Coils</string>
@@ -77,7 +82,7 @@
 
     <!--Sequence Creation Strings-->
     <string name="save_sequence">Save Sequence</string>
-    <string name="reset_frame">Reset Frames Used</string>
+    <string name="remove_frame">Remove Frames</string>
     <string name="number_of_frames">Number of Frames</string>
     <string name="select_frames">Select Frames</string>
     <string name="select_sequence_name">Select Name</string>

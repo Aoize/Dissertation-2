@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             setAmountOfRep, saveTheSequence, resetFramesUsed;
 
     Spinner numOfCoils, amountOfDelay, amountOfOnTime, nameOfFrame, nameOfSequence, numOfFramesSelected,
-            frameAmount, selectRepAmount;
+            frameAmount, selectRepAmount, resetFrames;
 
     TextView counter, limit, frameUsedLimit,
             sequenceCreationView, frameCounter, framesUsedCounter;
@@ -95,6 +95,14 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Object> pinSelection = new ArrayList<>();
     //Overall command data for frames
     ArrayList<Object> commandInformation = new ArrayList<>();
+    //Command data for verification when saving a frame
+    ArrayList<Object> fName = new ArrayList<>();
+    ArrayList<Object> fCoil = new ArrayList<>();
+    ArrayList<Object> fDelay = new ArrayList<>();
+    ArrayList<Object> fActivation = new ArrayList<>();
+    //Command data for verification when saving a frame
+    ArrayList<Object> sName = new ArrayList<>();
+    ArrayList<Object> sFrames = new ArrayList<>();
     //Coils used data
     ArrayList<Object> coilsUsed = new ArrayList<>();
     //Total amount of coils
@@ -164,6 +172,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean secondSequence = false;
     public boolean thirdSequence = false;
     public boolean fourthSequence = false;
+
+    public String empty = "";
 
     public void pin(View view) {
         numOfCoils = findViewById(R.id.numberOfCoils);
@@ -240,8 +250,13 @@ public class MainActivity extends AppCompatActivity {
         String finial_selection = "";
         boolean checked = ((CheckBox) view).isChecked();
         TextView t = findViewById(R.id.frameCreationView);
-        String coilsSelected = numOfCoils.getSelectedItem().toString();
+
+        limit = findViewById(R.id.limit);
+        String coilsSelected = limit.getText().toString();
         int coilLimit = Integer.parseInt(coilsSelected);
+
+/*        String coilsSelected = numOfCoils.getSelectedItem().toString();
+        int coilLimit = Integer.parseInt(coilsSelected);*/
         int coilCount = 0;
 
         for (Object Commands : commandInformation) {
@@ -3451,7 +3466,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        if (coilCounter == coilLimit) {
+        if (coilCounter >= coilLimit) {
             counter.setTextColor(Color.parseColor("#F30606"));
         } else {
             counter.setTextColor(Color.parseColor("#06F326"));
@@ -3464,234 +3479,414 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void nameTheFrame(View view) {
-        nameOfFrame = findViewById(R.id.nameFrame);
+        //TODO Fix an issue with naming etc when the user leaves the app/page and re-enters
+        if (commandInformation.size() != 4) {
+            commandInformation.add(empty);
+            commandInformation.add(empty);
+            commandInformation.add(empty);
+            commandInformation.add(empty);
+        }
+        if (commandInformation.size() == 4) {
+            nameOfFrame = findViewById(R.id.nameFrame);
 
-        counter = findViewById(R.id.counter);
+            counter = findViewById(R.id.counter);
 
-        String content = nameOfFrame.getSelectedItem().toString();
+            String content = nameOfFrame.getSelectedItem().toString();
 
-        if (commandInformation.isEmpty()) {
-            if (frameName1.isEmpty()) {
-                frameName1.add("$F" + content);
-                frameNameF1.add("$f" + content);
-                commandInformation.add(0, "$F" + content);
-                if (commandInformation.add(true)) {
-                    nameOfFrame.setVisibility(View.INVISIBLE);
-                    findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
-                    commandInformation.remove(true);
-                    findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
-                    findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
-                }
-            } else if (frameName2.isEmpty()) {
-                if (!frameName1.contains("$F" + content)) {
-                    frameName2.add("$F" + content);
-                    frameNameF2.add("$f" + content);
-                    commandInformation.add(0, "$F" + content);
-                    if (commandInformation.add(true)) {
-                        nameOfFrame.setVisibility(View.INVISIBLE);
-                        findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
-                        commandInformation.remove(true);
-                        findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
-                        findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
-                }
-            } else if (frameName3.isEmpty()) {
-                if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content)) {
-                    frameName3.add("$F" + content);
-                    frameNameF3.add("$f" + content);
-                    commandInformation.add(0, "$F" + content);
-                    if (commandInformation.add(true)) {
-                        nameOfFrame.setVisibility(View.INVISIBLE);
-                        findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
-                        commandInformation.remove(true);
-                        findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
-                        findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
-                }
-            } else if (frameName4.isEmpty()) {
-                if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)) {
-                    frameName4.add("$F" + content);
-                    frameNameF4.add("$f" + content);
-                    commandInformation.add(0, "$F" + content);
-                    if (commandInformation.add(true)) {
-                        nameOfFrame.setVisibility(View.INVISIBLE);
-                        findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
-                        commandInformation.remove(true);
-                        findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
-                        findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
-                }
-            } else if (frameName5.isEmpty()) {
-                if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)
-                        && !frameName4.contains("$F" + content)) {
-                    frameName5.add("$F" + content);
-                    frameNameF5.add("$f" + content);
-                    commandInformation.add(0, "$F" + content);
-                    if (commandInformation.add(true)) {
-                        nameOfFrame.setVisibility(View.INVISIBLE);
-                        findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
-                        commandInformation.remove(true);
-                        findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
-                        findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
-                }
-            } else if (frameName6.isEmpty()) {
-                if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)
-                        && !frameName4.contains("$F" + content) && !frameName5.contains("$F" + content)) {
-                    frameName6.add("$F" + content);
-                    frameNameF6.add("$f" + content);
-                    commandInformation.add(0, "$F" + content);
-                    if (commandInformation.add(true)) {
-                        nameOfFrame.setVisibility(View.INVISIBLE);
-                        findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
-                        commandInformation.remove(true);
-                        findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
-                        findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
-                }
-            }
-        } else if (!commandInformation.isEmpty()) {
+            if (fName.isEmpty() || fCoil.isEmpty() || fActivation.isEmpty()
+                    || fDelay.isEmpty()) {
+/*                pinSelection.clear();
+               // commandInformation.clear();
+                coilsUsed.clear();
+                totals.clear();
+                fName.clear();
+                fCoil.clear();
+                fDelay.clear();
+                fActivation.clear();
 
-            if (firstFrame == false) {
-                frameName1.clear();
-                frameNameF1.clear();
-            }
-            if (secondFrame == false) {
-                frameName2.clear();
-                frameNameF2.clear();
-            }
-            if (thirdFrame == false) {
-                frameName3.clear();
-                frameNameF3.clear();
-            }
-            if (fourthFrame == false) {
-                frameName4.clear();
-                frameNameF4.clear();
-            }
-            if (fifthFrame == false) {
-                frameName5.clear();
-                frameNameF5.clear();
-            }
-            if (sixthFrame == false) {
-                frameName6.clear();
-                frameNameF6.clear();
+                coilCounter = 0;
+                counter.setText(String.valueOf(coilCounter));
+
+                limit = findViewById(R.id.limit);
+                limit.setText("0");*/
+
+                //Toast.makeText(getApplicationContext(), "started", Toast.LENGTH_SHORT).show();
+                if (frameName1.isEmpty()) {
+                    frameName1.add("$F" + content);
+                    frameNameF1.add("$f" + content);
+                    fName.add(content);
+                    commandInformation.set(0, "$F" + content);
+                    if (commandInformation.add(true)) {
+                        commandInformation.remove(true);
+                        nameOfFrame.setEnabled(false);
+                        findViewById(R.id.setFrameName).setEnabled(false);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (frameName2.isEmpty()) {
+                    if (!frameName1.contains("$F" + content)) {
+                        frameName2.add("$F" + content);
+                        frameNameF2.add("$f" + content);
+                        fName.add(content);
+                        commandInformation.set(0, "$F" + content);
+                        if (commandInformation.add(true)) {
+                            commandInformation.remove(true);
+                            nameOfFrame.setEnabled(false);
+                            findViewById(R.id.setFrameName).setEnabled(false);
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (frameName3.isEmpty()) {
+                    if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content)) {
+                        frameName3.add("$F" + content);
+                        frameNameF3.add("$f" + content);
+                        fName.add(content);
+                        commandInformation.set(0, "$F" + content);
+                        if (commandInformation.add(true)) {
+                            commandInformation.remove(true);
+                            nameOfFrame.setEnabled(false);
+                            findViewById(R.id.setFrameName).setEnabled(false);
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (frameName4.isEmpty()) {
+                    if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)) {
+                        frameName4.add("$F" + content);
+                        frameNameF4.add("$f" + content);
+                        fName.add(content);
+                        commandInformation.set(0, "$F" + content);
+                        if (commandInformation.add(true)) {
+                            commandInformation.remove(true);
+                            nameOfFrame.setEnabled(false);
+                            findViewById(R.id.setFrameName).setEnabled(false);
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (frameName5.isEmpty()) {
+                    if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)
+                            && !frameName4.contains("$F" + content)) {
+                        frameName5.add("$F" + content);
+                        frameNameF5.add("$f" + content);
+                        fName.add(content);
+                        commandInformation.set(0, "$F" + content);
+                        if (commandInformation.add(true)) {
+                            commandInformation.remove(true);
+                            nameOfFrame.setEnabled(false);
+                            findViewById(R.id.setFrameName).setEnabled(false);
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (frameName6.isEmpty()) {
+                    if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)
+                            && !frameName4.contains("$F" + content) && !frameName5.contains("$F" + content)) {
+                        frameName6.add("$F" + content);
+                        frameNameF6.add("$f" + content);
+                        fName.add(content);
+                        commandInformation.set(0, "$F" + content);
+                        if (commandInformation.add(true)) {
+                            commandInformation.remove(true);
+                            nameOfFrame.setEnabled(false);
+                            findViewById(R.id.setFrameName).setEnabled(false);
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            } else if (!pinSelection.isEmpty() || commandInformation.contains(empty) || commandInformation.contains(fName)
+                    || commandInformation.contains(fCoil) || commandInformation.contains(fDelay)
+                    || commandInformation.contains(fActivation)) {
+                if (firstFrame == false) {
+                    frameName1.clear();
+                    frameNameF1.clear();
+                }
+                if (secondFrame == false) {
+                    frameName2.clear();
+                    frameNameF2.clear();
+                }
+                if (thirdFrame == false) {
+                    frameName3.clear();
+                    frameNameF3.clear();
+                }
+                if (fourthFrame == false) {
+                    frameName4.clear();
+                    frameNameF4.clear();
+                }
+                if (fifthFrame == false) {
+                    frameName5.clear();
+                    frameNameF5.clear();
+                }
+                if (sixthFrame == false) {
+                    frameName6.clear();
+                    frameNameF6.clear();
+                }
+
+/*                commandInformation.clear();
+                //Toast.makeText(getApplicationContext(), "flushed", Toast.LENGTH_SHORT).show();
+                pinSelection.clear();
+                //commandInformation.clear();
+                coilsUsed.clear();
+                totals.clear();
+                fName.clear();
+                fCoil.clear();
+                fDelay.clear();
+                fActivation.clear();
+
+                coilCounter = 0;
+                counter.setText(String.valueOf(coilCounter));*/
+
+                if (commandInformation.size() != 4) {
+                    commandInformation.add(empty);
+                    commandInformation.add(empty);
+                    commandInformation.add(empty);
+                    commandInformation.add(empty);
+                }
+                if (commandInformation.size() == 4) {
+                    // Toast.makeText(getApplicationContext(), "restarted", Toast.LENGTH_SHORT).show();
+                    if (frameName1.isEmpty()) {
+                        frameName1.add("$F" + content);
+                        frameNameF1.add("$f" + content);
+                        fName.add(content);
+                        commandInformation.set(0, "$F" + content);
+                        if (commandInformation.add(true)) {
+                            commandInformation.remove(true);
+                            nameOfFrame.setEnabled(false);
+                            findViewById(R.id.setFrameName).setEnabled(false);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
+                        }
+                    } else if (frameName2.isEmpty()) {
+                        if (!frameName1.contains("$F" + content)) {
+                            frameName2.add("$F" + content);
+                            frameNameF2.add("$f" + content);
+                            fName.add(content);
+                            commandInformation.set(0, "$F" + content);
+                            if (commandInformation.add(true)) {
+                                commandInformation.remove(true);
+                                nameOfFrame.setEnabled(false);
+                                findViewById(R.id.setFrameName).setEnabled(false);
+                            }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
+                        }
+                    } else if (frameName3.isEmpty()) {
+                        if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content)) {
+                            frameName3.add("$F" + content);
+                            frameNameF3.add("$f" + content);
+                            fName.add(content);
+                            commandInformation.set(0, "$F" + content);
+                            if (commandInformation.add(true)) {
+                                commandInformation.remove(true);
+                                nameOfFrame.setEnabled(false);
+                                findViewById(R.id.setFrameName).setEnabled(false);
+                            }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
+                        }
+                    } else if (frameName4.isEmpty()) {
+                        if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)) {
+                            frameName4.add("$F" + content);
+                            frameNameF4.add("$f" + content);
+                            fName.add(content);
+                            commandInformation.set(0, "$F" + content);
+                            if (commandInformation.add(true)) {
+                                commandInformation.remove(true);
+                                nameOfFrame.setEnabled(false);
+                                findViewById(R.id.setFrameName).setEnabled(false);
+                            }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
+                        }
+                    } else if (frameName5.isEmpty()) {
+                        if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)
+                                && !frameName4.contains("$F" + content)) {
+                            frameName5.add("$F" + content);
+                            frameNameF5.add("$f" + content);
+                            fName.add(content);
+                            commandInformation.set(0, "$F" + content);
+                            if (commandInformation.add(true)) {
+                                commandInformation.remove(true);
+                                nameOfFrame.setEnabled(false);
+                                findViewById(R.id.setFrameName).setEnabled(false);
+                            }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
+                        }
+                    } else if (frameName6.isEmpty()) {
+                        if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)
+                                && !frameName4.contains("$F" + content) && !frameName5.contains("$F" + content)) {
+                            frameName6.add("$F" + content);
+                            frameNameF6.add("$f" + content);
+                            fName.add(content);
+                            commandInformation.set(0, "$F" + content);
+                            if (commandInformation.add(true)) {
+                                commandInformation.remove(true);
+                                nameOfFrame.setEnabled(false);
+                                findViewById(R.id.setFrameName).setEnabled(false);
+                            }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
             }
 
-            commandInformation.clear();
-            totals.clear();
-            pinSelection.clear();
-            coilCounter = 0;
-            counter.setText(String.valueOf(coilCounter));
 
-            if (frameName1.isEmpty()) {
-                frameName1.add("$F" + content);
-                frameNameF1.add("$f" + content);
-                commandInformation.add(0, "$F" + content);
-                if (commandInformation.add(true)) {
-                    nameOfFrame.setVisibility(View.INVISIBLE);
-                    findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
-                    commandInformation.remove(true);
-                    findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
-                    findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+
+            /*else if (!commandInformation.isEmpty()) {
+
+                if (firstFrame == false) {
+                    frameName1.clear();
+                    frameNameF1.clear();
                 }
-            } else if (frameName2.isEmpty()) {
-                if (!frameName1.contains("$F" + content)) {
-                    frameName2.add("$F" + content);
-                    frameNameF2.add("$f" + content);
-                    commandInformation.add(0, "$F" + content);
+                if (secondFrame == false) {
+                    frameName2.clear();
+                    frameNameF2.clear();
+                }
+                if (thirdFrame == false) {
+                    frameName3.clear();
+                    frameNameF3.clear();
+                }
+                if (fourthFrame == false) {
+                    frameName4.clear();
+                    frameNameF4.clear();
+                }
+                if (fifthFrame == false) {
+                    frameName5.clear();
+                    frameNameF5.clear();
+                }
+                if (sixthFrame == false) {
+                    frameName6.clear();
+                    frameNameF6.clear();
+                }
+
+                commandInformation.clear();
+                totals.clear();
+                pinSelection.clear();
+                coilCounter = 0;
+                counter.setText(String.valueOf(coilCounter));
+
+                if (frameName1.isEmpty()) {
+                    frameName1.add("$F" + content);
+                    frameNameF1.add("$f" + content);
+                    fName.add(content);
+                    commandInformation.set(0, "$F" + content);
                     if (commandInformation.add(true)) {
-                        nameOfFrame.setVisibility(View.INVISIBLE);
-                        findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                        //     nameOfFrame.setVisibility(View.INVISIBLE);
+                        //     findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
                         commandInformation.remove(true);
-                        findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
-                        findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                        //     findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                        //     findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
-                }
-            } else if (frameName3.isEmpty()) {
-                if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content)) {
-                    frameName3.add("$F" + content);
-                    frameNameF3.add("$f" + content);
-                    commandInformation.add(0, "$F" + content);
-                    if (commandInformation.add(true)) {
-                        nameOfFrame.setVisibility(View.INVISIBLE);
-                        findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
-                        commandInformation.remove(true);
-                        findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
-                        findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                } else if (frameName2.isEmpty()) {
+                    if (!frameName1.contains("$F" + content)) {
+                        frameName2.add("$F" + content);
+                        frameNameF2.add("$f" + content);
+                        fName.add(content);
+                        commandInformation.set(0, "$F" + content);
+                        if (commandInformation.add(true)) {
+                            //      nameOfFrame.setVisibility(View.INVISIBLE);
+                            //       findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                            commandInformation.remove(true);
+                            //       findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                            //          findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
-                }
-            } else if (frameName4.isEmpty()) {
-                if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)) {
-                    frameName4.add("$F" + content);
-                    frameNameF4.add("$f" + content);
-                    commandInformation.add(0, "$F" + content);
-                    if (commandInformation.add(true)) {
-                        nameOfFrame.setVisibility(View.INVISIBLE);
-                        findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
-                        commandInformation.remove(true);
-                        findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
-                        findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                } else if (frameName3.isEmpty()) {
+                    if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content)) {
+                        frameName3.add("$F" + content);
+                        frameNameF3.add("$f" + content);
+                        fName.add(content);
+                        commandInformation.set(0, "$F" + content);
+                        if (commandInformation.add(true)) {
+                            //       nameOfFrame.setVisibility(View.INVISIBLE);
+                            //       findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                            commandInformation.remove(true);
+                            //      findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                            //      findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
-                }
-            } else if (frameName5.isEmpty()) {
-                if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)
-                        && !frameName4.contains("$F" + content)) {
-                    frameName5.add("$F" + content);
-                    frameNameF5.add("$f" + content);
-                    commandInformation.add(0, "$F" + content);
-                    if (commandInformation.add(true)) {
-                        nameOfFrame.setVisibility(View.INVISIBLE);
-                        findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
-                        commandInformation.remove(true);
-                        findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
-                        findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                } else if (frameName4.isEmpty()) {
+                    if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)) {
+                        frameName4.add("$F" + content);
+                        frameNameF4.add("$f" + content);
+                        fName.add(content);
+                        commandInformation.set(0, "$F" + content);
+                        if (commandInformation.add(true)) {
+                            //      nameOfFrame.setVisibility(View.INVISIBLE);
+                            //      findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                            commandInformation.remove(true);
+                            //     findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                            //     findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
-                }
-            } else if (frameName6.isEmpty()) {
-                if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)
-                        && !frameName4.contains("$F" + content) && !frameName5.contains("$F" + content)) {
-                    frameName6.add("$F" + content);
-                    frameNameF6.add("$f" + content);
-                    commandInformation.add(0, "$F" + content);
-                    if (commandInformation.add(true)) {
-                        nameOfFrame.setVisibility(View.INVISIBLE);
-                        findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
-                        commandInformation.remove(true);
-                        findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
-                        findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                } else if (frameName5.isEmpty()) {
+                    if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)
+                            && !frameName4.contains("$F" + content)) {
+                        frameName5.add("$F" + content);
+                        frameNameF5.add("$f" + content);
+                        fName.add(content);
+                        commandInformation.set(0, "$F" + content);
+                        if (commandInformation.add(true)) {
+                            //      nameOfFrame.setVisibility(View.INVISIBLE);
+                            //      findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                            commandInformation.remove(true);
+                            //      findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                            //      findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
+                } else if (frameName6.isEmpty()) {
+                    if (!frameName1.contains("$F" + content) && !frameName2.contains("$F" + content) && !frameName3.contains("$F" + content)
+                            && !frameName4.contains("$F" + content) && !frameName5.contains("$F" + content)) {
+                        frameName6.add("$F" + content);
+                        frameNameF6.add("$f" + content);
+                        fName.add(content);
+                        commandInformation.set(0, "$F" + content);
+                        if (commandInformation.add(true)) {
+                            //       nameOfFrame.setVisibility(View.INVISIBLE);
+                            //       findViewById(R.id.setFrameName).setVisibility(View.INVISIBLE);
+                            commandInformation.remove(true);
+                            //      findViewById(R.id.numberOfCoils).setVisibility(View.VISIBLE);
+                            //      findViewById(R.id.setCoils).setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
+                    }
                 }
+            }*/
+
+            TextView t = findViewById(R.id.frameCreationView);
+            String finial_commands = "";
+            String finial_selection = "";
+            for (Object Commands : commandInformation) {
+                finial_commands = finial_commands + Commands + "\n";
             }
+            for (Object Selections : pinSelection) {
+                finial_selection = finial_selection + Selections + "\n";
+            }
+            t.setText(finial_commands + finial_selection);
+
+ /*           TextView t = findViewById(R.id.frameCreationView);
+            String start = "";
+            for (Object Selections : commandInformation) {
+                start = start + Selections + "\n";
+            }
+            t.setText(start);*/
         }
 
-        TextView t = findViewById(R.id.frameCreationView);
-        String start = "";
-        for (Object Selections : commandInformation) {
-            start = start + Selections + "\n";
-        }
-        t.setText(start);
     }
 
     /**
@@ -3700,28 +3895,57 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void setTheCoils(View view) {
-        numOfCoils = findViewById(R.id.numberOfCoils);
-
-        TextView t = findViewById(R.id.frameCreationView);
-        String start = "";
-
-        String content = numOfCoils.getSelectedItem().toString();
-        commandInformation.add(1, "$N00" + content);
-        //Shows the first command after click
-        for (Object Selections : commandInformation) {
-            start = start + Selections + "\n";
+        if (commandInformation.size() != 4) {
+            commandInformation.add(empty);
+            commandInformation.add(empty);
+            commandInformation.add(empty);
+            commandInformation.add(empty);
         }
-        t.setText(start);
+        if (commandInformation.size() == 4) {
+            numOfCoils = findViewById(R.id.numberOfCoils);
 
-        //Saves to a seperate array, maybe for saving?
-        coilsUsed.add(content);
+            TextView t = findViewById(R.id.frameCreationView);
 
-        if (commandInformation.add(true)) {
-            findViewById(R.id.setCoils).setVisibility(View.INVISIBLE);
-            findViewById(R.id.numberOfCoils).setVisibility(View.INVISIBLE);
-            commandInformation.remove(true);
-            findViewById(R.id.setDelay).setVisibility(View.VISIBLE);
-            findViewById(R.id.amountOfDelay).setVisibility(View.VISIBLE);
+            String content = numOfCoils.getSelectedItem().toString();
+
+            if (!commandInformation.contains("$N00" + content)) {
+                commandInformation.set(1, "$N00" + content);
+                fCoil.add(content);
+            }
+
+            String finial_commands = "";
+            String finial_selection = "";
+            for (Object Commands : commandInformation) {
+                finial_commands = finial_commands + Commands + "\n";
+            }
+            for (Object Selections : pinSelection) {
+                finial_selection = finial_selection + Selections + "\n";
+            }
+            t.setText(finial_commands + finial_selection);
+
+            coilsUsed.add(content);
+
+            String coilsSelected = numOfCoils.getSelectedItem().toString();
+            int coilLimit = Integer.parseInt(coilsSelected);
+            limit = findViewById(R.id.limit);
+
+            if (coilLimit == 1) {
+                limit.setText("1");
+            } else if (coilLimit == 2) {
+                limit.setText("2");
+            } else if (coilLimit == 3) {
+                limit.setText("3");
+            } else if (coilLimit == 4) {
+                limit.setText("4");
+            } else if (coilLimit == 5) {
+                limit.setText("5");
+            } else if (coilLimit == 6) {
+                limit.setText("6");
+            } else if (coilLimit == 7) {
+                limit.setText("7");
+            } else if (coilLimit == 8) {
+                limit.setText("8");
+            }
         }
     }
 
@@ -3731,31 +3955,43 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void setTheDelay(View view) {
-        amountOfDelay = findViewById(R.id.amountOfDelay);
+        if (commandInformation.size() != 4) {
+            commandInformation.add(empty);
+            commandInformation.add(empty);
+            commandInformation.add(empty);
+            commandInformation.add(empty);
+        }
+        if (commandInformation.size() == 4) {
+            amountOfDelay = findViewById(R.id.amountOfDelay);
 
-        String content = amountOfDelay.getSelectedItem().toString();
-        if (content.equals("Slow")) {
-            commandInformation.add(2, "$D020");
-        } else if (content.equals("Medium")) {
-            commandInformation.add(2, "$D040");
-        } else if (content.equals("Fast")) {
-            commandInformation.add(2, "$D060");
+            String content = amountOfDelay.getSelectedItem().toString();
+
+            if (!commandInformation.contains("$D020") || !commandInformation.contains("$D040")
+                    || commandInformation.contains("$D060")) {
+                if (content.equals("Slow")) {
+                    commandInformation.set(2, "$D020");
+                    fDelay.add(content);
+                } else if (content.equals("Medium")) {
+                    commandInformation.set(2, "$D040");
+                    fDelay.add(content);
+                } else if (content.equals("Fast")) {
+                    commandInformation.set(2, "$D060");
+                    fDelay.add(content);
+                }
+            }
+
+            TextView t = findViewById(R.id.frameCreationView);
+            String finial_commands = "";
+            String finial_selection = "";
+            for (Object Commands : commandInformation) {
+                finial_commands = finial_commands + Commands + "\n";
+            }
+            for (Object Selections : pinSelection) {
+                finial_selection = finial_selection + Selections + "\n";
+            }
+            t.setText(finial_commands + finial_selection);
         }
 
-        TextView t = findViewById(R.id.frameCreationView);
-        String start = "";
-        for (Object Selections : commandInformation) {
-            start = start + Selections + "\n";
-        }
-        t.setText(start);
-
-        if (commandInformation.add(true)) {
-            findViewById(R.id.setDelay).setVisibility(View.INVISIBLE);
-            findViewById(R.id.amountOfDelay).setVisibility(View.INVISIBLE);
-            commandInformation.remove(true);
-            findViewById(R.id.setOnTime).setVisibility(View.VISIBLE);
-            findViewById(R.id.amountOfOnTime).setVisibility(View.VISIBLE);
-        }
     }
 
     /**
@@ -3764,1368 +4000,109 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void setTheOnTime(View view) {
-        pin0 = findViewById(R.id.pin0);
-        pin1 = findViewById(R.id.pin1);
-        pin2 = findViewById(R.id.pin2);
-        pin3 = findViewById(R.id.pin3);
-        pin4 = findViewById(R.id.pin4);
-        pin5 = findViewById(R.id.pin5);
-        pin6 = findViewById(R.id.pin6);
-        pin7 = findViewById(R.id.pin7);
-        pin8 = findViewById(R.id.pin8);
-        pin9 = findViewById(R.id.pin9);
-        pin10 = findViewById(R.id.pin10);
-        pin11 = findViewById(R.id.pin11);
-        pin12 = findViewById(R.id.pin12);
-        pin13 = findViewById(R.id.pin13);
-        pin14 = findViewById(R.id.pin14);
-        pin15 = findViewById(R.id.pin15);
-        pin16 = findViewById(R.id.pin16);
-        pin17 = findViewById(R.id.pin17);
-        pin18 = findViewById(R.id.pin18);
-        pin19 = findViewById(R.id.pin19);
-        pin20 = findViewById(R.id.pin20);
-        pin21 = findViewById(R.id.pin21);
-        pin22 = findViewById(R.id.pin22);
-        pin23 = findViewById(R.id.pin23);
-        pin24 = findViewById(R.id.pin24);
-        pin25 = findViewById(R.id.pin25);
-        pin26 = findViewById(R.id.pin26);
-        pin27 = findViewById(R.id.pin27);
-        pin28 = findViewById(R.id.pin28);
-        pin29 = findViewById(R.id.pin29);
-        pin30 = findViewById(R.id.pin30);
-        pin31 = findViewById(R.id.pin31);
-        pin32 = findViewById(R.id.pin32);
-        pin33 = findViewById(R.id.pin33);
-        pin34 = findViewById(R.id.pin34);
-        pin35 = findViewById(R.id.pin35);
-        pin36 = findViewById(R.id.pin36);
-        pin37 = findViewById(R.id.pin37);
-        pin38 = findViewById(R.id.pin38);
-        pin39 = findViewById(R.id.pin39);
-        pin40 = findViewById(R.id.pin40);
-        pin41 = findViewById(R.id.pin41);
-        pin42 = findViewById(R.id.pin42);
-        pin43 = findViewById(R.id.pin43);
-        pin44 = findViewById(R.id.pin44);
-        pin45 = findViewById(R.id.pin45);
-        pin46 = findViewById(R.id.pin46);
-        pin47 = findViewById(R.id.pin47);
-        pin48 = findViewById(R.id.pin48);
-        pin49 = findViewById(R.id.pin49);
-        pin50 = findViewById(R.id.pin50);
-        pin51 = findViewById(R.id.pin51);
-        pin52 = findViewById(R.id.pin52);
-        pin53 = findViewById(R.id.pin53);
-        pin54 = findViewById(R.id.pin54);
-        pin55 = findViewById(R.id.pin55);
-        pin56 = findViewById(R.id.pin56);
-        pin57 = findViewById(R.id.pin57);
-        pin58 = findViewById(R.id.pin58);
-        pin59 = findViewById(R.id.pin59);
-        pin60 = findViewById(R.id.pin60);
-        pin61 = findViewById(R.id.pin61);
-        pin62 = findViewById(R.id.pin62);
-        pin63 = findViewById(R.id.pin63);
-
-        amountOfOnTime = findViewById(R.id.amountOfOnTime);
-
-        String coilsSelected = numOfCoils.getSelectedItem().toString();
-        int coilLimit = Integer.parseInt(coilsSelected);
-        limit = findViewById(R.id.limit);
-
-        numOfCoils = findViewById(R.id.numberOfCoils);
-        String coilNumber = numOfCoils.getSelectedItem().toString();
-
-        String content = amountOfOnTime.getSelectedItem().toString();
-        if (content.equals("Short")) {
-            commandInformation.add(3, "$P010");
-        } else if (content.equals("Medium")) {
-            commandInformation.add(3, "$P020");
-        } else if (content.equals("Long")) {
-            commandInformation.add(3, "$P030");
+        if (commandInformation.size() != 4) {
+            commandInformation.add(empty);
+            commandInformation.add(empty);
+            commandInformation.add(empty);
+            commandInformation.add(empty);
         }
+        if (commandInformation.size() == 4) {
+            pin0 = findViewById(R.id.pin0);
+            pin1 = findViewById(R.id.pin1);
+            pin2 = findViewById(R.id.pin2);
+            pin3 = findViewById(R.id.pin3);
+            pin4 = findViewById(R.id.pin4);
+            pin5 = findViewById(R.id.pin5);
+            pin6 = findViewById(R.id.pin6);
+            pin7 = findViewById(R.id.pin7);
+            pin8 = findViewById(R.id.pin8);
+            pin9 = findViewById(R.id.pin9);
+            pin10 = findViewById(R.id.pin10);
+            pin11 = findViewById(R.id.pin11);
+            pin12 = findViewById(R.id.pin12);
+            pin13 = findViewById(R.id.pin13);
+            pin14 = findViewById(R.id.pin14);
+            pin15 = findViewById(R.id.pin15);
+            pin16 = findViewById(R.id.pin16);
+            pin17 = findViewById(R.id.pin17);
+            pin18 = findViewById(R.id.pin18);
+            pin19 = findViewById(R.id.pin19);
+            pin20 = findViewById(R.id.pin20);
+            pin21 = findViewById(R.id.pin21);
+            pin22 = findViewById(R.id.pin22);
+            pin23 = findViewById(R.id.pin23);
+            pin24 = findViewById(R.id.pin24);
+            pin25 = findViewById(R.id.pin25);
+            pin26 = findViewById(R.id.pin26);
+            pin27 = findViewById(R.id.pin27);
+            pin28 = findViewById(R.id.pin28);
+            pin29 = findViewById(R.id.pin29);
+            pin30 = findViewById(R.id.pin30);
+            pin31 = findViewById(R.id.pin31);
+            pin32 = findViewById(R.id.pin32);
+            pin33 = findViewById(R.id.pin33);
+            pin34 = findViewById(R.id.pin34);
+            pin35 = findViewById(R.id.pin35);
+            pin36 = findViewById(R.id.pin36);
+            pin37 = findViewById(R.id.pin37);
+            pin38 = findViewById(R.id.pin38);
+            pin39 = findViewById(R.id.pin39);
+            pin40 = findViewById(R.id.pin40);
+            pin41 = findViewById(R.id.pin41);
+            pin42 = findViewById(R.id.pin42);
+            pin43 = findViewById(R.id.pin43);
+            pin44 = findViewById(R.id.pin44);
+            pin45 = findViewById(R.id.pin45);
+            pin46 = findViewById(R.id.pin46);
+            pin47 = findViewById(R.id.pin47);
+            pin48 = findViewById(R.id.pin48);
+            pin49 = findViewById(R.id.pin49);
+            pin50 = findViewById(R.id.pin50);
+            pin51 = findViewById(R.id.pin51);
+            pin52 = findViewById(R.id.pin52);
+            pin53 = findViewById(R.id.pin53);
+            pin54 = findViewById(R.id.pin54);
+            pin55 = findViewById(R.id.pin55);
+            pin56 = findViewById(R.id.pin56);
+            pin57 = findViewById(R.id.pin57);
+            pin58 = findViewById(R.id.pin58);
+            pin59 = findViewById(R.id.pin59);
+            pin60 = findViewById(R.id.pin60);
+            pin61 = findViewById(R.id.pin61);
+            pin62 = findViewById(R.id.pin62);
+            pin63 = findViewById(R.id.pin63);
 
-        TextView t = findViewById(R.id.frameCreationView);
-        String start = "";
-        for (Object Selections : commandInformation) {
-            start = start + Selections + "\n";
-        }
-        t.setText(start);
-        if (commandInformation.add(true)) {
-            findViewById(R.id.setOnTime).setVisibility(View.INVISIBLE);
-            amountOfOnTime.setVisibility(View.INVISIBLE);
-            commandInformation.remove(true);
-            findViewById(R.id.counter).setVisibility(View.VISIBLE);
-            findViewById(R.id.indexFinger).setVisibility(View.VISIBLE);
-            findViewById(R.id.middleFinger).setVisibility(View.VISIBLE);
-            findViewById(R.id.ringFinger).setVisibility(View.VISIBLE);
-            findViewById(R.id.frameCreationView).setVisibility(View.VISIBLE);
-            findViewById(R.id.saveFrame).setVisibility(View.VISIBLE);
-            findViewById(R.id.coilsCounter).setVisibility(View.VISIBLE);
-            findViewById(R.id.limit).setVisibility(View.VISIBLE);
+            amountOfOnTime = findViewById(R.id.amountOfOnTime);
 
-            if (coilLimit == 1) {
-                limit.setText("/ 1");
-            } else if (coilLimit == 2) {
-                limit.setText("/ 2");
-            } else if (coilLimit == 3) {
-                limit.setText("/ 3");
-            } else if (coilLimit == 4) {
-                limit.setText("/ 4");
-            } else if (coilLimit == 5) {
-                limit.setText("/ 5");
-            } else if (coilLimit == 6) {
-                limit.setText("/ 6");
-            } else if (coilLimit == 7) {
-                limit.setText("/ 7");
-            } else if (coilLimit == 8) {
-                limit.setText("/ 8");
+            limit = findViewById(R.id.limit);
+
+            String content = amountOfOnTime.getSelectedItem().toString();
+
+            if (!commandInformation.contains("$P010") || !commandInformation.contains("$P020")
+                    || commandInformation.contains("$P030")) {
+                if (content.equals("Short")) {
+                    commandInformation.set(3, "$P010");
+                    fActivation.add(content);
+                } else if (content.equals("Medium")) {
+                    commandInformation.set(3, "$P020");
+                    fActivation.add(content);
+                } else if (content.equals("Long")) {
+                    commandInformation.set(3, "$P030");
+                    fActivation.add(content);
+                }
             }
 
-            findViewById(R.id.pin0).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin1).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin2).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin3).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin4).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin5).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin6).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin7).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin8).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin9).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin10).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin11).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin12).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin13).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin14).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin15).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin16).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin17).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin18).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin19).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin20).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin21).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin22).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin23).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin24).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin25).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin26).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin27).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin28).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin29).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin30).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin31).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin32).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin33).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin34).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin35).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin36).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin37).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin38).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin39).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin40).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin41).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin42).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin43).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin44).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin45).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin46).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin47).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin48).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin49).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin50).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin51).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin52).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin53).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin54).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin55).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin56).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin57).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin58).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin59).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin60).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin61).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin62).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin63).setVisibility(View.VISIBLE);
+            TextView t = findViewById(R.id.frameCreationView);
+            String finial_commands = "";
+            String finial_selection = "";
+            for (Object Commands : commandInformation) {
+                finial_commands = finial_commands + Commands + "\n";
+            }
+            for (Object Selections : pinSelection) {
+                finial_selection = finial_selection + Selections + "\n";
+            }
+            t.setText(finial_commands + finial_selection);
 
-            String frame1;
-            String frame2;
-            String frame3;
-            String frame4;
-            String frame5;
-            String frame6;
-
-            if (!frameNameF1.isEmpty()) {
-                frame1 = frameFinished1.toString();
-                if (frame1.contains("$Y000")) {
-                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y001")) {
-                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y002")) {
-                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y003")) {
-                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y004")) {
-                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y005")) {
-                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y006")) {
-                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y007")) {
-                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y008")) {
-                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y009")) {
-                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y010")) {
-                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y011")) {
-                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y012")) {
-                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y013")) {
-                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y014")) {
-                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y015")) {
-                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y016")) {
-                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y017")) {
-                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y018")) {
-                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y019")) {
-                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y020")) {
-                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y021")) {
-                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y022")) {
-                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y023")) {
-                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y024")) {
-                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y025")) {
-                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y026")) {
-                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y027")) {
-                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y028")) {
-                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y029")) {
-                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y030")) {
-                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y031")) {
-                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y032")) {
-                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y033")) {
-                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y034")) {
-                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y035")) {
-                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y036")) {
-                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y037")) {
-                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y038")) {
-                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y039")) {
-                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y040")) {
-                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y041")) {
-                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y042")) {
-                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y043")) {
-                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y044")) {
-                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y045")) {
-                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y046")) {
-                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y047")) {
-                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y048")) {
-                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y049")) {
-                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y050")) {
-                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y051")) {
-                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y052")) {
-                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y053")) {
-                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y054")) {
-                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y055")) {
-                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y056")) {
-                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y057")) {
-                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y058")) {
-                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y059")) {
-                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y060")) {
-                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y061")) {
-                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y062")) {
-                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y063")) {
-                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-            }
-            if (!frameNameF2.isEmpty()) {
-                frame2 = frameFinished2.toString();
-                if (frame2.contains("$Y000")) {
-                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y001")) {
-                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y002")) {
-                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y003")) {
-                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y004")) {
-                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y005")) {
-                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y006")) {
-                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y007")) {
-                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y008")) {
-                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y009")) {
-                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y010")) {
-                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y011")) {
-                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y012")) {
-                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y013")) {
-                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y014")) {
-                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y015")) {
-                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y016")) {
-                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y017")) {
-                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y018")) {
-                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y019")) {
-                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y020")) {
-                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y021")) {
-                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y022")) {
-                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y023")) {
-                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y024")) {
-                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y025")) {
-                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y026")) {
-                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y027")) {
-                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y028")) {
-                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y029")) {
-                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y030")) {
-                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y031")) {
-                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y032")) {
-                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y033")) {
-                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y034")) {
-                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y035")) {
-                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y036")) {
-                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y037")) {
-                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y038")) {
-                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y039")) {
-                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y040")) {
-                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y041")) {
-                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y042")) {
-                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y043")) {
-                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y044")) {
-                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y045")) {
-                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y046")) {
-                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y047")) {
-                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y048")) {
-                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y049")) {
-                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y050")) {
-                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y051")) {
-                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y052")) {
-                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y053")) {
-                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y054")) {
-                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y055")) {
-                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y056")) {
-                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y057")) {
-                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y058")) {
-                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y059")) {
-                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y060")) {
-                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y061")) {
-                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y062")) {
-                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y063")) {
-                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-            }
-            if (!frameNameF3.isEmpty()) {
-                frame3 = frameFinished3.toString();
-                if (frame3.contains("$Y000")) {
-                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y001")) {
-                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y002")) {
-                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y003")) {
-                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y004")) {
-                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y005")) {
-                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y006")) {
-                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y007")) {
-                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y008")) {
-                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y009")) {
-                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y010")) {
-                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y011")) {
-                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y012")) {
-                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y013")) {
-                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y014")) {
-                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y015")) {
-                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y016")) {
-                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y017")) {
-                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y018")) {
-                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y019")) {
-                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y020")) {
-                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y021")) {
-                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y022")) {
-                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y023")) {
-                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y024")) {
-                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y025")) {
-                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y026")) {
-                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y027")) {
-                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y028")) {
-                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y029")) {
-                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y030")) {
-                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y031")) {
-                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y032")) {
-                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y033")) {
-                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y034")) {
-                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y035")) {
-                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y036")) {
-                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y037")) {
-                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y038")) {
-                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y039")) {
-                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y040")) {
-                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y041")) {
-                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y042")) {
-                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y043")) {
-                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y044")) {
-                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y045")) {
-                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y046")) {
-                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y047")) {
-                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y048")) {
-                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y049")) {
-                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y050")) {
-                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y051")) {
-                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y052")) {
-                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y053")) {
-                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y054")) {
-                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y055")) {
-                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y056")) {
-                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y057")) {
-                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y058")) {
-                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y059")) {
-                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y060")) {
-                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y061")) {
-                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y062")) {
-                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y063")) {
-                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-            }
-            if (!frameNameF4.isEmpty()) {
-                frame4 = frameFinished4.toString();
-                if (frame4.contains("$Y000")) {
-                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y001")) {
-                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y002")) {
-                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y003")) {
-                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y004")) {
-                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y005")) {
-                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y006")) {
-                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y007")) {
-                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y008")) {
-                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y009")) {
-                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y010")) {
-                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y011")) {
-                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y012")) {
-                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y013")) {
-                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y014")) {
-                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y015")) {
-                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y016")) {
-                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y017")) {
-                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y018")) {
-                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y019")) {
-                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y020")) {
-                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y021")) {
-                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y022")) {
-                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y023")) {
-                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y024")) {
-                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y025")) {
-                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y026")) {
-                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y027")) {
-                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y028")) {
-                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y029")) {
-                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y030")) {
-                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y031")) {
-                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y032")) {
-                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y033")) {
-                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y034")) {
-                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y035")) {
-                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y036")) {
-                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y037")) {
-                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y038")) {
-                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y039")) {
-                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y040")) {
-                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y041")) {
-                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y042")) {
-                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y043")) {
-                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y044")) {
-                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y045")) {
-                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y046")) {
-                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y047")) {
-                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y048")) {
-                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y049")) {
-                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y050")) {
-                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y051")) {
-                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y052")) {
-                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y053")) {
-                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y054")) {
-                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y055")) {
-                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y056")) {
-                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y057")) {
-                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y058")) {
-                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y059")) {
-                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y060")) {
-                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y061")) {
-                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y062")) {
-                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y063")) {
-                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-            }
-            if (!frameNameF5.isEmpty()) {
-                frame5 = frameFinished5.toString();
-                if (frame5.contains("$Y000")) {
-                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y001")) {
-                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y002")) {
-                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y003")) {
-                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y004")) {
-                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y005")) {
-                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y006")) {
-                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y007")) {
-                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y008")) {
-                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y009")) {
-                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y010")) {
-                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y011")) {
-                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y012")) {
-                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y013")) {
-                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y014")) {
-                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y015")) {
-                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y016")) {
-                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y017")) {
-                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y018")) {
-                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y019")) {
-                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y020")) {
-                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y021")) {
-                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y022")) {
-                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y023")) {
-                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y024")) {
-                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y025")) {
-                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y026")) {
-                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y027")) {
-                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y028")) {
-                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y029")) {
-                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y030")) {
-                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y031")) {
-                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y032")) {
-                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y033")) {
-                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y034")) {
-                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y035")) {
-                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y036")) {
-                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y037")) {
-                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y038")) {
-                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y039")) {
-                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y040")) {
-                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y041")) {
-                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y042")) {
-                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y043")) {
-                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y044")) {
-                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y045")) {
-                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y046")) {
-                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y047")) {
-                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y048")) {
-                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y049")) {
-                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y050")) {
-                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y051")) {
-                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y052")) {
-                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y053")) {
-                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y054")) {
-                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y055")) {
-                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y056")) {
-                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y057")) {
-                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y058")) {
-                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y059")) {
-                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y060")) {
-                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y061")) {
-                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y062")) {
-                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y063")) {
-                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-            }
-            if (!frameNameF6.isEmpty()) {
-                frame6 = frameFinished6.toString();
-                if (frame6.contains("$Y000")) {
-                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y001")) {
-                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y002")) {
-                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y003")) {
-                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y004")) {
-                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y005")) {
-                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y006")) {
-                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y007")) {
-                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y008")) {
-                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y009")) {
-                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y010")) {
-                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y011")) {
-                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y012")) {
-                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y013")) {
-                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y014")) {
-                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y015")) {
-                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y016")) {
-                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y017")) {
-                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y018")) {
-                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y019")) {
-                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y020")) {
-                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y021")) {
-                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y022")) {
-                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y023")) {
-                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y024")) {
-                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y025")) {
-                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y026")) {
-                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y027")) {
-                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y028")) {
-                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y029")) {
-                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y030")) {
-                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y031")) {
-                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y032")) {
-                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y033")) {
-                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y034")) {
-                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y035")) {
-                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y036")) {
-                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y037")) {
-                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y038")) {
-                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y039")) {
-                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y040")) {
-                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y041")) {
-                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y042")) {
-                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y043")) {
-                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y044")) {
-                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y045")) {
-                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y046")) {
-                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y047")) {
-                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y048")) {
-                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y049")) {
-                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y050")) {
-                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y051")) {
-                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y052")) {
-                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y053")) {
-                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y054")) {
-                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y055")) {
-                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y056")) {
-                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y057")) {
-                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y058")) {
-                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y059")) {
-                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y060")) {
-                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y061")) {
-                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y062")) {
-                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y063")) {
-                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-            }
         }
     }
 
@@ -5203,1508 +4180,1396 @@ public class MainActivity extends AppCompatActivity {
         String commandInfoReplace;
         String pinSelectReplace;
 
-        String contents = numOfCoils.getSelectedItem().toString();
+        limit = findViewById(R.id.limit);
+        String contents = limit.getText().toString();
         int coilLimit = Integer.parseInt(contents);
-        if (totals.size() == coilLimit) {
-            if (frameFinished1.isEmpty()) {
-                pinSelection.add("$T001");
-                commandInfoReplace = commandInformation.toString().replaceAll("(^\\[|\\])", "");
-                pinSelectReplace = pinSelection.toString().replaceAll("(^\\[|\\])", "\n");
-                frameFinished1.add(commandInfoReplace + pinSelectReplace);
-                firstFrame = true;
-                Toast.makeText(getApplicationContext(), "Frame Saved1" + frameFinished1, Toast.LENGTH_SHORT).show();
-            } else if (frameFinished2.isEmpty()) {
-                pinSelection.add("$T001");
-                commandInfoReplace = commandInformation.toString().replaceAll("(^\\[|\\])", "");
-                pinSelectReplace = pinSelection.toString().replaceAll("(^\\[|\\])", "\n");
-                frameFinished2.add(commandInfoReplace + pinSelectReplace);
-                secondFrame = true;
-                Toast.makeText(getApplicationContext(), "Frame Saved2" + frameFinished2, Toast.LENGTH_SHORT).show();
-            } else if (frameFinished3.isEmpty()) {
-                pinSelection.add("$T001");
-                commandInfoReplace = commandInformation.toString().replaceAll("(^\\[|\\])", "");
-                pinSelectReplace = pinSelection.toString().replaceAll("(^\\[|\\])", "\n");
-                frameFinished3.add(commandInfoReplace + pinSelectReplace);
-                thirdFrame = true;
-                Toast.makeText(getApplicationContext(), "Frame Saved3" + frameFinished3, Toast.LENGTH_SHORT).show();
-            } else if (frameFinished4.isEmpty()) {
-                pinSelection.add("$T001");
-                commandInfoReplace = commandInformation.toString().replaceAll("(^\\[|\\])", "");
-                pinSelectReplace = pinSelection.toString().replaceAll("(^\\[|\\])", "\n");
-                frameFinished4.add(commandInfoReplace + pinSelectReplace);
-                fourthFrame = true;
-                Toast.makeText(getApplicationContext(), "Frame Saved4" + frameFinished4, Toast.LENGTH_SHORT).show();
-            } else if (frameFinished5.isEmpty()) {
-                pinSelection.add("$T001");
-                commandInfoReplace = commandInformation.toString().replaceAll("(^\\[|\\])", "");
-                pinSelectReplace = pinSelection.toString().replaceAll("(^\\[|\\])", "\n");
-                frameFinished5.add(commandInfoReplace + pinSelectReplace);
-                fifthFrame = true;
-                Toast.makeText(getApplicationContext(), "Frame Saved5" + frameFinished5, Toast.LENGTH_SHORT).show();
-            } else if (frameFinished6.isEmpty()) {
-                pinSelection.add("$T001");
-                commandInfoReplace = commandInformation.toString().replaceAll("(^\\[|\\])", "");
-                pinSelectReplace = pinSelection.toString().replaceAll("(^\\[|\\])", "\n");
-                frameFinished6.add(commandInfoReplace + pinSelectReplace);
-                sixthFrame = true;
-                Toast.makeText(getApplicationContext(), "Frame Saved6" + frameFinished6, Toast.LENGTH_SHORT).show();
-            }
 
-            pinSelection.clear();
-            commandInformation.clear();
-            coilsUsed.clear();
-            totals.clear();
+        if (!fName.isEmpty() && !fCoil.isEmpty() && !fDelay.isEmpty() && !fActivation.isEmpty()) {
+            if (totals.size() == coilLimit) {
+                if (frameFinished1.isEmpty()) {
+                    pinSelection.add("$T001");
+                    commandInfoReplace = commandInformation.toString().replaceAll("(^\\[|\\])", "");
+                    pinSelectReplace = pinSelection.toString().replaceAll("(^\\[|\\])", "\n");
+                    frameFinished1.add(commandInfoReplace + pinSelectReplace);
+                    firstFrame = true;
+                    Toast.makeText(getApplicationContext(), "Frame Saved", Toast.LENGTH_SHORT).show();
+                } else if (frameFinished2.isEmpty()) {
+                    pinSelection.add("$T001");
+                    commandInfoReplace = commandInformation.toString().replaceAll("(^\\[|\\])", "");
+                    pinSelectReplace = pinSelection.toString().replaceAll("(^\\[|\\])", "\n");
+                    frameFinished2.add(commandInfoReplace + pinSelectReplace);
+                    secondFrame = true;
+                    Toast.makeText(getApplicationContext(), "Frame Saved", Toast.LENGTH_SHORT).show();
+                } else if (frameFinished3.isEmpty()) {
+                    pinSelection.add("$T001");
+                    commandInfoReplace = commandInformation.toString().replaceAll("(^\\[|\\])", "");
+                    pinSelectReplace = pinSelection.toString().replaceAll("(^\\[|\\])", "\n");
+                    frameFinished3.add(commandInfoReplace + pinSelectReplace);
+                    thirdFrame = true;
+                    Toast.makeText(getApplicationContext(), "Frame Saved", Toast.LENGTH_SHORT).show();
+                } else if (frameFinished4.isEmpty()) {
+                    pinSelection.add("$T001");
+                    commandInfoReplace = commandInformation.toString().replaceAll("(^\\[|\\])", "");
+                    pinSelectReplace = pinSelection.toString().replaceAll("(^\\[|\\])", "\n");
+                    frameFinished4.add(commandInfoReplace + pinSelectReplace);
+                    fourthFrame = true;
+                    Toast.makeText(getApplicationContext(), "Frame Saved", Toast.LENGTH_SHORT).show();
+                } else if (frameFinished5.isEmpty()) {
+                    pinSelection.add("$T001");
+                    commandInfoReplace = commandInformation.toString().replaceAll("(^\\[|\\])", "");
+                    pinSelectReplace = pinSelection.toString().replaceAll("(^\\[|\\])", "\n");
+                    frameFinished5.add(commandInfoReplace + pinSelectReplace);
+                    fifthFrame = true;
+                    Toast.makeText(getApplicationContext(), "Frame Saved", Toast.LENGTH_SHORT).show();
+                } else if (frameFinished6.isEmpty()) {
+                    pinSelection.add("$T001");
+                    commandInfoReplace = commandInformation.toString().replaceAll("(^\\[|\\])", "");
+                    pinSelectReplace = pinSelection.toString().replaceAll("(^\\[|\\])", "\n");
+                    frameFinished6.add(commandInfoReplace + pinSelectReplace);
+                    sixthFrame = true;
+                    Toast.makeText(getApplicationContext(), "Frame Saved", Toast.LENGTH_SHORT).show();
+                }
 
-            coilCounter = 0;
-            counter.setText(String.valueOf(coilCounter));
+                pinSelection.clear();
+                commandInformation.clear();
+                coilsUsed.clear();
+                totals.clear();
+                fName.clear();
+                fCoil.clear();
+                fDelay.clear();
+                fActivation.clear();
 
-            counter.setVisibility(View.INVISIBLE);
-            findViewById(R.id.coilsCounter).setVisibility(View.INVISIBLE);
-            findViewById(R.id.saveFrame).setVisibility(View.INVISIBLE);
-            findViewById(R.id.nameFrame).setVisibility(View.VISIBLE);
-            findViewById(R.id.setFrameName).setVisibility(View.VISIBLE);
-            findViewById(R.id.indexFinger).setVisibility(View.INVISIBLE);
-            findViewById(R.id.middleFinger).setVisibility(View.INVISIBLE);
-            findViewById(R.id.ringFinger).setVisibility(View.INVISIBLE);
-            findViewById(R.id.frameCreationView).setVisibility(View.INVISIBLE);
-            findViewById(R.id.limit).setVisibility(View.INVISIBLE);
+                coilCounter = 0;
+                counter.setText(String.valueOf(coilCounter));
 
-            pin0.setChecked(false);
-            pin0.setBackgroundColor(Color.TRANSPARENT);
-            pin0.setVisibility(View.INVISIBLE);
-            pin0.setText("");
-            pin1.setChecked(false);
-            pin1.setBackgroundColor(Color.TRANSPARENT);
-            pin1.setVisibility(View.INVISIBLE);
-            pin1.setText("");
-            pin2.setChecked(false);
-            pin2.setBackgroundColor(Color.TRANSPARENT);
-            pin2.setVisibility(View.INVISIBLE);
-            pin2.setText("");
-            pin3.setChecked(false);
-            pin3.setBackgroundColor(Color.TRANSPARENT);
-            pin3.setVisibility(View.INVISIBLE);
-            pin3.setText("");
-            pin4.setChecked(false);
-            pin4.setBackgroundColor(Color.TRANSPARENT);
-            pin4.setVisibility(View.INVISIBLE);
-            pin4.setText("");
-            pin5.setChecked(false);
-            pin5.setBackgroundColor(Color.TRANSPARENT);
-            pin5.setVisibility(View.INVISIBLE);
-            pin5.setText("");
-            pin6.setChecked(false);
-            pin6.setBackgroundColor(Color.TRANSPARENT);
-            pin6.setVisibility(View.INVISIBLE);
-            pin6.setText("");
-            pin7.setChecked(false);
-            pin7.setBackgroundColor(Color.TRANSPARENT);
-            pin7.setVisibility(View.INVISIBLE);
-            pin7.setText("");
-            pin8.setChecked(false);
-            pin8.setBackgroundColor(Color.TRANSPARENT);
-            pin8.setVisibility(View.INVISIBLE);
-            pin8.setText("");
-            pin9.setChecked(false);
-            pin9.setBackgroundColor(Color.TRANSPARENT);
-            pin9.setVisibility(View.INVISIBLE);
-            pin9.setText("");
-            pin10.setChecked(false);
-            pin10.setBackgroundColor(Color.TRANSPARENT);
-            pin10.setVisibility(View.INVISIBLE);
-            pin10.setText("");
-            pin11.setChecked(false);
-            pin11.setBackgroundColor(Color.TRANSPARENT);
-            pin11.setVisibility(View.INVISIBLE);
-            pin11.setText("");
-            pin12.setChecked(false);
-            pin12.setBackgroundColor(Color.TRANSPARENT);
-            pin12.setVisibility(View.INVISIBLE);
-            pin12.setText("");
-            pin13.setChecked(false);
-            pin13.setBackgroundColor(Color.TRANSPARENT);
-            pin13.setVisibility(View.INVISIBLE);
-            pin13.setText("");
-            pin14.setChecked(false);
-            pin14.setBackgroundColor(Color.TRANSPARENT);
-            pin14.setVisibility(View.INVISIBLE);
-            pin14.setText("");
-            pin15.setChecked(false);
-            pin15.setBackgroundColor(Color.TRANSPARENT);
-            pin15.setVisibility(View.INVISIBLE);
-            pin15.setText("");
-            pin16.setChecked(false);
-            pin16.setBackgroundColor(Color.TRANSPARENT);
-            pin16.setVisibility(View.INVISIBLE);
-            pin16.setText("");
-            pin17.setChecked(false);
-            pin17.setBackgroundColor(Color.TRANSPARENT);
-            pin17.setVisibility(View.INVISIBLE);
-            pin17.setText("");
-            pin18.setChecked(false);
-            pin18.setBackgroundColor(Color.TRANSPARENT);
-            pin18.setVisibility(View.INVISIBLE);
-            pin18.setText("");
-            pin19.setChecked(false);
-            pin19.setBackgroundColor(Color.TRANSPARENT);
-            pin19.setVisibility(View.INVISIBLE);
-            pin19.setText("");
-            pin20.setChecked(false);
-            pin20.setBackgroundColor(Color.TRANSPARENT);
-            pin20.setVisibility(View.INVISIBLE);
-            pin20.setText("");
-            pin21.setChecked(false);
-            pin21.setBackgroundColor(Color.TRANSPARENT);
-            pin21.setVisibility(View.INVISIBLE);
-            pin21.setText("");
-            pin22.setChecked(false);
-            pin22.setBackgroundColor(Color.TRANSPARENT);
-            pin22.setVisibility(View.INVISIBLE);
-            pin22.setText("");
-            pin23.setChecked(false);
-            pin23.setBackgroundColor(Color.TRANSPARENT);
-            pin23.setVisibility(View.INVISIBLE);
-            pin23.setText("");
-            pin24.setChecked(false);
-            pin24.setBackgroundColor(Color.TRANSPARENT);
-            pin24.setVisibility(View.INVISIBLE);
-            pin24.setText("");
-            pin25.setChecked(false);
-            pin25.setBackgroundColor(Color.TRANSPARENT);
-            pin25.setVisibility(View.INVISIBLE);
-            pin25.setText("");
-            pin26.setChecked(false);
-            pin26.setBackgroundColor(Color.TRANSPARENT);
-            pin26.setVisibility(View.INVISIBLE);
-            pin26.setText("");
-            pin27.setChecked(false);
-            pin27.setBackgroundColor(Color.TRANSPARENT);
-            pin27.setVisibility(View.INVISIBLE);
-            pin27.setText("");
-            pin28.setChecked(false);
-            pin28.setBackgroundColor(Color.TRANSPARENT);
-            pin28.setVisibility(View.INVISIBLE);
-            pin28.setText("");
-            pin29.setChecked(false);
-            pin29.setBackgroundColor(Color.TRANSPARENT);
-            pin29.setVisibility(View.INVISIBLE);
-            pin29.setText("");
-            pin30.setChecked(false);
-            pin30.setBackgroundColor(Color.TRANSPARENT);
-            pin30.setVisibility(View.INVISIBLE);
-            pin30.setText("");
-            pin31.setChecked(false);
-            pin31.setBackgroundColor(Color.TRANSPARENT);
-            pin31.setVisibility(View.INVISIBLE);
-            pin31.setText("");
-            pin32.setChecked(false);
-            pin32.setBackgroundColor(Color.TRANSPARENT);
-            pin32.setVisibility(View.INVISIBLE);
-            pin32.setText("");
-            pin33.setChecked(false);
-            pin33.setBackgroundColor(Color.TRANSPARENT);
-            pin33.setVisibility(View.INVISIBLE);
-            pin33.setText("");
-            pin34.setChecked(false);
-            pin34.setBackgroundColor(Color.TRANSPARENT);
-            pin34.setVisibility(View.INVISIBLE);
-            pin34.setText("");
-            pin35.setChecked(false);
-            pin35.setBackgroundColor(Color.TRANSPARENT);
-            pin35.setVisibility(View.INVISIBLE);
-            pin35.setText("");
-            pin36.setChecked(false);
-            pin36.setBackgroundColor(Color.TRANSPARENT);
-            pin36.setVisibility(View.INVISIBLE);
-            pin36.setText("");
-            pin37.setChecked(false);
-            pin37.setBackgroundColor(Color.TRANSPARENT);
-            pin37.setVisibility(View.INVISIBLE);
-            pin37.setText("");
-            pin38.setChecked(false);
-            pin38.setBackgroundColor(Color.TRANSPARENT);
-            pin38.setVisibility(View.INVISIBLE);
-            pin38.setText("");
-            pin39.setChecked(false);
-            pin39.setBackgroundColor(Color.TRANSPARENT);
-            pin39.setVisibility(View.INVISIBLE);
-            pin39.setText("");
-            pin40.setChecked(false);
-            pin40.setBackgroundColor(Color.TRANSPARENT);
-            pin40.setVisibility(View.INVISIBLE);
-            pin40.setText("");
-            pin41.setChecked(false);
-            pin41.setBackgroundColor(Color.TRANSPARENT);
-            pin41.setVisibility(View.INVISIBLE);
-            pin41.setText("");
-            pin42.setChecked(false);
-            pin42.setBackgroundColor(Color.TRANSPARENT);
-            pin42.setVisibility(View.INVISIBLE);
-            pin42.setText("");
-            pin43.setChecked(false);
-            pin43.setBackgroundColor(Color.TRANSPARENT);
-            pin43.setVisibility(View.INVISIBLE);
-            pin43.setText("");
-            pin44.setChecked(false);
-            pin44.setBackgroundColor(Color.TRANSPARENT);
-            pin44.setVisibility(View.INVISIBLE);
-            pin44.setText("");
-            pin45.setChecked(false);
-            pin45.setBackgroundColor(Color.TRANSPARENT);
-            pin45.setVisibility(View.INVISIBLE);
-            pin45.setText("");
-            pin46.setChecked(false);
-            pin46.setBackgroundColor(Color.TRANSPARENT);
-            pin46.setVisibility(View.INVISIBLE);
-            pin46.setText("");
-            pin47.setChecked(false);
-            pin47.setBackgroundColor(Color.TRANSPARENT);
-            pin47.setVisibility(View.INVISIBLE);
-            pin47.setText("");
-            pin48.setChecked(false);
-            pin48.setBackgroundColor(Color.TRANSPARENT);
-            pin48.setVisibility(View.INVISIBLE);
-            pin48.setText("");
-            pin49.setChecked(false);
-            pin49.setBackgroundColor(Color.TRANSPARENT);
-            pin49.setVisibility(View.INVISIBLE);
-            pin49.setText("");
-            pin50.setChecked(false);
-            pin50.setBackgroundColor(Color.TRANSPARENT);
-            pin50.setVisibility(View.INVISIBLE);
-            pin50.setText("");
-            pin51.setChecked(false);
-            pin51.setBackgroundColor(Color.TRANSPARENT);
-            pin51.setVisibility(View.INVISIBLE);
-            pin51.setText("");
-            pin52.setChecked(false);
-            pin52.setBackgroundColor(Color.TRANSPARENT);
-            pin52.setVisibility(View.INVISIBLE);
-            pin52.setText("");
-            pin53.setChecked(false);
-            pin53.setBackgroundColor(Color.TRANSPARENT);
-            pin53.setVisibility(View.INVISIBLE);
-            pin53.setText("");
-            pin54.setChecked(false);
-            pin54.setBackgroundColor(Color.TRANSPARENT);
-            pin54.setVisibility(View.INVISIBLE);
-            pin54.setText("");
-            pin55.setChecked(false);
-            pin55.setBackgroundColor(Color.TRANSPARENT);
-            pin55.setVisibility(View.INVISIBLE);
-            pin55.setText("");
-            pin56.setChecked(false);
-            pin56.setBackgroundColor(Color.TRANSPARENT);
-            pin56.setVisibility(View.INVISIBLE);
-            pin56.setText("");
-            pin57.setChecked(false);
-            pin57.setBackgroundColor(Color.TRANSPARENT);
-            pin57.setVisibility(View.INVISIBLE);
-            pin57.setText("");
-            pin58.setChecked(false);
-            pin58.setBackgroundColor(Color.TRANSPARENT);
-            pin58.setVisibility(View.INVISIBLE);
-            pin58.setText("");
-            pin59.setChecked(false);
-            pin59.setBackgroundColor(Color.TRANSPARENT);
-            pin59.setVisibility(View.INVISIBLE);
-            pin59.setText("");
-            pin60.setChecked(false);
-            pin60.setBackgroundColor(Color.TRANSPARENT);
-            pin60.setVisibility(View.INVISIBLE);
-            pin60.setText("");
-            pin61.setChecked(false);
-            pin61.setBackgroundColor(Color.TRANSPARENT);
-            pin61.setVisibility(View.INVISIBLE);
-            pin61.setText("");
-            pin62.setChecked(false);
-            pin62.setBackgroundColor(Color.TRANSPARENT);
-            pin62.setVisibility(View.INVISIBLE);
-            pin62.setText("");
-            pin63.setChecked(false);
-            pin63.setBackgroundColor(Color.TRANSPARENT);
-            pin63.setVisibility(View.INVISIBLE);
-            pin63.setText("");
+                limit = findViewById(R.id.limit);
+                limit.setText("0");
 
-            String frame1;
-            String frame2;
-            String frame3;
-            String frame4;
-            String frame5;
-            String frame6;
+                TextView t = findViewById(R.id.frameCreationView);
+                String finial_commands = "";
+                String finial_selection = "";
+                for (Object Commands : commandInformation) {
+                    finial_commands = finial_commands + Commands + "\n";
+                }
+                for (Object Selections : pinSelection) {
+                    finial_selection = finial_selection + Selections + "\n";
+                }
+                t.setText(finial_commands + finial_selection);
 
-            if (!frameNameF1.isEmpty()) {
-                frame1 = frameFinished1.toString();
-                if (frame1.contains("$Y000")) {
-                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y001")) {
-                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y002")) {
-                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y003")) {
-                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y004")) {
-                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y005")) {
-                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y006")) {
-                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y007")) {
-                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y008")) {
-                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y009")) {
-                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y010")) {
-                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y011")) {
-                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y012")) {
-                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y013")) {
-                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y014")) {
-                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y015")) {
-                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y016")) {
-                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y017")) {
-                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y018")) {
-                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y019")) {
-                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y020")) {
-                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y021")) {
-                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y022")) {
-                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y023")) {
-                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y024")) {
-                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y025")) {
-                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y026")) {
-                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y027")) {
-                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y028")) {
-                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y029")) {
-                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y030")) {
-                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y031")) {
-                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y032")) {
-                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y033")) {
-                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y034")) {
-                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y035")) {
-                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y036")) {
-                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y037")) {
-                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y038")) {
-                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y039")) {
-                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y040")) {
-                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y041")) {
-                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y042")) {
-                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y043")) {
-                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y044")) {
-                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y045")) {
-                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y046")) {
-                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y047")) {
-                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y048")) {
-                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y049")) {
-                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y050")) {
-                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y051")) {
-                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y052")) {
-                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y053")) {
-                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y054")) {
-                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y055")) {
-                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y056")) {
-                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y057")) {
-                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y058")) {
-                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y059")) {
-                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y060")) {
-                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y061")) {
-                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y062")) {
-                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame1.contains("$Y063")) {
-                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-            }
-            if (!frameNameF2.isEmpty()) {
-                frame2 = frameFinished2.toString();
-                if (frame2.contains("$Y000")) {
-                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y001")) {
-                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y002")) {
-                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y003")) {
-                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y004")) {
-                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y005")) {
-                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y006")) {
-                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y007")) {
-                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y008")) {
-                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y009")) {
-                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y010")) {
-                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y011")) {
-                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y012")) {
-                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y013")) {
-                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y014")) {
-                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y015")) {
-                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y016")) {
-                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y017")) {
-                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y018")) {
-                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y019")) {
-                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y020")) {
-                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y021")) {
-                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y022")) {
-                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y023")) {
-                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y024")) {
-                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y025")) {
-                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y026")) {
-                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y027")) {
-                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y028")) {
-                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y029")) {
-                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y030")) {
-                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y031")) {
-                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y032")) {
-                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y033")) {
-                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y034")) {
-                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y035")) {
-                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y036")) {
-                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y037")) {
-                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y038")) {
-                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y039")) {
-                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y040")) {
-                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y041")) {
-                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y042")) {
-                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y043")) {
-                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y044")) {
-                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y045")) {
-                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y046")) {
-                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y047")) {
-                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y048")) {
-                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y049")) {
-                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y050")) {
-                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y051")) {
-                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y052")) {
-                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y053")) {
-                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y054")) {
-                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y055")) {
-                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y056")) {
-                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y057")) {
-                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y058")) {
-                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y059")) {
-                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y060")) {
-                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y061")) {
-                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y062")) {
-                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame2.contains("$Y063")) {
-                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-            }
-            if (!frameNameF3.isEmpty()) {
-                frame3 = frameFinished3.toString();
-                if (frame3.contains("$Y000")) {
-                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y001")) {
-                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y002")) {
-                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y003")) {
-                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y004")) {
-                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y005")) {
-                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y006")) {
-                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y007")) {
-                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y008")) {
-                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y009")) {
-                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y010")) {
-                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y011")) {
-                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y012")) {
-                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y013")) {
-                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y014")) {
-                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y015")) {
-                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y016")) {
-                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y017")) {
-                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y018")) {
-                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y019")) {
-                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y020")) {
-                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y021")) {
-                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y022")) {
-                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y023")) {
-                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y024")) {
-                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y025")) {
-                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y026")) {
-                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y027")) {
-                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y028")) {
-                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y029")) {
-                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y030")) {
-                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y031")) {
-                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y032")) {
-                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y033")) {
-                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y034")) {
-                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y035")) {
-                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y036")) {
-                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y037")) {
-                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y038")) {
-                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y039")) {
-                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y040")) {
-                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y041")) {
-                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y042")) {
-                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y043")) {
-                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y044")) {
-                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y045")) {
-                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y046")) {
-                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y047")) {
-                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y048")) {
-                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y049")) {
-                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y050")) {
-                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y051")) {
-                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y052")) {
-                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y053")) {
-                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y054")) {
-                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y055")) {
-                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y056")) {
-                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y057")) {
-                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y058")) {
-                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y059")) {
-                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y060")) {
-                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y061")) {
-                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y062")) {
-                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame3.contains("$Y063")) {
-                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-            }
-            if (!frameNameF4.isEmpty()) {
-                frame4 = frameFinished4.toString();
-                if (frame4.contains("$Y000")) {
-                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y001")) {
-                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y002")) {
-                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y003")) {
-                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y004")) {
-                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y005")) {
-                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y006")) {
-                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y007")) {
-                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y008")) {
-                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y009")) {
-                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y010")) {
-                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y011")) {
-                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y012")) {
-                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y013")) {
-                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y014")) {
-                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y015")) {
-                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y016")) {
-                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y017")) {
-                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y018")) {
-                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y019")) {
-                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y020")) {
-                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y021")) {
-                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y022")) {
-                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y023")) {
-                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y024")) {
-                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y025")) {
-                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y026")) {
-                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y027")) {
-                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y028")) {
-                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y029")) {
-                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y030")) {
-                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y031")) {
-                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y032")) {
-                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y033")) {
-                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y034")) {
-                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y035")) {
-                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y036")) {
-                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y037")) {
-                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y038")) {
-                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y039")) {
-                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y040")) {
-                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y041")) {
-                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y042")) {
-                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y043")) {
-                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y044")) {
-                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y045")) {
-                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y046")) {
-                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y047")) {
-                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y048")) {
-                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y049")) {
-                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y050")) {
-                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y051")) {
-                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y052")) {
-                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y053")) {
-                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y054")) {
-                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y055")) {
-                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y056")) {
-                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y057")) {
-                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y058")) {
-                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y059")) {
-                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y060")) {
-                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y061")) {
-                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y062")) {
-                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame4.contains("$Y063")) {
-                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-            }
-            if (!frameNameF5.isEmpty()) {
-                frame5 = frameFinished5.toString();
-                if (frame5.contains("$Y000")) {
-                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y001")) {
-                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y002")) {
-                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y003")) {
-                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y004")) {
-                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y005")) {
-                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y006")) {
-                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y007")) {
-                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y008")) {
-                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y009")) {
-                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y010")) {
-                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y011")) {
-                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y012")) {
-                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y013")) {
-                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y014")) {
-                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y015")) {
-                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y016")) {
-                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y017")) {
-                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y018")) {
-                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y019")) {
-                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y020")) {
-                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y021")) {
-                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y022")) {
-                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y023")) {
-                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y024")) {
-                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y025")) {
-                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y026")) {
-                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y027")) {
-                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y028")) {
-                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y029")) {
-                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y030")) {
-                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y031")) {
-                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y032")) {
-                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y033")) {
-                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y034")) {
-                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y035")) {
-                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y036")) {
-                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y037")) {
-                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y038")) {
-                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y039")) {
-                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y040")) {
-                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y041")) {
-                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y042")) {
-                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y043")) {
-                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y044")) {
-                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y045")) {
-                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y046")) {
-                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y047")) {
-                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y048")) {
-                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y049")) {
-                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y050")) {
-                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y051")) {
-                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y052")) {
-                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y053")) {
-                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y054")) {
-                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y055")) {
-                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y056")) {
-                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y057")) {
-                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y058")) {
-                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y059")) {
-                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y060")) {
-                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y061")) {
-                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y062")) {
-                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame5.contains("$Y063")) {
-                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-            }
-            if (!frameNameF6.isEmpty()) {
-                frame6 = frameFinished6.toString();
-                if (frame6.contains("$Y000")) {
-                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y001")) {
-                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y002")) {
-                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y003")) {
-                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y004")) {
-                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y005")) {
-                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y006")) {
-                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y007")) {
-                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y008")) {
-                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y009")) {
-                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y010")) {
-                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y011")) {
-                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y012")) {
-                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y013")) {
-                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y014")) {
-                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y015")) {
-                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y016")) {
-                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y017")) {
-                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y018")) {
-                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y019")) {
-                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y020")) {
-                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y021")) {
-                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y022")) {
-                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y023")) {
-                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y024")) {
-                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y025")) {
-                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y026")) {
-                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y027")) {
-                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y028")) {
-                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y029")) {
-                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y030")) {
-                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y031")) {
-                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y032")) {
-                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y033")) {
-                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y034")) {
-                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y035")) {
-                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y036")) {
-                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y037")) {
-                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y038")) {
-                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y039")) {
-                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y040")) {
-                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y041")) {
-                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y042")) {
-                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y043")) {
-                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y044")) {
-                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y045")) {
-                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y046")) {
-                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y047")) {
-                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y048")) {
-                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y049")) {
-                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y050")) {
-                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y051")) {
-                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y052")) {
-                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y053")) {
-                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y054")) {
-                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y055")) {
-                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y056")) {
-                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y057")) {
-                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y058")) {
-                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y059")) {
-                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y060")) {
-                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y061")) {
-                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y062")) {
-                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
-                if (frame6.contains("$Y063")) {
-                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
-                }
+                nameOfFrame.setEnabled(true);
+                findViewById(R.id.setFrameName).setEnabled(true);
+
+                pin0.setChecked(false);
+                pin0.setText("");
+                pin1.setChecked(false);
+                pin1.setText("");
+                pin2.setChecked(false);
+                pin2.setText("");
+                pin3.setChecked(false);
+                pin3.setText("");
+                pin4.setChecked(false);
+                pin4.setText("");
+                pin5.setChecked(false);
+                pin5.setText("");
+                pin6.setChecked(false);
+                pin6.setText("");
+                pin7.setChecked(false);
+                pin7.setText("");
+                pin8.setChecked(false);
+                pin8.setText("");
+                pin9.setChecked(false);
+                pin9.setText("");
+                pin10.setChecked(false);
+                pin10.setText("");
+                pin11.setChecked(false);
+                pin11.setText("");
+                pin12.setChecked(false);
+                pin12.setText("");
+                pin13.setChecked(false);
+                pin13.setText("");
+                pin14.setChecked(false);
+                pin14.setText("");
+                pin15.setChecked(false);
+                pin15.setText("");
+                pin16.setChecked(false);
+                pin16.setText("");
+                pin17.setChecked(false);
+                pin17.setText("");
+                pin18.setChecked(false);
+                pin18.setText("");
+                pin19.setChecked(false);
+                pin19.setText("");
+                pin20.setChecked(false);
+                pin20.setText("");
+                pin21.setChecked(false);
+                pin21.setText("");
+                pin22.setChecked(false);
+                pin22.setText("");
+                pin23.setChecked(false);
+                pin23.setText("");
+                pin24.setChecked(false);
+                pin24.setText("");
+                pin25.setChecked(false);
+                pin25.setText("");
+                pin26.setChecked(false);
+                pin26.setText("");
+                pin27.setChecked(false);
+                pin27.setText("");
+                pin28.setChecked(false);
+                pin28.setText("");
+                pin29.setChecked(false);
+                pin29.setText("");
+                pin30.setChecked(false);
+                pin30.setText("");
+                pin31.setChecked(false);
+                pin31.setText("");
+                pin32.setChecked(false);
+                pin32.setText("");
+                pin33.setChecked(false);
+                pin33.setText("");
+                pin34.setChecked(false);
+                pin34.setText("");
+                pin35.setChecked(false);
+                pin35.setText("");
+                pin36.setChecked(false);
+                pin36.setText("");
+                pin37.setChecked(false);
+                pin37.setText("");
+                pin38.setChecked(false);
+                pin38.setText("");
+                pin39.setChecked(false);
+                pin39.setText("");
+                pin40.setChecked(false);
+                pin40.setText("");
+                pin41.setChecked(false);
+                pin41.setText("");
+                pin42.setChecked(false);
+                pin42.setText("");
+                pin43.setChecked(false);
+                pin43.setText("");
+                pin44.setChecked(false);
+                pin44.setText("");
+                pin45.setChecked(false);
+                pin45.setText("");
+                pin46.setChecked(false);
+                pin46.setText("");
+                pin47.setChecked(false);
+                pin47.setText("");
+                pin48.setChecked(false);
+                pin48.setText("");
+                pin49.setChecked(false);
+                pin49.setText("");
+                pin50.setChecked(false);
+                pin50.setText("");
+                pin51.setChecked(false);
+                pin51.setText("");
+                pin52.setChecked(false);
+                pin52.setText("");
+                pin53.setChecked(false);
+                pin53.setText("");
+                pin54.setChecked(false);
+                pin54.setText("");
+                pin55.setChecked(false);
+                pin55.setText("");
+                pin56.setChecked(false);
+                pin56.setText("");
+                pin57.setChecked(false);
+                pin57.setText("");
+                pin58.setChecked(false);
+                pin58.setText("");
+                pin59.setChecked(false);
+                pin59.setText("");
+                pin60.setChecked(false);
+                pin60.setText("");
+                pin61.setChecked(false);
+                pin61.setText("");
+                pin62.setChecked(false);
+                pin62.setText("");
+                pin63.setChecked(false);
+                pin63.setText("");
+
+                String frame1;
+                String frame2;
+                String frame3;
+                String frame4;
+                String frame5;
+                String frame6;
+
+                if (!frameNameF1.isEmpty()) {
+                    frame1 = frameFinished1.toString();
+                    if (frame1.contains("$Y000")) {
+                        pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y001")) {
+                        pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y002")) {
+                        pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y003")) {
+                        pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y004")) {
+                        pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y005")) {
+                        pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y006")) {
+                        pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y007")) {
+                        pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y008")) {
+                        pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y009")) {
+                        pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y010")) {
+                        pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y011")) {
+                        pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y012")) {
+                        pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y013")) {
+                        pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y014")) {
+                        pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y015")) {
+                        pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y016")) {
+                        pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y017")) {
+                        pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y018")) {
+                        pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y019")) {
+                        pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y020")) {
+                        pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y021")) {
+                        pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y022")) {
+                        pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y023")) {
+                        pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y024")) {
+                        pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y025")) {
+                        pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y026")) {
+                        pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y027")) {
+                        pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y028")) {
+                        pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y029")) {
+                        pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y030")) {
+                        pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y031")) {
+                        pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y032")) {
+                        pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y033")) {
+                        pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y034")) {
+                        pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y035")) {
+                        pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y036")) {
+                        pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y037")) {
+                        pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y038")) {
+                        pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y039")) {
+                        pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y040")) {
+                        pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y041")) {
+                        pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y042")) {
+                        pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y043")) {
+                        pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y044")) {
+                        pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y045")) {
+                        pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y046")) {
+                        pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y047")) {
+                        pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y048")) {
+                        pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y049")) {
+                        pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y050")) {
+                        pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y051")) {
+                        pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y052")) {
+                        pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y053")) {
+                        pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y054")) {
+                        pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y055")) {
+                        pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y056")) {
+                        pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y057")) {
+                        pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y058")) {
+                        pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y059")) {
+                        pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y060")) {
+                        pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y061")) {
+                        pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y062")) {
+                        pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame1.contains("$Y063")) {
+                        pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                }
+                if (!frameNameF2.isEmpty()) {
+                    frame2 = frameFinished2.toString();
+                    if (frame2.contains("$Y000")) {
+                        pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y001")) {
+                        pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y002")) {
+                        pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y003")) {
+                        pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y004")) {
+                        pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y005")) {
+                        pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y006")) {
+                        pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y007")) {
+                        pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y008")) {
+                        pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y009")) {
+                        pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y010")) {
+                        pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y011")) {
+                        pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y012")) {
+                        pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y013")) {
+                        pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y014")) {
+                        pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y015")) {
+                        pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y016")) {
+                        pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y017")) {
+                        pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y018")) {
+                        pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y019")) {
+                        pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y020")) {
+                        pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y021")) {
+                        pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y022")) {
+                        pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y023")) {
+                        pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y024")) {
+                        pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y025")) {
+                        pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y026")) {
+                        pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y027")) {
+                        pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y028")) {
+                        pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y029")) {
+                        pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y030")) {
+                        pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y031")) {
+                        pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y032")) {
+                        pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y033")) {
+                        pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y034")) {
+                        pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y035")) {
+                        pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y036")) {
+                        pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y037")) {
+                        pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y038")) {
+                        pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y039")) {
+                        pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y040")) {
+                        pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y041")) {
+                        pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y042")) {
+                        pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y043")) {
+                        pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y044")) {
+                        pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y045")) {
+                        pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y046")) {
+                        pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y047")) {
+                        pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y048")) {
+                        pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y049")) {
+                        pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y050")) {
+                        pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y051")) {
+                        pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y052")) {
+                        pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y053")) {
+                        pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y054")) {
+                        pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y055")) {
+                        pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y056")) {
+                        pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y057")) {
+                        pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y058")) {
+                        pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y059")) {
+                        pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y060")) {
+                        pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y061")) {
+                        pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y062")) {
+                        pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame2.contains("$Y063")) {
+                        pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                }
+                if (!frameNameF3.isEmpty()) {
+                    frame3 = frameFinished3.toString();
+                    if (frame3.contains("$Y000")) {
+                        pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y001")) {
+                        pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y002")) {
+                        pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y003")) {
+                        pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y004")) {
+                        pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y005")) {
+                        pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y006")) {
+                        pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y007")) {
+                        pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y008")) {
+                        pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y009")) {
+                        pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y010")) {
+                        pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y011")) {
+                        pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y012")) {
+                        pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y013")) {
+                        pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y014")) {
+                        pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y015")) {
+                        pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y016")) {
+                        pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y017")) {
+                        pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y018")) {
+                        pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y019")) {
+                        pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y020")) {
+                        pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y021")) {
+                        pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y022")) {
+                        pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y023")) {
+                        pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y024")) {
+                        pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y025")) {
+                        pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y026")) {
+                        pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y027")) {
+                        pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y028")) {
+                        pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y029")) {
+                        pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y030")) {
+                        pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y031")) {
+                        pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y032")) {
+                        pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y033")) {
+                        pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y034")) {
+                        pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y035")) {
+                        pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y036")) {
+                        pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y037")) {
+                        pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y038")) {
+                        pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y039")) {
+                        pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y040")) {
+                        pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y041")) {
+                        pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y042")) {
+                        pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y043")) {
+                        pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y044")) {
+                        pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y045")) {
+                        pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y046")) {
+                        pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y047")) {
+                        pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y048")) {
+                        pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y049")) {
+                        pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y050")) {
+                        pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y051")) {
+                        pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y052")) {
+                        pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y053")) {
+                        pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y054")) {
+                        pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y055")) {
+                        pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y056")) {
+                        pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y057")) {
+                        pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y058")) {
+                        pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y059")) {
+                        pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y060")) {
+                        pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y061")) {
+                        pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y062")) {
+                        pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame3.contains("$Y063")) {
+                        pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                }
+                if (!frameNameF4.isEmpty()) {
+                    frame4 = frameFinished4.toString();
+                    if (frame4.contains("$Y000")) {
+                        pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y001")) {
+                        pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y002")) {
+                        pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y003")) {
+                        pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y004")) {
+                        pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y005")) {
+                        pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y006")) {
+                        pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y007")) {
+                        pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y008")) {
+                        pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y009")) {
+                        pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y010")) {
+                        pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y011")) {
+                        pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y012")) {
+                        pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y013")) {
+                        pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y014")) {
+                        pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y015")) {
+                        pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y016")) {
+                        pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y017")) {
+                        pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y018")) {
+                        pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y019")) {
+                        pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y020")) {
+                        pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y021")) {
+                        pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y022")) {
+                        pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y023")) {
+                        pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y024")) {
+                        pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y025")) {
+                        pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y026")) {
+                        pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y027")) {
+                        pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y028")) {
+                        pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y029")) {
+                        pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y030")) {
+                        pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y031")) {
+                        pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y032")) {
+                        pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y033")) {
+                        pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y034")) {
+                        pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y035")) {
+                        pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y036")) {
+                        pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y037")) {
+                        pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y038")) {
+                        pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y039")) {
+                        pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y040")) {
+                        pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y041")) {
+                        pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y042")) {
+                        pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y043")) {
+                        pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y044")) {
+                        pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y045")) {
+                        pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y046")) {
+                        pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y047")) {
+                        pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y048")) {
+                        pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y049")) {
+                        pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y050")) {
+                        pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y051")) {
+                        pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y052")) {
+                        pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y053")) {
+                        pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y054")) {
+                        pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y055")) {
+                        pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y056")) {
+                        pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y057")) {
+                        pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y058")) {
+                        pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y059")) {
+                        pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y060")) {
+                        pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y061")) {
+                        pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y062")) {
+                        pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame4.contains("$Y063")) {
+                        pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                }
+                if (!frameNameF5.isEmpty()) {
+                    frame5 = frameFinished5.toString();
+                    if (frame5.contains("$Y000")) {
+                        pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y001")) {
+                        pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y002")) {
+                        pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y003")) {
+                        pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y004")) {
+                        pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y005")) {
+                        pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y006")) {
+                        pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y007")) {
+                        pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y008")) {
+                        pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y009")) {
+                        pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y010")) {
+                        pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y011")) {
+                        pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y012")) {
+                        pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y013")) {
+                        pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y014")) {
+                        pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y015")) {
+                        pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y016")) {
+                        pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y017")) {
+                        pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y018")) {
+                        pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y019")) {
+                        pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y020")) {
+                        pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y021")) {
+                        pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y022")) {
+                        pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y023")) {
+                        pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y024")) {
+                        pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y025")) {
+                        pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y026")) {
+                        pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y027")) {
+                        pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y028")) {
+                        pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y029")) {
+                        pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y030")) {
+                        pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y031")) {
+                        pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y032")) {
+                        pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y033")) {
+                        pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y034")) {
+                        pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y035")) {
+                        pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y036")) {
+                        pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y037")) {
+                        pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y038")) {
+                        pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y039")) {
+                        pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y040")) {
+                        pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y041")) {
+                        pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y042")) {
+                        pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y043")) {
+                        pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y044")) {
+                        pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y045")) {
+                        pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y046")) {
+                        pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y047")) {
+                        pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y048")) {
+                        pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y049")) {
+                        pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y050")) {
+                        pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y051")) {
+                        pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y052")) {
+                        pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y053")) {
+                        pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y054")) {
+                        pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y055")) {
+                        pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y056")) {
+                        pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y057")) {
+                        pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y058")) {
+                        pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y059")) {
+                        pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y060")) {
+                        pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y061")) {
+                        pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y062")) {
+                        pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame5.contains("$Y063")) {
+                        pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                }
+                if (!frameNameF6.isEmpty()) {
+                    frame6 = frameFinished6.toString();
+                    if (frame6.contains("$Y000")) {
+                        pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y001")) {
+                        pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y002")) {
+                        pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y003")) {
+                        pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y004")) {
+                        pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y005")) {
+                        pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y006")) {
+                        pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y007")) {
+                        pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y008")) {
+                        pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y009")) {
+                        pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y010")) {
+                        pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y011")) {
+                        pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y012")) {
+                        pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y013")) {
+                        pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y014")) {
+                        pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y015")) {
+                        pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y016")) {
+                        pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y017")) {
+                        pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y018")) {
+                        pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y019")) {
+                        pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y020")) {
+                        pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y021")) {
+                        pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y022")) {
+                        pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y023")) {
+                        pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y024")) {
+                        pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y025")) {
+                        pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y026")) {
+                        pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y027")) {
+                        pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y028")) {
+                        pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y029")) {
+                        pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y030")) {
+                        pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y031")) {
+                        pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y032")) {
+                        pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y033")) {
+                        pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y034")) {
+                        pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y035")) {
+                        pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y036")) {
+                        pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y037")) {
+                        pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y038")) {
+                        pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y039")) {
+                        pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y040")) {
+                        pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y041")) {
+                        pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y042")) {
+                        pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y043")) {
+                        pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y044")) {
+                        pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y045")) {
+                        pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y046")) {
+                        pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y047")) {
+                        pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y048")) {
+                        pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y049")) {
+                        pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y050")) {
+                        pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y051")) {
+                        pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y052")) {
+                        pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y053")) {
+                        pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y054")) {
+                        pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y055")) {
+                        pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y056")) {
+                        pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y057")) {
+                        pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y058")) {
+                        pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y059")) {
+                        pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y060")) {
+                        pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y061")) {
+                        pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y062")) {
+                        pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                    if (frame6.contains("$Y063")) {
+                        pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                    }
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "Please add or remove coils to make your selection of " + coilLimit, Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(getApplicationContext(), "Please add or remove coils to make your selection of " + coilLimit, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Please select a name, coil amount, delay and activation time", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -6762,11 +5627,7 @@ public class MainActivity extends AppCompatActivity {
                 frameSequenceLists.add(sequenceName4.toString().replaceAll("(^\\[|\\])", ""));
             }
             frameSequenceList.setAdapter(adapter);
-        } else {
-            ArrayAdapter blankSpinner = new ArrayAdapter(this, android.R.layout.simple_spinner_item, blank);
-            blankSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            blank.add(" ");
-            frameSequenceList.setAdapter(blankSpinner);
+            findViewById(R.id.exportSelectedSequenceOrFrame).setEnabled(true);
         }
     }
 
@@ -6852,6 +5713,200 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void viewTheSelectedFrame(View view) {
+        pin0 = findViewById(R.id.pin0);
+        pin1 = findViewById(R.id.pin1);
+        pin2 = findViewById(R.id.pin2);
+        pin3 = findViewById(R.id.pin3);
+        pin4 = findViewById(R.id.pin4);
+        pin5 = findViewById(R.id.pin5);
+        pin6 = findViewById(R.id.pin6);
+        pin7 = findViewById(R.id.pin7);
+        pin8 = findViewById(R.id.pin8);
+        pin9 = findViewById(R.id.pin9);
+        pin10 = findViewById(R.id.pin10);
+        pin11 = findViewById(R.id.pin11);
+        pin12 = findViewById(R.id.pin12);
+        pin13 = findViewById(R.id.pin13);
+        pin14 = findViewById(R.id.pin14);
+        pin15 = findViewById(R.id.pin15);
+        pin16 = findViewById(R.id.pin16);
+        pin17 = findViewById(R.id.pin17);
+        pin18 = findViewById(R.id.pin18);
+        pin19 = findViewById(R.id.pin19);
+        pin20 = findViewById(R.id.pin20);
+        pin21 = findViewById(R.id.pin21);
+        pin22 = findViewById(R.id.pin22);
+        pin23 = findViewById(R.id.pin23);
+        pin24 = findViewById(R.id.pin24);
+        pin25 = findViewById(R.id.pin25);
+        pin26 = findViewById(R.id.pin26);
+        pin27 = findViewById(R.id.pin27);
+        pin28 = findViewById(R.id.pin28);
+        pin29 = findViewById(R.id.pin29);
+        pin30 = findViewById(R.id.pin30);
+        pin31 = findViewById(R.id.pin31);
+        pin32 = findViewById(R.id.pin32);
+        pin33 = findViewById(R.id.pin33);
+        pin34 = findViewById(R.id.pin34);
+        pin35 = findViewById(R.id.pin35);
+        pin36 = findViewById(R.id.pin36);
+        pin37 = findViewById(R.id.pin37);
+        pin38 = findViewById(R.id.pin38);
+        pin39 = findViewById(R.id.pin39);
+        pin40 = findViewById(R.id.pin40);
+        pin41 = findViewById(R.id.pin41);
+        pin42 = findViewById(R.id.pin42);
+        pin43 = findViewById(R.id.pin43);
+        pin44 = findViewById(R.id.pin44);
+        pin45 = findViewById(R.id.pin45);
+        pin46 = findViewById(R.id.pin46);
+        pin47 = findViewById(R.id.pin47);
+        pin48 = findViewById(R.id.pin48);
+        pin49 = findViewById(R.id.pin49);
+        pin50 = findViewById(R.id.pin50);
+        pin51 = findViewById(R.id.pin51);
+        pin52 = findViewById(R.id.pin52);
+        pin53 = findViewById(R.id.pin53);
+        pin54 = findViewById(R.id.pin54);
+        pin55 = findViewById(R.id.pin55);
+        pin56 = findViewById(R.id.pin56);
+        pin57 = findViewById(R.id.pin57);
+        pin58 = findViewById(R.id.pin58);
+        pin59 = findViewById(R.id.pin59);
+        pin60 = findViewById(R.id.pin60);
+        pin61 = findViewById(R.id.pin61);
+        pin62 = findViewById(R.id.pin62);
+        pin63 = findViewById(R.id.pin63);
+
+        pin0.setChecked(false);
+        pin0.setBackgroundColor(Color.TRANSPARENT);
+        pin1.setChecked(false);
+        pin1.setBackgroundColor(Color.TRANSPARENT);
+        pin2.setChecked(false);
+        pin2.setBackgroundColor(Color.TRANSPARENT);
+        pin3.setChecked(false);
+        pin3.setBackgroundColor(Color.TRANSPARENT);
+        pin4.setChecked(false);
+        pin4.setBackgroundColor(Color.TRANSPARENT);
+        pin5.setChecked(false);
+        pin5.setBackgroundColor(Color.TRANSPARENT);
+        pin6.setChecked(false);
+        pin6.setBackgroundColor(Color.TRANSPARENT);
+        pin7.setChecked(false);
+        pin7.setBackgroundColor(Color.TRANSPARENT);
+        pin8.setChecked(false);
+        pin8.setBackgroundColor(Color.TRANSPARENT);
+        pin9.setChecked(false);
+        pin9.setBackgroundColor(Color.TRANSPARENT);
+        pin10.setChecked(false);
+        pin10.setBackgroundColor(Color.TRANSPARENT);
+        pin11.setChecked(false);
+        pin11.setBackgroundColor(Color.TRANSPARENT);
+        pin12.setChecked(false);
+        pin12.setBackgroundColor(Color.TRANSPARENT);
+        pin13.setChecked(false);
+        pin13.setBackgroundColor(Color.TRANSPARENT);
+        pin14.setChecked(false);
+        pin14.setBackgroundColor(Color.TRANSPARENT);
+        pin15.setChecked(false);
+        pin15.setBackgroundColor(Color.TRANSPARENT);
+        pin16.setChecked(false);
+        pin16.setBackgroundColor(Color.TRANSPARENT);
+        pin17.setChecked(false);
+        pin17.setBackgroundColor(Color.TRANSPARENT);
+        pin18.setChecked(false);
+        pin18.setBackgroundColor(Color.TRANSPARENT);
+        pin19.setChecked(false);
+        pin19.setBackgroundColor(Color.TRANSPARENT);
+        pin20.setChecked(false);
+        pin20.setBackgroundColor(Color.TRANSPARENT);
+        pin21.setChecked(false);
+        pin21.setBackgroundColor(Color.TRANSPARENT);
+        pin22.setChecked(false);
+        pin22.setBackgroundColor(Color.TRANSPARENT);
+        pin23.setChecked(false);
+        pin23.setBackgroundColor(Color.TRANSPARENT);
+        pin24.setChecked(false);
+        pin24.setBackgroundColor(Color.TRANSPARENT);
+        pin25.setChecked(false);
+        pin25.setBackgroundColor(Color.TRANSPARENT);
+        pin26.setChecked(false);
+        pin26.setBackgroundColor(Color.TRANSPARENT);
+        pin27.setChecked(false);
+        pin27.setBackgroundColor(Color.TRANSPARENT);
+        pin28.setChecked(false);
+        pin28.setBackgroundColor(Color.TRANSPARENT);
+        pin29.setChecked(false);
+        pin29.setBackgroundColor(Color.TRANSPARENT);
+        pin30.setChecked(false);
+        pin30.setBackgroundColor(Color.TRANSPARENT);
+        pin31.setChecked(false);
+        pin31.setBackgroundColor(Color.TRANSPARENT);
+        pin32.setChecked(false);
+        pin32.setBackgroundColor(Color.TRANSPARENT);
+        pin33.setChecked(false);
+        pin33.setBackgroundColor(Color.TRANSPARENT);
+        pin34.setChecked(false);
+        pin34.setBackgroundColor(Color.TRANSPARENT);
+        pin35.setChecked(false);
+        pin35.setBackgroundColor(Color.TRANSPARENT);
+        pin36.setChecked(false);
+        pin36.setBackgroundColor(Color.TRANSPARENT);
+        pin37.setChecked(false);
+        pin37.setBackgroundColor(Color.TRANSPARENT);
+        pin38.setChecked(false);
+        pin38.setBackgroundColor(Color.TRANSPARENT);
+        pin39.setChecked(false);
+        pin39.setBackgroundColor(Color.TRANSPARENT);
+        pin40.setChecked(false);
+        pin40.setBackgroundColor(Color.TRANSPARENT);
+        pin41.setChecked(false);
+        pin41.setBackgroundColor(Color.TRANSPARENT);
+        pin42.setChecked(false);
+        pin42.setBackgroundColor(Color.TRANSPARENT);
+        pin43.setChecked(false);
+        pin43.setBackgroundColor(Color.TRANSPARENT);
+        pin44.setChecked(false);
+        pin44.setBackgroundColor(Color.TRANSPARENT);
+        pin45.setChecked(false);
+        pin45.setBackgroundColor(Color.TRANSPARENT);
+        pin46.setChecked(false);
+        pin46.setBackgroundColor(Color.TRANSPARENT);
+        pin47.setChecked(false);
+        pin47.setBackgroundColor(Color.TRANSPARENT);
+        pin48.setChecked(false);
+        pin48.setBackgroundColor(Color.TRANSPARENT);
+        pin49.setChecked(false);
+        pin49.setBackgroundColor(Color.TRANSPARENT);
+        pin50.setChecked(false);
+        pin50.setBackgroundColor(Color.TRANSPARENT);
+        pin51.setChecked(false);
+        pin51.setBackgroundColor(Color.TRANSPARENT);
+        pin52.setChecked(false);
+        pin52.setBackgroundColor(Color.TRANSPARENT);
+        pin53.setChecked(false);
+        pin53.setBackgroundColor(Color.TRANSPARENT);
+        pin54.setChecked(false);
+        pin54.setBackgroundColor(Color.TRANSPARENT);
+        pin55.setChecked(false);
+        pin55.setBackgroundColor(Color.TRANSPARENT);
+        pin56.setChecked(false);
+        pin56.setBackgroundColor(Color.TRANSPARENT);
+        pin57.setChecked(false);
+        pin57.setBackgroundColor(Color.TRANSPARENT);
+        pin58.setChecked(false);
+        pin58.setBackgroundColor(Color.TRANSPARENT);
+        pin59.setChecked(false);
+        pin59.setBackgroundColor(Color.TRANSPARENT);
+        pin60.setChecked(false);
+        pin60.setBackgroundColor(Color.TRANSPARENT);
+        pin61.setChecked(false);
+        pin61.setBackgroundColor(Color.TRANSPARENT);
+        pin62.setChecked(false);
+        pin62.setBackgroundColor(Color.TRANSPARENT);
+        pin63.setChecked(false);
+        pin63.setBackgroundColor(Color.TRANSPARENT);
+
         Spinner frameLists = findViewById(R.id.frameList);
         TextView t = findViewById(R.id.savedFrameView);
 
@@ -6902,6 +5957,1184 @@ public class MainActivity extends AppCompatActivity {
                 finialReplace = frameReplace2.replace(" ", "\n");
                 t.setText(finialReplace);
             }
+
+            String frame1;
+            String frame2;
+            String frame3;
+            String frame4;
+            String frame5;
+            String frame6;
+
+            if (content.equals(frameName1.toString().replaceAll("(^\\[|\\])", ""))) {
+                frame1 = frameFinished1.toString();
+                if (frame1.contains("$Y000")) {
+                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y001")) {
+                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y002")) {
+                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y003")) {
+                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y004")) {
+                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y005")) {
+                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y006")) {
+                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y007")) {
+                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y008")) {
+                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y009")) {
+                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y010")) {
+                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y011")) {
+                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y012")) {
+                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y013")) {
+                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y014")) {
+                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y015")) {
+                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y016")) {
+                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y017")) {
+                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y018")) {
+                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y019")) {
+                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y020")) {
+                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y021")) {
+                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y022")) {
+                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y023")) {
+                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y024")) {
+                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y025")) {
+                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y026")) {
+                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y027")) {
+                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y028")) {
+                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y029")) {
+                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y030")) {
+                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y031")) {
+                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y032")) {
+                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y033")) {
+                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y034")) {
+                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y035")) {
+                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y036")) {
+                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y037")) {
+                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y038")) {
+                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y039")) {
+                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y040")) {
+                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y041")) {
+                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y042")) {
+                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y043")) {
+                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y044")) {
+                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y045")) {
+                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y046")) {
+                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y047")) {
+                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y048")) {
+                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y049")) {
+                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y050")) {
+                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y051")) {
+                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y052")) {
+                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y053")) {
+                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y054")) {
+                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y055")) {
+                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y056")) {
+                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y057")) {
+                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y058")) {
+                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y059")) {
+                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y060")) {
+                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y061")) {
+                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y062")) {
+                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame1.contains("$Y063")) {
+                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+            }
+            if (content.equals(frameName2.toString().replaceAll("(^\\[|\\])", ""))) {
+                frame2 = frameFinished2.toString();
+                if (frame2.contains("$Y000")) {
+                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y001")) {
+                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y002")) {
+                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y003")) {
+                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y004")) {
+                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y005")) {
+                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y006")) {
+                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y007")) {
+                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y008")) {
+                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y009")) {
+                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y010")) {
+                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y011")) {
+                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y012")) {
+                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y013")) {
+                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y014")) {
+                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y015")) {
+                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y016")) {
+                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y017")) {
+                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y018")) {
+                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y019")) {
+                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y020")) {
+                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y021")) {
+                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y022")) {
+                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y023")) {
+                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y024")) {
+                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y025")) {
+                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y026")) {
+                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y027")) {
+                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y028")) {
+                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y029")) {
+                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y030")) {
+                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y031")) {
+                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y032")) {
+                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y033")) {
+                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y034")) {
+                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y035")) {
+                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y036")) {
+                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y037")) {
+                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y038")) {
+                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y039")) {
+                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y040")) {
+                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y041")) {
+                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y042")) {
+                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y043")) {
+                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y044")) {
+                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y045")) {
+                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y046")) {
+                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y047")) {
+                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y048")) {
+                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y049")) {
+                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y050")) {
+                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y051")) {
+                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y052")) {
+                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y053")) {
+                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y054")) {
+                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y055")) {
+                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y056")) {
+                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y057")) {
+                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y058")) {
+                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y059")) {
+                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y060")) {
+                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y061")) {
+                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y062")) {
+                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame2.contains("$Y063")) {
+                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+            }
+            if (content.equals(frameName3.toString().replaceAll("(^\\[|\\])", ""))) {
+                frame3 = frameFinished3.toString();
+                if (frame3.contains("$Y000")) {
+                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y001")) {
+                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y002")) {
+                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y003")) {
+                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y004")) {
+                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y005")) {
+                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y006")) {
+                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y007")) {
+                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y008")) {
+                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y009")) {
+                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y010")) {
+                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y011")) {
+                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y012")) {
+                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y013")) {
+                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y014")) {
+                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y015")) {
+                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y016")) {
+                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y017")) {
+                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y018")) {
+                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y019")) {
+                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y020")) {
+                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y021")) {
+                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y022")) {
+                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y023")) {
+                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y024")) {
+                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y025")) {
+                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y026")) {
+                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y027")) {
+                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y028")) {
+                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y029")) {
+                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y030")) {
+                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y031")) {
+                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y032")) {
+                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y033")) {
+                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y034")) {
+                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y035")) {
+                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y036")) {
+                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y037")) {
+                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y038")) {
+                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y039")) {
+                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y040")) {
+                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y041")) {
+                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y042")) {
+                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y043")) {
+                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y044")) {
+                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y045")) {
+                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y046")) {
+                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y047")) {
+                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y048")) {
+                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y049")) {
+                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y050")) {
+                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y051")) {
+                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y052")) {
+                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y053")) {
+                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y054")) {
+                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y055")) {
+                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y056")) {
+                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y057")) {
+                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y058")) {
+                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y059")) {
+                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y060")) {
+                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y061")) {
+                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y062")) {
+                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame3.contains("$Y063")) {
+                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+            }
+            if (content.equals(frameName4.toString().replaceAll("(^\\[|\\])", ""))) {
+                frame4 = frameFinished4.toString();
+                if (frame4.contains("$Y000")) {
+                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y001")) {
+                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y002")) {
+                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y003")) {
+                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y004")) {
+                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y005")) {
+                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y006")) {
+                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y007")) {
+                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y008")) {
+                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y009")) {
+                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y010")) {
+                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y011")) {
+                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y012")) {
+                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y013")) {
+                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y014")) {
+                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y015")) {
+                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y016")) {
+                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y017")) {
+                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y018")) {
+                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y019")) {
+                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y020")) {
+                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y021")) {
+                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y022")) {
+                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y023")) {
+                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y024")) {
+                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y025")) {
+                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y026")) {
+                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y027")) {
+                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y028")) {
+                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y029")) {
+                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y030")) {
+                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y031")) {
+                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y032")) {
+                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y033")) {
+                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y034")) {
+                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y035")) {
+                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y036")) {
+                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y037")) {
+                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y038")) {
+                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y039")) {
+                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y040")) {
+                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y041")) {
+                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y042")) {
+                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y043")) {
+                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y044")) {
+                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y045")) {
+                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y046")) {
+                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y047")) {
+                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y048")) {
+                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y049")) {
+                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y050")) {
+                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y051")) {
+                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y052")) {
+                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y053")) {
+                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y054")) {
+                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y055")) {
+                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y056")) {
+                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y057")) {
+                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y058")) {
+                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y059")) {
+                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y060")) {
+                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y061")) {
+                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y062")) {
+                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame4.contains("$Y063")) {
+                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+            }
+            if (content.equals(frameName5.toString().replaceAll("(^\\[|\\])", ""))) {
+                frame5 = frameFinished5.toString();
+                if (frame5.contains("$Y000")) {
+                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y001")) {
+                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y002")) {
+                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y003")) {
+                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y004")) {
+                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y005")) {
+                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y006")) {
+                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y007")) {
+                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y008")) {
+                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y009")) {
+                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y010")) {
+                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y011")) {
+                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y012")) {
+                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y013")) {
+                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y014")) {
+                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y015")) {
+                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y016")) {
+                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y017")) {
+                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y018")) {
+                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y019")) {
+                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y020")) {
+                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y021")) {
+                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y022")) {
+                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y023")) {
+                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y024")) {
+                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y025")) {
+                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y026")) {
+                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y027")) {
+                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y028")) {
+                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y029")) {
+                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y030")) {
+                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y031")) {
+                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y032")) {
+                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y033")) {
+                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y034")) {
+                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y035")) {
+                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y036")) {
+                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y037")) {
+                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y038")) {
+                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y039")) {
+                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y040")) {
+                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y041")) {
+                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y042")) {
+                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y043")) {
+                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y044")) {
+                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y045")) {
+                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y046")) {
+                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y047")) {
+                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y048")) {
+                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y049")) {
+                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y050")) {
+                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y051")) {
+                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y052")) {
+                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y053")) {
+                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y054")) {
+                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y055")) {
+                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y056")) {
+                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y057")) {
+                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y058")) {
+                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y059")) {
+                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y060")) {
+                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y061")) {
+                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y062")) {
+                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame5.contains("$Y063")) {
+                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+            }
+            if (content.equals(frameName6.toString().replaceAll("(^\\[|\\])", ""))) {
+                frame6 = frameFinished6.toString();
+                if (frame6.contains("$Y000")) {
+                    pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y001")) {
+                    pin1.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y002")) {
+                    pin2.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y003")) {
+                    pin3.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y004")) {
+                    pin4.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y005")) {
+                    pin5.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y006")) {
+                    pin6.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y007")) {
+                    pin7.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y008")) {
+                    pin8.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y009")) {
+                    pin9.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y010")) {
+                    pin10.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y011")) {
+                    pin11.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y012")) {
+                    pin12.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y013")) {
+                    pin13.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y014")) {
+                    pin14.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y015")) {
+                    pin15.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y016")) {
+                    pin16.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y017")) {
+                    pin17.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y018")) {
+                    pin18.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y019")) {
+                    pin19.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y020")) {
+                    pin20.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y021")) {
+                    pin21.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y022")) {
+                    pin22.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y023")) {
+                    pin23.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y024")) {
+                    pin24.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y025")) {
+                    pin25.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y026")) {
+                    pin26.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y027")) {
+                    pin27.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y028")) {
+                    pin28.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y029")) {
+                    pin29.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y030")) {
+                    pin30.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y031")) {
+                    pin31.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y032")) {
+                    pin32.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y033")) {
+                    pin33.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y034")) {
+                    pin34.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y035")) {
+                    pin35.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y036")) {
+                    pin36.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y037")) {
+                    pin37.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y038")) {
+                    pin38.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y039")) {
+                    pin39.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y040")) {
+                    pin40.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y041")) {
+                    pin41.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y042")) {
+                    pin42.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y043")) {
+                    pin43.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y044")) {
+                    pin44.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y045")) {
+                    pin45.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y046")) {
+                    pin46.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y047")) {
+                    pin47.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y048")) {
+                    pin48.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y049")) {
+                    pin49.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y050")) {
+                    pin50.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y051")) {
+                    pin51.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y052")) {
+                    pin52.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y053")) {
+                    pin53.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y054")) {
+                    pin54.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y055")) {
+                    pin55.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y056")) {
+                    pin56.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y057")) {
+                    pin57.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y058")) {
+                    pin58.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y059")) {
+                    pin59.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y060")) {
+                    pin60.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y061")) {
+                    pin61.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y062")) {
+                    pin62.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+                if (frame6.contains("$Y063")) {
+                    pin63.setBackgroundColor(Color.parseColor("#E6F4F5"));
+                }
+            }
         }
     }
 
@@ -6911,6 +7144,71 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void viewTheSelectedSequence(View view) {
+        pin0 = findViewById(R.id.pin0);
+        pin1 = findViewById(R.id.pin1);
+        pin2 = findViewById(R.id.pin2);
+        pin3 = findViewById(R.id.pin3);
+        pin4 = findViewById(R.id.pin4);
+        pin5 = findViewById(R.id.pin5);
+        pin6 = findViewById(R.id.pin6);
+        pin7 = findViewById(R.id.pin7);
+        pin8 = findViewById(R.id.pin8);
+        pin9 = findViewById(R.id.pin9);
+        pin10 = findViewById(R.id.pin10);
+        pin11 = findViewById(R.id.pin11);
+        pin12 = findViewById(R.id.pin12);
+        pin13 = findViewById(R.id.pin13);
+        pin14 = findViewById(R.id.pin14);
+        pin15 = findViewById(R.id.pin15);
+        pin16 = findViewById(R.id.pin16);
+        pin17 = findViewById(R.id.pin17);
+        pin18 = findViewById(R.id.pin18);
+        pin19 = findViewById(R.id.pin19);
+        pin20 = findViewById(R.id.pin20);
+        pin21 = findViewById(R.id.pin21);
+        pin22 = findViewById(R.id.pin22);
+        pin23 = findViewById(R.id.pin23);
+        pin24 = findViewById(R.id.pin24);
+        pin25 = findViewById(R.id.pin25);
+        pin26 = findViewById(R.id.pin26);
+        pin27 = findViewById(R.id.pin27);
+        pin28 = findViewById(R.id.pin28);
+        pin29 = findViewById(R.id.pin29);
+        pin30 = findViewById(R.id.pin30);
+        pin31 = findViewById(R.id.pin31);
+        pin32 = findViewById(R.id.pin32);
+        pin33 = findViewById(R.id.pin33);
+        pin34 = findViewById(R.id.pin34);
+        pin35 = findViewById(R.id.pin35);
+        pin36 = findViewById(R.id.pin36);
+        pin37 = findViewById(R.id.pin37);
+        pin38 = findViewById(R.id.pin38);
+        pin39 = findViewById(R.id.pin39);
+        pin40 = findViewById(R.id.pin40);
+        pin41 = findViewById(R.id.pin41);
+        pin42 = findViewById(R.id.pin42);
+        pin43 = findViewById(R.id.pin43);
+        pin44 = findViewById(R.id.pin44);
+        pin45 = findViewById(R.id.pin45);
+        pin46 = findViewById(R.id.pin46);
+        pin47 = findViewById(R.id.pin47);
+        pin48 = findViewById(R.id.pin48);
+        pin49 = findViewById(R.id.pin49);
+        pin50 = findViewById(R.id.pin50);
+        pin51 = findViewById(R.id.pin51);
+        pin52 = findViewById(R.id.pin52);
+        pin53 = findViewById(R.id.pin53);
+        pin54 = findViewById(R.id.pin54);
+        pin55 = findViewById(R.id.pin55);
+        pin56 = findViewById(R.id.pin56);
+        pin57 = findViewById(R.id.pin57);
+        pin58 = findViewById(R.id.pin58);
+        pin59 = findViewById(R.id.pin59);
+        pin60 = findViewById(R.id.pin60);
+        pin61 = findViewById(R.id.pin61);
+        pin62 = findViewById(R.id.pin62);
+        pin63 = findViewById(R.id.pin63);
+
         Spinner sequenceLists = findViewById(R.id.sequenceList);
         TextView t = findViewById(R.id.savedSequenceView);
 
@@ -6924,6 +7222,135 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "No sequences have been made yet", Toast.LENGTH_SHORT).show();
             }
         }
+
+        pin0.setChecked(false);
+        pin0.setBackgroundColor(Color.TRANSPARENT);
+        pin1.setChecked(false);
+        pin1.setBackgroundColor(Color.TRANSPARENT);
+        pin2.setChecked(false);
+        pin2.setBackgroundColor(Color.TRANSPARENT);
+        pin3.setChecked(false);
+        pin3.setBackgroundColor(Color.TRANSPARENT);
+        pin4.setChecked(false);
+        pin4.setBackgroundColor(Color.TRANSPARENT);
+        pin5.setChecked(false);
+        pin5.setBackgroundColor(Color.TRANSPARENT);
+        pin6.setChecked(false);
+        pin6.setBackgroundColor(Color.TRANSPARENT);
+        pin7.setChecked(false);
+        pin7.setBackgroundColor(Color.TRANSPARENT);
+        pin8.setChecked(false);
+        pin8.setBackgroundColor(Color.TRANSPARENT);
+        pin9.setChecked(false);
+        pin9.setBackgroundColor(Color.TRANSPARENT);
+        pin10.setChecked(false);
+        pin10.setBackgroundColor(Color.TRANSPARENT);
+        pin11.setChecked(false);
+        pin11.setBackgroundColor(Color.TRANSPARENT);
+        pin12.setChecked(false);
+        pin12.setBackgroundColor(Color.TRANSPARENT);
+        pin13.setChecked(false);
+        pin13.setBackgroundColor(Color.TRANSPARENT);
+        pin14.setChecked(false);
+        pin14.setBackgroundColor(Color.TRANSPARENT);
+        pin15.setChecked(false);
+        pin15.setBackgroundColor(Color.TRANSPARENT);
+        pin16.setChecked(false);
+        pin16.setBackgroundColor(Color.TRANSPARENT);
+        pin17.setChecked(false);
+        pin17.setBackgroundColor(Color.TRANSPARENT);
+        pin18.setChecked(false);
+        pin18.setBackgroundColor(Color.TRANSPARENT);
+        pin19.setChecked(false);
+        pin19.setBackgroundColor(Color.TRANSPARENT);
+        pin20.setChecked(false);
+        pin20.setBackgroundColor(Color.TRANSPARENT);
+        pin21.setChecked(false);
+        pin21.setBackgroundColor(Color.TRANSPARENT);
+        pin22.setChecked(false);
+        pin22.setBackgroundColor(Color.TRANSPARENT);
+        pin23.setChecked(false);
+        pin23.setBackgroundColor(Color.TRANSPARENT);
+        pin24.setChecked(false);
+        pin24.setBackgroundColor(Color.TRANSPARENT);
+        pin25.setChecked(false);
+        pin25.setBackgroundColor(Color.TRANSPARENT);
+        pin26.setChecked(false);
+        pin26.setBackgroundColor(Color.TRANSPARENT);
+        pin27.setChecked(false);
+        pin27.setBackgroundColor(Color.TRANSPARENT);
+        pin28.setChecked(false);
+        pin28.setBackgroundColor(Color.TRANSPARENT);
+        pin29.setChecked(false);
+        pin29.setBackgroundColor(Color.TRANSPARENT);
+        pin30.setChecked(false);
+        pin30.setBackgroundColor(Color.TRANSPARENT);
+        pin31.setChecked(false);
+        pin31.setBackgroundColor(Color.TRANSPARENT);
+        pin32.setChecked(false);
+        pin32.setBackgroundColor(Color.TRANSPARENT);
+        pin33.setChecked(false);
+        pin33.setBackgroundColor(Color.TRANSPARENT);
+        pin34.setChecked(false);
+        pin34.setBackgroundColor(Color.TRANSPARENT);
+        pin35.setChecked(false);
+        pin35.setBackgroundColor(Color.TRANSPARENT);
+        pin36.setChecked(false);
+        pin36.setBackgroundColor(Color.TRANSPARENT);
+        pin37.setChecked(false);
+        pin37.setBackgroundColor(Color.TRANSPARENT);
+        pin38.setChecked(false);
+        pin38.setBackgroundColor(Color.TRANSPARENT);
+        pin39.setChecked(false);
+        pin39.setBackgroundColor(Color.TRANSPARENT);
+        pin40.setChecked(false);
+        pin40.setBackgroundColor(Color.TRANSPARENT);
+        pin41.setChecked(false);
+        pin41.setBackgroundColor(Color.TRANSPARENT);
+        pin42.setChecked(false);
+        pin42.setBackgroundColor(Color.TRANSPARENT);
+        pin43.setChecked(false);
+        pin43.setBackgroundColor(Color.TRANSPARENT);
+        pin44.setChecked(false);
+        pin44.setBackgroundColor(Color.TRANSPARENT);
+        pin45.setChecked(false);
+        pin45.setBackgroundColor(Color.TRANSPARENT);
+        pin46.setChecked(false);
+        pin46.setBackgroundColor(Color.TRANSPARENT);
+        pin47.setChecked(false);
+        pin47.setBackgroundColor(Color.TRANSPARENT);
+        pin48.setChecked(false);
+        pin48.setBackgroundColor(Color.TRANSPARENT);
+        pin49.setChecked(false);
+        pin49.setBackgroundColor(Color.TRANSPARENT);
+        pin50.setChecked(false);
+        pin50.setBackgroundColor(Color.TRANSPARENT);
+        pin51.setChecked(false);
+        pin51.setBackgroundColor(Color.TRANSPARENT);
+        pin52.setChecked(false);
+        pin52.setBackgroundColor(Color.TRANSPARENT);
+        pin53.setChecked(false);
+        pin53.setBackgroundColor(Color.TRANSPARENT);
+        pin54.setChecked(false);
+        pin54.setBackgroundColor(Color.TRANSPARENT);
+        pin55.setChecked(false);
+        pin55.setBackgroundColor(Color.TRANSPARENT);
+        pin56.setChecked(false);
+        pin56.setBackgroundColor(Color.TRANSPARENT);
+        pin57.setChecked(false);
+        pin57.setBackgroundColor(Color.TRANSPARENT);
+        pin58.setChecked(false);
+        pin58.setBackgroundColor(Color.TRANSPARENT);
+        pin59.setChecked(false);
+        pin59.setBackgroundColor(Color.TRANSPARENT);
+        pin60.setChecked(false);
+        pin60.setBackgroundColor(Color.TRANSPARENT);
+        pin61.setChecked(false);
+        pin61.setBackgroundColor(Color.TRANSPARENT);
+        pin62.setChecked(false);
+        pin62.setBackgroundColor(Color.TRANSPARENT);
+        pin63.setChecked(false);
+        pin63.setBackgroundColor(Color.TRANSPARENT);
 
         String sequenceReplace1;
         String sequenceReplace2;
@@ -6950,6 +7377,1568 @@ public class MainActivity extends AppCompatActivity {
                 sequenceReplace2 = sequenceReplace1.replaceAll("(^\\[|\\])", "");
                 sequenceReplace3 = sequenceReplace2.replaceAll(" ", "\n");
                 t.setText(sequenceReplace3);
+            }
+
+            String frame1;
+            String frame2;
+            String frame3;
+            String frame4;
+            String frame5;
+            String frame6;
+
+            if (t.getText().toString().contains(frameNameF1.toString().replaceAll("(^\\[|\\])", ""))) {
+                frame1 = frameFinished1.toString();
+                if (frame1.contains("$Y000")) {
+                    pin0.setChecked(true);
+                    pin0.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y001")) {
+                    pin1.setChecked(true);
+                    pin1.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y002")) {
+                    pin2.setChecked(true);
+                    pin2.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y003")) {
+                    pin3.setChecked(true);
+                    pin3.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y004")) {
+                    pin4.setChecked(true);
+                    pin4.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y005")) {
+                    pin5.setChecked(true);
+                    pin5.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y006")) {
+                    pin6.setChecked(true);
+                    pin6.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y007")) {
+                    pin7.setChecked(true);
+                    pin7.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y008")) {
+                    pin8.setChecked(true);
+                    pin8.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y009")) {
+                    pin9.setChecked(true);
+                    pin9.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y010")) {
+                    pin10.setChecked(true);
+                    pin10.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y011")) {
+                    pin11.setChecked(true);
+                    pin11.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y012")) {
+                    pin12.setChecked(true);
+                    pin12.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y013")) {
+                    pin13.setChecked(true);
+                    pin13.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y014")) {
+                    pin14.setChecked(true);
+                    pin14.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y015")) {
+                    pin15.setChecked(true);
+                    pin15.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y016")) {
+                    pin16.setChecked(true);
+                    pin16.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y017")) {
+                    pin17.setChecked(true);
+                    pin17.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y018")) {
+                    pin18.setChecked(true);
+                    pin18.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y019")) {
+                    pin19.setChecked(true);
+                    pin19.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y020")) {
+                    pin20.setChecked(true);
+                    pin20.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y021")) {
+                    pin21.setChecked(true);
+                    pin21.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y022")) {
+                    pin22.setChecked(true);
+                    pin22.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y023")) {
+                    pin23.setChecked(true);
+                    pin23.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y024")) {
+                    pin24.setChecked(true);
+                    pin24.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y025")) {
+                    pin25.setChecked(true);
+                    pin25.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y026")) {
+                    pin26.setChecked(true);
+                    pin26.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y027")) {
+                    pin27.setChecked(true);
+                    pin27.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y028")) {
+                    pin28.setChecked(true);
+                    pin28.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y029")) {
+                    pin29.setChecked(true);
+                    pin29.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y030")) {
+                    pin30.setChecked(true);
+                    pin30.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y031")) {
+                    pin31.setChecked(true);
+                    pin31.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y032")) {
+                    pin32.setChecked(true);
+                    pin32.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y033")) {
+                    pin33.setChecked(true);
+                    pin33.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y034")) {
+                    pin34.setChecked(true);
+                    pin34.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y035")) {
+                    pin35.setChecked(true);
+                    pin35.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y036")) {
+                    pin36.setChecked(true);
+                    pin36.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y037")) {
+                    pin37.setChecked(true);
+                    pin37.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y038")) {
+                    pin38.setChecked(true);
+                    pin38.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y039")) {
+                    pin39.setChecked(true);
+                    pin39.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y040")) {
+                    pin40.setChecked(true);
+                    pin40.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y041")) {
+                    pin41.setChecked(true);
+                    pin41.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y042")) {
+                    pin42.setChecked(true);
+                    pin42.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y043")) {
+                    pin43.setChecked(true);
+                    pin43.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y044")) {
+                    pin44.setChecked(true);
+                    pin44.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y045")) {
+                    pin45.setChecked(true);
+                    pin45.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y046")) {
+                    pin46.setChecked(true);
+                    pin46.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y047")) {
+                    pin47.setChecked(true);
+                    pin47.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y048")) {
+                    pin48.setChecked(true);
+                    pin48.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y049")) {
+                    pin49.setChecked(true);
+                    pin49.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y050")) {
+                    pin50.setChecked(true);
+                    pin50.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y051")) {
+                    pin51.setChecked(true);
+                    pin51.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y052")) {
+                    pin52.setChecked(true);
+                    pin52.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y053")) {
+                    pin53.setChecked(true);
+                    pin53.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y054")) {
+                    pin54.setChecked(true);
+                    pin54.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y055")) {
+                    pin55.setChecked(true);
+                    pin55.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y056")) {
+                    pin56.setChecked(true);
+                    pin56.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y057")) {
+                    pin57.setChecked(true);
+                    pin57.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y058")) {
+                    pin58.setChecked(true);
+                    pin58.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y059")) {
+                    pin59.setChecked(true);
+                    pin59.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y060")) {
+                    pin60.setChecked(true);
+                    pin60.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y061")) {
+                    pin61.setChecked(true);
+                    pin61.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y062")) {
+                    pin62.setChecked(true);
+                    pin62.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+                if (frame1.contains("$Y063")) {
+                    pin63.setChecked(true);
+                    pin63.setBackgroundColor(Color.parseColor("#80ff00"));
+                }
+            }
+            if (t.getText().toString().contains(frameNameF2.toString().replaceAll("(^\\[|\\])", ""))) {
+                frame2 = frameFinished2.toString();
+                if (frame2.contains("$Y000")) {
+                    pin0.setChecked(true);
+                    pin0.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y001")) {
+                    pin1.setChecked(true);
+                    pin1.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y002")) {
+                    pin2.setChecked(true);
+                    pin2.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y003")) {
+                    pin3.setChecked(true);
+                    pin3.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y004")) {
+                    pin4.setChecked(true);
+                    pin4.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y005")) {
+                    pin5.setChecked(true);
+                    pin5.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y006")) {
+                    pin6.setChecked(true);
+                    pin6.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y007")) {
+                    pin7.setChecked(true);
+                    pin7.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y008")) {
+                    pin8.setChecked(true);
+                    pin8.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y009")) {
+                    pin9.setChecked(true);
+                    pin9.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y010")) {
+                    pin10.setChecked(true);
+                    pin10.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y011")) {
+                    pin11.setChecked(true);
+                    pin11.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y012")) {
+                    pin12.setChecked(true);
+                    pin12.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y013")) {
+                    pin13.setChecked(true);
+                    pin13.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y014")) {
+                    pin14.setChecked(true);
+                    pin14.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y015")) {
+                    pin15.setChecked(true);
+                    pin15.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y016")) {
+                    pin16.setChecked(true);
+                    pin16.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y017")) {
+                    pin17.setChecked(true);
+                    pin17.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y018")) {
+                    pin18.setChecked(true);
+                    pin18.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y019")) {
+                    pin19.setChecked(true);
+                    pin19.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y020")) {
+                    pin20.setChecked(true);
+                    pin20.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y021")) {
+                    pin21.setChecked(true);
+                    pin21.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y022")) {
+                    pin22.setChecked(true);
+                    pin22.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y023")) {
+                    pin23.setChecked(true);
+                    pin23.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y024")) {
+                    pin24.setChecked(true);
+                    pin24.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y025")) {
+                    pin25.setChecked(true);
+                    pin25.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y026")) {
+                    pin26.setChecked(true);
+                    pin26.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y027")) {
+                    pin27.setChecked(true);
+                    pin27.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y028")) {
+                    pin28.setChecked(true);
+                    pin28.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y029")) {
+                    pin29.setChecked(true);
+                    pin29.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y030")) {
+                    pin30.setChecked(true);
+                    pin30.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y031")) {
+                    pin31.setChecked(true);
+                    pin31.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y032")) {
+                    pin32.setChecked(true);
+                    pin32.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y033")) {
+                    pin33.setChecked(true);
+                    pin33.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y034")) {
+                    pin34.setChecked(true);
+                    pin34.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y035")) {
+                    pin35.setChecked(true);
+                    pin35.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y036")) {
+                    pin36.setChecked(true);
+                    pin36.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y037")) {
+                    pin37.setChecked(true);
+                    pin37.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y038")) {
+                    pin38.setChecked(true);
+                    pin38.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y039")) {
+                    pin39.setChecked(true);
+                    pin39.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y040")) {
+                    pin40.setChecked(true);
+                    pin40.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y041")) {
+                    pin41.setChecked(true);
+                    pin41.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y042")) {
+                    pin42.setChecked(true);
+                    pin42.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y043")) {
+                    pin43.setChecked(true);
+                    pin43.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y044")) {
+                    pin44.setChecked(true);
+                    pin44.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y045")) {
+                    pin45.setChecked(true);
+                    pin45.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y046")) {
+                    pin46.setChecked(true);
+                    pin46.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y047")) {
+                    pin47.setChecked(true);
+                    pin47.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y048")) {
+                    pin48.setChecked(true);
+                    pin48.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y049")) {
+                    pin49.setChecked(true);
+                    pin49.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y050")) {
+                    pin50.setChecked(true);
+                    pin50.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y051")) {
+                    pin51.setChecked(true);
+                    pin51.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y052")) {
+                    pin52.setChecked(true);
+                    pin52.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y053")) {
+                    pin53.setChecked(true);
+                    pin53.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y054")) {
+                    pin54.setChecked(true);
+                    pin54.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y055")) {
+                    pin55.setChecked(true);
+                    pin55.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y056")) {
+                    pin56.setChecked(true);
+                    pin56.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y057")) {
+                    pin57.setChecked(true);
+                    pin57.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y058")) {
+                    pin58.setChecked(true);
+                    pin58.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y059")) {
+                    pin59.setChecked(true);
+                    pin59.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y060")) {
+                    pin60.setChecked(true);
+                    pin60.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y061")) {
+                    pin61.setChecked(true);
+                    pin61.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y062")) {
+                    pin62.setChecked(true);
+                    pin62.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+                if (frame2.contains("$Y063")) {
+                    pin63.setChecked(true);
+                    pin63.setBackgroundColor(Color.parseColor("#d000ff"));
+                }
+            }
+            if (t.getText().toString().contains(frameNameF3.toString().replaceAll("(^\\[|\\])", ""))) {
+                frame3 = frameFinished3.toString();
+                if (frame3.contains("$Y000")) {
+                    pin0.setChecked(true);
+                    pin0.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y001")) {
+                    pin1.setChecked(true);
+                    pin1.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y002")) {
+                    pin2.setChecked(true);
+                    pin2.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y003")) {
+                    pin3.setChecked(true);
+                    pin3.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y004")) {
+                    pin4.setChecked(true);
+                    pin4.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y005")) {
+                    pin5.setChecked(true);
+                    pin5.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y006")) {
+                    pin6.setChecked(true);
+                    pin6.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y007")) {
+                    pin7.setChecked(true);
+                    pin7.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y008")) {
+                    pin8.setChecked(true);
+                    pin8.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y009")) {
+                    pin9.setChecked(true);
+                    pin9.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y010")) {
+                    pin10.setChecked(true);
+                    pin10.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y011")) {
+                    pin11.setChecked(true);
+                    pin11.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y012")) {
+                    pin12.setChecked(true);
+                    pin12.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y013")) {
+                    pin13.setChecked(true);
+                    pin13.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y014")) {
+                    pin14.setChecked(true);
+                    pin14.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y015")) {
+                    pin15.setChecked(true);
+                    pin15.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y016")) {
+                    pin16.setChecked(true);
+                    pin16.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y017")) {
+                    pin17.setChecked(true);
+                    pin17.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y018")) {
+                    pin18.setChecked(true);
+                    pin18.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y019")) {
+                    pin19.setChecked(true);
+                    pin19.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y020")) {
+                    pin20.setChecked(true);
+                    pin20.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y021")) {
+                    pin21.setChecked(true);
+                    pin21.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y022")) {
+                    pin22.setChecked(true);
+                    pin22.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y023")) {
+                    pin23.setChecked(true);
+                    pin23.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y024")) {
+                    pin24.setChecked(true);
+                    pin24.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y025")) {
+                    pin25.setChecked(true);
+                    pin25.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y026")) {
+                    pin26.setChecked(true);
+                    pin26.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y027")) {
+                    pin27.setChecked(true);
+                    pin27.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y028")) {
+                    pin28.setChecked(true);
+                    pin28.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y029")) {
+                    pin29.setChecked(true);
+                    pin29.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y030")) {
+                    pin30.setChecked(true);
+                    pin30.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y031")) {
+                    pin31.setChecked(true);
+                    pin31.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y032")) {
+                    pin32.setChecked(true);
+                    pin32.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y033")) {
+                    pin33.setChecked(true);
+                    pin33.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y034")) {
+                    pin34.setChecked(true);
+                    pin34.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y035")) {
+                    pin35.setChecked(true);
+                    pin35.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y036")) {
+                    pin36.setChecked(true);
+                    pin36.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y037")) {
+                    pin37.setChecked(true);
+                    pin37.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y038")) {
+                    pin38.setChecked(true);
+                    pin38.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y039")) {
+                    pin39.setChecked(true);
+                    pin39.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y040")) {
+                    pin40.setChecked(true);
+                    pin40.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y041")) {
+                    pin41.setChecked(true);
+                    pin41.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y042")) {
+                    pin42.setChecked(true);
+                    pin42.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y043")) {
+                    pin43.setChecked(true);
+                    pin43.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y044")) {
+                    pin44.setChecked(true);
+                    pin44.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y045")) {
+                    pin45.setChecked(true);
+                    pin45.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y046")) {
+                    pin46.setChecked(true);
+                    pin46.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y047")) {
+                    pin47.setChecked(true);
+                    pin47.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y048")) {
+                    pin48.setChecked(true);
+                    pin48.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y049")) {
+                    pin49.setChecked(true);
+                    pin49.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y050")) {
+                    pin50.setChecked(true);
+                    pin50.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y051")) {
+                    pin51.setChecked(true);
+                    pin51.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y052")) {
+                    pin52.setChecked(true);
+                    pin52.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y053")) {
+                    pin53.setChecked(true);
+                    pin53.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y054")) {
+                    pin54.setChecked(true);
+                    pin54.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y055")) {
+                    pin55.setChecked(true);
+                    pin55.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y056")) {
+                    pin56.setChecked(true);
+                    pin56.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y057")) {
+                    pin57.setChecked(true);
+                    pin57.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y058")) {
+                    pin58.setChecked(true);
+                    pin58.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y059")) {
+                    pin59.setChecked(true);
+                    pin59.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y060")) {
+                    pin60.setChecked(true);
+                    pin60.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y061")) {
+                    pin61.setChecked(true);
+                    pin61.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y062")) {
+                    pin62.setChecked(true);
+                    pin62.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+                if (frame3.contains("$Y063")) {
+                    pin63.setChecked(true);
+                    pin63.setBackgroundColor(Color.parseColor("#a200ff"));
+                }
+            }
+            if (t.getText().toString().contains(frameNameF4.toString().replaceAll("(^\\[|\\])", ""))) {
+                frame4 = frameFinished4.toString();
+                if (frame4.contains("$Y000")) {
+                    pin0.setChecked(true);
+                    pin0.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y001")) {
+                    pin1.setChecked(true);
+                    pin1.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y002")) {
+                    pin2.setChecked(true);
+                    pin2.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y003")) {
+                    pin3.setChecked(true);
+                    pin3.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y004")) {
+                    pin4.setChecked(true);
+                    pin4.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y005")) {
+                    pin5.setChecked(true);
+                    pin5.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y006")) {
+                    pin6.setChecked(true);
+                    pin6.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y007")) {
+                    pin7.setChecked(true);
+                    pin7.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y008")) {
+                    pin8.setChecked(true);
+                    pin8.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y009")) {
+                    pin9.setChecked(true);
+                    pin9.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y010")) {
+                    pin10.setChecked(true);
+                    pin10.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y011")) {
+                    pin11.setChecked(true);
+                    pin11.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y012")) {
+                    pin12.setChecked(true);
+                    pin12.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y013")) {
+                    pin13.setChecked(true);
+                    pin13.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y014")) {
+                    pin14.setChecked(true);
+                    pin14.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y015")) {
+                    pin15.setChecked(true);
+                    pin15.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y016")) {
+                    pin16.setChecked(true);
+                    pin16.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y017")) {
+                    pin17.setChecked(true);
+                    pin17.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y018")) {
+                    pin18.setChecked(true);
+                    pin18.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y019")) {
+                    pin19.setChecked(true);
+                    pin19.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y020")) {
+                    pin20.setChecked(true);
+                    pin20.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y021")) {
+                    pin21.setChecked(true);
+                    pin21.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y022")) {
+                    pin22.setChecked(true);
+                    pin22.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y023")) {
+                    pin23.setChecked(true);
+                    pin23.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y024")) {
+                    pin24.setChecked(true);
+                    pin24.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y025")) {
+                    pin25.setChecked(true);
+                    pin25.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y026")) {
+                    pin26.setChecked(true);
+                    pin26.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y027")) {
+                    pin27.setChecked(true);
+                    pin27.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y028")) {
+                    pin28.setChecked(true);
+                    pin28.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y029")) {
+                    pin29.setChecked(true);
+                    pin29.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y030")) {
+                    pin30.setChecked(true);
+                    pin30.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y031")) {
+                    pin31.setChecked(true);
+                    pin31.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y032")) {
+                    pin32.setChecked(true);
+                    pin32.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y033")) {
+                    pin33.setChecked(true);
+                    pin33.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y034")) {
+                    pin34.setChecked(true);
+                    pin34.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y035")) {
+                    pin35.setChecked(true);
+                    pin35.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y036")) {
+                    pin36.setChecked(true);
+                    pin36.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y037")) {
+                    pin37.setChecked(true);
+                    pin37.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y038")) {
+                    pin38.setChecked(true);
+                    pin38.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y039")) {
+                    pin39.setChecked(true);
+                    pin39.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y040")) {
+                    pin40.setChecked(true);
+                    pin40.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y041")) {
+                    pin41.setChecked(true);
+                    pin41.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y042")) {
+                    pin42.setChecked(true);
+                    pin42.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y043")) {
+                    pin43.setChecked(true);
+                    pin43.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y044")) {
+                    pin44.setChecked(true);
+                    pin44.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y045")) {
+                    pin45.setChecked(true);
+                    pin45.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y046")) {
+                    pin46.setChecked(true);
+                    pin46.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y047")) {
+                    pin47.setChecked(true);
+                    pin47.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y048")) {
+                    pin48.setChecked(true);
+                    pin48.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y049")) {
+                    pin49.setChecked(true);
+                    pin49.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y050")) {
+                    pin50.setChecked(true);
+                    pin50.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y051")) {
+                    pin51.setChecked(true);
+                    pin51.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y052")) {
+                    pin52.setChecked(true);
+                    pin52.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y053")) {
+                    pin53.setChecked(true);
+                    pin53.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y054")) {
+                    pin54.setChecked(true);
+                    pin54.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y055")) {
+                    pin55.setChecked(true);
+                    pin55.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y056")) {
+                    pin56.setChecked(true);
+                    pin56.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y057")) {
+                    pin57.setChecked(true);
+                    pin57.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y058")) {
+                    pin58.setChecked(true);
+                    pin58.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y059")) {
+                    pin59.setChecked(true);
+                    pin59.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y060")) {
+                    pin60.setChecked(true);
+                    pin60.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y061")) {
+                    pin61.setChecked(true);
+                    pin61.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y062")) {
+                    pin62.setChecked(true);
+                    pin62.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+                if (frame4.contains("$Y063")) {
+                    pin63.setChecked(true);
+                    pin63.setBackgroundColor(Color.parseColor("#6600ff"));
+                }
+            }
+            if (t.getText().toString().contains(frameNameF5.toString().replaceAll("(^\\[|\\])", ""))) {
+                frame5 = frameFinished5.toString();
+                if (frame5.contains("$Y000")) {
+                    pin0.setChecked(true);
+                    pin0.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y001")) {
+                    pin1.setChecked(true);
+                    pin1.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y002")) {
+                    pin2.setChecked(true);
+                    pin2.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y003")) {
+                    pin3.setChecked(true);
+                    pin3.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y004")) {
+                    pin4.setChecked(true);
+                    pin4.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y005")) {
+                    pin5.setChecked(true);
+                    pin5.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y006")) {
+                    pin6.setChecked(true);
+                    pin6.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y007")) {
+                    pin7.setChecked(true);
+                    pin7.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y008")) {
+                    pin8.setChecked(true);
+                    pin8.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y009")) {
+                    pin9.setChecked(true);
+                    pin9.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y010")) {
+                    pin10.setChecked(true);
+                    pin10.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y011")) {
+                    pin11.setChecked(true);
+                    pin11.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y012")) {
+                    pin12.setChecked(true);
+                    pin12.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y013")) {
+                    pin13.setChecked(true);
+                    pin13.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y014")) {
+                    pin14.setChecked(true);
+                    pin14.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y015")) {
+                    pin15.setChecked(true);
+                    pin15.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y016")) {
+                    pin16.setChecked(true);
+                    pin16.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y017")) {
+                    pin17.setChecked(true);
+                    pin17.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y018")) {
+                    pin18.setChecked(true);
+                    pin18.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y019")) {
+                    pin19.setChecked(true);
+                    pin19.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y020")) {
+                    pin20.setChecked(true);
+                    pin20.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y021")) {
+                    pin21.setChecked(true);
+                    pin21.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y022")) {
+                    pin22.setChecked(true);
+                    pin22.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y023")) {
+                    pin23.setChecked(true);
+                    pin23.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y024")) {
+                    pin24.setChecked(true);
+                    pin24.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y025")) {
+                    pin25.setChecked(true);
+                    pin25.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y026")) {
+                    pin26.setChecked(true);
+                    pin26.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y027")) {
+                    pin27.setChecked(true);
+                    pin27.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y028")) {
+                    pin28.setChecked(true);
+                    pin28.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y029")) {
+                    pin29.setChecked(true);
+                    pin29.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y030")) {
+                    pin30.setChecked(true);
+                    pin30.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y031")) {
+                    pin31.setChecked(true);
+                    pin31.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y032")) {
+                    pin32.setChecked(true);
+                    pin32.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y033")) {
+                    pin33.setChecked(true);
+                    pin33.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y034")) {
+                    pin34.setChecked(true);
+                    pin34.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y035")) {
+                    pin35.setChecked(true);
+                    pin35.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y036")) {
+                    pin36.setChecked(true);
+                    pin36.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y037")) {
+                    pin37.setChecked(true);
+                    pin37.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y038")) {
+                    pin38.setChecked(true);
+                    pin38.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y039")) {
+                    pin39.setChecked(true);
+                    pin39.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y040")) {
+                    pin40.setChecked(true);
+                    pin40.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y041")) {
+                    pin41.setChecked(true);
+                    pin41.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y042")) {
+                    pin42.setChecked(true);
+                    pin42.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y043")) {
+                    pin43.setChecked(true);
+                    pin43.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y044")) {
+                    pin44.setChecked(true);
+                    pin44.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y045")) {
+                    pin45.setChecked(true);
+                    pin45.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y046")) {
+                    pin46.setChecked(true);
+                    pin46.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y047")) {
+                    pin47.setChecked(true);
+                    pin47.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y048")) {
+                    pin48.setChecked(true);
+                    pin48.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y049")) {
+                    pin49.setChecked(true);
+                    pin49.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y050")) {
+                    pin50.setChecked(true);
+                    pin50.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y051")) {
+                    pin51.setChecked(true);
+                    pin51.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y052")) {
+                    pin52.setChecked(true);
+                    pin52.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y053")) {
+                    pin53.setChecked(true);
+                    pin53.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y054")) {
+                    pin54.setChecked(true);
+                    pin54.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y055")) {
+                    pin55.setChecked(true);
+                    pin55.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y056")) {
+                    pin56.setChecked(true);
+                    pin56.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y057")) {
+                    pin57.setChecked(true);
+                    pin57.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y058")) {
+                    pin58.setChecked(true);
+                    pin58.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y059")) {
+                    pin59.setChecked(true);
+                    pin59.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y060")) {
+                    pin60.setChecked(true);
+                    pin60.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y061")) {
+                    pin61.setChecked(true);
+                    pin61.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y062")) {
+                    pin62.setChecked(true);
+                    pin62.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+                if (frame5.contains("$Y063")) {
+                    pin63.setChecked(true);
+                    pin63.setBackgroundColor(Color.parseColor("#00b3ff"));
+                }
+            }
+            if (t.getText().toString().contains(frameNameF6.toString().replaceAll("(^\\[|\\])", ""))) {
+                frame6 = frameFinished6.toString();
+                if (frame6.contains("$Y000")) {
+                    pin0.setChecked(true);
+                    pin0.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y001")) {
+                    pin1.setChecked(true);
+                    pin1.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y002")) {
+                    pin2.setChecked(true);
+                    pin2.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y003")) {
+                    pin3.setChecked(true);
+                    pin3.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y004")) {
+                    pin4.setChecked(true);
+                    pin4.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y005")) {
+                    pin5.setChecked(true);
+                    pin5.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y006")) {
+                    pin6.setChecked(true);
+                    pin6.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y007")) {
+                    pin7.setChecked(true);
+                    pin7.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y008")) {
+                    pin8.setChecked(true);
+                    pin8.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y009")) {
+                    pin9.setChecked(true);
+                    pin9.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y010")) {
+                    pin10.setChecked(true);
+                    pin10.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y011")) {
+                    pin11.setChecked(true);
+                    pin11.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y012")) {
+                    pin12.setChecked(true);
+                    pin12.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y013")) {
+                    pin13.setChecked(true);
+                    pin13.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y014")) {
+                    pin14.setChecked(true);
+                    pin14.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y015")) {
+                    pin15.setChecked(true);
+                    pin15.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y016")) {
+                    pin16.setChecked(true);
+                    pin16.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y017")) {
+                    pin17.setChecked(true);
+                    pin17.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y018")) {
+                    pin18.setChecked(true);
+                    pin18.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y019")) {
+                    pin19.setChecked(true);
+                    pin19.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y020")) {
+                    pin20.setChecked(true);
+                    pin20.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y021")) {
+                    pin21.setChecked(true);
+                    pin21.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y022")) {
+                    pin22.setChecked(true);
+                    pin22.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y023")) {
+                    pin23.setChecked(true);
+                    pin23.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y024")) {
+                    pin24.setChecked(true);
+                    pin24.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y025")) {
+                    pin25.setChecked(true);
+                    pin25.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y026")) {
+                    pin26.setChecked(true);
+                    pin26.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y027")) {
+                    pin27.setChecked(true);
+                    pin27.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y028")) {
+                    pin28.setChecked(true);
+                    pin28.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y029")) {
+                    pin29.setChecked(true);
+                    pin29.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y030")) {
+                    pin30.setChecked(true);
+                    pin30.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y031")) {
+                    pin31.setChecked(true);
+                    pin31.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y032")) {
+                    pin32.setChecked(true);
+                    pin32.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y033")) {
+                    pin33.setChecked(true);
+                    pin33.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y034")) {
+                    pin34.setChecked(true);
+                    pin34.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y035")) {
+                    pin35.setChecked(true);
+                    pin35.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y036")) {
+                    pin36.setChecked(true);
+                    pin36.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y037")) {
+                    pin37.setChecked(true);
+                    pin37.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y038")) {
+                    pin38.setChecked(true);
+                    pin38.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y039")) {
+                    pin39.setChecked(true);
+                    pin39.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y040")) {
+                    pin40.setChecked(true);
+                    pin40.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y041")) {
+                    pin41.setChecked(true);
+                    pin41.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y042")) {
+                    pin42.setChecked(true);
+                    pin42.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y043")) {
+                    pin43.setChecked(true);
+                    pin43.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y044")) {
+                    pin44.setChecked(true);
+                    pin44.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y045")) {
+                    pin45.setChecked(true);
+                    pin45.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y046")) {
+                    pin46.setChecked(true);
+                    pin46.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y047")) {
+                    pin47.setChecked(true);
+                    pin47.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y048")) {
+                    pin48.setChecked(true);
+                    pin48.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y049")) {
+                    pin49.setChecked(true);
+                    pin49.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y050")) {
+                    pin50.setChecked(true);
+                    pin50.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y051")) {
+                    pin51.setChecked(true);
+                    pin51.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y052")) {
+                    pin52.setChecked(true);
+                    pin52.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y053")) {
+                    pin53.setChecked(true);
+                    pin53.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y054")) {
+                    pin54.setChecked(true);
+                    pin54.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y055")) {
+                    pin55.setChecked(true);
+                    pin55.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y056")) {
+                    pin56.setChecked(true);
+                    pin56.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y057")) {
+                    pin57.setChecked(true);
+                    pin57.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y058")) {
+                    pin58.setChecked(true);
+                    pin58.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y059")) {
+                    pin59.setChecked(true);
+                    pin59.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y060")) {
+                    pin60.setChecked(true);
+                    pin60.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y061")) {
+                    pin61.setChecked(true);
+                    pin61.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y062")) {
+                    pin62.setChecked(true);
+                    pin62.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
+                if (frame6.contains("$Y063")) {
+                    pin63.setChecked(true);
+                    pin63.setBackgroundColor(Color.parseColor("#00fff2"));
+                }
             }
         }
     }
@@ -7023,16 +9012,50 @@ public class MainActivity extends AppCompatActivity {
         String sixthFrameReplace2;
         String sixthFrameReplace3 = "";
 
-        if (frameSequenceList.getSelectedItem().toString().contains(" ")) {
-            ArrayList<Object> blank = new ArrayList<>();
-            ArrayAdapter blankSpinner = new ArrayAdapter(this, android.R.layout.simple_spinner_item, blank);
-            blankSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            blank.add(" ");
-            frameSequenceList.setAdapter(blankSpinner);
-            if (text.equals(" ")) {
-                Toast.makeText(getApplicationContext(), "Nothing to export", Toast.LENGTH_SHORT).show();
-            }
-        } else {
+        String t1 = "";
+        String t2 = "";
+        String t3 = "";
+        String t4 = "";
+        String t5 = "";
+        String t6 = "";
+
+        String t7 = "";
+        String t8 = "";
+        String t9 = "";
+        String t10 = "";
+        String t11 = "";
+        String t12 = "";
+
+        String t13 = "";
+        String t14 = "";
+        String t15 = "";
+        String t16 = "";
+        String t17 = "";
+        String t18 = "";
+
+        String t19 = "";
+        String t20 = "";
+        String t21 = "";
+        String t22 = "";
+        String t23 = "";
+        String t24 = "";
+
+        String t25 = "";
+        String t26 = "";
+        String t27 = "";
+        String t28 = "";
+        String t29 = "";
+        String t30 = "";
+
+        String t31 = "";
+        String t32 = "";
+        String t33 = "";
+        String t34 = "";
+        String t35 = "";
+        String t36 = "";
+
+        String dumb = "";
+
             if (text.equals(frameName1.toString().replaceAll("(^\\[|\\])", ""))) {
                 if (!frameFinished1.isEmpty()) {
                     frameReplace1 = frameFinished1.toString().replace(",", "");
@@ -7199,9 +9222,96 @@ public class MainActivity extends AppCompatActivity {
                         sixthFrameReplace2 = sixthFrameReplace1.replaceAll("(^\\[|\\])", "");
                         sixthFrameReplace3 = sixthFrameReplace2.replace(" ", "\n");
                     }
-                    combined = sequenceReplace3 + newLine + firstFrameReplace3 + newLine + secondFrameReplace3
-                            + newLine + thirdFrameReplace3 + newLine + fourthFrameReplace3
-                            + newLine + fifthFrameReplace3 + newLine + sixthFrameReplace3;
+
+                    if (sequenceFinished1.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t1 = firstFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t2 = dumb + firstFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t3 = dumb + dumb + firstFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t4 = dumb + dumb + dumb + firstFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t5 = dumb + dumb + dumb + dumb + firstFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t6 = dumb + dumb + dumb + dumb + dumb + firstFrameReplace3 + newLine;
+                    }
+
+                    if (sequenceFinished1.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t7 = secondFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t8 = dumb + secondFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t9 = dumb + dumb + secondFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t10 = dumb + dumb + dumb + secondFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t11 = dumb + dumb + dumb + dumb + secondFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t12 = dumb + dumb + dumb + dumb + dumb + secondFrameReplace3 + newLine;
+                    }
+
+                    if (sequenceFinished1.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t13 = thirdFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t14 = dumb + thirdFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t15 = dumb + dumb + thirdFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t16 = dumb + dumb + dumb + thirdFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t17 = dumb + dumb + dumb + dumb + thirdFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t18 = dumb + dumb + dumb + dumb + dumb + thirdFrameReplace3 + newLine;
+                    }
+
+                    if (sequenceFinished1.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t19 = fourthFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t20 = dumb + fourthFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t21 = dumb + dumb + fourthFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t22 = dumb + dumb + dumb + fourthFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t23 = dumb + dumb + dumb + dumb + fourthFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t24 = dumb + dumb + dumb + dumb + dumb + fourthFrameReplace3 + newLine;
+                    }
+
+                    if (sequenceFinished1.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t25 = fifthFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t26 = dumb + fifthFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t27 = dumb + dumb + fifthFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t28 = dumb + dumb + dumb + fifthFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t29 = dumb + dumb + dumb + dumb + fifthFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t30 = dumb + dumb + dumb + dumb + dumb + fifthFrameReplace3 + newLine;
+                    }
+
+                    if (sequenceFinished1.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t31 = sixthFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t32 = dumb + sixthFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t33 = dumb + dumb + sixthFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t34 = dumb + dumb + dumb + sixthFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t35 = dumb + dumb + dumb + dumb + sixthFrameReplace3 + newLine;
+                    } else if (sequenceFinished1.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t36 = dumb + dumb + dumb + dumb + dumb + sixthFrameReplace3 + newLine;
+                    }
+
+                    combined = t1 + t7 + t13 + t19 + t25 + t31 + t2 + t8 + t14 + t20 + t26 + t32
+                            + t3 + t9 + t15 + t21 + t27 + t33 + t4 + t10 + t16 + t22 + t28 + t34
+                            + t5 + t11 + t17 + t23 + t29 + t35 + t6 + t12 + t18 + t24 + t30 + t36
+                            + sequenceReplace3;
+
                     File dir = new File(path, frameSequenceName);
                     try {
                         FileOutputStream fos = new FileOutputStream(dir);
@@ -7253,9 +9363,95 @@ public class MainActivity extends AppCompatActivity {
                         sixthFrameReplace2 = sixthFrameReplace1.replaceAll("(^\\[|\\])", "");
                         sixthFrameReplace3 = sixthFrameReplace2.replace(" ", "\n");
                     }
-                    combined = sequenceReplace3 + newLine + firstFrameReplace3 + newLine + secondFrameReplace3
-                            + newLine + thirdFrameReplace3 + newLine + fourthFrameReplace3
-                            + newLine + fifthFrameReplace3 + newLine + sixthFrameReplace3;
+                    if (sequenceFinished2.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t1 = firstFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t2 = dumb + firstFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t3 = dumb + dumb + firstFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t4 = dumb + dumb + dumb + firstFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t5 = dumb + dumb + dumb + dumb + firstFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t6 = dumb + dumb + dumb + dumb + dumb + firstFrameReplace3 + newLine;
+                    }
+
+                    if (sequenceFinished2.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t7 = secondFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t8 = dumb + secondFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t9 = dumb + dumb + secondFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t10 = dumb + dumb + dumb + secondFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t11 = dumb + dumb + dumb + dumb + secondFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t12 = dumb + dumb + dumb + dumb + dumb + secondFrameReplace3 + newLine;
+                    }
+
+                    if (sequenceFinished2.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t13 = thirdFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t14 = dumb + thirdFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t15 = dumb + dumb + thirdFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t16 = dumb + dumb + dumb + thirdFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t17 = dumb + dumb + dumb + dumb + thirdFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t18 = dumb + dumb + dumb + dumb + dumb + thirdFrameReplace3 + newLine;
+                    }
+
+                    if (sequenceFinished2.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t19 = fourthFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t20 = dumb + fourthFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t21 = dumb + dumb + fourthFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t22 = dumb + dumb + dumb + fourthFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t23 = dumb + dumb + dumb + dumb + fourthFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t24 = dumb + dumb + dumb + dumb + dumb + fourthFrameReplace3 + newLine;
+                    }
+
+                    if (sequenceFinished2.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t25 = fifthFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t26 = dumb + fifthFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t27 = dumb + dumb + fifthFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t28 = dumb + dumb + dumb + fifthFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t29 = dumb + dumb + dumb + dumb + fifthFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t30 = dumb + dumb + dumb + dumb + dumb + fifthFrameReplace3 + newLine;
+                    }
+
+                    if (sequenceFinished2.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t31 = sixthFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t32 = dumb + sixthFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t33 = dumb + dumb + sixthFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t34 = dumb + dumb + dumb + sixthFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t35 = dumb + dumb + dumb + dumb + sixthFrameReplace3 + newLine;
+                    } else if (sequenceFinished2.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t36 = dumb + dumb + dumb + dumb + dumb + sixthFrameReplace3 + newLine;
+                    }
+
+                    combined = t1 + t7 + t13 + t19 + t25 + t31 + t2 + t8 + t14 + t20 + t26 + t32
+                            + t3 + t9 + t15 + t21 + t27 + t33 + t4 + t10 + t16 + t22 + t28 + t34
+                            + t5 + t11 + t17 + t23 + t29 + t35 + t6 + t12 + t18 + t24 + t30 + t36
+                            + sequenceReplace3;
+
                     File dir = new File(path, frameSequenceName);
                     try {
                         FileOutputStream fos = new FileOutputStream(dir);
@@ -7307,9 +9503,95 @@ public class MainActivity extends AppCompatActivity {
                         sixthFrameReplace2 = sixthFrameReplace1.replaceAll("(^\\[|\\])", "");
                         sixthFrameReplace3 = sixthFrameReplace2.replace(" ", "\n");
                     }
-                    combined = sequenceReplace3 + newLine + firstFrameReplace3 + newLine + secondFrameReplace3
-                            + newLine + thirdFrameReplace3 + newLine + fourthFrameReplace3
-                            + newLine + fifthFrameReplace3 + newLine + sixthFrameReplace3;
+                    if (sequenceFinished3.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t1 = firstFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t2 = dumb + firstFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t3 = dumb + dumb + firstFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t4 = dumb + dumb + dumb + firstFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t5 = dumb + dumb + dumb + dumb + firstFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t6 = dumb + dumb + dumb + dumb + dumb + firstFrameReplace3 + newLine;
+                    }
+
+                    if (sequenceFinished3.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t7 = secondFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t8 = dumb + secondFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t9 = dumb + dumb + secondFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t10 = dumb + dumb + dumb + secondFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t11 = dumb + dumb + dumb + dumb + secondFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t12 = dumb + dumb + dumb + dumb + dumb + secondFrameReplace3 + newLine;
+                    }
+
+                    if (sequenceFinished3.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t13 = thirdFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t14 = dumb + thirdFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t15 = dumb + dumb + thirdFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t16 = dumb + dumb + dumb + thirdFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t17 = dumb + dumb + dumb + dumb + thirdFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t18 = dumb + dumb + dumb + dumb + dumb + thirdFrameReplace3 + newLine;
+                    }
+
+                    if (sequenceFinished3.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t19 = fourthFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t20 = dumb + fourthFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t21 = dumb + dumb + fourthFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t22 = dumb + dumb + dumb + fourthFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t23 = dumb + dumb + dumb + dumb + fourthFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t24 = dumb + dumb + dumb + dumb + dumb + fourthFrameReplace3 + newLine;
+                    }
+
+                    if (sequenceFinished3.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t25 = fifthFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t26 = dumb + fifthFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t27 = dumb + dumb + fifthFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t28 = dumb + dumb + dumb + fifthFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t29 = dumb + dumb + dumb + dumb + fifthFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t30 = dumb + dumb + dumb + dumb + dumb + fifthFrameReplace3 + newLine;
+                    }
+
+                    if (sequenceFinished3.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t31 = sixthFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t32 = dumb + sixthFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t33 = dumb + dumb + sixthFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t34 = dumb + dumb + dumb + sixthFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t35 = dumb + dumb + dumb + dumb + sixthFrameReplace3 + newLine;
+                    } else if (sequenceFinished3.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t36 = dumb + dumb + dumb + dumb + dumb + sixthFrameReplace3 + newLine;
+                    }
+
+                    combined = t1 + t7 + t13 + t19 + t25 + t31 + t2 + t8 + t14 + t20 + t26 + t32
+                            + t3 + t9 + t15 + t21 + t27 + t33 + t4 + t10 + t16 + t22 + t28 + t34
+                            + t5 + t11 + t17 + t23 + t29 + t35 + t6 + t12 + t18 + t24 + t30 + t36
+                            + sequenceReplace3;
+
                     File dir = new File(path, frameSequenceName);
                     try {
                         FileOutputStream fos = new FileOutputStream(dir);
@@ -7361,9 +9643,95 @@ public class MainActivity extends AppCompatActivity {
                         sixthFrameReplace2 = sixthFrameReplace1.replaceAll("(^\\[|\\])", "");
                         sixthFrameReplace3 = sixthFrameReplace2.replace(" ", "\n");
                     }
-                    combined = sequenceReplace3 + newLine + firstFrameReplace3 + newLine + secondFrameReplace3
-                            + newLine + thirdFrameReplace3 + newLine + fourthFrameReplace3
-                            + newLine + fifthFrameReplace3 + newLine + sixthFrameReplace3;
+                    if (sequenceFinished4.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t1 = firstFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t2 = dumb + firstFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t3 = dumb + dumb + firstFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t4 = dumb + dumb + dumb + firstFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t5 = dumb + dumb + dumb + dumb + firstFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t6 = dumb + dumb + dumb + dumb + dumb + firstFrameReplace3 + newLine;
+                    }
+
+                    if (sequenceFinished4.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t7 = secondFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t8 = dumb + secondFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t9 = dumb + dumb + secondFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t10 = dumb + dumb + dumb + secondFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t11 = dumb + dumb + dumb + dumb + secondFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t12 = dumb + dumb + dumb + dumb + dumb + secondFrameReplace3 + newLine;
+                    }
+
+                    if (sequenceFinished4.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t13 = thirdFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t14 = dumb + thirdFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t15 = dumb + dumb + thirdFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t16 = dumb + dumb + dumb + thirdFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t17 = dumb + dumb + dumb + dumb + thirdFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t18 = dumb + dumb + dumb + dumb + dumb + thirdFrameReplace3 + newLine;
+                    }
+
+                    if (sequenceFinished4.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t19 = fourthFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t20 = dumb + fourthFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t21 = dumb + dumb + fourthFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t22 = dumb + dumb + dumb + fourthFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t23 = dumb + dumb + dumb + dumb + fourthFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t24 = dumb + dumb + dumb + dumb + dumb + fourthFrameReplace3 + newLine;
+                    }
+
+                    if (sequenceFinished4.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t25 = fifthFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t26 = dumb + fifthFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t27 = dumb + dumb + fifthFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t28 = dumb + dumb + dumb + fifthFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t29 = dumb + dumb + dumb + dumb + fifthFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t30 = dumb + dumb + dumb + dumb + dumb + fifthFrameReplace3 + newLine;
+                    }
+
+                    if (sequenceFinished4.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                        t31 = sixthFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                        t32 = dumb + sixthFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                        t33 = dumb + dumb + sixthFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                        t34 = dumb + dumb + dumb + sixthFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                        t35 = dumb + dumb + dumb + dumb + sixthFrameReplace3 + newLine;
+                    } else if (sequenceFinished4.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t36 = dumb + dumb + dumb + dumb + dumb + sixthFrameReplace3 + newLine;
+                    }
+
+                    combined = t1 + t7 + t13 + t19 + t25 + t31 + t2 + t8 + t14 + t20 + t26 + t32
+                            + t3 + t9 + t15 + t21 + t27 + t33 + t4 + t10 + t16 + t22 + t28 + t34
+                            + t5 + t11 + t17 + t23 + t29 + t35 + t6 + t12 + t18 + t24 + t30 + t36
+                            + sequenceReplace3;
+
                     File dir = new File(path, frameSequenceName);
                     try {
                         FileOutputStream fos = new FileOutputStream(dir);
@@ -7378,7 +9746,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-        }
     }
 
     /**
@@ -7387,144 +9754,136 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void nameTheSequence(View view) {
-        nameOfSequence = findViewById(R.id.nameSequence);
-        framesUsedCounter = findViewById(R.id.framesUsedCounter);
-
-        String content = nameOfSequence.getSelectedItem().toString();
-
-        if (commandInformationSeq.isEmpty()) {
-            if (sequenceName1.isEmpty()) {
-                sequenceName1.add("$S" + content);
-                commandInformationSeq.add(0, "$S" + content);
-                if (commandInformationSeq.add(true)) {
-                    nameOfSequence.setVisibility(View.INVISIBLE);
-                    findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
-                    commandInformationSeq.remove(true);
-                    findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
-                    findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
-                }
-            } else if (sequenceName2.isEmpty()) {
-                if (!sequenceName1.contains("$S" + content)) {
-                    sequenceName2.add("$S" + content);
-                    commandInformationSeq.add(0, "$S" + content);
-                    if (commandInformationSeq.add(true)) {
-                        nameOfSequence.setVisibility(View.INVISIBLE);
-                        findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
-                        commandInformationSeq.remove(true);
-                        findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
-                        findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
-                }
-            } else if (sequenceName3.isEmpty()) {
-                if (!sequenceName1.contains("$S" + content) && !sequenceName2.contains("$S" + content)) {
-                    sequenceName3.add("$S" + content);
-                    commandInformationSeq.add(0, "$S" + content);
-                    if (commandInformationSeq.add(true)) {
-                        nameOfSequence.setVisibility(View.INVISIBLE);
-                        findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
-                        commandInformationSeq.remove(true);
-                        findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
-                        findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
-                }
-            } else if (sequenceName4.isEmpty()) {
-                if (!sequenceName1.contains("$S" + content) && !sequenceName2.contains("$S" + content) && !sequenceName3.contains("$S" + content)) {
-                    sequenceName4.add("$S" + content);
-                    commandInformationSeq.add(0, "$S" + content);
-                    if (commandInformationSeq.add(true)) {
-                        nameOfSequence.setVisibility(View.INVISIBLE);
-                        findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
-                        commandInformationSeq.remove(true);
-                        findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
-                        findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
-                }
-            }
-        } else if (!commandInformationSeq.isEmpty()) {
-            if (firstSequence == false) {
-                sequenceName1.clear();
-            }
-            if (secondSequence == false) {
-                sequenceName2.clear();
-            }
-            if (thirdSequence == false) {
-                sequenceName3.clear();
-            }
-            if (fourthSequence == false) {
-                sequenceName4.clear();
-            }
-            commandInformationSeq.clear();
-            frameSelections.clear();
-            totalFrames.clear();
-            frameCounting = 0;
-            framesUsedCounter.setText(String.valueOf(frameCounting));
-            if (sequenceName1.isEmpty()) {
-                sequenceName1.add("$S" + content);
-                commandInformationSeq.add(0, "$S" + content);
-                if (commandInformationSeq.add(true)) {
-                    nameOfSequence.setVisibility(View.INVISIBLE);
-                    findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
-                    commandInformationSeq.remove(true);
-                    findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
-                    findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
-                }
-            } else if (sequenceName2.isEmpty()) {
-                if (!sequenceName1.contains("$S" + content)) {
-                    sequenceName2.add("$S" + content);
-                    commandInformationSeq.add(0, "$S" + content);
-                    if (commandInformationSeq.add(true)) {
-                        nameOfSequence.setVisibility(View.INVISIBLE);
-                        findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
-                        commandInformationSeq.remove(true);
-                        findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
-                        findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
-                }
-            } else if (sequenceName3.isEmpty()) {
-                if (!sequenceName1.contains("$S" + content) && !sequenceName2.contains("$S" + content)) {
-                    sequenceName3.add("$S" + content);
-                    commandInformationSeq.add(0, "$S" + content);
-                    if (commandInformationSeq.add(true)) {
-                        nameOfSequence.setVisibility(View.INVISIBLE);
-                        findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
-                        commandInformationSeq.remove(true);
-                        findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
-                        findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
-                }
-            } else if (sequenceName4.isEmpty()) {
-                if (!sequenceName1.contains("$S" + content) && !sequenceName2.contains("$S" + content) && !sequenceName3.contains("$S" + content)) {
-                    sequenceName4.add("$S" + content);
-                    commandInformationSeq.add(0, "$S" + content);
-                    if (commandInformationSeq.add(true)) {
-                        nameOfSequence.setVisibility(View.INVISIBLE);
-                        findViewById(R.id.setSequenceName).setVisibility(View.INVISIBLE);
-                        commandInformationSeq.remove(true);
-                        findViewById(R.id.setNumFrames).setVisibility(View.VISIBLE);
-                        findViewById(R.id.numOfFrames).setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    Toast.makeText(getApplicationContext(), "Name in use", Toast.LENGTH_SHORT).show();
-                }
-            }
+        //TODO Fix an issue with naming etc when the user leaves the app/page and re-enters
+        if (commandInformationSeq.size() != 2) {
+            commandInformationSeq.add(empty);
+            commandInformationSeq.add(empty);
         }
+        if (commandInformationSeq.size() == 2) {
+            nameOfSequence = findViewById(R.id.nameSequence);
+            framesUsedCounter = findViewById(R.id.framesUsedCounter);
+            String content = nameOfSequence.getSelectedItem().toString();
 
-        TextView t = findViewById(R.id.sequenceCreationView);
-        String start = "";
-        for (Object Selections : commandInformationSeq) {
-            start = start + Selections + "\n";
+            if (!commandInformationSeq.isEmpty()) {
+                if (sequenceName1.isEmpty()) {
+                    sequenceName1.add("$S" + content);
+                    sName.add(content);
+                    commandInformationSeq.set(0, "$S" + content);
+                    if (commandInformationSeq.add(true)) {
+                        commandInformationSeq.remove(true);
+                        findViewById(R.id.setSequenceName).setEnabled(false);
+                        nameOfSequence.setEnabled(false);
+                    }
+                } else if (sequenceName2.isEmpty()) {
+                    if (!sequenceName1.contains("$S" + content)) {
+                        sequenceName2.add("$S" + content);
+                        sName.add(content);
+                        commandInformationSeq.set(0, "$S" + content);
+                        if (commandInformationSeq.add(true)) {
+                            commandInformationSeq.remove(true);
+                            findViewById(R.id.setSequenceName).setEnabled(false);
+                            nameOfSequence.setEnabled(false);
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (sequenceName3.isEmpty()) {
+                    if (!sequenceName1.contains("$S" + content) && !sequenceName2.contains("$S" + content)) {
+                        sequenceName3.add("$S" + content);
+                        sName.add(content);
+                        commandInformationSeq.set(0, "$S" + content);
+                        if (commandInformationSeq.add(true)) {
+                            commandInformationSeq.remove(true);
+                            findViewById(R.id.setSequenceName).setEnabled(false);
+                            nameOfSequence.setEnabled(false);
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (sequenceName4.isEmpty()) {
+                    if (!sequenceName1.contains("$S" + content) && !sequenceName2.contains("$S" + content) && !sequenceName3.contains("$S" + content)) {
+                        sequenceName4.add("$S" + content);
+                        sName.add(content);
+                        commandInformationSeq.set(0, "$S" + content);
+                        if (commandInformationSeq.add(true)) {
+                            commandInformationSeq.remove(true);
+                            findViewById(R.id.setSequenceName).setEnabled(false);
+                            nameOfSequence.setEnabled(false);
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            } /*else if (!commandInformationSeq.isEmpty()) {
+                if (firstSequence == false) {
+                    sequenceName1.clear();
+                }
+                if (secondSequence == false) {
+                    sequenceName2.clear();
+                }
+                if (thirdSequence == false) {
+                    sequenceName3.clear();
+                }
+                if (fourthSequence == false) {
+                    sequenceName4.clear();
+                }
+                commandInformationSeq.clear();
+                frameSelections.clear();
+                totalFrames.clear();
+                frameCounting = 0;
+                framesUsedCounter.setText(String.valueOf(frameCounting));
+                if (sequenceName1.isEmpty()) {
+                    sequenceName1.add("$S" + content);
+                    sName.add(content);
+                    commandInformationSeq.set(0, "$S" + content);
+                    if (commandInformationSeq.add(true)) {
+                        commandInformationSeq.remove(true);
+                    }
+                } else if (sequenceName2.isEmpty()) {
+                    if (!sequenceName1.contains("$S" + content)) {
+                        sequenceName2.add("$S" + content);
+                        sName.add(content);
+                        commandInformationSeq.set(0, "$S" + content);
+                        if (commandInformationSeq.add(true)) {
+                            commandInformationSeq.remove(true);
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (sequenceName3.isEmpty()) {
+                    if (!sequenceName1.contains("$S" + content) && !sequenceName2.contains("$S" + content)) {
+                        sequenceName3.add("$S" + content);
+                        sName.add(content);
+                        commandInformationSeq.set(0, "$S" + content);
+                        if (commandInformationSeq.add(true)) {
+                            commandInformationSeq.remove(true);
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (sequenceName4.isEmpty()) {
+                    if (!sequenceName1.contains("$S" + content) && !sequenceName2.contains("$S" + content) && !sequenceName3.contains("$S" + content)) {
+                        sequenceName4.add("$S" + content);
+                        sName.add(content);
+                        commandInformationSeq.set(0, "$S" + content);
+                        if (commandInformationSeq.add(true)) {
+                            commandInformationSeq.remove(true);
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }*/
+
+            TextView t = findViewById(R.id.sequenceCreationView);
+            String start = "";
+            for (Object Selections : commandInformationSeq) {
+                start = start + Selections + "\n";
+            }
+            t.setText(start);
+
+
         }
-        t.setText(start);
     }
 
     /**
@@ -7533,91 +9892,111 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void numOfFrames(View view) {
-        numOfFramesSelected = findViewById(R.id.setNumFrames);
-        setFrame = findViewById(R.id.setFrames);
-        selectRepAmount = findViewById(R.id.selectRepetitionAmount);
-        setAmountOfRep = findViewById(R.id.setRepetitionAmount);
-
-        frameUsedLimit = findViewById(R.id.frameUsedLimit);
-        framesUsedCounter = findViewById(R.id.frameUsedLimit);
-
-        TextView t = findViewById(R.id.sequenceCreationView);
-        String start = "";
-
-        String frameNumberSelected = numOfFramesSelected.getSelectedItem().toString();
-        commandInformationSeq.add(1, "$n00" + frameNumberSelected);
-
-        for (Object Selections : commandInformationSeq) {
-            start = start + Selections + "\n";
+        if (commandInformationSeq.size() != 2) {
+            commandInformationSeq.add(empty);
+            commandInformationSeq.add(empty);
         }
-        t.setText(start);
+        if (commandInformationSeq.size() == 2) {
+            numOfFramesSelected = findViewById(R.id.setNumFrames);
+            setFrame = findViewById(R.id.setFrames);
+            selectRepAmount = findViewById(R.id.selectRepetitionAmount);
+            setAmountOfRep = findViewById(R.id.setRepetitionAmount);
 
-        framesUsed.add(frameNumberSelected);
+            frameUsedLimit = findViewById(R.id.frameUsedLimit);
+            framesUsedCounter = findViewById(R.id.frameUsedLimit);
 
-        Spinner frameList = findViewById(R.id.frameSelection);
-        ArrayList<Object> frameSelections = new ArrayList<>();
+            frameAmount = findViewById(R.id.frameSelection);
+            setFrame = findViewById(R.id.setFrames);
 
-        if (!frameFinished1.isEmpty()) {
-            frameSelections.add(frameName1.toString().replaceAll("(^\\[|\\])", ""));
-        }
-        if (!frameFinished2.isEmpty()) {
-            frameSelections.add(frameName2.toString().replaceAll("(^\\[|\\])", ""));
-        }
-        if (!frameFinished3.isEmpty()) {
-            frameSelections.add(frameName3.toString().replaceAll("(^\\[|\\])", ""));
-        }
-        if (!frameFinished4.isEmpty()) {
-            frameSelections.add(frameName4.toString().replaceAll("(^\\[|\\])", ""));
-        }
-        if (!frameFinished5.isEmpty()) {
-            frameSelections.add(frameName5.toString().replaceAll("(^\\[|\\])", ""));
-        }
-        if (!frameFinished6.isEmpty()) {
-            frameSelections.add(frameName6.toString().replaceAll("(^\\[|\\])", ""));
-        }
+            resetFrames = findViewById(R.id.frameSelectionReset);
 
-        numOfFramesSelected = findViewById(R.id.setNumFrames);
-        String framesSelected = numOfFramesSelected.getSelectedItem().toString();
-        int frameLimit = Integer.parseInt(framesSelected);
+            TextView t = findViewById(R.id.sequenceCreationView);
+            String start = "";
 
-        if (frameLimit == 1) {
-            frameUsedLimit.setText("/ 1");
-        } else if (frameLimit == 2) {
-            frameUsedLimit.setText("/ 2");
-        } else if (frameLimit == 3) {
-            frameUsedLimit.setText("/ 3");
-        } else if (frameLimit == 4) {
-            frameUsedLimit.setText("/ 4");
-        } else if (frameLimit == 5) {
-            frameUsedLimit.setText("/ 5");
-        } else if (frameLimit == 6) {
-            frameUsedLimit.setText("/ 6");
-        } else if (frameLimit == 7) {
-            frameUsedLimit.setText("/ 7");
-        } else if (frameLimit == 8) {
-            frameUsedLimit.setText("/ 8");
-        }
+            String frameNumberSelected = numOfFramesSelected.getSelectedItem().toString();
+            commandInformationSeq.set(1, "$n00" + frameNumberSelected);
+            sFrames.add(frameNumberSelected);
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, frameSelections);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            String finial_commands = "";
+            String finial_selection = "";
 
-        frameList.setAdapter(adapter);
+            for (Object Sequence : commandInformationSeq) {
+                finial_commands = finial_commands + Sequence + "\n";
+            }
+            for (Object Selections : frameSelections) {
+                finial_selection = finial_selection + Selections + "\n";
+            }
+            t.setText(finial_commands + finial_selection);
 
-        if (commandInformationSeq.add(true)) {
-            findViewById(R.id.numOfFrames).setVisibility(View.INVISIBLE);
-            numOfFramesSelected.setVisibility(View.INVISIBLE);
-            commandInformationSeq.remove(true);
-            setFrame.setVisibility(View.VISIBLE);
-            findViewById(R.id.frameSelection).setVisibility(View.VISIBLE);
-            selectRepAmount.setVisibility(View.VISIBLE);
-            setAmountOfRep.setVisibility(View.VISIBLE);
-            findViewById(R.id.sequenceCreationView).setVisibility(View.VISIBLE);
-            findViewById(R.id.saveSequence).setVisibility(View.VISIBLE);
-            findViewById(R.id.frameCounter).setVisibility(View.VISIBLE);
-            findViewById(R.id.framesUsedCounter).setVisibility(View.VISIBLE);
-            findViewById(R.id.resetFramesUsed).setVisibility(View.VISIBLE);
-            findViewById(R.id.frameUsedLimit).setVisibility(View.VISIBLE);
-            findViewById(R.id.frameUsedLimit).setVisibility(View.VISIBLE);
+            framesUsed.add(frameNumberSelected);
+
+            Spinner frameList = frameAmount;
+            ArrayList<Object> frameSelections = new ArrayList<>();
+
+            Spinner resetFrameList = resetFrames;
+            ArrayList<Object> frameResetSelections = new ArrayList<>();
+
+            if (!frameFinished1.isEmpty()) {
+                frameSelections.add(frameName1.toString().replaceAll("(^\\[|\\])", ""));
+                frameResetSelections.add(frameName1.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!frameFinished2.isEmpty()) {
+                frameSelections.add(frameName2.toString().replaceAll("(^\\[|\\])", ""));
+                frameResetSelections.add(frameName1.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!frameFinished3.isEmpty()) {
+                frameSelections.add(frameName3.toString().replaceAll("(^\\[|\\])", ""));
+                frameResetSelections.add(frameName1.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!frameFinished4.isEmpty()) {
+                frameSelections.add(frameName4.toString().replaceAll("(^\\[|\\])", ""));
+                frameResetSelections.add(frameName1.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!frameFinished5.isEmpty()) {
+                frameSelections.add(frameName5.toString().replaceAll("(^\\[|\\])", ""));
+                frameResetSelections.add(frameName1.toString().replaceAll("(^\\[|\\])", ""));
+            }
+            if (!frameFinished6.isEmpty()) {
+                frameSelections.add(frameName6.toString().replaceAll("(^\\[|\\])", ""));
+                frameResetSelections.add(frameName1.toString().replaceAll("(^\\[|\\])", ""));
+            }
+
+            numOfFramesSelected = findViewById(R.id.setNumFrames);
+            String framesSelected = numOfFramesSelected.getSelectedItem().toString();
+            int frameLimit = Integer.parseInt(framesSelected);
+
+            if (frameLimit == 1) {
+                frameUsedLimit.setText("/ 1");
+            } else if (frameLimit == 2) {
+                frameUsedLimit.setText("/ 2");
+            } else if (frameLimit == 3) {
+                frameUsedLimit.setText("/ 3");
+            } else if (frameLimit == 4) {
+                frameUsedLimit.setText("/ 4");
+            } else if (frameLimit == 5) {
+                frameUsedLimit.setText("/ 5");
+            } else if (frameLimit == 6) {
+                frameUsedLimit.setText("/ 6");
+            } else if (frameLimit == 7) {
+                frameUsedLimit.setText("/ 7");
+            } else if (frameLimit == 8) {
+                frameUsedLimit.setText("/ 8");
+            }
+
+            ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, frameSelections);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            frameList.setAdapter(adapter);
+
+            ArrayAdapter reset = new ArrayAdapter(this, android.R.layout.simple_spinner_item, frameResetSelections);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            resetFrameList.setAdapter(reset);
+
+            if (commandInformationSeq.add(true)) {
+
+                commandInformationSeq.remove(true);
+
 /*            if(frameNumberSelected.equals("1")){
                 findViewById(R.id.firstFrame).setVisibility(View.VISIBLE);
             }else if(frameNumberSelected.equals("2")){
@@ -7647,74 +10026,15 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.sixthFrame).setVisibility(View.VISIBLE);
             }*/
 
-            findViewById(R.id.pin0).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin1).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin2).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin3).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin4).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin5).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin6).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin7).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin8).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin9).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin10).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin11).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin12).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin13).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin14).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin15).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin16).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin17).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin18).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin19).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin20).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin21).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin22).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin23).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin24).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin25).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin26).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin27).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin28).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin29).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin30).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin31).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin32).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin33).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin34).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin35).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin36).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin37).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin38).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin39).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin40).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin41).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin42).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin43).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin44).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin45).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin46).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin47).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin48).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin49).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin50).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin51).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin52).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin53).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin54).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin55).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin56).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin57).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin58).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin59).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin60).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin61).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin62).setVisibility(View.VISIBLE);
-            findViewById(R.id.pin63).setVisibility(View.VISIBLE);
+                frameAmount.setEnabled(true);
+                setFrame.setEnabled(true);
 
-            selectRepAmount.setEnabled(false);
-            setAmountOfRep.setEnabled(false);
+                findViewById(R.id.frameSelectionReset).setEnabled(true);
+                findViewById(R.id.resetFramesUsed).setEnabled(true);
+            }
         }
+
+
     }
 
     /**
@@ -7725,6 +10045,8 @@ public class MainActivity extends AppCompatActivity {
     public static int frameCounting = 0;
 
     public void setTheFrames(View view) {
+        //TODO Potentially make it so that depending the location of the frame selected, assign that position a specific colour (like pins used to have)
+        //TODO Use new export method to achieve this
         pin0 = findViewById(R.id.pin0);
         pin1 = findViewById(R.id.pin1);
         pin2 = findViewById(R.id.pin2);
@@ -7834,7 +10156,7 @@ public class MainActivity extends AppCompatActivity {
                     setAmountOfRep.setEnabled(true);
                 }
             } else if (content.equals(frameName1.toString().replaceAll("(^\\[|\\])", "")) && frameSelections.contains(frameNameF1.toString().replaceAll("(^\\[|\\])", ""))) {
-                Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Frame already in use", Toast.LENGTH_SHORT).show();
             } else if (content.equals(frameName2.toString().replaceAll("(^\\[|\\])", "")) && !frameSelections.contains(frameNameF2.toString().replaceAll("(^\\[|\\])", ""))) {
                 totalFrames.add(frameCount);
                 frameCounting++;
@@ -7851,8 +10173,8 @@ public class MainActivity extends AppCompatActivity {
                     setAmountOfRep.setEnabled(true);
                 }
             } else if (content.equals(frameName2.toString().replaceAll("(^\\[|\\])", "")) && frameSelections.contains(frameNameF2.toString().replaceAll("(^\\[|\\])", ""))) {
-                Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
-            } else if (content.equals(frameName3.toString().replaceAll("(^\\[|\\])", "")) && !frameSelections.contains(frameNameF3)) {
+                Toast.makeText(getApplicationContext(), "Frame already in use", Toast.LENGTH_SHORT).show();
+            } else if (content.equals(frameName3.toString().replaceAll("(^\\[|\\])", "")) && !frameSelections.contains(frameNameF3.toString().replaceAll("(^\\[|\\])", ""))) {
                 totalFrames.add(frameCount);
                 frameCounting++;
                 framesUsedCounter.setText(String.valueOf(frameCounting));
@@ -7869,7 +10191,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             } else if (content.equals(frameName3.toString().replaceAll("(^\\[|\\])", "")) && frameSelections.contains(frameNameF3.toString().replaceAll("(^\\[|\\])", ""))) {
-                Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Frame already in use", Toast.LENGTH_SHORT).show();
             } else if (content.equals(frameName4.toString().replaceAll("(^\\[|\\])", "")) && !frameSelections.contains(frameNameF4.toString().replaceAll("(^\\[|\\])", ""))) {
                 totalFrames.add(frameCount);
                 frameCounting++;
@@ -7887,7 +10209,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             } else if (content.equals(frameName4.toString().replaceAll("(^\\[|\\])", "")) && frameSelections.contains(frameNameF4.toString().replaceAll("(^\\[|\\])", ""))) {
-                Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Frame already in use", Toast.LENGTH_SHORT).show();
             } else if (content.equals(frameName5.toString().replaceAll("(^\\[|\\])", "")) && !frameSelections.contains(frameNameF5.toString().replaceAll("(^\\[|\\])", ""))) {
                 totalFrames.add(frameCount);
                 frameCounting++;
@@ -7905,7 +10227,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             } else if (content.equals(frameName5.toString().replaceAll("(^\\[|\\])", "")) && frameSelections.contains(frameNameF5.toString().replaceAll("(^\\[|\\])", ""))) {
-                Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Frame already in use", Toast.LENGTH_SHORT).show();
             } else if (content.equals(frameName6.toString().replaceAll("(^\\[|\\])", "")) && !frameSelections.contains(frameNameF6.toString().replaceAll("(^\\[|\\])", ""))) {
                 totalFrames.add(frameCount);
                 frameCounting++;
@@ -7923,14 +10245,14 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             } else if (content.equals(frameName6.toString().replaceAll("(^\\[|\\])", "")) && frameSelections.contains(frameNameF6.toString().replaceAll("(^\\[|\\])", ""))) {
-                Toast.makeText(getApplicationContext(), "Frame already in use!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Frame already in use", Toast.LENGTH_SHORT).show();
             }
         } else {
             ArrayAdapter blankSpinner = new ArrayAdapter(this, android.R.layout.simple_spinner_item, blank);
             blankSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             blank.add(" ");
             frameList.setAdapter(blankSpinner);
-            Toast.makeText(getApplicationContext(), "Please make a frame first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Please make a frame", Toast.LENGTH_SHORT).show();
         }
 
         if (frameCounting == frameLimit) {
@@ -9734,14 +12056,6 @@ public class MainActivity extends AppCompatActivity {
         frameCounter = findViewById(R.id.frameCounter);
         framesUsedCounter = findViewById(R.id.framesUsedCounter);
 
-        findViewById(R.id.firstFrame).setVisibility(View.INVISIBLE);
-        findViewById(R.id.secondFrame).setVisibility(View.INVISIBLE);
-        findViewById(R.id.thirdFrame).setVisibility(View.INVISIBLE);
-        findViewById(R.id.fourthFrame).setVisibility(View.INVISIBLE);
-        findViewById(R.id.fifthFrame).setVisibility(View.INVISIBLE);
-        findViewById(R.id.sixthFrame).setVisibility(View.INVISIBLE);
-        findViewById(R.id.frameUsedLimit).setVisibility(View.INVISIBLE);
-
         String commandInfoSeqReplace;
         String frameSelectReplace;
         String combined;
@@ -9757,7 +12071,7 @@ public class MainActivity extends AppCompatActivity {
                 combined = frameSelectReplace.replaceAll("(^\\[|\\])", "");
                 sequenceFinished1.add(commandInfoSeqReplace + combined);
                 firstSequence = true;
-                Toast.makeText(getApplicationContext(), "frame select " + frameSelectReplace, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Sequence Saved", Toast.LENGTH_SHORT).show();
             } else if (sequenceFinished2.isEmpty()) {
                 frameSelections.add("$T001");
                 commandInfoSeqReplace = commandInformationSeq.toString().replaceAll("(^\\[|\\])", "");
@@ -9765,7 +12079,7 @@ public class MainActivity extends AppCompatActivity {
                 combined = frameSelectReplace.replaceAll("(^\\[|\\])", "");
                 sequenceFinished2.add(commandInfoSeqReplace + combined);
                 secondSequence = true;
-                Toast.makeText(getApplicationContext(), "Sequence Saved " + sequenceFinished2, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Sequence Saved", Toast.LENGTH_SHORT).show();
             } else if (sequenceFinished3.isEmpty()) {
                 frameSelections.add("$T001");
                 commandInfoSeqReplace = commandInformationSeq.toString().replaceAll("(^\\[|\\])", "");
@@ -9773,7 +12087,7 @@ public class MainActivity extends AppCompatActivity {
                 combined = frameSelectReplace.replaceAll("(^\\[|\\])", "");
                 sequenceFinished3.add(commandInfoSeqReplace + combined);
                 thirdSequence = true;
-                Toast.makeText(getApplicationContext(), "Sequence Saved " + sequenceFinished3, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Sequence Saved", Toast.LENGTH_SHORT).show();
             } else if (sequenceFinished4.isEmpty()) {
                 frameSelections.add("$T001");
                 commandInfoSeqReplace = commandInformationSeq.toString().replaceAll("(^\\[|\\])", "");
@@ -9781,223 +12095,166 @@ public class MainActivity extends AppCompatActivity {
                 combined = frameSelectReplace.replaceAll("(^\\[|\\])", "");
                 sequenceFinished4.add(commandInfoSeqReplace + combined);
                 fourthSequence = true;
-                Toast.makeText(getApplicationContext(), "Sequence Saved " + sequenceFinished4, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Sequence Saved", Toast.LENGTH_SHORT).show();
             }
-            setFrame.setEnabled(true);
-            frameAmount.setEnabled(true);
+            setFrame.setEnabled(false);
+            frameAmount.setEnabled(false);
             selectRepAmount.setEnabled(false);
             setAmountOfRep.setEnabled(false);
             commandInformationSeq.clear();
             frameSelections.clear();
             totalFrames.clear();
-            nameOfSequence.setVisibility(View.VISIBLE);
-            setSequenceName.setVisibility(View.VISIBLE);
-            setFrame.setVisibility(View.INVISIBLE);
-            resetFramesUsed.setVisibility(View.INVISIBLE);
-            frameAmount.setVisibility(View.INVISIBLE);
-            selectRepAmount.setVisibility(View.INVISIBLE);
-            setAmountOfRep.setVisibility(View.INVISIBLE);
-            sequenceCreationView.setVisibility(View.INVISIBLE);
-            saveTheSequence.setVisibility(View.INVISIBLE);
-            frameCounter.setVisibility(View.INVISIBLE);
-            framesUsedCounter.setVisibility(View.INVISIBLE);
             frameCounting = 0;
             framesUsedCounter.setText(String.valueOf(frameCounting));
 
+            String finial_commands = "";
+            String finial_selection = "";
+
+            TextView t = findViewById(R.id.sequenceCreationView);
+            for (Object Sequence : commandInformationSeq) {
+                finial_commands = finial_commands + Sequence + "\n";
+            }
+            for (Object Selections : frameSelections) {
+                finial_selection = finial_selection + Selections + "\n";
+            }
+            t.setText(finial_commands + finial_selection);
+
+            setSequenceName.setEnabled(true);
+            nameOfSequence.setEnabled(true);
+
+            findViewById(R.id.frameSelectionReset).setEnabled(false);
+            findViewById(R.id.resetFramesUsed).setEnabled(false);
+
             pin0.setChecked(false);
             pin0.setBackgroundColor(Color.TRANSPARENT);
-            pin0.setVisibility(View.INVISIBLE);
             pin1.setChecked(false);
             pin1.setBackgroundColor(Color.TRANSPARENT);
-            pin1.setVisibility(View.INVISIBLE);
             pin2.setChecked(false);
             pin2.setBackgroundColor(Color.TRANSPARENT);
-            pin2.setVisibility(View.INVISIBLE);
             pin3.setChecked(false);
             pin3.setBackgroundColor(Color.TRANSPARENT);
-            pin3.setVisibility(View.INVISIBLE);
             pin4.setChecked(false);
             pin4.setBackgroundColor(Color.TRANSPARENT);
-            pin4.setVisibility(View.INVISIBLE);
             pin5.setChecked(false);
             pin5.setBackgroundColor(Color.TRANSPARENT);
-            pin5.setVisibility(View.INVISIBLE);
             pin6.setChecked(false);
             pin6.setBackgroundColor(Color.TRANSPARENT);
-            pin6.setVisibility(View.INVISIBLE);
             pin7.setChecked(false);
             pin7.setBackgroundColor(Color.TRANSPARENT);
-            pin7.setVisibility(View.INVISIBLE);
             pin8.setChecked(false);
             pin8.setBackgroundColor(Color.TRANSPARENT);
-            pin8.setVisibility(View.INVISIBLE);
             pin9.setChecked(false);
             pin9.setBackgroundColor(Color.TRANSPARENT);
-            pin9.setVisibility(View.INVISIBLE);
             pin10.setChecked(false);
             pin10.setBackgroundColor(Color.TRANSPARENT);
-            pin10.setVisibility(View.INVISIBLE);
             pin11.setChecked(false);
             pin11.setBackgroundColor(Color.TRANSPARENT);
-            pin11.setVisibility(View.INVISIBLE);
             pin12.setChecked(false);
             pin12.setBackgroundColor(Color.TRANSPARENT);
-            pin12.setVisibility(View.INVISIBLE);
             pin13.setChecked(false);
             pin13.setBackgroundColor(Color.TRANSPARENT);
-            pin13.setVisibility(View.INVISIBLE);
             pin14.setChecked(false);
             pin14.setBackgroundColor(Color.TRANSPARENT);
-            pin14.setVisibility(View.INVISIBLE);
             pin15.setChecked(false);
             pin15.setBackgroundColor(Color.TRANSPARENT);
-            pin15.setVisibility(View.INVISIBLE);
             pin16.setChecked(false);
             pin16.setBackgroundColor(Color.TRANSPARENT);
-            pin16.setVisibility(View.INVISIBLE);
             pin17.setChecked(false);
             pin17.setBackgroundColor(Color.TRANSPARENT);
-            pin17.setVisibility(View.INVISIBLE);
             pin18.setChecked(false);
             pin18.setBackgroundColor(Color.TRANSPARENT);
-            pin18.setVisibility(View.INVISIBLE);
             pin19.setChecked(false);
             pin19.setBackgroundColor(Color.TRANSPARENT);
-            pin19.setVisibility(View.INVISIBLE);
             pin20.setChecked(false);
             pin20.setBackgroundColor(Color.TRANSPARENT);
-            pin20.setVisibility(View.INVISIBLE);
             pin21.setChecked(false);
             pin21.setBackgroundColor(Color.TRANSPARENT);
-            pin21.setVisibility(View.INVISIBLE);
             pin22.setChecked(false);
             pin22.setBackgroundColor(Color.TRANSPARENT);
-            pin22.setVisibility(View.INVISIBLE);
             pin23.setChecked(false);
             pin23.setBackgroundColor(Color.TRANSPARENT);
-            pin23.setVisibility(View.INVISIBLE);
             pin24.setChecked(false);
             pin24.setBackgroundColor(Color.TRANSPARENT);
-            pin24.setVisibility(View.INVISIBLE);
             pin25.setChecked(false);
             pin25.setBackgroundColor(Color.TRANSPARENT);
-            pin25.setVisibility(View.INVISIBLE);
             pin26.setChecked(false);
             pin26.setBackgroundColor(Color.TRANSPARENT);
-            pin26.setVisibility(View.INVISIBLE);
             pin27.setChecked(false);
             pin27.setBackgroundColor(Color.TRANSPARENT);
-            pin27.setVisibility(View.INVISIBLE);
             pin28.setChecked(false);
             pin28.setBackgroundColor(Color.TRANSPARENT);
-            pin28.setVisibility(View.INVISIBLE);
             pin29.setChecked(false);
             pin29.setBackgroundColor(Color.TRANSPARENT);
-            pin29.setVisibility(View.INVISIBLE);
             pin30.setChecked(false);
             pin30.setBackgroundColor(Color.TRANSPARENT);
-            pin30.setVisibility(View.INVISIBLE);
             pin31.setChecked(false);
             pin31.setBackgroundColor(Color.TRANSPARENT);
-            pin31.setVisibility(View.INVISIBLE);
             pin32.setChecked(false);
             pin32.setBackgroundColor(Color.TRANSPARENT);
-            pin32.setVisibility(View.INVISIBLE);
             pin33.setChecked(false);
             pin33.setBackgroundColor(Color.TRANSPARENT);
-            pin33.setVisibility(View.INVISIBLE);
             pin34.setChecked(false);
             pin34.setBackgroundColor(Color.TRANSPARENT);
-            pin34.setVisibility(View.INVISIBLE);
             pin35.setChecked(false);
             pin35.setBackgroundColor(Color.TRANSPARENT);
-            pin35.setVisibility(View.INVISIBLE);
             pin36.setChecked(false);
             pin36.setBackgroundColor(Color.TRANSPARENT);
-            pin36.setVisibility(View.INVISIBLE);
             pin37.setChecked(false);
             pin37.setBackgroundColor(Color.TRANSPARENT);
-            pin37.setVisibility(View.INVISIBLE);
             pin38.setChecked(false);
             pin38.setBackgroundColor(Color.TRANSPARENT);
-            pin38.setVisibility(View.INVISIBLE);
             pin39.setChecked(false);
             pin39.setBackgroundColor(Color.TRANSPARENT);
-            pin39.setVisibility(View.INVISIBLE);
             pin40.setChecked(false);
             pin40.setBackgroundColor(Color.TRANSPARENT);
-            pin40.setVisibility(View.INVISIBLE);
             pin41.setChecked(false);
             pin41.setBackgroundColor(Color.TRANSPARENT);
-            pin41.setVisibility(View.INVISIBLE);
             pin42.setChecked(false);
             pin42.setBackgroundColor(Color.TRANSPARENT);
-            pin42.setVisibility(View.INVISIBLE);
             pin43.setChecked(false);
             pin43.setBackgroundColor(Color.TRANSPARENT);
-            pin43.setVisibility(View.INVISIBLE);
             pin44.setChecked(false);
             pin44.setBackgroundColor(Color.TRANSPARENT);
-            pin44.setVisibility(View.INVISIBLE);
             pin45.setChecked(false);
             pin45.setBackgroundColor(Color.TRANSPARENT);
-            pin45.setVisibility(View.INVISIBLE);
             pin46.setChecked(false);
             pin46.setBackgroundColor(Color.TRANSPARENT);
-            pin46.setVisibility(View.INVISIBLE);
             pin47.setChecked(false);
             pin47.setBackgroundColor(Color.TRANSPARENT);
-            pin47.setVisibility(View.INVISIBLE);
             pin48.setChecked(false);
             pin48.setBackgroundColor(Color.TRANSPARENT);
-            pin48.setVisibility(View.INVISIBLE);
             pin49.setChecked(false);
             pin49.setBackgroundColor(Color.TRANSPARENT);
-            pin49.setVisibility(View.INVISIBLE);
             pin50.setChecked(false);
             pin50.setBackgroundColor(Color.TRANSPARENT);
-            pin50.setVisibility(View.INVISIBLE);
             pin51.setChecked(false);
             pin51.setBackgroundColor(Color.TRANSPARENT);
-            pin51.setVisibility(View.INVISIBLE);
             pin52.setChecked(false);
             pin52.setBackgroundColor(Color.TRANSPARENT);
-            pin52.setVisibility(View.INVISIBLE);
             pin53.setChecked(false);
             pin53.setBackgroundColor(Color.TRANSPARENT);
-            pin53.setVisibility(View.INVISIBLE);
             pin54.setChecked(false);
             pin54.setBackgroundColor(Color.TRANSPARENT);
-            pin54.setVisibility(View.INVISIBLE);
             pin55.setChecked(false);
             pin55.setBackgroundColor(Color.TRANSPARENT);
-            pin55.setVisibility(View.INVISIBLE);
             pin56.setChecked(false);
             pin56.setBackgroundColor(Color.TRANSPARENT);
-            pin56.setVisibility(View.INVISIBLE);
             pin57.setChecked(false);
             pin57.setBackgroundColor(Color.TRANSPARENT);
-            pin57.setVisibility(View.INVISIBLE);
             pin58.setChecked(false);
             pin58.setBackgroundColor(Color.TRANSPARENT);
-            pin58.setVisibility(View.INVISIBLE);
             pin59.setChecked(false);
             pin59.setBackgroundColor(Color.TRANSPARENT);
-            pin59.setVisibility(View.INVISIBLE);
             pin60.setChecked(false);
             pin60.setBackgroundColor(Color.TRANSPARENT);
-            pin60.setVisibility(View.INVISIBLE);
             pin61.setChecked(false);
             pin61.setBackgroundColor(Color.TRANSPARENT);
-            pin61.setVisibility(View.INVISIBLE);
             pin62.setChecked(false);
             pin62.setBackgroundColor(Color.TRANSPARENT);
-            pin62.setVisibility(View.INVISIBLE);
             pin63.setChecked(false);
             pin63.setBackgroundColor(Color.TRANSPARENT);
-            pin63.setVisibility(View.INVISIBLE);
         } else {
-            Toast.makeText(getApplicationContext(), "Please add more frames to make your selection of  " + frameLimit, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Please add more frames to make your selection of " + frameLimit, Toast.LENGTH_SHORT).show();
         }
     }
 
