@@ -855,11 +855,37 @@
         android:id="@+id/saveSequence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginBottom="196dp"
+        android:layout_marginEnd="132dp"
+        android:layout_marginRight="132dp"
+        android:layout_marginBottom="84dp"
         android:onClick="saveTheSequence"
         android:text="@string/save_sequence"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/saveSequenceHelp"
+        android:layout_width="25dp"
+        android:layout_height="22dp"
+        android:layout_marginEnd="96dp"
+        android:layout_marginRight="96dp"
+        android:layout_marginBottom="96dp"
+        android:background="@drawable/info_button"
+        android:onClick="saveSeqInformation"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/editedFrameHelp"
+        android:layout_width="25dp"
+        android:layout_height="22dp"
+        android:layout_marginEnd="104dp"
+        android:layout_marginRight="104dp"
+        android:layout_marginBottom="224dp"
+        android:background="@drawable/info_button"
+        android:onClick="editedFrameInformation"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -877,17 +903,53 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <TextView
+        android:id="@+id/toggleText"
+        android:layout_width="115dp"
+        android:layout_height="82dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/sequence_toggle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sequenceToggle" />
+
+    <Switch
+        android:id="@+id/sequenceToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginRight="56dp"
+        android:checked="true"
+        android:onClick="sequenceFrameToggle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setRepetitionAmount" />
+
     <Button
         android:id="@+id/resetFramesUsed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="84dp"
+        android:layout_marginEnd="132dp"
+        android:layout_marginRight="132dp"
+        android:layout_marginBottom="12dp"
+        android:enabled="false"
         android:onClick="resetTheSequence"
         android:text="@string/remove_frame"
         android:visibility="visible"
-        android:enabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/removeFramesHelp"
+        android:layout_width="25dp"
+        android:layout_height="22dp"
+        android:layout_marginEnd="96dp"
+        android:layout_marginRight="96dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/info_button"
+        android:onClick="removeInformation"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -895,8 +957,8 @@
         android:id="@+id/sequenceCreationView"
         android:layout_width="118dp"
         android:layout_height="250dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/text_border"
         android:text=""
@@ -904,48 +966,113 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/repetitionHelp"
+        android:layout_width="25dp"
+        android:layout_height="22dp"
+        android:layout_marginEnd="124dp"
+        android:layout_marginRight="124dp"
+        android:layout_marginBottom="336dp"
+        android:background="@drawable/info_button"
+        android:onClick="repetitionInformation"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/nameSeqHelp"
+        android:layout_width="25dp"
+        android:layout_height="22dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/info_button"
+        android:onClick="nameSeqInformation"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/setSequenceName"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/selectFramesHelp"
+        android:layout_width="25dp"
+        android:layout_height="22dp"
+        android:layout_marginEnd="216dp"
+        android:layout_marginRight="216dp"
+        android:layout_marginBottom="356dp"
+        android:background="@drawable/info_button"
+        android:onClick="selectFrameInformation"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/numFramesHelp"
+        android:layout_width="25dp"
+        android:layout_height="22dp"
+        android:layout_marginEnd="380dp"
+        android:layout_marginRight="380dp"
+        android:layout_marginBottom="336dp"
+        android:background="@drawable/info_button"
+        android:onClick="numFramesInformation"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <Spinner
         android:id="@+id/setNumFrames"
-        android:background="@drawable/text_border"
         android:layout_width="75dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
         android:layout_marginBottom="336dp"
+        android:background="@drawable/text_border"
         android:entries="@array/frames_used"
-        android:visibility="visible"
         android:spinnerMode="dropdown"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
         android:id="@+id/frameSelection"
-        android:background="@drawable/text_border"
         android:layout_width="75dp"
         android:layout_height="21dp"
-        android:layout_marginStart="124dp"
-        android:layout_marginLeft="124dp"
-        android:layout_marginBottom="336dp"
-        android:spinnerMode="dropdown"
+        android:layout_marginStart="152dp"
+        android:layout_marginLeft="152dp"
+        android:layout_marginBottom="332dp"
+        android:background="@drawable/text_border"
         android:entries="@array/blank"
+        android:spinnerMode="dropdown"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
-        android:id="@+id/frameSelectionReset"
+        android:id="@+id/loadedFrameSelection"
         android:layout_width="75dp"
         android:layout_height="21dp"
-        android:layout_marginStart="296dp"
-        android:layout_marginLeft="296dp"
-        android:layout_marginBottom="144dp"
+        android:layout_marginStart="168dp"
+        android:layout_marginLeft="168dp"
+        android:layout_marginBottom="236dp"
         android:background="@drawable/text_border"
         android:entries="@array/blank"
         android:spinnerMode="dropdown"
-        android:visibility="invisible"
-        android:enabled="false"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/setLoadedFrames"
+        android:layout_width="127dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="136dp"
+        android:layout_marginRight="136dp"
+        android:layout_marginBottom="168dp"
+        android:enabled="false"
+        android:onClick="setTheLoadedFrames"
+        android:text="@string/select_edited_frames"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/setFrames"
@@ -963,8 +1090,8 @@
 
     <Button
         android:id="@+id/setSequenceName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="118dp"
+        android:layout_height="78dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:layout_marginBottom="372dp"
@@ -1062,83 +1189,5 @@
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameCounter" />
-
-    <TextView
-        android:id="@+id/firstFrame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginBottom="12dp"
-        android:text="@string/first_frame"
-        android:textColor="#80ff00"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/secondFrame"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/secondFrame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginBottom="15dp"
-        android:text="@string/second_frame"
-        android:textColor="#d000ff"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/thirdFrame"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/thirdFrame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="12dp"
-        android:text="@string/third_frame"
-        android:textColor="#a200ff"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/fourthFrame"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/fourthFrame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="11dp"
-        android:layout_marginLeft="11dp"
-        android:layout_marginBottom="12dp"
-        android:text="@string/fourth_frame"
-        android:textColor="#6600ff"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/fifthFrame"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/fifthFrame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginLeft="22dp"
-        android:layout_marginBottom="13dp"
-        android:text="@string/fifth_frame"
-        android:textColor="#00b3ff"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/sixthFrame"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/sixthFrame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="19dp"
-        android:layout_marginLeft="19dp"
-        android:layout_marginBottom="50dp"
-        android:text="@string/sixth_frame"
-        android:textColor="#00fff2"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

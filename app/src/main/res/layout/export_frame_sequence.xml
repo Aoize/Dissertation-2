@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,13 +18,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/reloadList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginBottom="408dp"
+        android:onClick="reloadFramesAndSequences"
+        android:text="@string/reload_frame_sequence"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <Spinner
         android:id="@+id/frameSequenceList"
         android:layout_width="150dp"
         android:layout_height="75dp"
-        android:layout_marginStart="130dp"
-        android:layout_marginLeft="130dp"
-        android:layout_marginBottom="580dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginBottom="508dp"
         android:background="@drawable/text_border"
         android:entries="@array/blank"
         android:spinnerMode="dropdown"
@@ -31,18 +45,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/reloadList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="81dp"
-        android:layout_marginRight="81dp"
-        android:layout_marginBottom="484dp"
-        android:onClick="reloadFramesAndSequences"
-        android:text="@string/reload_frame_sequence"
+    <Spinner
+        android:id="@+id/editedFrameSequenceList"
+        android:layout_width="150dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="216dp"
+        android:layout_marginLeft="216dp"
+        android:layout_marginBottom="508dp"
+        android:background="@drawable/text_border"
+        android:entries="@array/blank"
+        android:spinnerMode="dropdown"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/exportSelectedSequenceOrFrame"
@@ -60,12 +75,11 @@
 
     <TextView
         android:id="@+id/directory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="132dp"
-        android:text=""
+        android:layout_width="396dp"
+        android:layout_height="89dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="36dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -79,6 +93,48 @@
         android:text="@string/directory"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/created"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginLeft="44dp"
+        android:text="@string/created_frame_sequence"
+        app:layout_constraintBottom_toTopOf="@+id/frameSequenceList"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/edited"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginRight="44dp"
+        android:text="@string/edited_frame_sequence"
+        app:layout_constraintBottom_toTopOf="@+id/editedFrameSequenceList"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Switch
+        android:id="@+id/createdToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="186dp"
+        android:layout_marginLeft="186dp"
+        android:layout_marginTop="28dp"
+        android:checked="true"
+        android:onClick="createdFrameToggle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exportSelectedSequenceOrFrame" />
+
+    <TextView
+        android:id="@+id/toggleText"
+        android:layout_width="180dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginLeft="124dp"
+        android:text="@string/toggle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createdToggle" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

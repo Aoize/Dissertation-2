@@ -10,7 +10,7 @@ public class SavedFramesModel extends ViewModel {
 
     public SavedFramesModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("View your Faved Frames here.");
+        mText.setValue("View your Saved Frames here.");
     }
 
     public LiveData<String> getText() {

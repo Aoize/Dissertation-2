@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,8 +22,22 @@
         android:id="@+id/sequenceList"
         android:layout_width="150dp"
         android:layout_height="75dp"
-        android:layout_marginStart="130dp"
-        android:layout_marginLeft="130dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginBottom="340dp"
+        android:background="@drawable/text_border"
+        android:entries="@array/blank"
+        android:spinnerMode="dropdown"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/editedSequenceList"
+        android:layout_width="150dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="220dp"
+        android:layout_marginLeft="220dp"
         android:layout_marginBottom="340dp"
         android:background="@drawable/text_border"
         android:entries="@array/blank"
@@ -33,29 +48,73 @@
 
     <Button
         android:id="@+id/reloadSequenceList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="97dp"
-        android:layout_marginRight="97dp"
-        android:layout_marginBottom="272dp"
+        android:layout_width="170dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="220dp"
         android:onClick="reloadTheSequenceList"
         android:text="@string/reload_sequence"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <Switch
+        android:id="@+id/savedSeqToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="123dp"
+        android:layout_marginRight="123dp"
+        android:checked="true"
+        android:onClick="savedSequenceToggle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reloadSequenceList" />
+
+    <TextView
+        android:id="@+id/toggleText"
+        android:layout_width="180dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="54dp"
+        android:layout_marginRight="54dp"
+        android:text="@string/saved_toggle_sequence"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/savedSeqToggle"
+        tools:layout_editor_absoluteX="192dp" />
+
     <Button
         android:id="@+id/viewSelectedSequence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="22dp"
-        android:layout_marginRight="22dp"
-        android:layout_marginBottom="140dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="40dp"
         android:onClick="viewTheSelectedSequence"
         android:text="@string/view_sequence"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/created"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:text="@string/created_sequence"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sequenceList" />
+
+    <TextView
+        android:id="@+id/edited"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:text="@string/edited_sequence"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editedSequenceList" />
 
     <TextView
         android:id="@+id/savedSequenceView"

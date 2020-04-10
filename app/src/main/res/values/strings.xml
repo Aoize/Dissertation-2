@@ -12,6 +12,7 @@
     <string name="menu_savedFrames">Saved Frames</string>
     <string name="menu_savedSequences">Saved Sequences</string>
     <string name="menu_exportFramesSequences">Export Frames/Sequences</string>
+    <string name="menu_settings">Settings</string>
 
     <!--Page Header Strings-->
     <string name="frame_creation">Frame Creation</string>
@@ -30,11 +31,11 @@
 
 
     <!--Frame Creation Strings-->
-    <string name="set_coils">Set Coils</string>
+    <string name="set_coils">Set Number of Pins</string>
     <string name="save_frame">Save Frame</string>
-    <string name="pin_delay">Set Pin Delays</string>
+    <string name="pin_delay">Set Pin Delay</string>
     <string name="pin_time">Set Pin Activation Time</string>
-    <string name="select_frame_name">Select Name</string>
+    <string name="select_frame_name">Number the Frame</string>
     <string name="index">Index</string>
     <string name="middle">Middle</string>
     <string name="ring">Ring</string>
@@ -46,7 +47,18 @@
     <string name="sixth_coil">Sixth coil</string>
     <string name="seventh_coil">Seventh coil</string>
     <string name="eighth_coil">Eighth coil</string>
-    <string name="coils_used">Coils Used</string>
+    <string name="coils_used">Pins Used</string>
+    <string name="frame_help">Help</string>
+    <string name="frame_load">Load a Frame</string>
+
+    <string-array name="frame_name_list">
+        <item>$F000</item>
+        <item>$F001</item>
+        <item>$F002</item>
+        <item>$F003</item>
+        <item>$F004</item>
+        <item>$F005</item>
+    </string-array>
 
     <string-array name="coils_used">
         <item>1</item>
@@ -85,7 +97,7 @@
     <string name="remove_frame">Remove Frames</string>
     <string name="number_of_frames">Number of Frames</string>
     <string name="select_frames">Select Frames</string>
-    <string name="select_sequence_name">Select Name</string>
+    <string name="select_sequence_name">Number the Sequence</string>
     <string name="repetition_amount">Number of Repetitions</string>
     <string name="frames_used">Frames Used</string>
     <string name="first_frame">First frame</string>
@@ -94,6 +106,10 @@
     <string name="fourth_frame">Fourth frame</string>
     <string name="fifth_frame">Fifth frame</string>
     <string name="sixth_frame">Sixth frame</string>
+    <string name="sequence_help">Help</string>
+    <string name="sequence_toggle">Switch between Created and Edited Frames</string>
+
+    <string name="select_edited_frames">Select Edited Frames</string>
 
     <string name="refresh">Refresh</string>
 
@@ -122,14 +138,77 @@
     <!--Saved Frame Strings-->
     <string name="reload_frames">Reload the Frame list</string>
     <string name="view_frames">View the selected Frame</string>
+    <string name="created_frame">Created Frame</string>
+    <string name="edited_frame">Edited Frame</string>
+    <string name="saved_toggle">Switch between Created and Edited Frames to view</string>
 
     <!--Saved Sequence Strings-->
     <string name="reload_sequence">Reload the Sequence List</string>
     <string name="view_sequence">View the selected Sequence</string>
+    <string name="created_sequence">Created Sequence</string>
+    <string name="edited_sequence">Edited Sequence</string>
+    <string name="saved_toggle_sequence">Switch between Created and Edited Sequences to view</string>
 
     <!--Export Frame and Sequence Strings-->
     <string name="reload_frame_sequence">Reload Frames and Sequences</string>
     <string name="export_frame_sequence">Export the selected Frame or Sequence</string>
     <string name="directory">Your file is saved to the Directory shown below.</string>
+    <string name="created_frame_sequence">Created Frames and Sequences</string>
+    <string name="edited_frame_sequence">Edited Frames and Sequences</string>
+    <string name="toggle">Switch between Created and Edited Frames/Sequences to export</string>
+
+    <!--Sequence Creation Information Strings-->
+    <string name="select_frame_helper">Once the drop down box has been selected above the \'Select Frames\' button,
+        it will show you all Frames that you have made prior. Select from the
+        list and click the button to insert it into the Sequence. This will then
+        give you the ability to select the amount of repetitions a Frame will have.</string>
+    <string name="save_sequence_helper">Once you have created your Sequence and no errors have occurred.
+        You will be able to save your Sequence using the \'Save Sequence\' button.
+        What your Sequence will look like, is displayed by a multitude of colours, indicating each
+        Frame and its position.</string>
+    <string name="frame_repetition_helper">After you have selected a Frame to use, you can select the
+        Repetition Amount for that Frame. This indicates how many times the
+        Frame will repeat before transitioning on to the next Frame in the Sequence.</string>
+    <string name="remove_frame_helper">Once the \'Remove Frames\' button has been pressed, it will remove
+        all Frames selected from the Sequence. This is shown in the \'Sequence Creation Area\'.
+        It will also allow you to re-add Frames again to the Sequence.</string>
+    <string name="number_frame_helper">The \'Number of Frames\' button allows you to select from a
+        drop-down selection, the Number of Frames you wish to use whilst
+        creating your Sequence. This will then allow you to select from all the Frames you have made.</string>
+    <string name="name_sequence_helper">The \'Number the Sequence\' button assigns a number to your Sequence.
+        This is also what your Sequence will be saved under and will be the unique value of that Sequence.</string>
+    <string name="edited_frame_helper">Select from a list of Frames that you have edited. This will allow
+        you to re-make the Sequence without re-making the Frames again. Use the switch to switch between
+        using the Edited Frames and Frames you made prior, at the start of creating your Sequence.</string>
+
+    <!--Frame Creation Information Strings-->
+    <string name="activation_helper">Select from the dropdown the speed of which you want the Pins to be
+        activated for. This is measured as a length of time. This means that the Pins will stay
+        out longer or shorter, depending on your selection.</string>
+    <string name="delay_helper">This will select the Delay of each Pin, before they transfer on to the
+        next Pin in the Frame. This is measured in a length of time, which means the Pins will be
+        faster or slower to cycle to each next Pin depending on what you choose.</string>
+    <string name="name_helper">The \'Number the Frame\' button assigns a number to your Frame.
+        This is also what your Frame will be saved under and will be the unique value of that Frame.</string>
+    <string name="pin_helper">This will allow you to select how many Pins you wish to use in creating
+        your Frame. If you select \'4\' then you can only tick \'4\' boxes in the 8x8 grid above.</string>
+    <string name="save_helper">Once you have created your Frame and no errors have occurred.
+        You will be able to save your Frame using the \'Save Frame\' button.
+        What your Frame will look like, is displayed by a number system, indicating the order in which
+        the Pins will activate.</string>
+    <string name="load_helper">Select from a list of Frames, and if they are already saved on your
+        device, you can load them. Once they are loaded, they can be edited and re-made how you see fit.</string>
+
+    <!--Settings Page Strings-->
+    <string name="welcome">On this page, please select which User you are and also which Task you are completing.
+        You will need to come back to this page before you start each new Task. If you need help understanding
+        how to navigate around the Frame and Sequence Creation pages. Be sure to click the \'I\' icon for help.</string>
+    <string name="firstUser">First User</string>
+    <string name="secondUser">Second User</string>
+    <string name="thirdUser">Third User</string>
+    <string name="taskOne">Task One</string>
+    <string name="taskTwo">Task Two</string>
+    <string name="taskThree">Task Three</string>
+    <string name="taskFour">Task Four</string>
 
 </resources>

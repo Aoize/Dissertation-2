@@ -1,4 +1,4 @@
-package com.example.hapticfeedback.ui.gallery;
+package com.example.hapticfeedback.ui.settings;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.hapticfeedback.R;
 
-public class GalleryFragment extends Fragment {
+public class SettingsPage extends Fragment {
 
-    private GalleryViewModel galleryViewModel;
+    private SettingsViewModel settingsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                ViewModelProviders.of(this).get(GalleryViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
-        final TextView textView = root.findViewById(R.id.text_gallery);
-        galleryViewModel.getText().observe(this, new Observer<String>() {
+        settingsViewModel =
+                ViewModelProviders.of(this).get(SettingsViewModel.class);
+        View root = inflater.inflate(R.layout.settings_page, container, false);
+        final TextView textView = root.findViewById(R.id.settings);
+        settingsViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
