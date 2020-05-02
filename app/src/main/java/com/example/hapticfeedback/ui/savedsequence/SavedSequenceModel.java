@@ -1,16 +1,16 @@
-package com.example.hapticfeedback.ui.saved;
+package com.example.hapticfeedback.ui.savedsequence;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SavedFramesModel extends ViewModel {
+public class SavedSequenceModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public SavedFramesModel() {
+    public SavedSequenceModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("View your Saved Frames here.");
+        mText.setValue("View your Saved Sequences here");
     }
 
     public LiveData<String> getText() {

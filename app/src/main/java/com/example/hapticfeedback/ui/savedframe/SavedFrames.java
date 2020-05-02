@@ -1,4 +1,4 @@
-package com.example.hapticfeedback.ui.saved;
+package com.example.hapticfeedback.ui.savedframe;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

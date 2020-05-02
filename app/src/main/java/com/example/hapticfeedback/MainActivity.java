@@ -38,6 +38,7 @@ import com.example.hapticfeedback.ui.sequence.Repetition_Help;
 import com.example.hapticfeedback.ui.sequence.Save_Sequence_Help;
 import com.example.hapticfeedback.ui.sequence.Select_Frames_Help;
 import com.example.hapticfeedback.ui.sequence.Sequence_Help;
+import com.example.hapticfeedback.ui.util.util;
 import com.google.android.material.navigation.NavigationView;
 
 import android.widget.ArrayAdapter;
@@ -61,24 +62,24 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    //Frame and Sequence creation stuff
+    //Frame, Sequence, Export Buttons
     Button setSequenceName, setFrame, pinHelper, saveSequenceHelper, nameHelper, delayHelper, activationHelper,
             setAmountOfRep, saveTheSequence, resetFramesUsed, saveHelper, repetitionHelper, nameSeqHelper,
             selectFramesHelper, numFramesHelper, removeFramesHelper, loadHelper, editedFrameHelper;
-
+    //Frame, Sequence, Export Spinners
     Spinner numOfCoils, amountOfDelay, amountOfOnTime, nameOfFrame, nameOfSequence, numOfFramesSelected,
             frameAmount, selectRepAmount, resetFrames;
-
+    //Frame, Sequence, Export Buttons
     TextView counter, limit, frameUsedLimit,
             sequenceCreationView, frameCounter, framesUsedCounter;
-
+    //Frame, Sequence Checkboxes
     CheckBox pin0, pin1, pin2, pin3, pin4, pin5, pin6, pin7, pin8, pin9, pin10, pin11, pin12, pin13,
             pin14, pin15, pin16, pin17, pin18, pin19, pin20, pin21, pin22, pin23, pin24, pin25,
             pin26, pin27, pin28, pin29, pin30, pin31, pin32, pin33, pin34, pin35, pin36, pin37,
             pin38, pin39, pin40, pin41, pin42, pin43, pin44, pin45, pin46, pin47, pin48, pin49,
             pin50, pin51, pin52, pin53, pin54, pin55, pin56, pin57, pin58, pin59, pin60, pin61,
             pin62, pin63;
-
+    //Frame, Sequence, Export Switches
     Switch createdToggle, savedToggle, sequenceToggle, savedSeqToggle,
             firstUser, secondUser, thirdUser,
             firstUserTaskOne, firstUserTaskTwo, firstUserTaskThree, firstUserTaskFour,
@@ -224,16 +225,10 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Object> editedSequenceName3 = new ArrayList<>();
     ArrayList<Object> editedSequenceName4 = new ArrayList<>();
 
-    /**
-     * Method to register if a pin has been selected or not (frame)
-     *
-     * @param view
-     */
+    //Method to register if a pin has been selected or not
     public static int coilCounter = 0;
 
-    /**
-     * Boolean operators for name verification
-     */
+    //Boolean operators for name verification
     public boolean firstFrame = false;
     public boolean secondFrame = false;
     public boolean thirdFrame = false;
@@ -245,34 +240,27 @@ public class MainActivity extends AppCompatActivity {
     public boolean thirdSequence = false;
     public boolean fourthSequence = false;
 
-    /**
-     * Empty string to allow for padding inside commandInformation so you can edit on fly
-     */
+    //Empty string to allow for padding inside commandInformation so you can edit on fly
     public String empty = "";
 
-    /**
-     * Boolean operators for user and task verification
-     */
+    //Boolean operators for user and task verification
     public boolean firstUserBool = false;
     public boolean secondUserBool = false;
     public boolean thirdUserBool = false;
-
     public boolean taskOne = false;
     public boolean taskTwo = false;
     public boolean taskThree = false;
     public boolean taskFour = false;
 
-    /**
-     * Loading a Frame
-     *
-     * @param view
-     */
+    //Loading a Frame
     public boolean loaded = false;
+
+    //Below is methods relating to Frame Creation
 
     /**
      * Method to set 8x8 pins with specific values
      *
-     * @param view
+     * @param view of the checkboxes in UI
      */
     public void pin(View view) {
         numOfCoils = findViewById(R.id.numberOfCoils);
@@ -354,8 +342,6 @@ public class MainActivity extends AppCompatActivity {
         String coilsSelected = limit.getText().toString();
         int coilLimit = Integer.parseInt(coilsSelected);
 
-/*        String coilsSelected = numOfCoils.getSelectedItem().toString();
-        int coilLimit = Integer.parseInt(coilsSelected);*/
         int coilCount = 0;
 
         for (Object Commands : commandInformation) {
@@ -3573,9 +3559,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to name a frame (frame)
+     * Method to number a frame
      *
-     * @param view
+     * @param view of the frame button and spinner in UI
      */
     public void nameTheFrame(View view) {
         //TODO Fix an issue with naming etc when the user leaves the app/page and re-enters
@@ -3831,11 +3817,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }
-            }
-
-
-
-            /*else if (!commandInformation.isEmpty()) {
+            } else if (!commandInformation.isEmpty()) {
 
                 if (firstFrame == false) {
                     frameName1.clear();
@@ -3965,7 +3947,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Name already in use", Toast.LENGTH_SHORT).show();
                     }
                 }
-            }*/
+            }
 
             TextView t = findViewById(R.id.frameCreationView);
             String finial_commands = "";
@@ -3989,9 +3971,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to set coils used (frame)
+     * Method to set coils used
      *
-     * @param view
+     * @param view of the coil button and spinner in UI
      */
     public void setTheCoils(View view) {
         pin0 = findViewById(R.id.pin0);
@@ -4246,9 +4228,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to set a delay (frame)
+     * Method to set a delay
      *
-     * @param view
+     * @param view of the delay button and spinner in UI
      */
     public void setTheDelay(View view) {
         amountOfDelay = findViewById(R.id.amountOfDelay);
@@ -4340,9 +4322,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to set an on time (frame)
+     * Method to set an on time
      *
-     * @param view
+     * @param view of the on-time button and spinner in UI
      */
     public void setTheOnTime(View view) {
         amountOfOnTime = findViewById(R.id.amountOfOnTime);
@@ -4439,7 +4421,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to save data from a frame (frame)
+     * Method to save data from a frame to arrays
      */
     private void saveData() {
         counter = findViewById(R.id.counter);
@@ -7586,9 +7568,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Saves the frame data to an array (frame)
+     * Saves the frame data to an array
      *
-     * @param view
+     * @param view of the save button in UI
      */
     public void saveTheFrame(View view) {
         saveData();
@@ -7597,7 +7579,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Method to load a frame into the creation view
      *
-     * @param view
+     * @param view of the load button and spinner in UI
      */
     public void loadTheFrame(View view) {
         pin0 = findViewById(R.id.pin0);
@@ -7692,7 +7674,6 @@ public class MainActivity extends AppCompatActivity {
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "File doesn't exist", Toast.LENGTH_SHORT).show();
                     loaded = false;
                     lName.remove("$F000");
                 } catch (IOException e) {
@@ -7851,7 +7832,6 @@ public class MainActivity extends AppCompatActivity {
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "File doesn't exist", Toast.LENGTH_SHORT).show();
                     loaded = false;
                     lName.remove("$F000");
                 } catch (IOException e) {
@@ -8010,7 +7990,6 @@ public class MainActivity extends AppCompatActivity {
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "File doesn't exist", Toast.LENGTH_SHORT).show();
                     loaded = false;
                     lName.remove("$F000");
                 } catch (IOException e) {
@@ -8169,7 +8148,6 @@ public class MainActivity extends AppCompatActivity {
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "File doesn't exist", Toast.LENGTH_SHORT).show();
                     loaded = false;
                     lName.remove("$F000");
                 } catch (IOException e) {
@@ -8328,7 +8306,6 @@ public class MainActivity extends AppCompatActivity {
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "File doesn't exist", Toast.LENGTH_SHORT).show();
                     loaded = false;
                     lName.remove("$F000");
                 } catch (IOException e) {
@@ -8487,7 +8464,6 @@ public class MainActivity extends AppCompatActivity {
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "File doesn't exist", Toast.LENGTH_SHORT).show();
                     loaded = false;
                     lName.remove("$F000");
                 } catch (IOException e) {
@@ -8646,7 +8622,6 @@ public class MainActivity extends AppCompatActivity {
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "File doesn't exist", Toast.LENGTH_SHORT).show();
                     loaded = false;
                     lName.remove("$F000");
                 } catch (IOException e) {
@@ -8805,7 +8780,6 @@ public class MainActivity extends AppCompatActivity {
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "File doesn't exist", Toast.LENGTH_SHORT).show();
                     loaded = false;
                     lName.remove("$F000");
                 } catch (IOException e) {
@@ -8964,7 +8938,6 @@ public class MainActivity extends AppCompatActivity {
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "File doesn't exist", Toast.LENGTH_SHORT).show();
                     loaded = false;
                     lName.remove("$F000");
                 } catch (IOException e) {
@@ -9123,7 +9096,6 @@ public class MainActivity extends AppCompatActivity {
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "File doesn't exist", Toast.LENGTH_SHORT).show();
                     loaded = false;
                     lName.remove("$F000");
                 } catch (IOException e) {
@@ -9282,7 +9254,6 @@ public class MainActivity extends AppCompatActivity {
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "File doesn't exist", Toast.LENGTH_SHORT).show();
                     loaded = false;
                     lName.remove("$F000");
                 } catch (IOException e) {
@@ -9441,7 +9412,6 @@ public class MainActivity extends AppCompatActivity {
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "File doesn't exist", Toast.LENGTH_SHORT).show();
                     loaded = false;
                     lName.remove("$F000");
                 } catch (IOException e) {
@@ -11460,18 +11430,18 @@ public class MainActivity extends AppCompatActivity {
 
         if (lName.contains("$F000") && lName.contains("$F001") && lName.contains("$F002") && lName.contains("$F003") &&
                 lName.contains("$F004") && lName.contains("$F005")) {
-            Toast.makeText(getApplicationContext(), "All Framed edited, if you wish to edit them again, please restart the App", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "All Frames edited, if you wish to edit them again, please restart the App", Toast.LENGTH_SHORT).show();
             loaded = false;
         }
 
     }
 
-    //TODO Remove frame helper from manafest and remove all trace (if not required at all)
+    //Below is methods relating to Frame Creation Information
 
     /**
-     * Pin Information
+     * Pin Information pop-up
      *
-     * @param view
+     * @param view pop-up icon in UI
      */
     public void pinInformation(View view) {
         pinHelper = findViewById(R.id.pinHelp);
@@ -11479,9 +11449,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Name Information
+     * Name Information pop-up
      *
-     * @param view
+     * @param view pop-up icon in UI
      */
     public void nameInformation(View view) {
         nameHelper = findViewById(R.id.nameHelp);
@@ -11489,9 +11459,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Activation Information
+     * Activation Information pop-up
      *
-     * @param view
+     * @param view pop-up icon in UI
      */
     public void activationInformation(View view) {
         activationHelper = findViewById(R.id.activationHelp);
@@ -11499,9 +11469,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Delay Information
+     * Delay Information pop-up
      *
-     * @param view
+     * @param view pop-up icon in UI
      */
     public void delayInformation(View view) {
         delayHelper = findViewById(R.id.delayHelp);
@@ -11509,9 +11479,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Save Information
+     * Save Information pop-up
      *
-     * @param view
+     * @param view pop-up icon in UI
      */
     public void saveInformation(View view) {
         saveHelper = findViewById(R.id.saveHelp);
@@ -11519,32 +11489,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Load Information
+     * Load Information pop-up
      *
-     * @param view
+     * @param view pop-up icon in UI
      */
     public void loadInformation(View view) {
         loadHelper = findViewById(R.id.loadHelp);
         startActivity(new Intent(MainActivity.this, Load_Help.class));
     }
 
-    //TODO Remove sequence helper from manafest and remove all trace (if not required at all)
+    //Below is methods relating to Sequence Creation Information
 
     /**
-     * Save Information
+     * Save Information pop-up
      *
-     * @param view
+     * @param view pop-up icon in UI
      */
     public void saveSeqInformation(View view) {
         saveSequenceHelper = findViewById(R.id.saveSequenceHelp);
         startActivity(new Intent(MainActivity.this, Save_Sequence_Help.class));
-
     }
 
     /**
-     * Remove frame information
+     * Remove frame information pop-up
      *
-     * @param view
+     * @param view pop-up icon in UI
      */
     public void removeInformation(View view) {
         removeFramesHelper = findViewById(R.id.removeFramesHelp);
@@ -11553,9 +11522,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Frame repitiion informaiton
+     * Frame repitiion informaiton pop-up
      *
-     * @param view
+     * @param view pop-up icon in UI
      */
     public void repetitionInformation(View view) {
         repetitionHelper = findViewById(R.id.repetitionHelp);
@@ -11564,9 +11533,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Name sequence information
+     * Name sequence information pop-up
      *
-     * @param view
+     * @param view pop-up icon in UI
      */
     public void nameSeqInformation(View view) {
         nameSeqHelper = findViewById(R.id.nameSeqHelp);
@@ -11575,9 +11544,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Select frame information
+     * Select frame information pop-up
      *
-     * @param view
+     * @param view pop-up icon in UI
      */
     public void selectFrameInformation(View view) {
         selectFramesHelper = findViewById(R.id.selectFramesHelp);
@@ -11586,9 +11555,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Number of frame information
+     * Number of frame information pop-up
      *
-     * @param view
+     * @param view pop-up icon in UI
      */
     public void numFramesInformation(View view) {
         numFramesHelper = findViewById(R.id.numFramesHelp);
@@ -11597,19 +11566,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Edit frame Information
+     * Edit frame Information pop-up
      *
-     * @param view
+     * @param view pop-up icon in UI
      */
     public void editedFrameInformation(View view) {
         editedFrameHelper = findViewById(R.id.editedFrameHelp);
         startActivity(new Intent(MainActivity.this, Edited_Frame_Help.class));
     }
 
+    //Below are methods to reload, view and export Frames and Sequences
+
     /**
-     * Method to reload the frame and sequence spinner (export)
+     * Method to reload the frame and sequence spinner
      *
-     * @param view
+     * @param view of the export spinner in UI
      */
     public void reloadFramesAndSequences(View view) {
         Spinner frameSequenceList = findViewById(R.id.frameSequenceList);
@@ -11697,9 +11668,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to reload the frame spinner (frame)
+     * Method to reload the frame spinner
      *
-     * @param view
+     * @param view of the saved frame spinner in UI
      */
     public void reloadTheFrameList(View view) {
         Spinner frameLists = findViewById(R.id.frameList);
@@ -11762,9 +11733,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to reload the sequence spinner (sequence)
+     * Method to reload the sequence spinner
      *
-     * @param view
+     * @param view of the saved sequence spinner in UI
      */
     public void reloadTheSequenceList(View view) {
         Spinner sequenceLists = findViewById(R.id.sequenceList);
@@ -11816,9 +11787,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to view the selected frame (frame)
+     * Method to view the selected frame
      *
-     * @param view
+     * @param view of the saved frame button in UI
      */
     public void viewTheSelectedFrame(View view) {
         pin0 = findViewById(R.id.pin0);
@@ -13260,7 +13231,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "No frames have been edited yet", Toast.LENGTH_SHORT).show();
                 }
             }
-
             if (!editedFrameLists.getSelectedItem().toString().contains(" ")) {
                 String content = editedFrameLists.getSelectedItem().toString();
                 if (content.equals(loadedFrame1Name.toString().replaceAll("(^\\[|\\])", ""))) {
@@ -13491,7 +13461,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if (content.equals(loadedFrame2Name.toString().replaceAll("(^\\[|\\])", ""))) {
-                    frame2 = loadedFrame2Name.toString();
+                    frame2 = loadedFrameFinished2.toString();
                     if (frame2.contains("$Y000")) {
                         pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
                     }
@@ -13686,7 +13656,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if (content.equals(loadedFrame3Name.toString().replaceAll("(^\\[|\\])", ""))) {
-                    frame3 = loadedFrame3Name.toString();
+                    frame3 = loadedFrameFinished3.toString();
                     if (frame3.contains("$Y000")) {
                         pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
                     }
@@ -13881,7 +13851,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if (content.equals(loadedFrame4Name.toString().replaceAll("(^\\[|\\])", ""))) {
-                    frame4 = loadedFrame4Name.toString();
+                    frame4 = loadedFrameFinished4.toString();
                     if (frame4.contains("$Y000")) {
                         pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
                     }
@@ -14076,7 +14046,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if (content.equals(loadedFrame5Name.toString().replaceAll("(^\\[|\\])", ""))) {
-                    frame5 = loadedFrame5Name.toString();
+                    frame5 = loadedFrameFinished5.toString();
                     if (frame5.contains("$Y000")) {
                         pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
                     }
@@ -14271,7 +14241,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if (content.equals(loadedFrame6Name.toString().replaceAll("(^\\[|\\])", ""))) {
-                    frame6 = loadedFrame6Name.toString();
+                    frame6 = loadedFrameFinished6.toString();
                     if (frame6.contains("$Y000")) {
                         pin0.setBackgroundColor(Color.parseColor("#E6F4F5"));
                     }
@@ -14472,7 +14442,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Method to view the selected sequence (sequence)
      *
-     * @param view
+     * @param view of the saved sequence button in UI
      */
     public void viewTheSelectedSequence(View view) {
         pin0 = findViewById(R.id.pin0);
@@ -17897,6 +17867,8 @@ public class MainActivity extends AppCompatActivity {
             );
         }
     }
+
+    //Below is the method to export Frames and Sequences
 
     /**
      * Export method for frames and sequences
@@ -22485,6 +22457,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Below are methods relating to Sequence Creation
+
     /**
      * Method to give the sequence a name (sequence)
      *
@@ -27026,6 +27000,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    //Below are methods relating to settings
 
     /**
      * Method to select the first user

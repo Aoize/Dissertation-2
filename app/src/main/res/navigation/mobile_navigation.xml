@@ -25,13 +25,13 @@
 
     <fragment
         android:id="@+id/nav_savedFrames"
-        android:name="com.example.hapticfeedback.ui.saved.SavedFrames"
+        android:name="com.example.hapticfeedback.ui.savedframe.SavedFrames"
         android:label="@string/menu_savedFrames"
         tools:layout="@layout/saved_frames" />
 
     <fragment
         android:id="@+id/nav_savedSequences"
-        android:name="com.example.hapticfeedback.ui.share.SavedSequences"
+        android:name="com.example.hapticfeedback.ui.savedsequence.SavedSequences"
         android:label="@string/menu_savedSequences"
         tools:layout="@layout/saved_sequences" />
 
