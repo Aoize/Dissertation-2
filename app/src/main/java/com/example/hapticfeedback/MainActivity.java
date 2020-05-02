@@ -252,7 +252,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean taskThree = false;
     public boolean taskFour = false;
 
-
     //Loading a Frame
     public boolean loaded = false;
 
