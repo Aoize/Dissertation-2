@@ -3564,7 +3564,6 @@ public class MainActivity extends AppCompatActivity {
      * @param view of the frame button and spinner in UI
      */
     public void nameTheFrame(View view) {
-        //TODO Fix an issue with naming etc when the user leaves the app/page and re-enters
         if (commandInformation.size() != 4) {
             commandInformation.add(empty);
             commandInformation.add(empty);
@@ -19204,7 +19203,9 @@ public class MainActivity extends AppCompatActivity {
                         sixthFrameReplace3 = sixthFrameReplace2.replace(" ", "\n");
                     }
 
-                    if (sequenceFinished1.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                    //Below is code to export the Frames in order to which they show in the Sequence
+
+                    /*if (sequenceFinished1.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 14) {
                         t1 = firstFrameReplace3 + newLine;
                     } else if (sequenceFinished1.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 28) {
                         t2 = dumb + firstFrameReplace3 + newLine;
@@ -19285,6 +19286,92 @@ public class MainActivity extends AppCompatActivity {
                     } else if (sequenceFinished1.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 70) {
                         t35 = dumb + dumb + dumb + dumb + sixthFrameReplace3 + newLine;
                     } else if (sequenceFinished1.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                        t36 = dumb + dumb + dumb + dumb + dumb + sixthFrameReplace3 + newLine;
+                    }*/
+
+                    //Below is code to print Frame 000 first through to 006 last.
+
+                    if (firstFrameReplace3.contains("$F000")) {
+                        t1 = firstFrameReplace3 + newLine;
+                    } else if (firstFrameReplace3.contains("$F001")) {
+                        t2 = dumb + firstFrameReplace3 + newLine;
+                    } else if (firstFrameReplace3.contains("$F002")) {
+                        t3 = dumb + dumb + firstFrameReplace3 + newLine;
+                    } else if (firstFrameReplace3.contains("$F003")) {
+                        t4 = dumb + dumb + dumb + firstFrameReplace3 + newLine;
+                    } else if (firstFrameReplace3.contains("$F004")) {
+                        t5 = dumb + dumb + dumb + dumb + firstFrameReplace3 + newLine;
+                    } else if (firstFrameReplace3.contains("$F005")) {
+                        t6 = dumb + dumb + dumb + dumb + dumb + firstFrameReplace3 + newLine;
+                    }
+
+                    if (secondFrameReplace3.contains("$F000")) {
+                        t7 = secondFrameReplace3 + newLine;
+                    } else if (secondFrameReplace3.contains("$F001")) {
+                        t8 = dumb + secondFrameReplace3 + newLine;
+                    } else if (secondFrameReplace3.contains("$F002")) {
+                        t9 = dumb + dumb + secondFrameReplace3 + newLine;
+                    } else if (secondFrameReplace3.contains("$F003")) {
+                        t10 = dumb + dumb + dumb + secondFrameReplace3 + newLine;
+                    } else if (secondFrameReplace3.contains("$F004")) {
+                        t11 = dumb + dumb + dumb + dumb + secondFrameReplace3 + newLine;
+                    } else if (secondFrameReplace3.contains("$F005")) {
+                        t12 = dumb + dumb + dumb + dumb + dumb + secondFrameReplace3 + newLine;
+                    }
+
+                    if (thirdFrameReplace3.contains("$F000")) {
+                        t13 = thirdFrameReplace3 + newLine;
+                    } else if (thirdFrameReplace3.contains("$F001")) {
+                        t14 = dumb + thirdFrameReplace3 + newLine;
+                    } else if (thirdFrameReplace3.contains("$F002")) {
+                        t15 = dumb + dumb + thirdFrameReplace3 + newLine;
+                    } else if (thirdFrameReplace3.contains("$F003")) {
+                        t16 = dumb + dumb + dumb + thirdFrameReplace3 + newLine;
+                    } else if (thirdFrameReplace3.contains("$F004")) {
+                        t17 = dumb + dumb + dumb + dumb + thirdFrameReplace3 + newLine;
+                    } else if (thirdFrameReplace3.contains("$F005")) {
+                        t18 = dumb + dumb + dumb + dumb + dumb + thirdFrameReplace3 + newLine;
+                    }
+
+                    if (fourthFrameReplace3.contains("$F000")) {
+                        t19 = fourthFrameReplace3 + newLine;
+                    } else if (fourthFrameReplace3.contains("$F001")) {
+                        t20 = dumb + fourthFrameReplace3 + newLine;
+                    } else if (fourthFrameReplace3.contains("$F002")) {
+                        t21 = dumb + dumb + fourthFrameReplace3 + newLine;
+                    } else if (fourthFrameReplace3.contains("$F003")) {
+                        t22 = dumb + dumb + dumb + fourthFrameReplace3 + newLine;
+                    } else if (fourthFrameReplace3.contains("$F004")) {
+                        t23 = dumb + dumb + dumb + dumb + fourthFrameReplace3 + newLine;
+                    } else if (fourthFrameReplace3.contains("$F005")) {
+                        t24 = dumb + dumb + dumb + dumb + dumb + fourthFrameReplace3 + newLine;
+                    }
+
+                    if (fifthFrameReplace3.contains("$F000")) {
+                        t25 = fifthFrameReplace3 + newLine;
+                    } else if (fifthFrameReplace3.contains("$F001")) {
+                        t26 = dumb + fifthFrameReplace3 + newLine;
+                    } else if (fifthFrameReplace3.contains("$F002")) {
+                        t27 = dumb + dumb + fifthFrameReplace3 + newLine;
+                    } else if (fifthFrameReplace3.contains("$F003")) {
+                        t28 = dumb + dumb + dumb + fifthFrameReplace3 + newLine;
+                    } else if (fifthFrameReplace3.contains("$F004")) {
+                        t29 = dumb + dumb + dumb + dumb + fifthFrameReplace3 + newLine;
+                    } else if (fifthFrameReplace3.contains("$F005")) {
+                        t30 = dumb + dumb + dumb + dumb + dumb + fifthFrameReplace3 + newLine;
+                    }
+
+                    if (sixthFrameReplace3.contains("$F000")) {
+                        t31 = sixthFrameReplace3 + newLine;
+                    } else if (fifthFrameReplace3.contains("$F001")) {
+                        t32 = dumb + sixthFrameReplace3 + newLine;
+                    } else if (sixthFrameReplace3.contains("$F002")) {
+                        t33 = dumb + dumb + sixthFrameReplace3 + newLine;
+                    } else if (sixthFrameReplace3.contains("$F003")) {
+                        t34 = dumb + dumb + dumb + sixthFrameReplace3 + newLine;
+                    } else if (sixthFrameReplace3.contains("$F004")) {
+                        t35 = dumb + dumb + dumb + dumb + sixthFrameReplace3 + newLine;
+                    } else if (sixthFrameReplace3.contains("$F005")) {
                         t36 = dumb + dumb + dumb + dumb + dumb + sixthFrameReplace3 + newLine;
                     }
 
@@ -19489,87 +19576,87 @@ public class MainActivity extends AppCompatActivity {
                         sixthFrameReplace2 = sixthFrameReplace1.replaceAll("(^\\[|\\])", "");
                         sixthFrameReplace3 = sixthFrameReplace2.replace(" ", "\n");
                     }
-                    if (sequenceFinished2.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                    if (firstFrameReplace3.contains("$F000")) {
                         t1 = firstFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                    } else if (firstFrameReplace3.contains("$F001")) {
                         t2 = dumb + firstFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                    } else if (firstFrameReplace3.contains("$F002")) {
                         t3 = dumb + dumb + firstFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                    } else if (firstFrameReplace3.contains("$F003")) {
                         t4 = dumb + dumb + dumb + firstFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                    } else if (firstFrameReplace3.contains("$F004")) {
                         t5 = dumb + dumb + dumb + dumb + firstFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                    } else if (firstFrameReplace3.contains("$F005")) {
                         t6 = dumb + dumb + dumb + dumb + dumb + firstFrameReplace3 + newLine;
                     }
 
-                    if (sequenceFinished2.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                    if (secondFrameReplace3.contains("$F000")) {
                         t7 = secondFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                    } else if (secondFrameReplace3.contains("$F001")) {
                         t8 = dumb + secondFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                    } else if (secondFrameReplace3.contains("$F002")) {
                         t9 = dumb + dumb + secondFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                    } else if (secondFrameReplace3.contains("$F003")) {
                         t10 = dumb + dumb + dumb + secondFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                    } else if (secondFrameReplace3.contains("$F004")) {
                         t11 = dumb + dumb + dumb + dumb + secondFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                    } else if (secondFrameReplace3.contains("$F005")) {
                         t12 = dumb + dumb + dumb + dumb + dumb + secondFrameReplace3 + newLine;
                     }
 
-                    if (sequenceFinished2.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                    if (thirdFrameReplace3.contains("$F000")) {
                         t13 = thirdFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                    } else if (thirdFrameReplace3.contains("$F001")) {
                         t14 = dumb + thirdFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                    } else if (thirdFrameReplace3.contains("$F002")) {
                         t15 = dumb + dumb + thirdFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                    } else if (thirdFrameReplace3.contains("$F003")) {
                         t16 = dumb + dumb + dumb + thirdFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                    } else if (thirdFrameReplace3.contains("$F004")) {
                         t17 = dumb + dumb + dumb + dumb + thirdFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                    } else if (thirdFrameReplace3.contains("$F005")) {
                         t18 = dumb + dumb + dumb + dumb + dumb + thirdFrameReplace3 + newLine;
                     }
 
-                    if (sequenceFinished2.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                    if (fourthFrameReplace3.contains("$F000")) {
                         t19 = fourthFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                    } else if (fourthFrameReplace3.contains("$F001")) {
                         t20 = dumb + fourthFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                    } else if (fourthFrameReplace3.contains("$F002")) {
                         t21 = dumb + dumb + fourthFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                    } else if (fourthFrameReplace3.contains("$F003")) {
                         t22 = dumb + dumb + dumb + fourthFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                    } else if (fourthFrameReplace3.contains("$F004")) {
                         t23 = dumb + dumb + dumb + dumb + fourthFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                    } else if (fourthFrameReplace3.contains("$F005")) {
                         t24 = dumb + dumb + dumb + dumb + dumb + fourthFrameReplace3 + newLine;
                     }
 
-                    if (sequenceFinished2.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                    if (fifthFrameReplace3.contains("$F000")) {
                         t25 = fifthFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                    } else if (fifthFrameReplace3.contains("$F001")) {
                         t26 = dumb + fifthFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                    } else if (fifthFrameReplace3.contains("$F002")) {
                         t27 = dumb + dumb + fifthFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                    } else if (fifthFrameReplace3.contains("$F003")) {
                         t28 = dumb + dumb + dumb + fifthFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                    } else if (fifthFrameReplace3.contains("$F004")) {
                         t29 = dumb + dumb + dumb + dumb + fifthFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                    } else if (fifthFrameReplace3.contains("$F005")) {
                         t30 = dumb + dumb + dumb + dumb + dumb + fifthFrameReplace3 + newLine;
                     }
 
-                    if (sequenceFinished2.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                    if (sixthFrameReplace3.contains("$F000")) {
                         t31 = sixthFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                    } else if (fifthFrameReplace3.contains("$F001")) {
                         t32 = dumb + sixthFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                    } else if (sixthFrameReplace3.contains("$F002")) {
                         t33 = dumb + dumb + sixthFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                    } else if (sixthFrameReplace3.contains("$F003")) {
                         t34 = dumb + dumb + dumb + sixthFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                    } else if (sixthFrameReplace3.contains("$F004")) {
                         t35 = dumb + dumb + dumb + dumb + sixthFrameReplace3 + newLine;
-                    } else if (sequenceFinished2.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                    } else if (sixthFrameReplace3.contains("$F005")) {
                         t36 = dumb + dumb + dumb + dumb + dumb + sixthFrameReplace3 + newLine;
                     }
 
@@ -19774,87 +19861,87 @@ public class MainActivity extends AppCompatActivity {
                         sixthFrameReplace2 = sixthFrameReplace1.replaceAll("(^\\[|\\])", "");
                         sixthFrameReplace3 = sixthFrameReplace2.replace(" ", "\n");
                     }
-                    if (sequenceFinished3.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                    if (firstFrameReplace3.contains("$F000")) {
                         t1 = firstFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                    } else if (firstFrameReplace3.contains("$F001")) {
                         t2 = dumb + firstFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                    } else if (firstFrameReplace3.contains("$F002")) {
                         t3 = dumb + dumb + firstFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                    } else if (firstFrameReplace3.contains("$F003")) {
                         t4 = dumb + dumb + dumb + firstFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                    } else if (firstFrameReplace3.contains("$F004")) {
                         t5 = dumb + dumb + dumb + dumb + firstFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                    } else if (firstFrameReplace3.contains("$F005")) {
                         t6 = dumb + dumb + dumb + dumb + dumb + firstFrameReplace3 + newLine;
                     }
 
-                    if (sequenceFinished3.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                    if (secondFrameReplace3.contains("$F000")) {
                         t7 = secondFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                    } else if (secondFrameReplace3.contains("$F001")) {
                         t8 = dumb + secondFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                    } else if (secondFrameReplace3.contains("$F002")) {
                         t9 = dumb + dumb + secondFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                    } else if (secondFrameReplace3.contains("$F003")) {
                         t10 = dumb + dumb + dumb + secondFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                    } else if (secondFrameReplace3.contains("$F004")) {
                         t11 = dumb + dumb + dumb + dumb + secondFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                    } else if (secondFrameReplace3.contains("$F005")) {
                         t12 = dumb + dumb + dumb + dumb + dumb + secondFrameReplace3 + newLine;
                     }
 
-                    if (sequenceFinished3.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                    if (thirdFrameReplace3.contains("$F000")) {
                         t13 = thirdFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                    } else if (thirdFrameReplace3.contains("$F001")) {
                         t14 = dumb + thirdFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                    } else if (thirdFrameReplace3.contains("$F002")) {
                         t15 = dumb + dumb + thirdFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                    } else if (thirdFrameReplace3.contains("$F003")) {
                         t16 = dumb + dumb + dumb + thirdFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                    } else if (thirdFrameReplace3.contains("$F004")) {
                         t17 = dumb + dumb + dumb + dumb + thirdFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                    } else if (thirdFrameReplace3.contains("$F005")) {
                         t18 = dumb + dumb + dumb + dumb + dumb + thirdFrameReplace3 + newLine;
                     }
 
-                    if (sequenceFinished3.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                    if (fourthFrameReplace3.contains("$F000")) {
                         t19 = fourthFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                    } else if (fourthFrameReplace3.contains("$F001")) {
                         t20 = dumb + fourthFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                    } else if (fourthFrameReplace3.contains("$F002")) {
                         t21 = dumb + dumb + fourthFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                    } else if (fourthFrameReplace3.contains("$F003")) {
                         t22 = dumb + dumb + dumb + fourthFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                    } else if (fourthFrameReplace3.contains("$F004")) {
                         t23 = dumb + dumb + dumb + dumb + fourthFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                    } else if (fourthFrameReplace3.contains("$F005")) {
                         t24 = dumb + dumb + dumb + dumb + dumb + fourthFrameReplace3 + newLine;
                     }
 
-                    if (sequenceFinished3.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                    if (fifthFrameReplace3.contains("$F000")) {
                         t25 = fifthFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                    } else if (fifthFrameReplace3.contains("$F001")) {
                         t26 = dumb + fifthFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                    } else if (fifthFrameReplace3.contains("$F002")) {
                         t27 = dumb + dumb + fifthFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                    } else if (fifthFrameReplace3.contains("$F003")) {
                         t28 = dumb + dumb + dumb + fifthFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                    } else if (fifthFrameReplace3.contains("$F004")) {
                         t29 = dumb + dumb + dumb + dumb + fifthFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                    } else if (fifthFrameReplace3.contains("$F005")) {
                         t30 = dumb + dumb + dumb + dumb + dumb + fifthFrameReplace3 + newLine;
                     }
 
-                    if (sequenceFinished3.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                    if (sixthFrameReplace3.contains("$F000")) {
                         t31 = sixthFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                    } else if (fifthFrameReplace3.contains("$F001")) {
                         t32 = dumb + sixthFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                    } else if (sixthFrameReplace3.contains("$F002")) {
                         t33 = dumb + dumb + sixthFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                    } else if (sixthFrameReplace3.contains("$F003")) {
                         t34 = dumb + dumb + dumb + sixthFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                    } else if (sixthFrameReplace3.contains("$F004")) {
                         t35 = dumb + dumb + dumb + dumb + sixthFrameReplace3 + newLine;
-                    } else if (sequenceFinished3.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                    } else if (sixthFrameReplace3.contains("$F005")) {
                         t36 = dumb + dumb + dumb + dumb + dumb + sixthFrameReplace3 + newLine;
                     }
 
@@ -20059,87 +20146,87 @@ public class MainActivity extends AppCompatActivity {
                         sixthFrameReplace2 = sixthFrameReplace1.replaceAll("(^\\[|\\])", "");
                         sixthFrameReplace3 = sixthFrameReplace2.replace(" ", "\n");
                     }
-                    if (sequenceFinished4.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                    if (firstFrameReplace3.contains("$F000")) {
                         t1 = firstFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                    } else if (firstFrameReplace3.contains("$F001")) {
                         t2 = dumb + firstFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                    } else if (firstFrameReplace3.contains("$F002")) {
                         t3 = dumb + dumb + firstFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                    } else if (firstFrameReplace3.contains("$F003")) {
                         t4 = dumb + dumb + dumb + firstFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                    } else if (firstFrameReplace3.contains("$F004")) {
                         t5 = dumb + dumb + dumb + dumb + firstFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF1.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                    } else if (firstFrameReplace3.contains("$F005")) {
                         t6 = dumb + dumb + dumb + dumb + dumb + firstFrameReplace3 + newLine;
                     }
 
-                    if (sequenceFinished4.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                    if (secondFrameReplace3.contains("$F000")) {
                         t7 = secondFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                    } else if (secondFrameReplace3.contains("$F001")) {
                         t8 = dumb + secondFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                    } else if (secondFrameReplace3.contains("$F002")) {
                         t9 = dumb + dumb + secondFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                    } else if (secondFrameReplace3.contains("$F003")) {
                         t10 = dumb + dumb + dumb + secondFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                    } else if (secondFrameReplace3.contains("$F004")) {
                         t11 = dumb + dumb + dumb + dumb + secondFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF2.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                    } else if (secondFrameReplace3.contains("$F005")) {
                         t12 = dumb + dumb + dumb + dumb + dumb + secondFrameReplace3 + newLine;
                     }
 
-                    if (sequenceFinished4.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                    if (thirdFrameReplace3.contains("$F000")) {
                         t13 = thirdFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                    } else if (thirdFrameReplace3.contains("$F001")) {
                         t14 = dumb + thirdFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                    } else if (thirdFrameReplace3.contains("$F002")) {
                         t15 = dumb + dumb + thirdFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                    } else if (thirdFrameReplace3.contains("$F003")) {
                         t16 = dumb + dumb + dumb + thirdFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                    } else if (thirdFrameReplace3.contains("$F004")) {
                         t17 = dumb + dumb + dumb + dumb + thirdFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF3.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                    } else if (thirdFrameReplace3.contains("$F005")) {
                         t18 = dumb + dumb + dumb + dumb + dumb + thirdFrameReplace3 + newLine;
                     }
 
-                    if (sequenceFinished4.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                    if (fourthFrameReplace3.contains("$F000")) {
                         t19 = fourthFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                    } else if (fourthFrameReplace3.contains("$F001")) {
                         t20 = dumb + fourthFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                    } else if (fourthFrameReplace3.contains("$F002")) {
                         t21 = dumb + dumb + fourthFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                    } else if (fourthFrameReplace3.contains("$F003")) {
                         t22 = dumb + dumb + dumb + fourthFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                    } else if (fourthFrameReplace3.contains("$F004")) {
                         t23 = dumb + dumb + dumb + dumb + fourthFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF4.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                    } else if (fourthFrameReplace3.contains("$F005")) {
                         t24 = dumb + dumb + dumb + dumb + dumb + fourthFrameReplace3 + newLine;
                     }
 
-                    if (sequenceFinished4.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                    if (fifthFrameReplace3.contains("$F000")) {
                         t25 = fifthFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                    } else if (fifthFrameReplace3.contains("$F001")) {
                         t26 = dumb + fifthFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                    } else if (fifthFrameReplace3.contains("$F002")) {
                         t27 = dumb + dumb + fifthFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                    } else if (fifthFrameReplace3.contains("$F003")) {
                         t28 = dumb + dumb + dumb + fifthFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                    } else if (fifthFrameReplace3.contains("$F004")) {
                         t29 = dumb + dumb + dumb + dumb + fifthFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF5.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                    } else if (fifthFrameReplace3.contains("$F005")) {
                         t30 = dumb + dumb + dumb + dumb + dumb + fifthFrameReplace3 + newLine;
                     }
 
-                    if (sequenceFinished4.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 14) {
+                    if (sixthFrameReplace3.contains("$F000")) {
                         t31 = sixthFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 28) {
+                    } else if (fifthFrameReplace3.contains("$F001")) {
                         t32 = dumb + sixthFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 42) {
+                    } else if (sixthFrameReplace3.contains("$F002")) {
                         t33 = dumb + dumb + sixthFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 56) {
+                    } else if (sixthFrameReplace3.contains("$F003")) {
                         t34 = dumb + dumb + dumb + sixthFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 70) {
+                    } else if (sixthFrameReplace3.contains("$F004")) {
                         t35 = dumb + dumb + dumb + dumb + sixthFrameReplace3 + newLine;
-                    } else if (sequenceFinished4.toString().indexOf(frameNameF6.toString().replaceAll("(^\\[|\\])", "")) == 84) {
+                    } else if (sixthFrameReplace3.contains("$F005")) {
                         t36 = dumb + dumb + dumb + dumb + dumb + sixthFrameReplace3 + newLine;
                     }
 
@@ -22465,7 +22552,6 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void nameTheSequence(View view) {
-        //TODO Fix an issue with naming etc when the user leaves the app/page and re-enters
         if (commandInformationSeq.size() != 2) {
             commandInformationSeq.add(empty);
             commandInformationSeq.add(empty);
@@ -22857,8 +22943,6 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void setTheFrames(View view) {
-        //TODO Potentially make it so that depending the location of the frame selected, assign that position a specific colour (like pins used to have)
-        //TODO Use new export method to achieve this
         pin0 = findViewById(R.id.pin0);
         pin1 = findViewById(R.id.pin1);
         pin2 = findViewById(R.id.pin2);

@@ -38,14 +38,14 @@ public class util {
     }
 
     //Overall command data for frames
-    private ArrayList<Object> commandInformations = new ArrayList<>();
-
-    public void setCommandInformation(ArrayList<Object> commandInformations) {
-        this.commandInformations = commandInformations;
-    }
+    private ArrayList<Object> commandInformation = new ArrayList<>();
 
     public ArrayList<Object> getCommandInformation() {
-        return commandInformations;
+        return commandInformation;
+    }
+
+    public void setCommandInformation(ArrayList<Object> commandInformation) {
+        this.commandInformation = commandInformation;
     }
 
     //Command data for verification when saving a frame
