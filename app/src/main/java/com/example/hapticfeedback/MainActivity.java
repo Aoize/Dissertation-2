@@ -7696,7 +7696,6 @@ public class MainActivity extends AppCompatActivity {
 
         Spinner frameNames = findViewById(R.id.frameNameList);
         TextView t = findViewById(R.id.frameCreationView);
-
         String name = frameNames.getSelectedItem().toString();
 
         commandInformation.clear();
