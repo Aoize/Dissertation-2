@@ -22,11 +22,33 @@
         android:id="@+id/firstUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="91dp"
-        android:layout_marginLeft="91dp"
-        android:layout_marginTop="42dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginLeft="52dp"
+        android:layout_marginTop="40dp"
         android:enabled="true"
         android:onClick="firstUser"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome" />
+
+    <TextView
+        android:id="@+id/basicAdvancedMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:text="@string/basicAdvancedMode"
+        app:layout_constraintBottom_toTopOf="@+id/basicAdvanced"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Switch
+        android:id="@+id/basicAdvanced"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="292dp"
+        android:layout_marginLeft="292dp"
+        android:layout_marginTop="40dp"
+        android:enabled="true"
+        android:onClick="basicAdvanced"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome" />
 
@@ -35,10 +57,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
+        android:layout_marginEnd="275dp"
+        android:layout_marginRight="275dp"
         android:enabled="false"
         android:onClick="userTaskFour"
-        android:layout_marginEnd="216dp"
-        android:layout_marginRight="216dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/thirdUserTaskThree" />
 
@@ -47,10 +69,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
-        android:layout_marginEnd="216dp"
-        android:onClick="userTaskThree"
+        android:layout_marginEnd="275dp"
+        android:layout_marginRight="275dp"
         android:enabled="false"
-        android:layout_marginRight="216dp"
+        android:onClick="userTaskThree"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/thirdUserTaskTwo" />
 
@@ -59,10 +81,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="216dp"
-        android:onClick="userTaskTwo"
-        android:layout_marginRight="216dp"
+        android:layout_marginEnd="275dp"
+        android:layout_marginRight="275dp"
         android:enabled="false"
+        android:onClick="userTaskTwo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/thirdUserTaskOne" />
 
@@ -71,10 +93,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="27dp"
-        android:layout_marginEnd="216dp"
-        android:layout_marginRight="216dp"
-        android:onClick="userTaskOne"
+        android:layout_marginEnd="275dp"
+        android:layout_marginRight="275dp"
         android:enabled="false"
+        android:onClick="userTaskOne"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/secondUserTaskFour" />
 
@@ -82,10 +104,10 @@
         android:id="@+id/thirdUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="91dp"
-        android:layout_marginLeft="91dp"
-        android:onClick="thirdUser"
+        android:layout_marginStart="52dp"
+        android:layout_marginLeft="52dp"
         android:layout_marginTop="142dp"
+        android:onClick="thirdUser"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/secondUser" />
 
@@ -94,10 +116,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
-        android:layout_marginEnd="216dp"
-        android:layout_marginRight="216dp"
-        android:onClick="userTaskFour"
+        android:layout_marginEnd="275dp"
+        android:layout_marginRight="275dp"
         android:enabled="false"
+        android:onClick="userTaskFour"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/secondUserTaskThree" />
 
@@ -106,10 +128,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
-        android:layout_marginEnd="216dp"
-        android:layout_marginRight="216dp"
-        android:onClick="userTaskThree"
+        android:layout_marginEnd="275dp"
+        android:layout_marginRight="275dp"
         android:enabled="false"
+        android:onClick="userTaskThree"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/secondUserTaskTwo" />
 
@@ -118,10 +140,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="216dp"
+        android:layout_marginEnd="275dp"
+        android:layout_marginRight="275dp"
         android:enabled="false"
         android:onClick="userTaskTwo"
-        android:layout_marginRight="216dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/secondUserTaskOne" />
 
@@ -129,10 +151,10 @@
         android:id="@+id/secondUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="91dp"
-        android:layout_marginLeft="91dp"
-        android:onClick="secondUser"
+        android:layout_marginStart="52dp"
+        android:layout_marginLeft="52dp"
         android:layout_marginTop="142dp"
+        android:onClick="secondUser"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/firstUser" />
 
@@ -141,9 +163,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
+        android:layout_marginEnd="275dp"
+        android:layout_marginRight="275dp"
         android:enabled="false"
-        android:layout_marginEnd="216dp"
-        android:layout_marginRight="216dp"
         android:onClick="userTaskFour"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/firstUserTaskThree" />
@@ -153,10 +175,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
-        android:layout_marginEnd="216dp"
-        android:onClick="userTaskThree"
-        android:layout_marginRight="216dp"
+        android:layout_marginEnd="275dp"
+        android:layout_marginRight="275dp"
         android:enabled="false"
+        android:onClick="userTaskThree"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/firstUserTaskTwo" />
 
@@ -165,10 +187,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="216dp"
-        android:onClick="userTaskTwo"
-        android:layout_marginRight="216dp"
+        android:layout_marginEnd="275dp"
+        android:layout_marginRight="275dp"
         android:enabled="false"
+        android:onClick="userTaskTwo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/firstUserTaskOne" />
 
@@ -177,8 +199,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="69dp"
-        android:layout_marginEnd="216dp"
-        android:layout_marginRight="216dp"
+        android:layout_marginEnd="275dp"
+        android:layout_marginRight="275dp"
         android:enabled="false"
         android:onClick="userTaskOne"
         app:layout_constraintEnd_toEndOf="parent"
@@ -189,10 +211,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="27dp"
-        android:layout_marginEnd="216dp"
-        android:layout_marginRight="216dp"
-        android:onClick="userTaskOne"
+        android:layout_marginEnd="275dp"
+        android:layout_marginRight="275dp"
         android:enabled="false"
+        android:onClick="userTaskOne"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/firstUserTaskFour" />
 
@@ -211,9 +233,8 @@
         android:id="@+id/firstUserText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="69dp"
-        android:layout_marginLeft="69dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
         android:text="@string/firstUser"
         app:layout_constraintBottom_toTopOf="@+id/firstUser"
         app:layout_constraintStart_toStartOf="parent" />
@@ -222,9 +243,8 @@
         android:id="@+id/secondUserText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginLeft="11dp"
         android:text="@string/secondUser"
         app:layout_constraintBottom_toTopOf="@+id/secondUser"
         app:layout_constraintStart_toStartOf="parent" />
@@ -233,9 +253,8 @@
         android:id="@+id/thirdUserText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="65dp"
-        android:layout_marginLeft="65dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
         android:text="@string/thirdUser"
         app:layout_constraintBottom_toTopOf="@+id/thirdUser"
         app:layout_constraintStart_toStartOf="parent" />

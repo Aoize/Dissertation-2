@@ -210,5 +210,7 @@
     <string name="taskTwo">Task Two</string>
     <string name="taskThree">Task Three</string>
     <string name="taskFour">Task Four</string>
+    <string name="basicAdvancedMode">Basic/Advanced Mode</string>
+
 
 </resources>

@@ -938,7 +938,7 @@
         android:layout_marginBottom="248dp"
         android:onClick="saveTheFrame"
         android:text="@string/save_frame"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -951,7 +951,7 @@
         android:layout_marginBottom="320dp"
         android:background="@drawable/info_button"
         android:onClick="pinInformation"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -964,7 +964,7 @@
         android:layout_marginBottom="212dp"
         android:background="@drawable/info_button"
         android:onClick="delayInformation"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -977,7 +977,7 @@
         android:layout_marginBottom="100dp"
         android:background="@drawable/info_button"
         android:onClick="activationInformation"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -1003,7 +1003,7 @@
         android:layout_marginBottom="296dp"
         android:background="@drawable/info_button"
         android:onClick="saveInformation"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -1016,7 +1016,7 @@
         android:layout_marginBottom="200dp"
         android:background="@drawable/info_button"
         android:onClick="loadInformation"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -1029,7 +1029,7 @@
         android:layout_marginBottom="24dp"
         android:onClick="setTheOnTime"
         android:text="@string/pin_time"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -1042,7 +1042,7 @@
         android:layout_marginBottom="248dp"
         android:onClick="setTheCoils"
         android:text="@string/set_coils"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -1055,7 +1055,7 @@
         android:layout_marginBottom="140dp"
         android:onClick="setTheDelay"
         android:text="@string/pin_delay"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -1069,7 +1069,7 @@
         android:background="@drawable/text_border"
         android:entries="@array/coil_on_time"
         android:spinnerMode="dropdown"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -1083,7 +1083,7 @@
         android:background="@drawable/text_border"
         android:entries="@array/coils_used"
         android:spinnerMode="dropdown"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -1097,7 +1097,7 @@
         android:background="@drawable/text_border"
         android:entries="@array/delay_time"
         android:spinnerMode="dropdown"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -1228,7 +1228,7 @@
         android:layout_marginBottom="100dp"
         android:onClick="loadTheFrame"
         android:text="@string/frame_load"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -1242,6 +1242,7 @@
         android:background="@drawable/text_border"
         android:entries="@array/frame_name_list"
         android:spinnerMode="dropdown"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

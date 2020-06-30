@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
     //Frame, Sequence, Export Buttons
     Button setSequenceName, setFrame, pinHelper, saveSequenceHelper, nameHelper, delayHelper, activationHelper,
             setAmountOfRep, saveTheSequence, resetFramesUsed, saveHelper, repetitionHelper, nameSeqHelper,
-            selectFramesHelper, numFramesHelper, removeFramesHelper, loadHelper, editedFrameHelper;
+            selectFramesHelper, numFramesHelper, removeFramesHelper, loadHelper, editedFrameHelper,
+            setCoils;
     //Frame, Sequence, Export Spinners
     Spinner numOfCoils, amountOfDelay, amountOfOnTime, nameOfFrame, nameOfSequence, numOfFramesSelected,
             frameAmount, selectRepAmount, resetFrames;
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             firstUser, secondUser, thirdUser,
             firstUserTaskOne, firstUserTaskTwo, firstUserTaskThree, firstUserTaskFour,
             secondUserTaskOne, secondUserTaskTwo, secondUserTaskThree, secondUserTaskFour,
-            thirdUserTaskOne, thirdUserTaskTwo, thirdUserTaskThree, thirdUserTaskFour;
+            thirdUserTaskOne, thirdUserTaskTwo, thirdUserTaskThree, thirdUserTaskFour, basicAdvanced;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -251,6 +252,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean taskTwo = false;
     public boolean taskThree = false;
     public boolean taskFour = false;
+
+    //Boolean operators for basic and advanced mode
+    public boolean basicMode = true;
+    public boolean advancedMode = false;
 
     //Loading a Frame
     public boolean loaded = false;
@@ -3564,6 +3569,8 @@ public class MainActivity extends AppCompatActivity {
      * @param view of the frame button and spinner in UI
      */
     public void nameTheFrame(View view) {
+        numOfCoils = findViewById(R.id.numberOfCoils);
+        setCoils = findViewById(R.id.setCoils);
         if (commandInformation.size() != 4) {
             commandInformation.add(empty);
             commandInformation.add(empty);
@@ -3579,6 +3586,46 @@ public class MainActivity extends AppCompatActivity {
 
             if (fName.isEmpty() || fCoil.isEmpty() || fActivation.isEmpty()
                     || fDelay.isEmpty()) {
+
+                if (advancedMode == true) {
+                    numOfCoils.setVisibility(View.VISIBLE);
+                    setCoils.setVisibility(View.VISIBLE);
+                    findViewById(R.id.pinHelp).setVisibility(View.VISIBLE);
+                    findViewById(R.id.frameCreationView).setVisibility(View.VISIBLE);
+                    findViewById(R.id.saveFrame).setVisibility(View.VISIBLE);
+                    findViewById(R.id.pinHelp).setVisibility(View.VISIBLE);
+                    findViewById(R.id.delayHelp).setVisibility(View.VISIBLE);
+                    findViewById(R.id.activationHelp).setVisibility(View.VISIBLE);
+                    findViewById(R.id.saveHelp).setVisibility(View.VISIBLE);
+                    findViewById(R.id.loadHelp).setVisibility(View.VISIBLE);
+                    findViewById(R.id.setOnTime).setVisibility(View.VISIBLE);
+                    findViewById(R.id.setDelay).setVisibility(View.VISIBLE);
+                    findViewById(R.id.amountOfOnTime).setVisibility(View.VISIBLE);
+                    findViewById(R.id.amountOfDelay).setVisibility(View.VISIBLE);
+                    findViewById(R.id.frameNameList).setVisibility(View.VISIBLE);
+                    findViewById(R.id.loadFrame).setVisibility(View.VISIBLE);
+                }
+
+                if (basicMode == true) {
+                    findViewById(R.id.frameCreationView).setVisibility(View.VISIBLE);
+                    findViewById(R.id.saveFrame).setVisibility(View.VISIBLE);
+                    findViewById(R.id.saveHelp).setVisibility(View.VISIBLE);
+
+                    //Sets number of pins automatically
+                    commandInformation.set(1, "$N00" + 8);
+                    fCoil.add(8);
+                    coilsUsed.add(8);
+                    limit = findViewById(R.id.limit);
+                    limit.setText("8");
+
+                    //Sets delay time automatically
+                    commandInformation.set(2, "$D040");
+                    fDelay.add("$D040");
+
+                    //Sets on time automatically
+                    commandInformation.set(3, "$P020");
+                    fActivation.add("$P020");
+                }
 /*                pinSelection.clear();
                // commandInformation.clear();
                 coilsUsed.clear();
@@ -4044,6 +4091,7 @@ public class MainActivity extends AppCompatActivity {
         TextView t = findViewById(R.id.frameCreationView);
         String content = numOfCoils.getSelectedItem().toString();
         String load = "";
+
         if (loaded == true) {
             if (t.getText().toString().contains("$N001")) {
                 load = t.getText().toString().replace("$N001", "$N00" + content);
@@ -7650,6 +7698,11 @@ public class MainActivity extends AppCompatActivity {
         TextView t = findViewById(R.id.frameCreationView);
 
         String name = frameNames.getSelectedItem().toString();
+
+        commandInformation.clear();
+        fName.clear();
+        frameName1.clear();
+        frameNameF1.clear();
 
         if (firstUserBool == true && taskOne == true) {
             File taskOneUo = new File("//storage//emulated//0//Download//Haptic_Feedback//User_One//Task_One");
@@ -22873,6 +22926,34 @@ public class MainActivity extends AppCompatActivity {
 
             sequenceToggle = findViewById(R.id.sequenceToggle);
 
+            if (basicMode == true) {
+                findViewById(R.id.nameSeqHelp).setVisibility(View.VISIBLE);
+                findViewById(R.id.frameSelection).setVisibility(View.VISIBLE);
+                findViewById(R.id.setFrames).setVisibility(View.VISIBLE);
+                findViewById(R.id.saveSequence).setVisibility(View.VISIBLE);
+                findViewById(R.id.saveSequenceHelp).setVisibility(View.VISIBLE);
+                findViewById(R.id.resetFramesUsed).setVisibility(View.VISIBLE);
+                findViewById(R.id.removeFramesHelp).setVisibility(View.VISIBLE);
+            }
+
+            if (advancedMode == true) {
+                findViewById(R.id.nameSeqHelp).setVisibility(View.VISIBLE);
+                findViewById(R.id.frameSelection).setVisibility(View.VISIBLE);
+                findViewById(R.id.setFrames).setVisibility(View.VISIBLE);
+                findViewById(R.id.saveSequence).setVisibility(View.VISIBLE);
+                findViewById(R.id.saveSequenceHelp).setVisibility(View.VISIBLE);
+                findViewById(R.id.resetFramesUsed).setVisibility(View.VISIBLE);
+                findViewById(R.id.removeFramesHelp).setVisibility(View.VISIBLE);
+                findViewById(R.id.repetitionHelp).setVisibility(View.VISIBLE);
+                findViewById(R.id.selectRepetitionAmount).setVisibility(View.VISIBLE);
+                findViewById(R.id.setRepetitionAmount).setVisibility(View.VISIBLE);
+                findViewById(R.id.loadedFrameSelection).setVisibility(View.VISIBLE);
+                findViewById(R.id.setLoadedFrames).setVisibility(View.VISIBLE);
+                findViewById(R.id.toggleText).setVisibility(View.VISIBLE);
+                findViewById(R.id.sequenceToggle).setVisibility(View.VISIBLE);
+                findViewById(R.id.editedFrameHelp).setVisibility(View.VISIBLE);
+            }
+
             if (sequenceToggle.isChecked()) {
                 frameAmount.setEnabled(true);
                 setFrame.setEnabled(true);
@@ -23042,14 +23123,31 @@ public class MainActivity extends AppCompatActivity {
                 framesUsedCounter.setText(String.valueOf(frameCounting));
                 if (totalFrames.size() <= frameLimit) {
                     frameSelections.add(frameNameF1.toString().replaceAll("(^\\[|\\])", ""));
+
+                    if (basicMode == true) {
+                        selectRepAmount = findViewById(R.id.selectRepetitionAmount);
+                        setAmountOfRep = findViewById(R.id.setRepetitionAmount);
+                        frameSelections.add("$r00" + 1);
+                        if (totalFrames.size() == frameLimit) {
+                            frameSelections.remove(true);
+                            setFrame.setEnabled(false);
+                            frameAmount.setEnabled(false);
+                            selectRepAmount.setEnabled(false);
+                            Toast.makeText(getApplicationContext(), "Frame Limit Reached", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    if (advancedMode == true) {
+                        setFrame.setEnabled(false);
+                        frameAmount.setEnabled(false);
+                        selectRepAmount.setEnabled(true);
+                        setAmountOfRep.setEnabled(true);
+                    }
+
                     for (Object Selections : frameSelections) {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    setFrame.setEnabled(false);
-                    frameAmount.setEnabled(false);
-                    selectRepAmount.setEnabled(true);
-                    setAmountOfRep.setEnabled(true);
                 }
             } else if (content.equals(frameName1.toString().replaceAll("(^\\[|\\])", "")) && frameSelections.contains(frameNameF1.toString().replaceAll("(^\\[|\\])", ""))) {
                 Toast.makeText(getApplicationContext(), "Frame already in use", Toast.LENGTH_SHORT).show();
@@ -23059,14 +23157,31 @@ public class MainActivity extends AppCompatActivity {
                 framesUsedCounter.setText(String.valueOf(frameCounting));
                 if (totalFrames.size() <= frameLimit) {
                     frameSelections.add(frameNameF2.toString().replaceAll("(^\\[|\\])", ""));
+
+                    if (basicMode == true) {
+                        selectRepAmount = findViewById(R.id.selectRepetitionAmount);
+                        setAmountOfRep = findViewById(R.id.setRepetitionAmount);
+                        frameSelections.add("$r00" + 1);
+                        if (totalFrames.size() == frameLimit) {
+                            frameSelections.remove(true);
+                            setFrame.setEnabled(false);
+                            frameAmount.setEnabled(false);
+                            selectRepAmount.setEnabled(false);
+                            Toast.makeText(getApplicationContext(), "Frame Limit Reached", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    if (advancedMode == true) {
+                        setFrame.setEnabled(false);
+                        frameAmount.setEnabled(false);
+                        selectRepAmount.setEnabled(true);
+                        setAmountOfRep.setEnabled(true);
+                    }
+
                     for (Object Selections : frameSelections) {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    setFrame.setEnabled(false);
-                    frameAmount.setEnabled(false);
-                    selectRepAmount.setEnabled(true);
-                    setAmountOfRep.setEnabled(true);
                 }
             } else if (content.equals(frameName2.toString().replaceAll("(^\\[|\\])", "")) && frameSelections.contains(frameNameF2.toString().replaceAll("(^\\[|\\])", ""))) {
                 Toast.makeText(getApplicationContext(), "Frame already in use", Toast.LENGTH_SHORT).show();
@@ -23076,15 +23191,31 @@ public class MainActivity extends AppCompatActivity {
                 framesUsedCounter.setText(String.valueOf(frameCounting));
                 if (totalFrames.size() <= frameLimit) {
                     frameSelections.add(frameNameF3.toString().replaceAll("(^\\[|\\])", ""));
+
+                    if (basicMode == true) {
+                        selectRepAmount = findViewById(R.id.selectRepetitionAmount);
+                        setAmountOfRep = findViewById(R.id.setRepetitionAmount);
+                        frameSelections.add("$r00" + 1);
+                        if (totalFrames.size() == frameLimit) {
+                            frameSelections.remove(true);
+                            setFrame.setEnabled(false);
+                            frameAmount.setEnabled(false);
+                            selectRepAmount.setEnabled(false);
+                            Toast.makeText(getApplicationContext(), "Frame Limit Reached", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    if (advancedMode == true) {
+                        setFrame.setEnabled(false);
+                        frameAmount.setEnabled(false);
+                        selectRepAmount.setEnabled(true);
+                        setAmountOfRep.setEnabled(true);
+                    }
+
                     for (Object Selections : frameSelections) {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    setFrame.setEnabled(false);
-                    frameAmount.setEnabled(false);
-                    selectRepAmount.setEnabled(true);
-                    setAmountOfRep.setEnabled(true);
-
                 }
             } else if (content.equals(frameName3.toString().replaceAll("(^\\[|\\])", "")) && frameSelections.contains(frameNameF3.toString().replaceAll("(^\\[|\\])", ""))) {
                 Toast.makeText(getApplicationContext(), "Frame already in use", Toast.LENGTH_SHORT).show();
@@ -23094,14 +23225,31 @@ public class MainActivity extends AppCompatActivity {
                 framesUsedCounter.setText(String.valueOf(frameCounting));
                 if (totalFrames.size() <= frameLimit) {
                     frameSelections.add(frameNameF4.toString().replaceAll("(^\\[|\\])", ""));
+
+                    if (basicMode == true) {
+                        selectRepAmount = findViewById(R.id.selectRepetitionAmount);
+                        setAmountOfRep = findViewById(R.id.setRepetitionAmount);
+                        frameSelections.add("$r00" + 1);
+                        if (totalFrames.size() == frameLimit) {
+                            frameSelections.remove(true);
+                            setFrame.setEnabled(false);
+                            frameAmount.setEnabled(false);
+                            selectRepAmount.setEnabled(false);
+                            Toast.makeText(getApplicationContext(), "Frame Limit Reached", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    if (advancedMode == true) {
+                        setFrame.setEnabled(false);
+                        frameAmount.setEnabled(false);
+                        selectRepAmount.setEnabled(true);
+                        setAmountOfRep.setEnabled(true);
+                    }
+
                     for (Object Selections : frameSelections) {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    setFrame.setEnabled(false);
-                    frameAmount.setEnabled(false);
-                    selectRepAmount.setEnabled(true);
-                    setAmountOfRep.setEnabled(true);
                 }
 
             } else if (content.equals(frameName4.toString().replaceAll("(^\\[|\\])", "")) && frameSelections.contains(frameNameF4.toString().replaceAll("(^\\[|\\])", ""))) {
@@ -23112,14 +23260,31 @@ public class MainActivity extends AppCompatActivity {
                 framesUsedCounter.setText(String.valueOf(frameCounting));
                 if (totalFrames.size() <= frameLimit) {
                     frameSelections.add(frameNameF5.toString().replaceAll("(^\\[|\\])", ""));
+
+                    if (basicMode == true) {
+                        selectRepAmount = findViewById(R.id.selectRepetitionAmount);
+                        setAmountOfRep = findViewById(R.id.setRepetitionAmount);
+                        frameSelections.add("$r00" + 1);
+                        if (totalFrames.size() == frameLimit) {
+                            frameSelections.remove(true);
+                            setFrame.setEnabled(false);
+                            frameAmount.setEnabled(false);
+                            selectRepAmount.setEnabled(false);
+                            Toast.makeText(getApplicationContext(), "Frame Limit Reached", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    if (advancedMode == true) {
+                        setFrame.setEnabled(false);
+                        frameAmount.setEnabled(false);
+                        selectRepAmount.setEnabled(true);
+                        setAmountOfRep.setEnabled(true);
+                    }
+
                     for (Object Selections : frameSelections) {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    setFrame.setEnabled(false);
-                    frameAmount.setEnabled(false);
-                    selectRepAmount.setEnabled(true);
-                    setAmountOfRep.setEnabled(true);
                 }
 
             } else if (content.equals(frameName5.toString().replaceAll("(^\\[|\\])", "")) && frameSelections.contains(frameNameF5.toString().replaceAll("(^\\[|\\])", ""))) {
@@ -23130,14 +23295,31 @@ public class MainActivity extends AppCompatActivity {
                 framesUsedCounter.setText(String.valueOf(frameCounting));
                 if (totalFrames.size() <= frameLimit) {
                     frameSelections.add(frameNameF6.toString().replaceAll("(^\\[|\\])", ""));
+
+                    if (basicMode == true) {
+                        selectRepAmount = findViewById(R.id.selectRepetitionAmount);
+                        setAmountOfRep = findViewById(R.id.setRepetitionAmount);
+                        frameSelections.add("$r00" + 1);
+                        if (totalFrames.size() == frameLimit) {
+                            frameSelections.remove(true);
+                            setFrame.setEnabled(false);
+                            frameAmount.setEnabled(false);
+                            selectRepAmount.setEnabled(false);
+                            Toast.makeText(getApplicationContext(), "Frame Limit Reached", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    if (advancedMode == true) {
+                        setFrame.setEnabled(false);
+                        frameAmount.setEnabled(false);
+                        selectRepAmount.setEnabled(true);
+                        setAmountOfRep.setEnabled(true);
+                    }
+
                     for (Object Selections : frameSelections) {
                         finial_selection = finial_selection + Selections + "\n";
                     }
                     t.setText(finial_commands + finial_selection);
-                    setFrame.setEnabled(false);
-                    frameAmount.setEnabled(false);
-                    selectRepAmount.setEnabled(true);
-                    setAmountOfRep.setEnabled(true);
                 }
 
             } else if (content.equals(frameName6.toString().replaceAll("(^\\[|\\])", "")) && frameSelections.contains(frameNameF6.toString().replaceAll("(^\\[|\\])", ""))) {
@@ -27112,6 +27294,7 @@ public class MainActivity extends AppCompatActivity {
         thirdUserTaskFour = findViewById(R.id.thirdUserTaskFour);
 
         if (firstUser.isChecked()) {
+
             firstUserBool = true;
             secondUserBool = false;
             thirdUserBool = false;
@@ -27627,6 +27810,25 @@ public class MainActivity extends AppCompatActivity {
             taskOne = false;
             taskTwo = false;
             taskThree = false;
+        }
+    }
+
+    /**
+     * Method to swap between basic and advanced creation modes
+     *
+     * @param view
+     */
+    public void basicAdvanced(View view) {
+        basicAdvanced = findViewById(R.id.basicAdvanced);
+
+        if (!basicAdvanced.isChecked()) {
+            basicMode = true;
+            advancedMode = false;
+        }
+
+        if (basicAdvanced.isChecked()) {
+            basicMode = false;
+            advancedMode = true;
         }
     }
 }

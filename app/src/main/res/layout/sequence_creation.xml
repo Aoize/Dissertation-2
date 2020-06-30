@@ -860,7 +860,7 @@
         android:layout_marginBottom="84dp"
         android:onClick="saveTheSequence"
         android:text="@string/save_sequence"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -873,7 +873,7 @@
         android:layout_marginBottom="96dp"
         android:background="@drawable/info_button"
         android:onClick="saveSeqInformation"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -886,7 +886,7 @@
         android:layout_marginBottom="224dp"
         android:background="@drawable/info_button"
         android:onClick="editedFrameInformation"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -910,6 +910,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
+        android:visibility="invisible"
         android:text="@string/sequence_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sequenceToggle" />
@@ -921,6 +922,7 @@
         android:layout_marginTop="13dp"
         android:layout_marginEnd="56dp"
         android:layout_marginRight="56dp"
+        android:visibility="invisible"
         android:checked="true"
         android:onClick="sequenceFrameToggle"
         app:layout_constraintEnd_toEndOf="parent"
@@ -936,7 +938,7 @@
         android:enabled="false"
         android:onClick="resetTheSequence"
         android:text="@string/remove_frame"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -949,7 +951,7 @@
         android:layout_marginBottom="28dp"
         android:background="@drawable/info_button"
         android:onClick="removeInformation"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -975,7 +977,7 @@
         android:layout_marginBottom="336dp"
         android:background="@drawable/info_button"
         android:onClick="repetitionInformation"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -1001,7 +1003,7 @@
         android:layout_marginBottom="356dp"
         android:background="@drawable/info_button"
         android:onClick="selectFrameInformation"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -1042,7 +1044,7 @@
         android:background="@drawable/text_border"
         android:entries="@array/blank"
         android:spinnerMode="dropdown"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -1056,7 +1058,7 @@
         android:background="@drawable/text_border"
         android:entries="@array/blank"
         android:spinnerMode="dropdown"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -1070,7 +1072,7 @@
         android:enabled="false"
         android:onClick="setTheLoadedFrames"
         android:text="@string/select_edited_frames"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -1084,7 +1086,7 @@
         android:onClick="setTheFrames"
         android:enabled="false"
         android:text="@string/select_frames"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -1125,7 +1127,7 @@
         android:entries="@array/repetition_amount"
         android:clickable="false"
         android:spinnerMode="dropdown"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -1139,7 +1141,7 @@
         android:enabled="false"
         android:onClick="repetitionAmount"
         android:text="@string/repetition_amount"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
